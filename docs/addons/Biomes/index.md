@@ -91,7 +91,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
     示例： 
     ```yaml
-        icon: tipped_arrow{CustomPotionColor:11546150}
+        icon: tipped_arrow[potion_contents={custom_color:11546150}]
         title: biomes.gui.buttons.previous.name
         description: biomes.gui.buttons.previous.description
         data:

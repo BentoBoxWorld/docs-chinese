@@ -49,7 +49,7 @@ panel_name:
       1:
         # Icon for the element.
         # Write format can be found in: https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
-        icon: tipped_arrow{CustomPotionColor:11546150}
+        icon: tipped_arrow[potion_contents={custom_color:11546150}]
         # Title of the element.
         title: "Button One"
         # Description of the element
