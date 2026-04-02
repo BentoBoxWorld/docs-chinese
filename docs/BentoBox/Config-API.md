@@ -1,93 +1,142 @@
-# 并发岛屿
+# BentoBox 配置 API
 
-Bentobox 2.0.0 及更高版本允许管理员设置玩家在每个世界中拥有多个岛屿。本页将解释其工作原理以及允许多个岛屿的一些影响。
+这是一个可选的 API，为 YAML 文件增强了 Bukkit 配置 API。BentoBox 配置 API 添加了以下功能：
 
-## 如何启用
+1. 配置文件保存后可以保留注释
+2. 更新你的插件时，配置文件可以更新新的设置
+3. 配置类也是获取和设置设置的地方
 
-默认情况下，玩家只能拥有一个岛屿。可以通过 BentoBox 的 `config.yml` 文件中的 `island.concurrent-islands` 设置来全局增加岛屿数量。如果个别游戏模式提供此设置，则可以覆盖此值。
+如果你不想使用此 API，可以使用标准 Bukkit API 方法，如 saveDefaultConfig()、getConfig() 等。
 
-## 如何使用
+## 入门 - 一个例子
 
-### 创建岛屿
+假设我们想为新插件创建一个配置文件。也许它看起来像这样：
 
-如果允许玩家创建多个岛屿，则可以使用 `create` 命令来创建，例如：
+```yaml
+# This is my config.yml file
+# It is for my addon
 
-`/island create`
+world:
+  # This is the name of the world.
+  name: My_world_name
+  # Size - minimum is 10, max is 100
+  size: 100
+```
 
-这与其他岛屿创建方式相同，创建后玩家通常会被传送到新的岛屿。
+### ConfigObject
+要使用配置 API，我们创建一个实现 `ConfigObject` 的新类：
 
-**\### 前往岛屿**
+```java
+public class Settings implements ConfigObject {
 
-当玩家拥有多个岛屿后，可以使用 `go` 命令在岛屿之间传送，例如：
+}
+```
 
-`/island go`
+现在我们必须指定此配置对象的保存位置。位置相对于插件的数据文件夹。
 
-此命令将显示玩家设置的任何命名家园以及玩家拥有的任何岛屿的名称。如果玩家使用 `setname` 命令为岛屿命名，则它将显示在列表中，否则岛屿将以默认岛屿名称后跟数字列出，例如"tastybento 的岛屿 2"。重启服务器时，岛屿的编号可能会发生变化，因此应鼓励玩家为岛屿命名。
+```java
+@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+public class Settings implements ConfigObject {
 
-### 设置家园
+}
+```
 
-玩家可以通过运行 `sethome` 命令来设置岛屿的默认位置。如果玩家有能力设置多个家园，则可以使用 `sethome [home name]` 命令来设置。游戏世界配置中允许的最大家园数量在玩家拥有的所有岛屿之间共享。
+### @ConfigEntry
+接下来，我们必须添加想要在配置中的数据字段。为此，我们使用 `@ConfigEntry` 注解：
 
-### 岛屿转让
+```java
+@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+public class Settings implements ConfigObject {
+    @ConfigEntry(path = "world.name")
+    private String worldName = "My_world_name";
 
-可以使用 `setowner` 命令将岛屿所有权转让给团队中的其他玩家。如果所有者已拥有允许的最大并发岛屿数量，则无法转让所有权。
+    @ConfigEntry(path = "world.size")
+    private int worldSize = 100;
+}
+```
 
-_新功能：_ 当玩家转让所有权时，现在会自动离开团队。
+注意字段如何有分配给它们的默认值。
 
-### 团队
+### 获取器和设置器
+接下来，我们必须添加获取器和设置器来访问这些字段。获取器和设置器的名称以及参数名称必须符合 [JavaBeans 命名约定](https://www.oreilly.com/library/view/javaserver-pages-3rd/0596005636/ch20s01s01.html)：
 
-- 团队是基于岛屿的，团队不能跨岛屿。
+```java
+@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+public class Settings implements ConfigObject {
+    @ConfigEntry(path = "world.name")
+    private String worldName = "My_world_name";
 
-- 从 BentoBox 2.3.0 开始，有一个设置允许团队成员拥有自己的岛屿，在这种情况下，玩家可以在不同的岛屿上成为多个团队的成员。
+    @ConfigEntry(path = "world.size")
+    private int worldSize = 100;
 
-## 游戏模式支持
+    public String getWorldName() {
+        return worldName;
+    }
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
+    }
+    public int getWorldSize() {
+        return worldSize;
+    }
+    public void setWorldSize(int worldSize) {
+        this.worldSize = worldSize;
+    }
+}
+```
 
-所有游戏模式都应支持并发岛屿。
+### `@ConfigComment`
+接下来，我们可以使用 `ConfigComment` 注解添加注释：
 
-## 插件支持
+```java
+@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+@ConfigComment("This is my config.yml file") // Note that the comment will automatically
+@ConfigComment("It is for my addon") // be proceeded with a # and space
+public class Settings implements ConfigObject {
+    @ConfigEntry(path = "world.name")
+    @ConfigComment("This is the name of the world.")
+    private String worldName = "My_world_name";
 
-以下列出了插件及其与并发岛屿的兼容性。截至 2024-04-03：
+    @ConfigEntry(path = "world.size")
+    @ConfigComment("Size - minimum is 10, max is 100")
+    private int worldSize = 100;
 
-| 插件 | 备注 |
+    public String getWorldName() {
+        return worldName;
+    }
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
+    }
+    public int getWorldSize() {
+        return worldSize;
+    }
+    public void setWorldSize(int worldSize) {
+        this.worldSize = worldSize;
+    }
+}
+```
 
-|-------|-------------------|
+### 加载和保存
 
-| Bank 1.7.0 | 银行是每个岛屿独立的。资金不会在岛屿之间共享 |
+要在 Addon 类中加载配置，请执行以下操作：
 
-| Biomes 2.1.1 | 兼容 |
+```java
+Settings settings = new Config<>(this, Settings.class).loadConfigObject();
+```
 
-| Border 4.1.1 | 兼容 |
+要在 Addon 类中保存配置，请执行以下操作：
 
-| CauldronWitchery 2.0.1 | |
+```java
+Settings settings = new Settings();
+new Config<>(this, Settings.class).saveConfigObject(settings);
+```
 
-| Challenges 1.2.0 | |
+对于插件来说，最好的做法是加载设置，然后立即保存它们。这将使配置文件与最新的选项和注释保持同步。要创建初始配置，请使用 Addon 的 `saveDefaultConfig()` 方法保存存储在插件 jar 中的默认 config.yml。如果你使用的是不同于 config.yml 的文件，可以使用 `saveResource(resourcePath, replace)` 方法。
 
-| Chat 1.1.4 | |
+### 默认配置文件
+在插件 jar 中设置默认 config.yml 文件。然后使用标准 `saveDefaultConfig()` 方法将其保存到插件的文件系统中。所以整体方法如下：
 
-| CheckMeOut 1.1.1 | 兼容 |
+1. saveDefaultConfig() - 如果不存在，这将从 jar 保存默认 config.yml。
+2. 使用 Config API 加载配置以获取管理员设置
+3. 使用 Config API 保存配置以使用最新的设置选项和注释更新 config.yml
 
-| DimensionalTrees 1.6.0 | |
-
-| ExtraMobs 1.12 | |
-
-| Greenhouses 1.7.3 | 兼容 |
-
-| InvSwitcher 1.11.0 | 兼容 |
-
-| IslandFly 1.11.0 | 兼容 |
-
-| Level 2.11.0 | 等级按岛屿计算。前十名将显示最后计算的岛屿的分数。如果允许在单击前十名头像时进行传送，则玩家将前往玩家的当前岛屿。|
-
-| Likes 2.3.1 | |
-
-| Limits 1.19.1 | 兼容。限制是每个岛屿独立的。|
-
-| MagicCobblestoneGenerator 2.5.1 | |
-
-| TwerkingForTrees 1.4.3 | 兼容 |
-
-| Visit 1.6.0 | |
-
-| VoidPortals 1.5.0.0 | |
-
-| Warps 1.13.0 | 与往常一样，玩家只能拥有一个活动传送牌。|
+就这样！请阅读 JavaDocs 以获取有关此 API 的更多信息。

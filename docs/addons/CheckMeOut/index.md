@@ -45,7 +45,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
     - `indexing` - 表示按钮是否会显示页码。
 
-    示例： 
+    示例：
     ```yaml
         icon: tipped_arrow[potion_contents={custom_color:11546150}]
         title: checkmeout.gui.buttons.previous.name
@@ -61,12 +61,12 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
 ??? 问题 "什么是`RANDOM`按钮类型？"
     这个按钮允许玩家传送查看一个随机提交。
-    
+
     - warp动作仅在你安装了Warps插件且玩家有现有的warps标志时可用。
     - visit动作仅在你安装了Visits插件时可用。
     - check动作是默认的插件传送机制。
 
-    示例： 
+    示例：
     ```yaml
         icon: DROPPER
         title: checkmeout.gui.buttons.random.name
@@ -77,9 +77,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
           # Warp动作需要WARP插件。如果没有WARP插件，warp动作将不起作用。
           warp:
             click-type: UNKNOWN
-           
-
- tooltip: checkmeout.gui.tips.click-to-warp
+            tooltip: checkmeout.gui.tips.click-to-warp
           # Visit动作需要Visit插件。如果没有Visit插件，visit动作将不起作用。
           visit:
             click-type: UNKNOWN
@@ -153,10 +151,8 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "玩家权限"
-    - `[gamemode].checkmeout` - 让玩家使用'/[player_command] checkmeout
-
-'命令提交岛屿。默认为真。
-    - `[gamemode].checkmeout.view` - 让玩家使用'/[admin_command] checkmeout view'命令查看所有提交的岛屿。默认为真。
+    - `[gamemode].checkmeout` - 让玩家使用 '/[player_command] checkmeout' 命令提交岛屿。默认为真。
+    - `[gamemode].checkmeout.view` - 让玩家使用 '/[admin_command] checkmeout view' 命令查看所有提交的岛屿。默认为真。
     - `checkmeout.icon.[material]` - 允许更改玩家在View GUI中拥有的岛屿图标。默认为假。
 
 === "管理员权限"

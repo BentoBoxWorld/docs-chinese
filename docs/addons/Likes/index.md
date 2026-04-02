@@ -69,9 +69,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     - `/[player_command] likes view <player>`：打开显示谁给岛屿添加了点赞或星级的GUI。
 
 === "管理员命令"
-    - `/
-
-[admin_command] likes`：打开管理员GUI。
+    - `/[admin_command] likes`：打开管理员GUI。
     - `/[admin_command] likes settings`：打开管理员设置GUI。
 
 ## 权限
@@ -147,9 +145,7 @@ Likes为其他插件提供了API。这涵盖了2.2.0及之后的版本。
         <repositories>
             <repository>
                 <id>codemc-repo</id>
-                <
-
-url>https://repo.codemc.io/repository/maven-public/</url>
+                <url>https://repo.codemc.io/repository/bentoboxworld/</url>
             </repository>
         </repositories>
         
@@ -259,9 +255,7 @@ Likes的JavaDocs可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/Lik
 
         事件仅为信息性质。不能被取消。
 
-        类链接：[StarsAddEvent](https://github.com/BentoBoxWorld/Likes/blob/develop/src/main
-
-/java/world/bentobox/likes/events/StarsAddEvent.java)
+        类链接：[StarsAddEvent](https://github.com/BentoBoxWorld/Likes/blob/develop/src/main/java/world/bentobox/likes/events/StarsAddEvent.java)
 
     !!! 问题 "变量"
         - `UUID user` - 添加星级的玩家的id。
@@ -339,9 +333,7 @@ Likes的JavaDocs可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/Lik
             return (Map<String, Object>) new AddonRequestBuilder()
                 .addon("Likes")
                 .label("island-likes")
-                .addMetaData("world-name
-
-", worldName)
+                .addMetaData("world-name", worldName)
                 .addMetaData("island", islandUUID)
                 .request();
         }

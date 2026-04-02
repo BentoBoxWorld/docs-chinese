@@ -1,3 +1,5 @@
+占位符允许你在其他插件中显示来自 BentoBox 的任何附加组件或游戏模式的数据。反之亦然！
+
 ## 如何使用占位符？
 
 ### 下载您需要的占位符API。
@@ -46,6 +48,8 @@ BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholde
 | %[gamemode]_island_members_max% | 岛上可以拥有的最大成员数 | 1.5.0 | 
 | %[gamemode]_island_members_count% | 岛上的成员、副所有者和所有者数量 | 1.5.0 |
 | %[gamemode]_island_members_list% | 岛上至少是成员的玩家名称的逗号分隔列表 | 1.13.0 |
+| %[gamemode]_island_coop_list% | 岛上是合作者的玩家名称的逗号分隔列表 | 2.4.2 |
+| %[gamemode]_island_trusted_list% | 岛上是受信任者的玩家名称的逗号分隔列表 | 2.4.2 |
 | %[gamemode]_island_trustees_count% | 被信任进入岛屿的玩家数量 | 1.5.0 |
 | %[gamemode]_island_coops_count% | 与岛屿合作的玩家数量 | 1.5.0 |
 | %[gamemode]_island_visitors_count% | 当前访问岛屿的玩家数量 | 1.5.0 |
@@ -62,6 +66,8 @@ BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholde
 | %[gamemode]_visited_island_center_z% | 玩家所在岛屿中心的Z坐标 | 1.5.2 |
 | %[gamemode]_visited_island_members_max% | 玩家所在岛屿可以拥有的最大成员数 | 1.5.2 |
 | %[gamemode]_visited_island_members_count% | 玩家所在岛屿的成员、副所有者和所有者数量 | 1.5.2 |
+| %[gamemode]_visited_island_coop_list% | 玩家所在岛屿上是合作者的玩家名称的逗号分隔列表 | 2.4.2 |
+| %[gamemode]_visited_island_trusted_list% | 玩家所在岛屿上是受信任者的玩家名称的逗号分隔列表 | 2.4.2 |
 | %[gamemode]_visited_island_members_list% | 玩家所在岛屿上至少是成员的玩家名称的逗号分隔列表 | 1.13.0 |
 | %[gamemode]_visited_island_trustees_count% | 被信任进入玩家所在岛屿的玩家数量 | 1.5.2 |
 | %[gamemode]_visited_island_coops_count% | 与玩家所在岛屿合作的玩家数量 | 1.5.2 |
