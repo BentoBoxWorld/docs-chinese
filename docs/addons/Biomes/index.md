@@ -114,9 +114,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
 ??? 问题 "什么是`BIOME`按钮类型？"
     这个按钮在main_panel和buy_panel中可用。
-    BIOME按钮为生态区对象创建一个动态条目。只有当存在生态区时，按钮才会被填充。例如，如果你只有3个生态区，但在GUI中为它们定义了7个位置，那么只有3个位置会被填充。其余位置将
-
-保持空白。
+    BIOME按钮为生态区对象创建一个动态条目。只有当存在生态区时，按钮才会被填充。例如，如果你只有3个生态区，但在GUI中为它们定义了7个位置，那么只有3个位置会被填充。其余位置将保持空白。
 
     默认情况下，生态区将根据它们的顺序编号进行排序，然而，你可以使用`id`参数在数据下指定特定生态区在特定插槽中。
     
@@ -222,9 +220,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
 === "玩家命令"
     - `/[player_command] biomes`: 此方法打开GUI，允许在用户岛屿上更改生态区。
-    - `/[player_command] biomes help`: 显示所有
-
-命令的帮助
+    - `/[player_command] biomes help`: 显示所有命令的帮助
     - `/[player_command] biomes set <biome> [<type>] [<size>]`: 此命令允许在不打开GUI的情况下更改岛屿上的生态区。如果参数<type>和<size>未提供，命令将使用插件配置中的默认值。
     - `/[player_command] biomes buy <biome>`: 此命令允许在不打开GUI的情况下购买生态区。
 
@@ -280,9 +276,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
         <repositories>
             <repository>
                 <id>codemc-repo</id>
-
-
-                <url>https://repo.codemc.io/repository/maven-public/</url>
+                <url>https://repo.codemc.io/repository/bentoboxworld/</url>
             </repository>
         </repositories>
         

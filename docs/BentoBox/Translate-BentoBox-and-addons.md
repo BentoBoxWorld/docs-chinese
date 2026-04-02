@@ -4,8 +4,9 @@
 
 ## 指南
 
-* 请使用GitLocalize进行翻译，并在完成后通过Discord通知我们。翻译者会获得一个特殊徽章！
-* 不要翻译方括号内的文本，因为那些是占位符，例如[name]应保持英文
+* 我们现在有一个工具可以在 [https://download.bentobox.world/translate.html](https://download.bentobox.world/translate.html) 进行翻译。这在你的浏览器中本地运行，可能会帮助翻译。作为 PR 提交新文件到 GitHub。
+* 翻译者会获得一个特殊徽章！
+* 不要翻译方括号内的文本，因为那些是占位符，例如 [name] 应保持英文
 * 测试你的翻译 - 在提交之前尽可能检查一切
 * 翻译中不要包含任何广告、脏话或贬低性评论。我们在接受PR之前会检查它们。
 * 如果有关于翻译的问题，欢迎在Discord上提问。
