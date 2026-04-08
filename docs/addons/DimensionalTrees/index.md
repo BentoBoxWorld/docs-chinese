@@ -8,4 +8,4 @@
 
 ## 翻译
 
-{{ translations(3842, ["cs", "zh-CN", "hu", "vi"]) }}
+{{ translations("DimensionalTrees") }}

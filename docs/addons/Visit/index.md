@@ -258,7 +258,7 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
 
 ## 翻译
 
-{{ translations(5740, ["cs", "es", "de", "hu", "ja", "lv", "pl", "tr", "zh-CN", "zh-TW", "fr", "id"]) }}
+{{ translations("Visit") }}
 
 ## API
 

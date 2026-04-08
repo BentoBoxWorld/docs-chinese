@@ -138,7 +138,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
 ## 翻译
 
-{{ translations(3013, ["cs", "de", "es", "fr", "hu", "id", "lv", "pl", "ro", "tr", "zh-CN", "ko", "pt", "vi", "ru"]) }}
+{{ translations("TopBlock") }}
 
 ## API
 

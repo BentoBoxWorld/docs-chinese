@@ -1,66 +1,70 @@
 
 <img width="600" height="300" alt="Stranger Realms" src="https://github.com/user-attachments/assets/4893497a-7c92-4947-b1af-23c1daf05261" />
 
-# Stranger Realms: A BentoBox Game Mode
+# Stranger Realms：BentoBox 游戏模式
 
-A chilling new survival experience where the familiar world is shadowed by a terrifying, inverted dimension. *Stranger Realms* is a custom BentoBox game mode that replaces the Nether with a dark, distressed copy of the Overworld — the **Upside Down**.
+一段令人不寒而栗的全新生存体验——熟悉的世界被一个令人恐惧的倒置维度所笼罩。*Stranger Realms* 是一个自定义 BentoBox 游戏模式，将下界替换为主世界的黑暗、扭曲副本——**颠倒世界**。
 
-## 🌌 Game Concept: Welcome to the Upside Down
+## 🌌 游戏概念：欢迎来到颠倒世界
 
-Dive into a world where reality is twisted. Inspired by the chilling dimension in the popular TV show, the Upside Down is a dimension of constant gloom and danger.
+潜入一个现实被扭曲的世界。受到这部热门电视剧中令人毛骨悚然维度的启发，颠倒世界是一个充满黑暗与危险的维度。
 
-  * **The Inversion:** The Upside Down is a dark, distressed, block-for-block copy of the Overworld. It is generated dynamically when a player first enters a location within the dimension.
-  * **Corrupted Mobs:** The Overworld's fauna has been corrupted. Most Overworld mobs are transformed into their Nether counterparts, creating unique and dangerous encounters.
-  * **The Glimmer (Dimensional Link):** Be careful what you interact with\! Activating a lever or pressing a button in the Upside Down can cause the same action to be triggered in the corresponding block in the Overworld. This dangerous connection can be used for hidden automation or can expose your position to the evils lurking on the other side.
+  * **倒置：** 颠倒世界是主世界逐方块的黑暗、扭曲副本，会在玩家首次进入该维度的某个位置时动态生成。
+  * **腐化的生物：** 主世界的生物群落已被腐化。大多数主世界生物会转变为对应的下界生物，带来独特而危险的遭遇。
+  * **微光（维度连接）：** 小心你所交互的东西\！在颠倒世界中激活拉杆或按下按钮，可能导致主世界中对应方块产生相同的动作。这种危险的连接可用于隐秘自动化，也可能将你的位置暴露给潜伏在另一侧的邪恶力量。
 
-## ✨ Key Features
+## ✨ 主要特性
 
-### Protected Claims (BentoBox Core)
+### 受保护的领地（BentoBox 核心）
 
-As a BentoBox game mode, survival hinges on laying claim to your piece of the world.
+作为一个 BentoBox 游戏模式，生存的关键在于占领属于你的一片世界。
 
-  * **Security:** Claims are protected square areas, with a default size of 64 blocks on each side.
-  * **Customization:** Use the powerful BentoBox settings GUI to fine-tune your claim permissions — allow visitors to break blocks, use containers, or restrict access entirely.
-  * **Dimensional Span:** Your claims are safe in **both** the Overworld and the Upside Down, and The End!
-  * **Cooperative Growth:** Claims can grow\! Add other players as members to your claim to increase its size. The specific amount of claim growth per member is configurable.
+  * **安全性：** 领地是受保护的方形区域，默认大小为每边 64 个方块。
+  * **自定义：** 使用强大的 BentoBox 设置 GUI 精细调整你的领地权限——允许访客破坏方块、使用容器，或完全限制访问。
+  * **维度跨越：** 你的领地在**主世界**、颠倒世界以及末地中均受到保护！
+  * **协作成长：** 领地可以扩大\！将其他玩家添加为领地成员以增加领地大小，每位成员增加的领地大小可配置。
 
-### The Warped Compass
+### 扭曲罗盘
 
-  * **Chunk Regeneration:** Discover the custom recipe for the **Warped Compass**. When a player holds this powerful item while traveling through a Nether Portal, it forces the regeneration of chunks in all directions, ensuring you always have fresh territory to explore based on the Overworld.
+  * **区块重生：** 探索**扭曲罗盘**的自定义合成配方。当玩家手持此强力物品穿越下界传送门时，会强制重生周围各方向的区块，确保你始终有基于主世界的全新地形可供探索。
 
-### Dynamic World Border (Admin Feature)
+### 动态世界边界（管理员功能）
 
-Encourage players to join and grow your server with the Dynamic World Border option.
+通过动态世界边界选项，鼓励玩家加入并扩展你的服务器。
 
-  * **Adaptive Size:** Admins can set a world border that automatically grows or shrinks based on the current number of online players. Swarm the server and expand your playable area\!
-  * **Claim Retention:** If the world border shrinks, players retain their claims even if they fall outside the new border boundary. However, once outside the border, they can only operate within the protected confines of their pre-existing claim borders, encouraging strategic land ownership.
+  * **自适应大小：** 管理员可以设置一个世界边界，根据当前在线玩家数量自动扩大或缩小。涌入服务器，扩展你的可玩区域\！
+  * **领地保留：** 如果世界边界缩小，即使玩家的领地落在新边界之外，他们仍保留自己的领地。但一旦超出边界，他们只能在已有领地的保护范围内活动，从而鼓励战略性土地所有权。
 
-## 🔨 Commands
+## 🔨 命令
 
-*Stranger Realms* uses the robust BentoBox command structure. Commands can be found [here](Commands).
+*Stranger Realms* 使用 BentoBox 强大的命令体系。命令列表可以在[这里](Commands)找到。
 
-The main player command is `/strange` or `/st` and the admin command is `/stranger`
+主要玩家命令为 `/strange` 或 `/st`，管理员命令为 `/stranger`
 
-| Command        | Description                                                                                                            |
+| 命令 | 描述 |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------------|
-| `/st claim`    | Creates a claim at your current location (if you have room).                                                           |
-| `/st info`     | Shows information about the claim you are currently standing in.                                                       |
-| `/st settings` | Opens the GUI to manage claim permissions (e.g., visitor block break, chest access).                                   |
-| `/st team`     | Goes the Team GUI where you can invites players to become a member of your claim, which also increases the claim size. |
+| `/st claim`    | 在当前位置创建领地（如果有空间）。 |
+| `/st info`     | 显示你当前所站领地的信息。 |
+| `/st settings` | 打开 GUI 管理领地权限（如访客破坏方块、箱子访问权限）。 |
+| `/st team`     | 打开团队 GUI，可邀请玩家成为领地成员，同时增加领地大小。 |
 
-## Use with Other Addons
+## 与其他插件配合使用
 
-Like all BentoBox Game Modes you can load other Addons. These ones are recommended:
+与所有 BentoBox 游戏模式一样，你可以加载其他插件。推荐以下插件：
 
-* Warps - enables player's to place one warp sign in a claim so others can teleport there
-* InvSwitcher - keeps inventories and other player aspects separate between Game Modes
+* Warps - 允许玩家在领地内放置一个传送标牌，供其他玩家传送过来
+* InvSwitcher - 在不同游戏模式之间保持独立的物品栏和其他玩家属性
 
-*Do not* use the Border Addon in the Stranger Realms because it will clash. Stranger Realms handles its own borders.
+*请勿*在 Stranger Realms 中使用 Border 插件，因为它会产生冲突。Stranger Realms 自带边界管理功能。
 
-## ⚙️ Configuration Settings
+## ⚙️ 配置设置
 
-The core game mechanics and claim features are highly configurable via the BentoBox configuration files or GUIs. The primary configuration file for this game mode is `config.yml`. 
+核心游戏机制和领地功能可通过 BentoBox 配置文件或 GUI 高度自定义。该游戏模式的主要配置文件为 `config.yml`。
 
-## Permissions
+## 权限
 
-Permissions can be found [here](Permissions).
+权限列表可以在[这里](Permissions)找到。
+
+## 翻译
+
+{{ translations("StrangerRealms") }}

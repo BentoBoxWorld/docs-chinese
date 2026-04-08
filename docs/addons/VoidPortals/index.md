@@ -14,4 +14,4 @@
 
 ## 翻译
 
-{{ translations(2975, ["cs", "fr", "ja", "lv", "de", "pl", "ru", "es"]) }}
+{{ translations("VoidPortals") }}

@@ -192,4 +192,4 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。这个
 
 ## 翻译
 
-{{ translations(2976, ["lv", "zh-CN"]) }}
+{{ translations("CauldronWitchery") }}

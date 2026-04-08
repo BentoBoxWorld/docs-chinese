@@ -296,3 +296,7 @@ command-icon:
 `command-[NAME]` | 示例: `bskyblock.upgrades.command-lambda-upgrade.6`
 
 `NAME` 是命令升级的真实名称(!=显示名称)
+
+## 翻译
+
+{{ translations("Upgrades") }}

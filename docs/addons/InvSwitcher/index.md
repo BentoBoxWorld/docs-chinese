@@ -44,3 +44,7 @@
 **请注意:**
 
 - 它不仅限于 BentoBox 世界。它适用于服务器上的所有世界(目前)。
+
+## 翻译
+
+{{ translations("InvSwitcher") }}

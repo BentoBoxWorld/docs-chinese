@@ -123,7 +123,7 @@ show-particles: true
 
 ## 翻译
 
-{{ translations(3896, ["cs", "it", "lv", "fr", "de", "hu", "id", "zh-TW", "ko", "pl", "ru", "es", "vi", "zh-CN", "hr", "ja", "pt", "ro", "tr", "uk"]) }}
+{{ translations("Border") }}
 
 ## 来源
 想要贡献?在 [GitHub](https://github.com/BentoBoxWorld/docs/blob/master/docs/addons/Border/) 上查看本文档的源代码。

@@ -75,4 +75,4 @@ permissions:
 
 ## 翻译
 
-{{ translations(3680, ["cs", "de", "es", "fr", "ja", "tr", "zh-CN", "hu", "it", "lv", "pl", "ru", "vi"]) }}
+{{ translations("Chat") }}
