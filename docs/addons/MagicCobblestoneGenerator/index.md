@@ -192,4 +192,284 @@
     套餐是一项功能，允许为每个岛屿提供更多的自定义体验。如果岛屿分配了套餐，那么该岛屿上的玩家将只能使用该套餐中的生成器。
 
 ??? question "我可以禁用在生成器描述中显示所需权限吗？"
-    是的，插件为显示每个生成器提供了许多自定义选项。它位于locales文件中：
+    是的，插件为显示每个生成器提供了许多自定义选项。它位于 locales 文件中：
+    ```
+          # 生成器说明消息生成器。生成器说明中的所有元素都是基于
+          # 下面的部分生成的。
+          generator:
+            # 主说明元素内容。如果你不想显示宝藏，
+            # 只需从 [treasures] 部分删除它们。
+            # [description] 来自每个生成器等级。
+            # 说明不支持颜色代码。每个对象都单独支持。
+            lore: |-
+              [description]
+              [blocks]
+              [treasures]
+              [type]
+              [requirements]
+              [status]
+            # 生成 [blocks] 部分
+            blocks:
+              # blocks 部分中的第一行。空行将不显示。
+              title: "&7&l Blocks:"
+              # 标题下的每个方块及其值。不能为空。
+              # 支持 [number], [#.#], [#.##], [#.###], [#.####], [#.#####]
+              value: "&8 [material] - [#.##]%"
+            # 生成 [treasures] 部分
+            treasures:
+              # blocks 部分中的第一行。空行将不显示。
+              title: "&7&l Treasures:"
+              # 标题下的每个宝藏及其值。不能为空。
+              # 支持 [number], [#.#], [#.##], [#.###], [#.####], [#.#####]
+              value: "&8 [material] - [#.####]%"
+            # 生成 [requirements] 部分
+            requirements:
+              # 允许更改要求消息的顺序和内容。
+              description: |-
+                [biomes]
+                [level]
+                [missing-permissions]
+              # 生成 [level] 消息。
+              level: "&c&l Required Level: &r&c [number]"
+              # 生成 [missing-permission] 消息标题。
+              permission-title: "&c&l Missing Permissions:"
+              # 生成 [missing-permission] 消息值。
+              permission: "&c  -[permission]"
+              # 生成 [biomes] 消息标题。
+              biome-title: "&7&l Operates in:"
+              # 生成 [biomes] 消息值。
+              biome: "&8 [biome]"
+              # 生成所有生物群系的 [biomes] 消息。
+              any: "&7&l Operates in &e&o all &r&7&l biomes"
+            # 生成 [status] 部分
+            status:
+              # 针对锁定生成器显示的消息。
+              locked: "&c Locked!"
+              # 针对未部署生成器显示的消息。
+              undeployed: "&c Not Deployed!"
+              # 针对活跃生成器显示的消息。
+              active: "&2 Active"
+              # 针对需要购买的生成器显示的消息。
+              purchase-cost: "&e Purchase Cost: $[number]"
+              # 针对有激活费用的生成器显示的消息。
+              activation-cost: "&e Activation Cost: $[number]"
+            # 生成 [type] 部分
+            type:
+              title: "&7&l Supports:"
+              cobblestone: "&8 Cobblestone Generators"
+              stone: "&8 Stone Generators"
+              basalt: "&8 Basalt Generators"
+              any: "&7&l Supports &e&o all &r&7&l generators"
+    ```
+
+## 翻译
+
+{{ translations("MagicCobblestoneGenerator") }}
+
+## API
+
+自 MagicCobblestoneGenerator 2.4.0 和 BentoBox 1.17 以来，其他插件可以直接访问 MagicCobblestoneData 插件的数据。但是，对于不想使用太多依赖的插件来说，插件请求仍然是一个很好的解决方案。
+
+### Maven 依赖
+
+MagicCobblestoneGenerator 为其他插件提供了 API。这涵盖了 2.5.0 及以后的版本。
+
+!!! note
+    将 MagicCobblestoneGenerator 依赖添加到你的 Maven POM.xml 中：
+
+    ```xml
+        <repositories>
+            <repository>
+                <id>codemc-repo</id>
+                <url>https://repo.codemc.io/repository/bentoboxworld/</url>
+            </repository>
+        </repositories>
+
+        <dependencies>
+            <dependency>
+                <groupId>world.bentobox</groupId>
+                <artifactId>magiccobblestonegenerator</artifactId>
+                <version>2.5.0</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    ```
+
+使用最新的 MagicCobblestoneGenerator 版本。
+
+MagicCobblestoneGenerator 的 JavaDocs 可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/MagicCobblestoneGenerator/ws/target/apidocs/index.html)找到。
+
+### 事件
+
+=== "GeneratorActivationEvent"
+    !!! summary "描述"
+        玩家在其岛屿上激活/停用生成器时触发的事件。
+        此事件可以取消。
+
+        类链接：[GeneratorActivationEvent](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/java/world/bentobox/magiccobblestonegenerator/events/GeneratorActivationEvent.java)
+
+    !!! question "变量"
+        - `String islandUUID` - 目标岛屿 ID。
+        - `UUID targetPlayer` - 触发生成器激活的玩家的 ID。
+        - `String generator` - 被激活生成器的名称。
+        - `String generatorID` - 被激活生成器的 ID。
+        - `boolean activate` - 指示生成器是激活还是停用的布尔值。
+
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.LOW)
+        public void onGeneratorActivationChange(GeneratorActivationEvent event) {
+            UUID user = event.getTargetPlayer();
+            String island = event.getIslandUUID();
+
+            String generator = event.getGenerator();
+            String generatorID = event.getGeneratorID();
+            boolean activate = event.isActivate();
+        }
+        ```
+
+=== "GeneratorUnlockEvent"
+    !!! summary "描述"
+        玩家在其岛屿上解锁新生成器时触发的事件。
+        此事件可以取消。
+
+        类链接：[GeneratorUnlockEvent](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/java/world/bentobox/magiccobblestonegenerator/events/GeneratorUnlockEvent.java)
+
+    !!! question "变量"
+        - `String islandUUID` - 目标岛屿 ID。
+        - `UUID targetPlayer` - 触发生成器解锁的玩家的 ID。
+        - `String generator` - 被解锁生成器的名称。
+        - `String generatorID` - 被解锁生成器的 ID。
+
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.LOW)
+        public void onGeneratorUnlock(GeneratorUnlockEvent event) {
+            UUID user = event.getTargetPlayer();
+            String island = event.getIslandUUID();
+
+            String generator = event.getGenerator();
+            String generatorID = event.getGeneratorID();
+        }
+        ```
+
+=== "GeneratorBuyEvent"
+    !!! summary "描述"
+        玩家在其岛屿上购买新生成器时触发的事件。
+        此事件不可取消。
+
+        类链接：[GeneratorBuyEvent](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/java/world/bentobox/magiccobblestonegenerator/events/GeneratorBuyEvent.java)
+
+    !!! question "变量"
+        - `String islandUUID` - 目标岛屿 ID。
+        - `UUID targetPlayer` - 购买生成器的玩家的 ID。
+        - `String generator` - 被购买生成器的名称。
+        - `String generatorID` - 被购买生成器的 ID。
+
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.LOW)
+        public void onGeneratorBuy(GeneratorBuyEvent event) {
+            UUID user = event.getTargetPlayer();
+            String island = event.getIslandUUID();
+
+            String generator = event.getGenerator();
+            String generatorID = event.getGeneratorID();
+        }
+        ```
+
+### 插件请求处理程序
+
+到 BentoBox 1.17 为止，我们在访问 BentoBox 环境外的数据时遇到了类加载器的问题。
+这意味着数据只能从其他插件访问。但 BentoBox 实现了 PlAddon 功能，这意味着请求
+处理程序不再是必需的。
+
+有关插件请求处理程序的更多信息可以在[这里](/en/latest/BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons/)找到。
+
+=== "active-generator-names"
+    !!! summary "描述"
+        返回玩家的活跃生成器的名称。
+
+        自 2.4.0 版本开始。
+
+    !!! question "输入"
+        - `world-name`: String - 世界的名称。
+        - `player`: String - 玩家的 UUID。
+
+    !!! success "输出"
+        输出是一个 `List<String>`，包含活跃生成器的名称。
+
+    !!! failure "失败"
+        如果未提供 `world-name` 或 `world-name` 不存在或未提供 `player`，此处理程序将返回 null。
+
+    !!! example "代码示例"
+        ```java
+        public List<String> getActiveGeneratorNames(String worldName, UUID playerUUID) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("MagicCobblestoneGenerator")
+                .label("active-generator-names")
+                .addMetaData("world-name", worldName)
+                .addMetaData("player", playerUUID)
+                .request();
+        }
+        ```
+
+
+=== "generator-data"
+    !!! summary "描述"
+        返回为请求的生成器对象存储的原始数据。
+
+        自 2.4.0 版本开始。
+
+    !!! question "输入"
+        - `generator`: String - 生成器的 UUID。
+
+    !!! success "输出"
+        输出是一个 `Map<String, Object>`，包含原始生成器数据。
+
+        输出映射包含：
+
+        - `uniqueId`: String - 生成器的唯一 ID。应与输入相同。
+        - `friendlyName`: String - 生成器的显示名称（未格式化）。
+        - `description`: List<String> - 说明消息的字符串列表（未格式化）。
+        - `generatorType`: String - 生成器的类型。可用的类型：
+
+            - COBBLESTONE
+            - STONE
+            - BASALT
+            - COBBLESTONE_OR_STONE
+            - BASALT_OR_COBBLESTONE
+            - BASALT_OR_STONE
+            - ANY
+
+        - `generatorIcon`: ItemStack - 生成器图标的物品堆。
+        - `lockedIcon`: ItemStack - 锁定的生成器图标的物品堆。
+        - `defaultGenerator`: boolean - 指示生成器是否为默认的布尔值。
+        - `priority`: int - 生成器的优先级值。
+        - `requiredMinIslandLevel`: int - 生成器工作所需的最小岛屿等级。
+        - `requiredBiomes`: Set<Biome> - 生成器工作所需的生物群系集合。
+        - `requiredPermissions`: Set<String> - 生成器可购买所需的权限集合。
+        - `generatorTierCost`: double - 生成器的价格。
+        - `activationCost`: double - 生成器的激活价格。
+        - `deployed`: boolean - 指示生成器对玩家是否可用的布尔值。
+        - `blockChanceMap`: TreeMap<Double, Material> - 包含方块几率原始数据的映射。
+        - `treasureItemChanceMap`: TreeMap<Double, ItemStack> - 包含宝藏几率原始数据的映射。
+        - `treasureChance`: double - 从生成的方块中掉落宝藏的值。
+        - `maxTreasureAmount`: int - 一次掉落的最大宝藏数量。
+
+    !!! failure "失败"
+        如果未提供 `generator`，此处理程序将返回 null；如果 `generator` 不存在，将返回空映射。
+
+    !!! example "代码示例"
+        ```java
+        public Map<String, Object> getGeneratorData(String generatorId) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("MagicCobblestoneGenerator")
+                .label("generator-data")
+                .addMetaData("generator", generatorId)
+                .request();
+        }
+        ```

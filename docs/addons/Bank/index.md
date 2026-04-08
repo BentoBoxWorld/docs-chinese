@@ -118,4 +118,4 @@ permissions:
 
 ## 翻译
 
-{{ translations(5451, ["cs", "de", "es", "et", "fr", "ja", "tr", "zh-CN", "id", "ko", "vi", "uk"]) }}
+{{ translations("Bank") }}

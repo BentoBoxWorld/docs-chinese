@@ -102,7 +102,7 @@ GAMEMODE_NAME.limits.admin.limits:
 
 ## 翻译
 
-{{ translations(2974, ["cs", "de", "hu", "ja", "lv", "pl", "tr", "zh-CN", "fr", "id", "ro", "es", "vi"]) }}
+{{ translations("Limits") }}
 
 ## 无法限制的物品
 

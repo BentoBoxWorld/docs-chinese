@@ -75,5 +75,5 @@
 
 ## 翻译
 
-{{ translations(4728, ["cs", "de", "es", "fr", "ja", "lv", "zh-CN", "hu", "id", "it", "ko", "pl", "pt", "ro", "ru", "tr", "vi"]) }}
+{{ translations("IslandFly") }}
 

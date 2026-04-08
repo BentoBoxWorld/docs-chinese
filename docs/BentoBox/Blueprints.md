@@ -41,9 +41,7 @@
 命令几乎与WorldEdit的图纸命令相同。你必须是Op或拥有权限的管理员才能使用蓝图。使用管理员命令和**blueprint**或其别名**bp**：
 
 * /bsb bp pos1 - 将边界框的一个角设置为你的玩家位置
-* /bsb bp pos2 - 设置另
-
-一个角
+* /bsb bp pos2 - 设置另一个角
 * /bsb bp copy - 复制盒子内的方块和实体到剪贴板
 * /bsb bp copy air - 复制盒子内的方块、实体和空气到剪贴板。如果你计划将岛屿粘贴到水中（AcidIsland）或岩石中（CaveBlock），这一点很重要。
 * /bsb bp paste - 将剪贴板内容粘贴到你的位置

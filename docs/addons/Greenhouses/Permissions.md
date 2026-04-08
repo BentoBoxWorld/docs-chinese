@@ -1,8 +1,6 @@
-| 权限                            | 默认启用 | 描述                       |
-|---------------------------------|----------|----------------------------|
-| bskyblock.greenhouses.player   | true     | 授予玩家命令的访问权限     |
-| bskyblock.greenhouses.admin    | op       | 授予管理员命令的访问权限   |
-| acidisland.greenhouses.player  | true     | 授予玩家命令的访问权限     |
-| acidisland.greenhouses.admin   | op       | 授予管理员命令的访问权限   |
-| skygrid.greenhouses.player     | true     | 授予玩家命令的访问权限     |
-| skygrid.greenhouses.admin      | op       | 授予管理员命令的访问权限   |
+## **温室权限**
+
+| **权限**                     | **描述**                                                                                                                                     | **默认** |
+|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| [gamemode].greenhouses.player       | 授予玩家命令的访问权限 - 将 [gamemode] 更改为你的游戏模式，例如 bskyblock、acidisland、aoneblock 等。                                            | true        |
+| [gamemode].greenhouses.admin        | 授予管理员命令的访问权限                                                                                                                      | op          |

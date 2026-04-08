@@ -49,3 +49,7 @@
 插件基于Minecraft 1.19.2和BentoBox 1.20.0版本构建。
 
 插件支持所有游戏模式插件。
+
+## 翻译
+
+{{ translations("FarmersDance") }}

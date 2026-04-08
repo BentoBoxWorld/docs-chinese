@@ -160,7 +160,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插
 
 ## 翻译
 
-{{ translations(2973, ["cs", "de", "es", "fr", "hu", "ja", "lv", "pl", "tr", "zh-CN", "zh-TW", "id", "it", "ru", "vi", "uk"]) }}
+{{ translations("Warps") }}
 
 ## Api
 

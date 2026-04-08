@@ -28,3 +28,7 @@ ExtraMobs 调整了一些生物生成规则,以获得烈焰人、凋灵骷髅和
 - [x] BentoBox - 1.11.0 版本
 插件基于 Minecraft 1.15.2 和 BentoBox 1.11.0 版本构建,但它甚至应该适用于 Minecraft 1.13.2 和 BentoBox 1.0 版本。
 插件支持所有游戏模式插件。
+
+## 翻译
+
+{{ translations("ExtraMobs") }}

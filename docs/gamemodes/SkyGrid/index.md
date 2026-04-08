@@ -33,4 +33,4 @@
 
 ## 翻译
 
-{{ translations(2970, ["cs", "de", "id", "ja", "ro", "zh-CN", "fr", "ru"]) }}
+{{ translations("SkyGrid") }}

@@ -1,4 +1,4 @@
-**# TwerkingForTrees**
+# TwerkingForTrees
 
 **TwerkingForTrees** 可以让你的玩家通过扭动来更快地种植树木。
 
@@ -64,3 +64,7 @@ effects:
   # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html
   twerk: MOBSPAWNER_FLAMES
 ```
+
+## 翻译
+
+{{ translations("TwerkingForTrees") }}

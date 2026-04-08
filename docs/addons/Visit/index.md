@@ -205,9 +205,7 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
 
 ## 权限
 
-
-
-!!! 小贴士
+!!! tip
     `[gamemode]` 是一个根据你运行的游戏模式而不同的前缀。
     前缀是游戏模式的小写名称，即如果你使用BSkyBlock，前缀是`bskyblock`。
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
@@ -231,6 +229,7 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
 
 - ![pumpkin_pie](https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/ac/Pumpkin_Pie_JE2_BE2.png){: loading=lazy width=16px } ALLOW_VISITS_FLAG：岛屿设置中的标志，允许启用/禁用岛屿访问。
 - ![paper](https://static.wikia.nocookie.net/minecraft_gamepedia/images/f/f2/Paper_JE2_BE2.png){: loading=lazy width=16px } RECEIVE_VISIT_MESSAGE_FLAG：岛屿设置中的标志，允许启用/禁用岛屿成员接收访问/离开消息。
+
 
 ## 常见问题解答
 
@@ -259,27 +258,27 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
 
 ## 翻译
 
-{{ translations(5740, ["cs", "es", "de", "hu", "ja", "lv", "pl", "tr", "zh-CN", "zh-TW", "fr", "id"]) }}
+{{ translations("Visit") }}
 
 ## API
 
 从Visit 1.4.0和BentoBox 1.17开始，其他插件可以直接访问Visit插件的数据。
 
-### Maven依赖
+### Maven 依赖
 
-Visit为其他插件提供了API。这涵盖了1.5.0及以后的版本。
+Visit 为其他插件提供了 API。这涵盖了 1.5.0 及以后的版本。
 
-!!! 注意
-    将Visit依赖添加到您的Maven POM.xml中：
+!!! note
+    将 Visit 依赖添加到你的 Maven POM.xml 中：
 
     ```xml
         <repositories>
             <repository>
                 <id>codemc-repo</id>
-                <url>https://repo.codemc.io/repository/maven-public/</url>
+                <url>https://repo.codemc.io/repository/bentoboxworld/</url>
             </repository>
         </repositories>
-        
+
         <dependencies>
             <dependency>
                 <groupId>world.bentobox</groupId>
@@ -290,26 +289,26 @@ Visit为其他插件提供了API。这涵盖了1.5.0及以后的版本。
         </dependencies>
     ```
 
-使用最新的Visit版本。
+使用最新的 Visit 版本。
 
-Visit的JavaDocs可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/Visit/ws/target/apidocs/index.html)找到。
+Visit 的 JavaDocs 可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/Visit/ws/target/apidocs/index.html)找到。
 
 ### 事件
 
 === "VisitEvent"
-    !!! 概述 "描述"
+    !!! summary "描述"
         在玩家被传送到岛屿之前但在支付之后触发的事件。
 
         可以取消。（取消时不退还支付）
 
         类链接：[VisitEvent](https://github.com/BentoBoxWorld/Visit/blob/develop/src/main/java/world/bentobox/visit/events/VisitEvent.java)
 
-    !!! 问题 "变量"
-        - `User player` - 尝试访问岛屿的玩家的id。
+    !!! question "变量"
+        - `User player` - 尝试访问岛屿的玩家的 id。
         - `Island island` - 玩家尝试访问的岛屿。
         - `boolean cancelled` - 事件是否被取消的布尔值。
- 
-    !!! 示例 "代码示例"
+
+    !!! example "代码示例"
         ```java
         @EventHandler(priority = EventPriority.MONITOR)
         public void onVisit(VisitEvent event) {
