@@ -311,6 +311,8 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - `/[player_command] top`: 访问排行榜面板。需要 `[gamemode].island.top` 权限。
     - `/[player_command] level`: 触发玩家的等级计算。需要 `[gamemode].island.level` 权限。
     - `/[player_command] value [material]`: 允许检查方块价值。需要 `[gamemode].island.value` 权限。
+    - `/[player_command] donate`: 打开方块捐献 GUI,将方块价值捐献给岛屿等级。需要 `[gamemode].island.level.donate` 权限。
+    - `/[player_command] donate hand [amount]`: 将手持物品捐献指定数量给岛屿等级。
 
 === "管理员命令"
     - `/[admin_command] level <player>`: 触发玩家的等级计算。需要 `[gamemode].admin.level` 权限。
@@ -331,6 +333,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - `[gamemode].island.level` - (默认: `true`) - 允许玩家使用 `/[player_command] level` 命令。
     - `[gamemode].island.top` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 命令。
     - `[gamemode].island.value` - (默认: `true`) - 允许玩家使用 `/[player_command] value` 命令。
+    - `[gamemode].island.level.donate` - (默认: `true`) - 允许玩家使用 `/[player_command] donate` 命令。
     - `[gamemode].island.level.details.blocks` - (默认: `true`) - 允许玩家查看岛屿的详细方块列表。
     - `[gamemode].island.level.details.spawners` - (默认: `false`) - 允许玩家查看岛屿的详细刷怪笼列表。
     - `[gamemode].island.level.details.underwater` - (默认: `false`) - 允许玩家查看岛屿的详细水下方块列表。
@@ -387,6 +390,28 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
     ![template](https://user-images.githubusercontent.com/4407265/212773894-6f635ed4-f337-4936-b50f-3b616b6bf041.png){: loading=lazy }
     ![template](https://user-images.githubusercontent.com/4407265/212773929-b51ae6b3-5df3-43ae-b35f-bc6fcb42d78f.png){: loading=lazy }
+
+## 更新日志
+
+??? note "v2.23.0 新内容"
+    **发布于:** 2026-03-xx
+
+    - **Oraxen/Nexo 自定义方块支持。** Level 现在可以计算 Oraxen 和 Nexo 自定义方块的价值。在 `blockconfig.yml` 中使用 `oraxen:block_id` 或 `nexo:block_id` 格式定义价值。
+    - **每方块占位符。** 针对岛屿中跟踪的每种方块类型动态注册占位符(例如 `[gamemode]_island_count_<block>`)。由于这些是基于配置动态生成的,请参考 `blockconfig.yml` 了解你服务器上可用的标识符。
+
+    [发布 v2.23.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.23.0)
+
+??? warning "v2.24.0 新内容 — 需要操作"
+    **发布于:** 2026-04-xx
+
+    - **方块捐献系统。** 玩家现在可以将方块从物品栏直接捐献给岛屿等级,而无需将其放置在岛屿上。新命令: `/[player_command] donate`(GUI)和 `/[player_command] donate hand [amount]`。
+    - 新旗帜 `ISLAND_BLOCK_DONATION` — 控制谁可以捐献方块(默认:岛屿所有者;最低:成员)。
+    - 排行榜面板中新增 `DONATED` 标签,显示捐献方块贡献。
+    - 等级公式中新增 `island_members` 变量。
+    - 🔡 **所有语言文件迁移至 MiniMessage。** 删除 `BentoBox/addons/Level/locales/` 并重启以重新生成。
+    - 🔺 **需要删除 `detail_panel.yml`** — 删除旧面板文件以获取包含捐献标签的更新版本。
+
+    [发布 v2.24.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.24.0)
 
 ## 翻译
 

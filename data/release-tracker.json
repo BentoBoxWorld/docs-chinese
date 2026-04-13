@@ -1,0 +1,197 @@
+{
+  "last_run": "2026-04-13T06:53:32Z",
+  "repos": {
+    "BentoBox": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "3.14.1",
+      "doc_path": "BentoBox/",
+      "category": "core"
+    },
+    "AcidIsland": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.21.0",
+      "doc_path": "gamemodes/AcidIsland/index.md",
+      "category": "gamemode"
+    },
+    "AOneBlock": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.23.0",
+      "doc_path": "gamemodes/AOneBlock/index.md",
+      "category": "gamemode"
+    },
+    "Boxed": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/Boxed/index.md",
+      "category": "gamemode"
+    },
+    "BSkyBlock": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/BSkyBlock/index.md",
+      "category": "gamemode"
+    },
+    "CaveBlock": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/CaveBlock/index.md",
+      "category": "gamemode"
+    },
+    "poseidon": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/Poseidon/index.md",
+      "category": "gamemode"
+    },
+    "RaftMode": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/RaftMode/index.md",
+      "category": "gamemode"
+    },
+    "SkyGrid": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/SkyGrid/index.md",
+      "category": "gamemode"
+    },
+    "StrangerRealms": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "gamemodes/StrangerRealms/index.md",
+      "category": "gamemode"
+    },
+    "Bank": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.9.1",
+      "doc_path": "addons/Bank/index.md",
+      "category": "addon"
+    },
+    "Biomes": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/Biomes/index.md",
+      "category": "addon"
+    },
+    "Border": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "4.8.2",
+      "doc_path": "addons/Border/index.md",
+      "category": "addon"
+    },
+    "Challenges": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.6.0",
+      "doc_path": "addons/Challenges/index.md",
+      "category": "addon"
+    },
+    "Chat": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/Chat/index.md",
+      "category": "addon"
+    },
+    "CheckMeOut": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/CheckMeOut/index.md",
+      "category": "addon"
+    },
+    "ControlPanel": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/ControlPanel/index.md",
+      "category": "addon"
+    },
+    "DimensionalTrees": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/DimensionalTrees/index.md",
+      "category": "addon"
+    },
+    "ExtraMobs": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/ExtraMobs/index.md",
+      "category": "addon"
+    },
+    "FarmersDance": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/FarmersDance/index.md",
+      "category": "addon"
+    },
+    "Greenhouses": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/Greenhouses/index.md",
+      "category": "addon"
+    },
+    "InvSwitcher": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.17.0",
+      "doc_path": "addons/InvSwitcher/index.md",
+      "category": "addon"
+    },
+    "IslandFly": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/IslandFly/index.md",
+      "category": "addon"
+    },
+    "Level": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "2.24.0",
+      "doc_path": "addons/Level/index.md",
+      "category": "addon"
+    },
+    "Likes": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/Likes/index.md",
+      "category": "addon"
+    },
+    "Limits": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.28.1",
+      "doc_path": "addons/Limits/index.md",
+      "category": "addon"
+    },
+    "MagicCobblestoneGenerator": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/MagicCobblestoneGenerator/index.md",
+      "category": "addon"
+    },
+    "TopBlock": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/TopBlock/index.md",
+      "category": "addon"
+    },
+    "TwerkingForTrees": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/TwerkingForTrees/index.md",
+      "category": "addon"
+    },
+    "Upgrades": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.0.1",
+      "doc_path": "addons/Upgrades/index.md",
+      "category": "addon"
+    },
+    "Visit": {
+      "last_checked": "2026-01-13T06:31:47Z",
+      "last_release": "",
+      "doc_path": "addons/Visit/index.md",
+      "category": "addon"
+    },
+    "Warps": {
+      "last_checked": "2026-04-13T06:53:32Z",
+      "last_release": "1.19.0",
+      "doc_path": "addons/Warps/index.md",
+      "category": "addon"
+    }
+  }
+}

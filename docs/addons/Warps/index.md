@@ -55,6 +55,13 @@
 
     而对于每个 BentoBox 游戏模式,它仍将是 `/[player_cmd] warp`
 
+??? question "什么是 show-warps-on-map?"
+    设置为 `true` 时,传送标志位置将作为点标记显示在网页地图插件(Dynmap、BlueMap)上。
+
+    需要兼容的地图插件以及 BentoBox 地图钩子处于活动状态。每个传送标志显示为带有 `[Welcome]` 文本下方标志行内容的点标记。
+
+    默认值: `true`
+
 ### 可自定义 GUI
 
 BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插件是最早使用此功能的插件之一。我们尽量让自定义变得简单,但有些功能需要解释。
@@ -157,6 +164,33 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插
 
 ??? question "我发现了一个错误,应该在哪里报告它?"
     请将其添加到[这里](https://github.com/BentoBoxWorld/Warps/issues)的列表中。
+
+## 更新日志
+
+??? note "v1.18.0 新内容"
+    **发布于:** 2026-04-05
+
+    - **网页地图支持(Dynmap / BlueMap)。** 启用 `show-warps-on-map` 选项(默认: true)后,传送标志将在网页地图上显示为点标记。需要兼容 BentoBox 的地图插件。
+    - ⚙️ 新配置选项 `show-warps-on-map`(参见上方配置说明)。
+    - 🔡 俄语语言文件更新为 MiniMessage 格式并完整覆盖所有键。
+    - 需要 BentoBox API 3.12.0+。
+
+    🔡 删除 `BentoBox/addons/Warps/locales/` 以使用新格式重新生成语言文件。
+
+    [发布 v1.18.0](https://github.com/BentoBoxWorld/Warps/releases/tag/1.18.0)
+
+??? warning "v1.19.0 新内容 — 需要语言文件迁移"
+    **发布于:** 2026-04-11
+
+    - **所有语言文件迁移至 MiniMessage。** 每个语言文件已从旧版 `&` 颜色代码转换为 MiniMessage 标签。
+    - 需要 BentoBox API 3.14.0+。
+    - Warps 现在仅针对 Paper 1.21.11 构建(已放弃 Spigot API)。
+
+    🔺 **需要 BentoBox 3.14.0。** 升级 Warps 之前请确保更新 BentoBox。
+
+    🔡 **重新生成语言文件** — 删除 `BentoBox/locales/Warps/` 并重启服务器。自定义语言文件中的 `&` 颜色代码将不再生效。
+
+    [发布 v1.19.0](https://github.com/BentoBoxWorld/Warps/releases/tag/1.19.0)
 
 ## 翻译
 
