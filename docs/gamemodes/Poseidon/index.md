@@ -71,12 +71,16 @@ poseidon:
 
 ## 权限
 
-权限列表可以在[这里](https://www.google.com/search?q=Permissions)找到。
+权限列表可以在[这里](Permissions)找到。
 
 ## 命令
 
-命令列表可以在[这里](https://www.google.com/search?q=Commands)找到。
+命令列表可以在[这里](Commands)找到。
 
 ## 占位符
 
-占位符列表可以在[这里](https://www.google.com/search?q=Placeholders)找到。
+占位符列表可以在[这里](Placeholders)找到。
+
+## 翻译
+
+{{ translations("Poseidon") }}

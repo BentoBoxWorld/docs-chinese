@@ -311,6 +311,8 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - `/[player_command] top`: 访问排行榜面板。需要 `[gamemode].island.top` 权限。
     - `/[player_command] level`: 触发玩家的等级计算。需要 `[gamemode].island.level` 权限。
     - `/[player_command] value [material]`: 允许检查方块价值。需要 `[gamemode].island.value` 权限。
+    - `/[player_command] donate`: 打开方块捐献 GUI,将方块价值捐献给岛屿等级。需要 `[gamemode].island.level.donate` 权限。
+    - `/[player_command] donate hand [amount]`: 将手持物品捐献指定数量给岛屿等级。
 
 === "管理员命令"
     - `/[admin_command] level <player>`: 触发玩家的等级计算。需要 `[gamemode].admin.level` 权限。
@@ -331,6 +333,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - `[gamemode].island.level` - (默认: `true`) - 允许玩家使用 `/[player_command] level` 命令。
     - `[gamemode].island.top` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 命令。
     - `[gamemode].island.value` - (默认: `true`) - 允许玩家使用 `/[player_command] value` 命令。
+    - `[gamemode].island.level.donate` - (默认: `true`) - 允许玩家使用 `/[player_command] donate` 命令。
     - `[gamemode].island.level.details.blocks` - (默认: `true`) - 允许玩家查看岛屿的详细方块列表。
     - `[gamemode].island.level.details.spawners` - (默认: `false`) - 允许玩家查看岛屿的详细刷怪笼列表。
     - `[gamemode].island.level.details.underwater` - (默认: `false`) - 允许玩家查看岛屿的详细水下方块列表。
@@ -357,38 +360,62 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     请将其添加到[这里](https://github.com/BentoBoxWorld/Level/issues)的列表中。
 
 ??? question "如何让 `level-cost` 在每个等级后增加?"
-    你不能直接这样做,因为 BentoBox 等级计算是一次性完成的,而不是每个等级迭代的。
+    `level-cost` 设置是一个固定值，无法按等级逐步增加，因为 BentoBox 通过将单一公式应用于总方块数来计算岛屿等级，而非逐级迭代。
 
-    但是,如果你知道所需的公式,这可以使用 `level-calc` 公式完成。如果我们使用你的示例,让每个等级比前一个等级难 50%,那么近似公式为:
+    实现等级成本递增的方式是使用 `level-calc` 公式。例如，若要让每个等级比前一个等级难 50%（即 1 级需要 100 个方块，2 级需要 150 个，3 级需要 225 个，以此类推），公式如下：
 
     `level-calc: 2.4661 * log(blocks) - (2.4661 * log(level_cost) - 1)`
 
-    其中 `level_cost` 是达到 1 级所需的方块数。例如,如果 1 级需要 100 个方块,2 级需要 150 个方块,3 级需要 225 个,以此类推。
+    其中 `level_cost` 是达到 1 级所需的方块数。
 
-    这是图表:
+    以下是该进度曲线的图表：
 
     ![template](https://user-images.githubusercontent.com/4407265/212771452-edc943fe-c861-4ba1-b581-8ec987e52f94.png){: loading=lazy }
 
-    请注意,该特定公式在 25 级左右开始渐近,即达到 26 或 27 级变得非常困难,因为需要太多方块,所以这种特定规则可能不是一个好方法,因为最终几乎每个人都会以相同的等级结束。
+    !!! warning
+        该公式在 25 级左右开始渐近——达到 26 或 27 级需要极大量的方块，这可能导致大多数玩家最终趋向相同的最高等级。在选择进度曲线时请考虑这一点。
 
-    无论如何,虽然我理解你的问题,但 `level-calc` 公式实际上应该能够提供你想要的东西,只要它支持正确的公式。拥有 `next-levelcost` 从编程的角度来看是有问题的,因为等级计算必须迭代完成,而不是仅应用单一公式计算所计数的方块。我现在还不能完全弄清楚如何做到这一点,但我确实知道,目前拥有一个公式来确定你想要如何增加等级的方法肯定是有效的。
+    **推导自定义公式**
 
-    我如何计算等级的公式?
+    要构建适合特定进度曲线的公式：
 
-    最好的方法是从一个公式开始,绘制图表看它是否有意义,例如使用 Excel 之类的工具。如果你想根据一个值表计算出需要什么公式,那么 Excel(或其他电子表格)也可以做到:制作一个等级图和每个等级需要多少方块,然后绘制表格的图形(X Y 图)。右键单击图表以添加趋势线,选择最适合的近似值,例如线性、对数、指数等。然后选择"在图表上显示方程",显示公式并用 `blocks` 替换 `x`。以下是我为了找出每次增加 50% 且起始成本为 100 个方块的等式所做的一些截图。
+    1. 在电子表格（如 Excel 或 Google Sheets）中创建目标等级及其对应方块成本的表格。
+    2. 绘制该表格的 X/Y 图表。
+    3. 右键单击图表并添加趋势线，选择最适合曲线的近似类型（线性、对数、指数等），然后启用"在图表上显示方程"。
+    4. 在生成的方程中，将 `x` 替换为 `blocks`，并将其作为 `level-calc` 的值。
+
+    例如，上述 50% 进度就是通过这种方式推导出来的，结果为：
+
+    `level-calc: 2.4661 * log(blocks) - 10.357`
 
     ![template](https://user-images.githubusercontent.com/4407265/212773894-6f635ed4-f337-4936-b50f-3b616b6bf041.png){: loading=lazy }
     ![template](https://user-images.githubusercontent.com/4407265/212773929-b51ae6b3-5df3-43ae-b35f-bc6fcb42d78f.png){: loading=lazy }
 
-    所以,对于这种情况,它应该是:
+## 更新日志
 
-    `level-calc: 2.4661 * log(blocks) - 10.357`
+??? note "v2.23.0 新内容"
+    **发布于:** 2026-03-xx
 
-    希望这有帮助。
+    - **Oraxen/Nexo 自定义方块支持。** Level 现在可以计算 Oraxen 和 Nexo 自定义方块的价值。在 `blockconfig.yml` 中使用 `oraxen:block_id` 或 `nexo:block_id` 格式定义价值。
+    - **每方块占位符。** 针对岛屿中跟踪的每种方块类型动态注册占位符(例如 `[gamemode]_island_count_<block>`)。由于这些是基于配置动态生成的,请参考 `blockconfig.yml` 了解你服务器上可用的标识符。
+
+    [发布 v2.23.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.23.0)
+
+??? warning "v2.24.0 新内容 — 需要操作"
+    **发布于:** 2026-04-xx
+
+    - **方块捐献系统。** 玩家现在可以将方块从物品栏直接捐献给岛屿等级,而无需将其放置在岛屿上。新命令: `/[player_command] donate`(GUI)和 `/[player_command] donate hand [amount]`。
+    - 新旗帜 `ISLAND_BLOCK_DONATION` — 控制谁可以捐献方块(默认:岛屿所有者;最低:成员)。
+    - 排行榜面板中新增 `DONATED` 标签,显示捐献方块贡献。
+    - 等级公式中新增 `island_members` 变量。
+    - 🔡 **所有语言文件迁移至 MiniMessage。** 删除 `BentoBox/addons/Level/locales/` 并重启以重新生成。
+    - 🔺 **需要删除 `detail_panel.yml`** — 删除旧面板文件以获取包含捐献标签的更新版本。
+
+    [发布 v2.24.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.24.0)
 
 ## 翻译
 
-{{ translations(3013, ["cs", "de", "es", "fr", "hu", "id", "lv", "pl", "ro", "tr", "zh-CN", "ko", "pt", "vi", "ru"]) }}
+{{ translations("Level") }}
 
 ## API
 

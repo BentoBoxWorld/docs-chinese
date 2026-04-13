@@ -121,9 +121,47 @@ show-max-border: true
 show-particles: true  
 ```
 
+### 在地图上显示传送点
+设置为 `true` 时,边界数据将作为标记显示在网页地图插件(Dynmap、BlueMap)上。
+
+需要兼容的地图插件以及 BentoBox 地图钩子处于活动状态。
+
+默认值: `true`
+
+```yml
+show-warps-on-map: true
+```
+
+## 命令补充
+
+### color {red|green|blue}
+**命令**: `/[player command] border color {red|green|blue}`
+**描述**: 将玩家的屏障粒子颜色设置为红色、绿色或蓝色。
+**权限**: `[gamemode].border.color`。默认: `true`。
+
+## 占位符
+
+| 占位符 | 描述 | 版本 |
+|---|---|---|
+| `%Border_color%` | 玩家当前的边界颜色(red/green/blue) | 4.8.0 |
+
+## 更新日志
+
+??? note "v4.7.0 → v4.8.2 新内容"
+    **v4.7.0 发布于:** 2026-03-xx
+
+    - **边界颜色命令。** 玩家现在可以使用 `/[player_command] border color {red|green|blue}` 选择屏障粒子颜色。
+    - ⚙️ 新配置选项 `show-warps-on-map`(默认: true)。
+    - 新权限 `[gamemode].border.color`(默认: true)。
+    - 新占位符 `%Border_color%`。
+
+    **v4.8.0 — v4.8.2:** 错误修复和稳定性改进。
+
+    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Border/releases)
+
 ## 翻译
 
-{{ translations(3896, ["cs", "it", "lv", "fr", "de", "hu", "id", "zh-TW", "ko", "pl", "ru", "es", "vi", "zh-CN", "hr", "ja", "pt", "ro", "tr", "uk"]) }}
+{{ translations("Border") }}
 
 ## 来源
 想要贡献?在 [GitHub](https://github.com/BentoBoxWorld/docs/blob/master/docs/addons/Border/) 上查看本文档的源代码。

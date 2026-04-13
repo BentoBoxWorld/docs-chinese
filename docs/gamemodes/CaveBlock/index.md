@@ -200,4 +200,4 @@
 
 ## 翻译
 
-{{ translations(2968, ["cs", "id", "ja", "lv", "ro", "zh-CN", "de", "pl", "ru", "es", "tr", "vi"]) }}
+{{ translations("CaveBlock") }}

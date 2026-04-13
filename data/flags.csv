@@ -140,3 +140,4 @@ Visit,ALLOW_VISITS_FLAG,Visit protection,PUMPKIN_PIE,Toggle if island can be vis
 Visit,RECEIVE_VISIT_MESSAGE_FLAG,Receive Visiting Messages,PAPER,Toggle if members should receive a message if someone visits their island.,SETTING,BASIC,true,,
 VoidPortals,VOID_WORLD_TELEPORT_FLAG,Void world teleports,ENDER_PEARL,This allows to toggle ability to teleport to different dimension if player falls in void.,WORLD_SETTING,BASIC,false,,
 Warps,PLACE_WARP,Place Warp,OAK_SIGN,Allows to toggle who can place warp signs on island,PROTECTION,EXPERT,MEMBER_RANK,MEMBER_RANK,OWNER_RANK
+Level,ISLAND_BLOCK_DONATION,Block donation,HOPPER,Allow island members to donate blocks to island level,PROTECTION,BASIC,OWNER_RANK,MEMBER_RANK,OWNER_RANK

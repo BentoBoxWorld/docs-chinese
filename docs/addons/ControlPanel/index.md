@@ -339,4 +339,4 @@ panel-list:
 
 ## 翻译
 
-{{ translations(3135, ["cs", "de", "es", "fr", "lv", "zh-CN", "zh-TW", "ko", "pl", "ru", "id", ]) }}
+{{ translations("ControlPanel") }}

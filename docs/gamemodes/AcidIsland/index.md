@@ -34,6 +34,19 @@
 
 占位符可以在 [这里](Placeholders) 找到。
 
+## 更新日志
+
+??? warning "v1.21.0 新内容 — 需要 BentoBox 3.14.0,语言文件迁移"
+    **发布于:** 2026-04-12
+
+    - **樱花林起始岛屿。** 为 Minecraft 1.21+ 服务器新增以樱花林生物群系为主题的起始岛屿蓝图。要激活它,请删除 `BentoBox/addons/AcidIsland/blueprints/`,以便在下次启动时重新生成蓝图。
+    - 🔺 **现在需要 BentoBox API 3.14.0。** 安装此版本前请更新 BentoBox。
+    - 🔡 **全部 24 个语言文件从 `&` 代码迁移至 MiniMessage。** 删除 `BentoBox/locales/AcidIsland/` 并重启以重新生成。自定义文件中任何剩余的 `&` 代码将显示为纯文本。
+    - 错误修复:EssentialsX 启动时加载失败时,EssentialsX 上帝模式检查中的 NullPointerException。
+    - 迁移过程中修复了几个预先存在的语言文件错误。
+
+    [发布 v1.21.0](https://github.com/BentoBoxWorld/AcidIsland/releases/tag/1.21.0)
+
 ## 翻译
 
-{{ translations(2854, ["cs", "de", "es", "hu", "it", "ja", "lv", "pl", "zh-CN", "fr", "id", "ko", "ro", "ru", "tr", "vi", "uk"]) }}
+{{ translations("AcidIsland") }}

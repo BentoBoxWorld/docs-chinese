@@ -264,7 +264,7 @@
 
 ## 翻译
 
-{{ translations(2972, ["de", "es", "lv", "zh-CN", "zh-TW", "fr", "ru", "pl", "tr", "vi"]) }}
+{{ translations("MagicCobblestoneGenerator") }}
 
 ## API
 

@@ -1,298 +1,103 @@
 # Upgrades
 
-**Upgrades** 允许你以金钱和岛屿等级为代价升级岛屿大小、实体/方块限制。
+**Upgrades** 通过让玩家购买岛屿升级——扩展保护范围、更高的方块/实体限制、自定义命令、刷怪笼增益和农作物生长增益——为玩家提供进度曲线,可使用金钱、物品、权限或岛屿等级进行购买。
 
-此插件旨在为岛屿添加进度曲线和金钱用途。
-
-由 [Ikkino](https://github.com/Guillaume-Lebegue) 创建和维护。
+由 [tastybento](https://github.com/tastybento) 创建和维护。
 
 {{ addon_description("Upgrades", true) }}
 
+!!! warning "1.0.0 版本是完全重写"
+    Upgrades 1.0.0 用完全**数据库驱动的架构**取代了旧的基于配置文件的系统。升级定义、层级、价格和奖励现在存储在 BentoBox 的数据库中,完全通过游戏内界面管理。**旧的 `config.yml` 不再使用** — 如果从 0.x 版本升级,请在安装 1.0.0 之前删除它。
+
 ## 安装
 
-1. 将 Upgrades 插件 jar 文件放入 BentoBox 插件的 addons 文件夹
-2. 重启服务器
-3. 插件将创建一个数据文件夹,里面有一个 config.yml
-4. 根据需要编辑 config.yml。
-5. 如果进行了更改,请重启服务器
+1. 将 Upgrades 插件 jar 文件放入 BentoBox 插件的 addons 文件夹。
+2. 重启服务器。
+3. 首次运行时,系统会自动创建 8 个示例升级,让你快速开始。
+4. 使用 `/[admin_command] upgrades` 在游戏内自定义或创建升级。
+
+## 工作原理
+
+升级、层级、价格和奖励存储在 BentoBox 的数据库(YAML、JSON、MySQL、MongoDB 等)中。无需编辑大型配置文件。所有升级数据由插件自动加载、缓存和保存。
+
+首次安装时,播种器会创建 8 个示例升级。一旦删除示例升级,下次重启时不会重新播种。要重新触发播种,从插件数据文件夹中删除 `.seeded-gamemodes` 标记文件。
 
 ## 命令
 
 !!! tip
-    `[player_command]` 是一个根据你运行的游戏模式而不同的命令。
-    游戏模式的 `config.yml` 文件包含允许你修改此值的选项。
-    例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
 
-有一个用户命令可以打开带有升级的 GUI。
+=== "玩家命令"
+    - `/[player_command] upgrade`: 打开升级购买面板。
 
-`/[Player command] upgrade`
+=== "管理员命令"
+    - `/[admin_command] upgrades`: 打开管理员 GUI,用于创建、编辑和删除升级及其层级。
 
-## 设置 - Config.yml
+## 价格类型
 
-config.yml 有以下部分:
+每个升级层级可以要求以下任意组合的价格(必须全部满足才能购买):
 
-* range-upgrade
-* block-limits-upgrade
-* entity-limits-upgrade
-* command-upgrade
-* gamemodes
-* entity-icon
-* command-icon
+| 类型 | 描述 |
+|---|---|
+| **金钱** | Vault 经济费用 |
+| **物品** | 玩家物品栏中必须有特定物品 |
+| **权限** | 玩家必须拥有特定权限节点 |
+| **岛屿等级** | 最低岛屿等级(需要 Level 插件) |
 
-!!! tip
-    所有 `upgrade`、`island-min-level` 和 `vault-cost` 字段都是数学表达式。因此:
+## 奖励类型
 
-    * 可以使用 +、-、*、/、^、(、)
-    * 可以使用 sqrt()、sin()、cos()、tan()
-    * `[level]` 被替换为此升级的实际等级
-    * `[islandLevel]` 被替换为来自 level 插件的岛屿等级 **(可以为 0)**
-    * `[numberPlayer]` 被替换为团队中的玩家数量
+每个升级层级可以授予以下任意组合的奖励:
 
-### 通用
+| 类型 | 描述 |
+|---|---|
+| **范围** | 增加岛屿保护范围 |
+| **方块限制** | 提高方块类型的限制(需要 Limits 插件) |
+| **实体限制** | 提高实体类型的限制(需要 Limits 插件) |
+| **实体组限制** | 提高实体组的限制(需要 Limits 插件) |
+| **命令** | 购买时运行控制台或玩家命令 |
+| **刷怪笼增益** | 乘以刷怪笼生成速率 |
+| **农作物生长增益** | 乘以农作物生长速度 |
 
-一个升级按"阶段"划分,可以随意命名
+## 等级公式变量
 
-示例:
-```yml
-tier1:
-  max-level: 5
-  upgrade: "5"
-  island-min-level: "2"
-  vault-cost: "[level]*100"
-  permission-level: 1
-```
+在价格公式中,可以使用以下变量:
 
-* `max-level` 是此阶段的最高等级。
-* `upgrade` 是每个等级给予的数量。
-* `island-min-level` 是购买此升级所需的最低岛屿等级。它由 [Level 插件](/addons/Level) 提供。
-* `vault-cost` 是购买此升级的费用 **(>= 0)**
-* `permission-level` 是购买此升级所需的权限等级(参见权限)。
-
-### 范围升级
-
-此升级增加岛屿的保护范围。
-
-范围增加在 `upgrade` 字段中给出。
-
-示例:
-```yaml
-range-upgrade:
-  tier1:
-    max-level: 5
-    upgrade: "5"
-    island-min-level: "2"
-    vault-cost: "[level]*100"
-  tier2:
-    max-level: 10
-    upgrade: "3"
-    island-min-level: "4"
-    vault-cost: "[level]*[numberPlayer]*200"
-```
-
-!!! warning "最大范围"
-    你应该始终检查,即使在最大升级时,保护范围也不会超过岛屿之间的大小。
-
-### 方块限制升级
-
-此升级增加 [Limits 插件](/addons/Limits) 中设置的方块限制。
-
-要添加到限制中的数字由 `upgrade` 字段给出。
-
-示例:
-```yaml
-block-limits-upgrade:
-  HOPPER:
-    tier1:
-      max-level: 2
-      upgrade: "1" 
-      island-min-level: "2"
-      vault-cost: "[level]*100"
-    tier2:
-      max-level: 5
-      upgrade: "1"
-      island-min-level: "4"  
-      vault-cost: "([level]-2)*[numberPlayer]*700"
-      permission-level: 1
-```
-
-!!! tip "方块"
-    方块列表可以在[这里](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)找到
-
-### 实体限制升级
-
-此升级增加 [Limits 插件](/addons/Limits) 中设置的实体限制。
-
-所有实体都需要有相应的图标(参见: [entity-icon](#entity-icon))
-
-要添加到限制中的数字由 `upgrade` 字段给出。
-
-示例:
-```yaml
-entity-limits-upgrade:
-  CHICKEN:
-    tier1:
-      max-level: 2
-      upgrade: "1"
-      island-min-level: "2"
-      vault-cost: "[level]*100"
-    tier2:
-      max-level: 5
-      upgrade: "1"
-      island-min-level: "4"
-      vault-cost: "([level]-2)*[numberPlayer]*700"
-      permission-level: 3
-```
-
-!!! tip "实体"
-    实体列表可以在[这里](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html)找到
-
-### 命令升级
-
-此升级在每次升级时运行给定的命令。
-
-所有命令升级都需要有相应的图标(参见: [command-icon](#command-icon))
-
-在配置中:
-
-* 部分的名称是升级的真实名称
-* `name` 字段只是显示名称。不在权限中使用。
-* `console` 字段指定命令是应由控制台启动还是由玩家启动
-* `command` 字段是包含要运行的所有命令的列表。它们按列表顺序启动
-
-!!! tip "命令字段"
-    在命令字段中:
-
-    * `[player]` 被替换为购买升级的玩家的名字
-    * `[level]` 被替换为升级的等级
-
-示例:
-```yaml
-command-upgrade:
-  lambda-upgrade:
-    name: "Lambda upgrade"
-    tier1:
-      max-level: 1
-      island-min-level: "2"
-      vault-cost: "[level]*100"
-      console: true
-      command:
-        - "say [player] has upgrade his lambda to level [level]"
-    tier2:
-      max-level: 2
-      island-min-level: "2"
-      vault-cost: "[level]*200"
-      console: true
-      command: 
-        - "say [player] has upgrade his lambda to level [level]"
-        - "say [player] has reached the max level"
-```
-
-### 游戏模式
-
-可以在每个游戏模式之间设置升级差异。
-
-示例:
-```yaml
-gamemodes:
-  BSkyBlock:
-
-    range-upgrade:
-      tier3:
-        max-level: 15
-        upgrade: "5"
-        island-min-level: "6"
-        vault-cost: "[level]*[numberPlayer]*500"
-
-    block-limits-upgrade:
-      HOPPER:
-        tier1:
-          max-level: 2
-          upgrade: "1"
-          island-min-level: "2"
-          vault-cost: "[level]*200"
-```
-
-### 实体图标
-
-本部分用于将实体链接到图标。
-
-语法如下:
-
-`ENTITY: MATERIAL`
-
-示例:
-```yaml
-entity-icon:
-  CHICKEN: CHICKEN_SPAWN_EGG
-```
-
-!!! tip "实体"
-    实体列表可以在[这里](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html)找到
-
-!!! tip "材料"
-    材料列表可以在[这里](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)找到
-
-### 命令图标
-
-本部分用于将命令升级链接到图标。
-
-语法如下:
-
-`NAME: MATERIAL`
-
-`NAME` 是命令升级的真实名称(!=显示名称)
-
-示例:
-```yaml
-command-icon:
-  lambda-upgrade: GRASS
-```
-
-!!! tip "材料"
-    材料列表可以在[这里](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)找到
+- `[level]` — 正在购买的当前升级等级
+- `[islandLevel]` — 岛屿当前等级(来自 Level 插件;可能为 0)
+- `[numberPlayer]` — 岛屿团队中的玩家数量
 
 ## 权限
 
-可以有购买升级的权限。
+插件根据升级配置自动授予权限。查看 [addon.yml](https://github.com/BentoBoxWorld/Upgrades/blob/develop/src/main/resources/addon.yml) 了解当前权限列表。
 
-要做到这一点,应该将大于 0 的 `permission-level` 添加到升级中。要购买升级,玩家需要有一个大于或等于此等级的等级。默认情况下,玩家在任何地方都有 0 级。
+## API
 
-权限如下:
+`UpgradeAPI` 类公开给其他插件,用于以编程方式查询和修改升级数据。
 
-`[GAMEMODE].upgrades.[UPGRADE].[LEVEL]`
+## 更新日志
 
-其中:
+??? warning "v1.0.0 新内容 — 完全重写,需要操作"
+    **发布于:** 2026-04-12
 
-* `[GAMEMODE]` 是应设置此权限的游戏模式的名称
-* `[UPGRADE]` 是升级的名称(参见: [升级名称](#升级名称))
-* `[LEVEL]` 是要给玩家的等级
+    - **数据库驱动的升级系统。** 所有升级、层级、价格和奖励现在存储在 BentoBox 数据库中——无需编辑配置文件。
+    - **新管理员 GUI。** `/[admin_command] upgrades` 打开完整的游戏内管理界面,通过 GUI 和聊天输入创建和编辑升级。
+    - **新奖励类型:** 刷怪笼增益(乘以刷怪笼速率)和农作物生长增益(乘以农作物生长速度)。
+    - **模板化玩家面板。** 玩家升级面板现在是 BentoBox `TemplatedPanel` — 可通过 `panels/upgrades_panel.yml` 完全自定义。
+    - **完整的 `UpgradeAPI`** 用于从其他插件进行编程访问。
+    - 首次安装时自动播种 8 个示例升级。
+    - 与 Limits 插件 1.28 的兼容性修复。
 
-示例:
+    🔺 **与 0.x 版本不向后兼容。** 安装前删除旧的 `config.yml` 和任何现有升级数据。没有自动迁移。
 
-`bskyblock.upgrades.range-upgrade.2`
+    [发布 v1.0.0](https://github.com/BentoBoxWorld/Upgrades/releases/tag/1.0.0)
 
-!!! warning
-    权限为小写
+??? note "v1.0.1 新内容"
+    **发布于:** 2026-04-12
 
-!!! tip
-    因为权限是在运行时创建的,所以它不会出现在权限列表中
+    - **播种器修复。** 示例升级在被删除后不再每次重启都重新生成。播种器现在在持久性 `.seeded-gamemodes` 标记文件中跟踪已播种的游戏模式。
 
-### 升级名称
+    [发布 v1.0.1](https://github.com/BentoBoxWorld/Upgrades/releases/tag/1.0.1)
 
-**范围升级**:
+## 翻译
 
-`rangeupgrade` | 示例: `bskyblock.upgrades.range-upgrade.1`
-
-**方块限制升级**:
-
-`limitsupgrade-[BLOCK]` | 示例: `bskyblock.upgrades.limitsupgrade-hopper.8`
-
-**实体限制升级**:
-
-`limitsupgrade-[ENTITY]` | 示例: `bskyblock.upgrades.limitsupgrade-chicken-hopper.4`
-
-**命令升级**:
-
-`command-[NAME]` | 示例: `bskyblock.upgrades.command-lambda-upgrade.6`
-
-`NAME` 是命令升级的真实名称(!=显示名称)
+{{ translations("Upgrades") }}

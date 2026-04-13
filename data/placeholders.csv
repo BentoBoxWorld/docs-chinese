@@ -112,4 +112,4 @@ TopBlock,aoneblock_island_member_names_top_#rank#,Name of island team members at
 TopBlock,aoneblock_island_phase_name_top_#rank#,Name of the phase they have reached at the `#rank#` position, 1.0.1
 TopBlock,aoneblock_island_phase_number_top_#rank#,Phase number (e.g. Plains is 1; Underground is 2) at the `#rank#` position, 1.0.1
 TopBlock,aoneblock_island_count_top_#rank#,Block Count of magic blocks mined this round at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_lifetime_top_#rank#,Lifetime count of magic blocks mined at the `#rank#` position, 1.0.1
+TopBlock,aoneblock_island_lifetime_top_#rank#,Lifetime count of magic blocks mined at the `#rank#` position, 1.0.1Border,Border_color,Current border color (red/green/blue) for the player,4.8.0

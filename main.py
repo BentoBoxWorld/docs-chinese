@@ -1,61 +1,247 @@
 import csv
 import json
+import logging
+import os
+
+import requests
+import yaml
+
+log = logging.getLogger("mkdocs.macros.translations")
+
+# Friendly names for the locale codes we expect to encounter. Anything not
+# listed here will fall back to its bare locale code as the display name.
+LANGUAGE_NAMES = {
+    "zh-CN": "中文（中国）",
+    "zh-HK": "中文（香港）",
+    "zh-TW": "中文（台湾）",
+    "hr": "克罗地亚语",
+    "cs": "捷克语",
+    "nl": "荷兰语",
+    "fr": "法语",
+    "de": "德语",
+    "hu": "匈牙利语",
+    "id": "印尼语",
+    "it": "意大利语",
+    "ja": "日语",
+    "ko": "韩语",
+    "lv": "拉脱维亚语",
+    "pl": "波兰语",
+    "pt": "葡萄牙语",
+    "pt-BR": "葡萄牙语（巴西）",
+    "en-GB": "英语（英国）",
+    "es-ES": "西班牙语（西班牙）",
+    "fr-FR": "法语（法国）",
+    "ro": "罗马尼亚语",
+    "ru": "俄语",
+    "es": "西班牙语",
+    "tr": "土耳其语",
+    "uk": "乌克兰语",
+    "vi": "越南语",
+}
+
+# Module-level cache so each (repo, branch) is fetched at most once per build,
+# even though several pages may reference the same repo.
+_translations_cache: dict = {}
+
+GITHUB_ORG = "BentoBoxWorld"
+LOCALES_PATH = "src/main/resources/locales"
+ENGLISH_FILE = "en-US.yml"
+
+
+def _gh_session():
+    s = requests.Session()
+    s.headers.update({"Accept": "application/vnd.github+json"})
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        s.headers["Authorization"] = f"token {token}"
+    return s
+
+
+def _flatten_yaml(data, prefix=""):
+    """Flatten a nested YAML mapping into {dotted.key: leaf_value}."""
+    out = {}
+    if isinstance(data, dict):
+        for k, v in data.items():
+            key = f"{prefix}.{k}" if prefix else str(k)
+            out.update(_flatten_yaml(v, key))
+    elif isinstance(data, list):
+        # Treat the whole list as a single leaf — translators usually
+        # translate the list as a unit.
+        out[prefix] = "\n".join(str(x) for x in data)
+    else:
+        out[prefix] = data
+    return out
+
+
+def _is_translated(value, english_value) -> bool:
+    """A key counts as translated if it has a non-empty value."""
+    if value is None:
+        return False
+    if isinstance(value, str) and not value.strip():
+        return False
+    return True
+
+
+def _fetch_translation_status(repo: str, branch: str):
+    """Return a list of dicts: {code, name, url, percent} for every locale
+    file in the repo (excluding en-US.yml). On failure returns None."""
+    cache_key = (repo, branch)
+    if cache_key in _translations_cache:
+        return _translations_cache[cache_key]
+
+    session = _gh_session()
+    api_url = (
+        f"https://api.github.com/repos/{GITHUB_ORG}/{repo}/contents/"
+        f"{LOCALES_PATH}?ref={branch}"
+    )
+    try:
+        r = session.get(api_url, timeout=15)
+        if r.status_code == 404:
+            # The repo has no locales/ directory at all — distinct from a
+            # transient failure so callers can render an accurate message.
+            _translations_cache[cache_key] = "missing"
+            return "missing"
+        if r.status_code != 200:
+            log.warning(
+                "translations(%s): GitHub listing returned %s", repo, r.status_code
+            )
+            _translations_cache[cache_key] = None
+            return None
+        listing = r.json()
+    except Exception as e:  # network errors, JSON errors, etc.
+        log.warning("translations(%s): listing failed: %s", repo, e)
+        _translations_cache[cache_key] = None
+        return None
+
+    yml_files = [
+        item for item in listing
+        if isinstance(item, dict)
+        and item.get("type") == "file"
+        and item.get("name", "").endswith(".yml")
+    ]
+    en_entry = next((f for f in yml_files if f["name"] == ENGLISH_FILE), None)
+    if en_entry is None:
+        log.warning("translations(%s): no %s in repo", repo, ENGLISH_FILE)
+        _translations_cache[cache_key] = None
+        return None
+
+    def _raw(file_entry):
+        url = file_entry.get("download_url")
+        if not url:
+            return None
+        try:
+            rr = session.get(url, timeout=15)
+            if rr.status_code != 200:
+                return None
+            return rr.text
+        except Exception:
+            return None
+
+    en_text = _raw(en_entry)
+    if en_text is None:
+        log.warning("translations(%s): could not fetch %s", repo, ENGLISH_FILE)
+        _translations_cache[cache_key] = None
+        return None
+
+    try:
+        en_flat = _flatten_yaml(yaml.safe_load(en_text) or {})
+    except yaml.YAMLError as e:
+        log.warning("translations(%s): could not parse %s: %s", repo, ENGLISH_FILE, e)
+        _translations_cache[cache_key] = None
+        return None
+
+    total = len([k for k, v in en_flat.items() if v not in (None, "")])
+    if total == 0:
+        total = len(en_flat) or 1
+
+    results = []
+    for entry in yml_files:
+        name = entry["name"]
+        if name == ENGLISH_FILE:
+            continue
+        code = name[:-4]  # strip .yml
+        text = _raw(entry)
+        percent = None
+        if text is not None:
+            try:
+                flat = _flatten_yaml(yaml.safe_load(text) or {})
+                translated = sum(
+                    1 for k, en_v in en_flat.items()
+                    if _is_translated(flat.get(k), en_v)
+                )
+                percent = round(translated * 100 / total)
+            except yaml.YAMLError as e:
+                log.warning("translations(%s): could not parse %s: %s", repo, name, e)
+        results.append({
+            "code": code,
+            "name": LANGUAGE_NAMES.get(code, code),
+            "url": (
+                f"https://github.com/{GITHUB_ORG}/{repo}/blob/{branch}/"
+                f"{LOCALES_PATH}/{name}"
+            ),
+            "percent": percent,
+        })
+
+    # Sort by display name for stable, readable output.
+    results.sort(key=lambda x: x["name"].lower())
+    _translations_cache[cache_key] = results
+    return results
+
 
 def define_env(env):
 
-    languages = [
-        {"id": "zh-CN", "name": "中文（中国）"},
-        {"id": "zh-HK", "name": "中文（香港）"},
-        {"id": "zh-TW", "name": "中文（台湾）"},
-        {"id": "hr", "name": "克罗地亚语"},
-        {"id": "cs", "name": "捷克语"},
-        {"id": "fr", "name": "法语"},
-        {"id": "de", "name": "德语"},
-        {"id": "hu", "name": "匈牙利语"},
-        {"id": "id", "name": "印尼语"},
-        {"id": "it", "name": "意大利语"},
-        {"id": "ja", "name": "日语"},
-        {"id": "ko", "name": "韩语"},
-        {"id": "lv", "name": "拉脱维亚语"},
-        {"id": "pl", "name": "波兰语"},
-        {"id": "pt", "name": "葡萄牙语"},
-        {"id": "ro", "name": "罗马尼亚语"},
-        {"id": "ru", "name": "俄语"},
-        {"id": "es", "name": "西班牙语"},
-        {"id": "tr", "name": "土耳其语"},
-        {"id": "vi", "name": "越南语"},
-        {"id": "uk", "name": "乌克兰语"},
-        {"id": "nl", "name": "荷兰语"}
-    ]
-
     @env.macro
-    def translations(gitlocalize_id:int, available_translations:list):
-        yes = "✅"
-        no = "❌"
+    def translations(repo: str, branch: str = "develop"):
+        intro = (
+            '!!! note "帮助我们保持翻译准确"\n'
+            "    现在 BentoBox 及其插件的大多数翻译已借助 AI 完成——大部分工作已经做好，\n"
+            "    但 **AI 并不完美**。我们真正需要社区提供的是**错误报告和纠正**。\n"
+            "\n"
+            "    * 发现错误或措辞不当？请在 [bentobox.world](https://bentobox.world)\n"
+            "    的相关仓库（我们 GitHub 组织的短链接）上提交 issue 或 PR，或者在\n"
+            "    [Discord](https://discord.bentobox.world) 上告知我们。\n"
+            "    * 想要添加全新语言？请在相关仓库的 `src/main/resources/locales/` 目录下\n"
+            "    提交包含新语言文件的 PR，或在 Discord 上联系我们，我们会为你提供帮助。\n"
+            "\n"
+        )
 
-        # We are adding the intro + header of the language table
-        result = f"""!!! note "我们需要你的帮助！"
-    BentoBox 及其附加组件中的绝大多数字符串几乎可以翻译成任何语言。
-    然而，BentoBox 或上述附加组件提供的大部分翻译都是由社区完成的，我们在很大程度上依赖社区。
-    我们无法审查这些翻译的所有内容，也无法保证其质量，因此我们非常感谢任何贡献。
+        en_url = (
+            f"https://github.com/{GITHUB_ORG}/{repo}/blob/{branch}/"
+            f"{LOCALES_PATH}/{ENGLISH_FILE}"
+        )
+        header = (
+            "| 语言 | 语言代码 | 进度 |\n"
+            "| ---------- | --- | ----------- |\n"
+            f"| [英语（美国）]({en_url}) | `en-US` | 100%（默认）|\n"
+        )
 
-    * 如果这个附加组件没有提供你的语言，或者你想改进现有的翻译，请阅读[翻译指南](../../BentoBox/Translate-BentoBox-and-addons)并[开始翻译](https://gitlocalize.com/repo/{gitlocalize_id})！
-    * 如果下面没有列出你的语言，请在 [Discord](https://discord.bentobox.world) 上联系我们，我们会安排一切，以便你可以开始翻译！
+        rows = _fetch_translation_status(repo, branch)
+        if rows == "missing":
+            # No locales/ directory in the repo — this addon currently has
+            # no translatable strings.
+            note = (
+                f"\n_此项目目前尚无可翻译的语言文件。目前仅提供英语版本。_\n"
+            )
+            return intro + header + note
+        if rows is None:
+            # Network/parse failure — render a graceful fallback that still
+            # links to the locales directory on GitHub.
+            locales_url = (
+                f"https://github.com/{GITHUB_ORG}/{repo}/tree/{branch}/"
+                f"{LOCALES_PATH}"
+            )
+            fallback = (
+                f"\n_翻译状态目前不可用。请直接在 [GitHub]({locales_url}) 上浏览语言文件。_\n"
+            )
+            return intro + header + fallback
 
-| Available | Language | Language code | Progress |
-| --- | ---------- | --- | ----------- |
-| ✅ | English (United States) | `en-US` | 100% (Default) |
-"""
-
-        for language in languages:
-            available = no
-            if language["id"] in available_translations:
-                available = yes
-            link = f"https://gitlocalize.com/repo/{gitlocalize_id}/{language['id']}/src/main/resources/locales"
-            badge = f"https://gitlocalize.com/repo/{gitlocalize_id}/{language['id']}/badge.svg"
-            result += f"| {available} | [{language['name']}]({link}) | `{language['id']}` | ![progress]({badge}) |\n"
-
-        return result
+        body = ""
+        for row in rows:
+            pct = f"{row['percent']}%" if row["percent"] is not None else "?"
+            body += (
+                f"| [{row['name']}]({row['url']}) | `{row['code']}` | {pct} |\n"
+            )
+        return intro + header + body
 
     @env.macro
     def addon_description(addon_name:str, beta:bool=False):
@@ -151,13 +337,13 @@ def define_env(env):
                     if (row['type'] == type) or (type == "WORLD_DEFAULT_PROTECTION" and row['type'] == "PROTECTION"):
                         if (type == "PROTECTION"):
                             result += f"""\n## {source} {type.replace("_", " ").capitalize()} flags
-    
+
 | | Flag ID | Flag | Description | Default | Min Rank | Max Rank |
 | - | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
 """
                         else:
                             result += f"""\n## {source} {type.replace("_", " ").capitalize()} flags
-    
+
 | | Flag ID | Flag | Description | Default |
 | - | ---------- | ---------- | ---------- | ---------- |
 """
@@ -187,7 +373,7 @@ def define_env(env):
                     if (row['type'] == type) or (type == "WORLD_DEFAULT_PROTECTION" and row['type'] == "PROTECTION"):
                         if (type == "PROTECTION"):
                             result += f"""\n## {source} {type.replace("_", " ").capitalize()} flags
-    
+
 | | Flag ID | Flag | Description | Default | Min Rank | Max Rank |
 | - | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
 """
@@ -195,7 +381,7 @@ def define_env(env):
                             result += f"| <span class='icon-minecraft {icon_css(row['icon'])}'></span> | {row['flag']} | {row['name']} | {row['description']} | {row['default']} | {row['min']} | {row['max']} |\n"
                         else:
                             result += f"""\n## {source} {type.replace("_", " ").capitalize()} flags
-    
+
 | | Flag ID | Flag | Description | Default |
 | - | ---------- | ---------- | ---------- | ---------- |
 """

@@ -100,9 +100,28 @@ GAMEMODE_NAME.limits.admin.limits:
 
 {{ placeholders_source(source="Limits") }}
 
+## 更新日志
+
+??? warning "v1.28.0 新内容 — 需要 Java 21"
+    **发布于:** 2026-03-xx
+
+    - 🔺 **现在需要 Java 21。** 请在升级前更新服务器的 Java 版本。
+    - 修复:潜影箱物品复制漏洞,当物品从受限制的潜影箱移动时可能触发。
+    - 修复:铜块在氧化过程中不能正确更新限制计数的问题。
+
+    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Limits/releases)
+
+??? note "v1.28.1 新内容"
+    **发布于:** 2026-03-xx
+
+    - 修复:从旧版本迁移数据库时的迁移错误。
+    - 修复:limits GUI 面板中方块限制显示不正确的问题。
+
+    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Limits/releases)
+
 ## 翻译
 
-{{ translations(2974, ["cs", "de", "hu", "ja", "lv", "pl", "tr", "zh-CN", "fr", "id", "ro", "es", "vi"]) }}
+{{ translations("Limits") }}
 
 ## 无法限制的物品
 

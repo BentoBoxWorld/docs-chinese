@@ -259,7 +259,7 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
 ## 翻译
 
-{{ translations(2894, ["lv", "zh-CN", "fr", "pl", "es", "uk"]) }}
+{{ translations("Biomes") }}
 
 ## API
 

@@ -116,6 +116,16 @@ permissions:
 ## 喜欢这个插件吗？
 你可以[赞助](https://github.com/sponsors/tastybento)以获得更多类似的插件并使这个插件变得更好！
 
+## 更新日志
+
+??? note "v1.9.1 新内容"
+    **发布于:** 2026-03-xx
+
+    - **前排名岛屿名称占位符。** 新增 `%Bank_[gamemode]_top_name_1%` 等占位符,用于显示顶级岛屿名称(而不仅仅是玩家名称)。
+    - 修复:配置文件中的利息计算选项在某些设置下无法正确应用。
+
+    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Bank/releases)
+
 ## 翻译
 
-{{ translations(5451, ["cs", "de", "es", "et", "fr", "ja", "tr", "zh-CN", "id", "ko", "vi", "uk"]) }}
+{{ translations("Bank") }}

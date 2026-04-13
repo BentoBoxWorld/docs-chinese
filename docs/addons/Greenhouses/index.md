@@ -125,4 +125,4 @@
 
 ## 翻译
 
-{{ translations(3680, ["cs", "hu", "ja", "zh-CN", "fr", "de", "it", "lv", "pl", "ru", "es", "tr", "vi"]) }}
+{{ translations("Greenhouses") }}
