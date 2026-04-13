@@ -214,6 +214,20 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
 
 {{ placeholders_source(source="Challenges") }}
 
+## 更新日志
+
+??? warning "v1.6.0 新内容 — 需要语言文件迁移"
+    **发布于:** 2026-04-xx
+
+    - **所有语言文件迁移至 MiniMessage。** 每个语言文件已从旧版 `&` 颜色代码转换为 MiniMessage 标签,与 BentoBox 3.14 保持一致。
+    - 网络库更新,包含新的公共挑战库。
+    - 管理员 GUI 中新增菜单设置选项。
+    - 需要 BentoBox API 3.14.0+。
+
+    🔡 删除 `BentoBox/locales/Challenges/` 并重启服务器以重新生成语言文件。
+
+    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Challenges/releases)
+
 ## 常见问题
 
 ??? question "你能添加 X 功能吗?"
