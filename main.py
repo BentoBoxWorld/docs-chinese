@@ -74,13 +74,12 @@ def _flatten_yaml(data, prefix=""):
 
 
 def _is_translated(value, english_value) -> bool:
-    """A key counts as translated if it has a non-empty string value that
-    differs from the English source."""
+    """A key counts as translated if it has a non-empty value."""
     if value is None:
         return False
     if isinstance(value, str) and not value.strip():
         return False
-    return value != english_value
+    return True
 
 
 def _fetch_translation_status(repo: str, branch: str):
