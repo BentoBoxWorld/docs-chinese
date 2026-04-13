@@ -1,16 +1,45 @@
 # BentoBox
 
-BentoBox 将你的 Paper 服务器变成一个充满岛屿冒险的游乐场。让玩家体验 **SkyBlock**、**AcidIsland**、**OneBlock**、**CaveBlock**、**SkyGrid**、**Boxed**、**Poseidon**、**Stranger Realms** 等多种玩法——所有模式在同一台服务器上并行运行，各有独立的世界、规则和进程。玩家拥有属于自己的岛屿、可以共同建造的队友、追逐的挑战、攀登的等级以及可以炫耀的传送点。管理员则轻松惬意：只需安装一个插件，合理的默认设置开箱即用，还有庞大的即插即用插件库（银行、生态群落、边界、挑战、温室、等级、限制、传送点等数十款）可自由组合，打造你想要的服务器——无需编写任何代码。无论你想要一个经典的 SkyBlock 世界，还是一个涵盖各种岛屿玩法的大型服务器，BentoBox 都是已有数千台服务器信赖的灵活、久经考验的基础框架。
+**SkyBlock、OneBlock、AcidIsland，更多玩法——一个插件全搞定**
+
+BentoBox 是专为 Paper 服务器打造的岛屿玩法平台。挑选你想要的游戏模式，丢进去，直接开玩。没有分支版本，没有过时代码——一个持续维护、跟进每个 Minecraft 版本的统一平台。
+
+## 可用游戏模式
+
+- **BSkyBlock** — 经典天空方块，ASkyBlock 的正统续作
+- **AOneBlock** — 广受欢迎的一块石玩法
+- **AcidIsland** — 在酸海中求生
+- **Boxed** — 通过完成进度来扩展你的世界
+- **CaveBlock** — 地下生存挑战
+- **SkyGrid** — 散布方块，极限探险
+- **Poseidon** — 水下岛屿挑战
+- 以及更多社区创作的游戏模式……
+
+## 为什么服务器管理员选择 BentoBox？
+
+- 在**一台服务器**上同时运行多种游戏模式，共享挑战、传送点、等级和排行榜
+- **20+ 功能插件**让你精准定制服务器体验
+- 持续活跃维护，始终跟进最新 Minecraft 版本
+- **免费开源**——全球超过 1,100 台服务器正在使用
+- 提供丰富 API，方便开发者构建自定义插件
+
+[浏览所有插件](BentoBox/About/Addons) | [完整文档](BentoBox/Developer-Documentation)
+
+## 安装方法
+
+1. 将 BentoBox 的 jar 文件放入服务器的 `plugins/` 文件夹
+2. 启动服务器
+3. 从 [download.bentobox.world](https://download.bentobox.world) 下载你想要的游戏模式和功能插件，放入 `plugins/BentoBox/addons/` 文件夹
+4. 重启服务器——完成！
+
+!!! warning "注意：仅支持 Paper"
+    旧版本支持 Spigot，但目前我们**只支持 Paper**。
 
 ## 支持 BentoBox
 
-请通过成为 [GitHub 的赞助者](https://github.com/sponsors/tastybento) 或 [通过 PayPal 捐款](https://www.paypal.me/BentoBoxWorld) 来捐款。我们希望你能享受我们的游戏并帮助资助开发！
+请通过成为 [GitHub 赞助者](https://github.com/sponsors/tastybento) 或 [PayPal 捐款](https://www.paypal.me/BentoBoxWorld) 来支持我们。希望你玩得开心，也欢迎资助我们的开发！
 
-## 下载
-
-在 [https://download.bentobox.world](https://download.bentobox.world) 下载准备就绪的包
-
-## 入门
+## 深入了解
 - [你的前 30 分钟](BentoBox/First-Steps) — 安装后要做的事
 - [安装 BentoBox](BentoBox/Install-Bentobox)
 - [选择游戏模式](gamemodes/Comparison)
