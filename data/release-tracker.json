@@ -1,15 +1,15 @@
 {
-  "last_run": "2026-04-13T06:53:32Z",
+  "last_run": "2026-04-15T12:27:25Z",
   "repos": {
     "BentoBox": {
-      "last_checked": "2026-04-13T06:53:32Z",
-      "last_release": "3.14.1",
+      "last_checked": "2026-04-15T12:27:25Z",
+      "last_release": "3.14.2",
       "doc_path": "BentoBox/",
       "category": "core"
     },
     "AcidIsland": {
-      "last_checked": "2026-04-13T06:53:32Z",
-      "last_release": "1.21.0",
+      "last_checked": "2026-04-15T12:27:25Z",
+      "last_release": "1.22.0",
       "doc_path": "gamemodes/AcidIsland/index.md",
       "category": "gamemode"
     },
@@ -104,8 +104,8 @@
       "category": "addon"
     },
     "DimensionalTrees": {
-      "last_checked": "2026-01-13T06:31:47Z",
-      "last_release": "",
+      "last_checked": "2026-04-15T12:27:25Z",
+      "last_release": "1.9.0",
       "doc_path": "addons/DimensionalTrees/index.md",
       "category": "addon"
     },
