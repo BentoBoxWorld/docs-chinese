@@ -122,6 +122,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
 === "玩家权限"
     - `aoneblock.island.topblock` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 命令。
+    - `aoneblock.intopten` - (默认: `true`) - 控制该玩家的岛屿是否出现在前十名中。从管理员或测试人员处移除此权限可将其排除在排行榜之外。
 
 ??? question "有缺失的内容吗?"
     你可以在此插件的 [addon.yml](https://github.com/BentoBoxWorld/TopBlock/blob/develop/src/main/resources/addon.yml) 文件中找到完整的权限列表。
@@ -135,6 +136,22 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
 ??? question "你能添加 X 功能吗?"
     请将其添加到[这里](https://github.com/BentoBoxWorld/TopBlock/issues)的列表中。
+
+## 更新日志
+
+??? warning "v2.0.0 新内容 — 需要平台升级"
+    **发布于：** 2026-04-26
+
+    - 🐛 **前十名面板已修复。** 长期存在的 bug 导致前十名面板只显示空的绿色占位符。事件处理器被设为 `private`，导致 Bukkit 静默跳过注册。现已修复——面板可正确显示玩家头颅和统计数据。
+    - ✨ **`aoneblock.intopten` 权限。** 通过移除此权限（默认授予所有玩家），可将管理员和测试人员排除在前十名之外。
+    - 🔡 **22 种新语言** — cs, de, es, fr, hr, hu, id, it, ja, ko, lv, nl, pl, pt, pt-BR, ro, ru, tr, uk, vi, zh-CN, zh-HK。
+    - 🔺 现在需要 **Paper 1.21.x**、**Java 21**、**BentoBox 3.14.0+** 和 **AOneBlock 1.18.0+**。不再支持 Spigot。
+
+    🔺 重启前**删除 `addons/TopBlock/panels/top_panel.yml`**，以便提取更新后的面板模板。之后重新应用自定义布局更改。
+
+    🔡 更新后运行 `/bentobox reload`，以便 BentoBox 将新的语言键合并到现有语言文件中。
+
+    [Release v2.0.0](https://github.com/BentoBoxWorld/TopBlock/releases/tag/2.0.0)
 
 ## 翻译
 

@@ -98,10 +98,9 @@
 | bskyblock.admin.setspawnpoint | Allow use of '/bsbadmin setspawnpoint' command - set current location as spawn point for this island | OP |
 | bskyblock.admin.resetflags | Allow use of '/bsbadmin resetflags' command - Reset all islands to default flag settings in config.yml | OP |
 | bskyblock.mod.switch | Allow use of '/bsbadmin switch' command - switch on/off protection bypass | OP |
-| bskyblock.admin.purge | Allow use of '/bsbadmin purge' command - purge islands abandoned for more than [days] | OP |
-| bskyblock.admin.purge.status | Allow use of '/bsbadmin purge status' command - displays the status of the purge | OP |
-| bskyblock.admin.purge.stop | Allow use of '/bsbadmin purge stop' command - stop a purge in progress | OP |
-| bskyblock.admin.purge.unowned | Allow use of '/bsbadmin purge unowned' command - purge unowned islands | OP |
+| bskyblock.admin.purge | Allow use of '/bsbadmin purge &lt;days&gt;' command - identify and delete region files for islands abandoned for more than [days] | OP |
+| bskyblock.admin.purge.deleted | Allow use of '/bsbadmin purge deleted' command - reap region files for islands already flagged as deletable | OP |
+| bskyblock.admin.purge.unowned | Allow use of '/bsbadmin purge unowned' command - flag unowned islands as deletable | OP |
 | bskyblock.admin.purge.protect | Allow use of '/bsbadmin purge protect' command - toggle island purge protection | OP |
 | bskyblock.admin.settings | Allow use of '/bsbadmin settings' command - open settings GUI or set settings | OP |
 | bskyblock.admin.setprotectionlocation | Allow use of '/bsbadmin setprotectionlocation' command - set current location or [x y z] as center of island's protection area | OP |
