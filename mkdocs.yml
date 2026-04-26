@@ -72,6 +72,7 @@ theme:
   icon:
     repo: fontawesome/brands/git-alt
 extra_css:
+  - stylesheets/bentobox-theme.css
   - stylesheets/icons-minecraft-0.5.css
 extra:
   social:
