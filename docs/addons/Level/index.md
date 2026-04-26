@@ -181,6 +181,14 @@ Level 插件有 3 个通用配置项:
 
     格式: `MATERIAL: NUMBER`
 
+    CraftEngine 自定义方块也受支持（需要 BentoBox 3.15.0+）。使用其命名空间 ID 作为键：
+
+    ```yaml
+    blocks:
+      mynamespace:my_block: 50
+      mynamespace:custom_ore: 3
+    ```
+
 ??? note "worlds" 
     列出在特定世界中具有不同价值的任何方块。
     如果未列出某个方块,将使用 blocks 部分的默认值。
@@ -412,6 +420,18 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - 🔺 **需要删除 `detail_panel.yml`** — 删除旧面板文件以获取包含捐献标签的更新版本。
 
     [发布 v2.24.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.24.0)
+
+??? note "v2.25.0 新内容"
+    **发布于：** 2026-04-26
+
+    - **CraftEngine 自定义方块支持。** CraftEngine 方块现在可在岛屿等级计算中被计数。在 `blockconfig.yml` 中使用命名空间 ID 添加（如 `mynamespace:my_block: 50`）。需要 BentoBox 3.15.0+。可通过在 `config.yml` 中设置 `disabled-plugin-hooks: [CraftEngine]` 禁用。
+    - **可本地化的 `hand` 关键字。** `/island donate` 和 `/island value` 中的 `hand` 参数现可通过新的 `island.donate.hand.keyword` 语言键翻译。英文 `hand` 始终作为备用被接受。
+    - 🔡 所有 16 个非英语语言文件已更新，包含缺失的键。
+    - 🔡 乌克兰语语言文件现已完整翻译。
+
+    🔡 **重新生成语言文件**以获取新的 `island.donate.hand.keyword` 键。
+
+    [发布 v2.25.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.25.0)
 
 ## 翻译
 

@@ -104,10 +104,9 @@
 | acidisland.admin.setspawnpoint | 允许使用 '/acid setspawnpoint' 命令 - 将当前位置设置为此岛屿的出生点 | OP | 
 | acidisland.admin.resetflags | 允许使用 '/acid resetflags' 命令 - 将所有岛屿重置为config.yml中的默认标志设置 | OP |
 | acidisland.mod.switch | 允许使用 '/acid switch' 命令 - 切换保护旁路开/关 | OP |
-| acidisland.admin.purge | 允许使用 '/acid purge' 命令 - 清除超过[天数]被遗弃的岛屿 | OP |
-| acidisland.admin.purge.status | 允许使用 '/acid purge status' 命令 - 显示清除的状态 | OP |
-| acidisland.admin.purge.stop | 允许使用 '/acid purge stop' 命令 - 停止正在进行的清除 | OP |
-| acidisland.admin.purge.unowned | 允许使用 '/acid purge unowned' 命令 - 清除无主岛屿 | OP |
+| acidisland.admin.purge | 允许使用 '/acid purge &lt;days&gt;' 命令 - 识别并删除超过[天数]被遗弃的岛屿的区域文件 | OP |
+| acidisland.admin.purge.deleted | 允许使用 '/acid purge deleted' 命令 - 回收已标记为可删除的岛屿的区域文件 | OP |
+| acidisland.admin.purge.unowned | 允许使用 '/acid purge unowned' 命令 - 将无主岛屿标记为可删除 | OP |
 | acidisland.admin.purge.protect | 允许使用 '/acid purge protect' 命令 - 切换岛屿清除保护 | OP |
 | acidisland.admin.settings | 允许使用 '/acid settings' 命令 - 打开设置GUI或设置 | OP |
 | acidisland.admin.setprotectionlocation | 允许使用 '/acid setprotectionlocation' 命令 - 将当前位置或 [x y z] 设置为岛屿保护区域的中心 | OP |
