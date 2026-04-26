@@ -159,6 +159,18 @@ show-warps-on-map: true
 
     [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Border/releases)
 
+??? note "v4.8.3 新内容"
+    **发布于：** 2026-04-26
+
+    - 🔡 所有语言文件从旧版 `&` 颜色代码转换为 MiniMessage 格式。
+    - 🔡 所有非英语语言文件添加了缺失的 `set-color` 键。
+    - 🔡 修复了波兰语、乌克兰语和中文语言文件的错误。
+    - 🔺 最低 BentoBox API 版本提升至 **3.12.0**。
+
+    🔺 **如果您维护自定义语言文件覆盖**（位于 `plugins/BentoBox/addons/Border/locales/`），请在重启前将颜色代码从 `&a` 样式迁移至 MiniMessage 标签（如 `<green>`）。
+
+    [Release v4.8.3](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.3)
+
 ## 翻译
 
 {{ translations("Border") }}

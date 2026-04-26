@@ -73,6 +73,15 @@ permissions:
 ## 喜欢这个插件吗？
 你可以[赞助](https://github.com/sponsors/tastybento)来获得更多这样的插件并使这个插件变得更好！
 
+## 更新日志
+
+??? note "v1.4.1 新内容"
+    **发布于：** 2026-04-26
+
+    - 🔡 **捷克语语言文件修复** — `cs.yml` 中 `island-chat-spy` 条目的 YAML 格式错误，导致服务器启动时出现 `ScannerException`。请在重启前删除 `plugins/BentoBox/addons/Chat/locales/cs.yml`，以便从已修复的版本重新生成。
+
+    [Release v1.4.1](https://github.com/BentoBoxWorld/Chat/releases/tag/1.4.1)
+
 ## 翻译
 
 {{ translations("Chat") }}

@@ -98,11 +98,10 @@
 | poseidon.admin.setspawnpoint | F'low use of '/padmin setspawnpoint' command - set current location as spawn point for this realm | OP |
 | poseidon.admin.resetflags | 允许使用 '/padmin resetflags' 命令 - 将所有领域重置为 config.yml 中的默认标志设置 | OP |
 | poseidon.mod.switch | 允许使用 '/padmin switch' 命令 - 切换开启/关闭保护绕过 | OP |
-| poseidon.admin.purge | 允许使用 '/padmin purge' 命令 - 清除被遗弃超过 [天数] 的领域 | OP |
-| poseidon.admin.purge.status | 允许使用 '/padmin purge status' 命令 - 显示清除工作的状态 | OP |
-| poseidon.admin.purge.stop | 允许使用 '/padmin purge stop' 命令 - 停止正在进行的清除工作 | OP |
-| poseidon.admin.purge.unowned | 允许使用 '/padmin purge unowned' 命令 - 清除无主领域 | OP |
-| poseidon.admin.purge.protect | 允许使用 '/padmin purge protect' 命令 - F'ggle realm purge protection | OP |
+| poseidon.admin.purge | 允许使用 '/padmin purge &lt;days&gt;' 命令 - 识别并删除超过 [天数] 被遗弃的领域的区域文件 | OP |
+| poseidon.admin.purge.deleted | 允许使用 '/padmin purge deleted' 命令 - 回收已标记为可删除的领域的区域文件 | OP |
+| poseidon.admin.purge.unowned | 允许使用 '/padmin purge unowned' 命令 - 将无主领域标记为可删除 | OP |
+| poseidon.admin.purge.protect | 允许使用 '/padmin purge protect' 命令 - 切换领域清除保护 | OP |
 | poseidon.admin.settings | 允许使用 '/padmin settings' 命令 - 打开设置 GUI 或进行设置 | OP |
 | poseidon.admin.setprotectionlocation | 允许使用 '/padmin setprotectionlocation' 命令 - 将当前位置或 [x y z] 设置为领域保护区域的中心 | OP |
 | poseidon.mod.deletehomes | 允许使用 '/padmin deletehomes' 命令 - 从领域中删除所有已命名的家 | OP |
