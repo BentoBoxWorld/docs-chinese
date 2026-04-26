@@ -27,7 +27,12 @@ Three pieces work together to produce the site:
    - `gamemodes/<Name>/` — one folder per game mode (AcidIsland, BSkyBlock, etc.)
    - `addons/<Name>/` — one folder per addon (Bank, Challenges, Level, …)
    - `Tutorials/` — API and general tutorials
+   - `stylesheets/bentobox-theme.css` — Blueprint palette override for Material slate (navy/cyan; Space Grotesk + Inter Tight + JetBrains Mono); also defines `.bb-*` layout classes for `docs/index.md`
    - `stylesheets/icons-minecraft-0.5.css` — referenced via `extra_css`
+
+### Homepage (`docs/index.md`)
+
+`index.md` is structurally different from all other pages. It uses `hide: [navigation, toc]` frontmatter and its body is a single raw HTML block (no Markdown) built from `.bb-*` CSS classes defined in `bentobox-theme.css`. Do not add Markdown content or macros directly inside the `.bb-homepage` wrapper — use plain HTML.
 
 3. **`main.py`** — an `mkdocs-macros` module that injects Jinja-callable macros into every page. Pages call these macros (e.g. `{{ translations(123, [...]) }}`) and the macro generates a Markdown table on the fly. The important macros are:
    - `translations(gitlocalize_id, available_translations)` — emits the "help us translate" admonition + a table of all supported languages, marking which have translations available. The intro/admonition text is **already Chinese-translated** in `main.py` itself; English source has the English version. When syncing, keep the Chinese intro intact.
