@@ -453,6 +453,19 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 
     [Release v1.24.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.24.0)
 
+??? note "v1.25.0 新内容"
+    **发布于：** 2026-05-03
+
+    - **Plenty 阶段中的蜂巢生成。** Plenty 阶段现在会以与现有蜂蜜物品相同的密度生成 `bee_nest`（内含 3 只蜜蜂，`honey_level=0`），填补了长期存在的蜂蜜养殖空缺。
+    - **怪物生成后魔法方块的客户端重新同步。** 当魔法方块掷出怪物时，被取消的破坏事件会让方块在客户端看起来透明，直到下一次区块同步。方块状态现在会立即重新发送给挖掘玩家。
+    - 🐛 **CraftEngine 启动顺序修复。** `AOneBlock` 的 `onEnable` 在 CraftEngine 填充其方块注册表之前运行，先前会导致大量错误的 `Bad custom block` 报错。方块解析器现在在配置加载时信任显式的 `type: craftengine` 声明，并在放置时验证 ID。
+    - 🐛 **更严格的 CraftEngine 方块 ID 验证。** 空 ID 和缺少 `namespace:key` 形式的 ID 现在会在配置加载时被拒绝，而不是默默接受后在放置时失败。
+    - 🐛 **可配置的箱子粒子在非 `DUST` 类型上不再崩溃。** 数据类型为非 `Void` 的粒子（如 `ITEM`、`BLOCK`、`ENTITY_EFFECT`）以前会抛出 `IllegalArgumentException`。现在会被检测、记录警告并跳过。`DUST` 和 void 数据粒子（如 `FLAME`）不受影响。
+
+    🔺 如需新的蜂巢，请将新条目复制到您的 `phases/8500_plenty.yml`（或删除 phases 文件夹让其重新生成）— 自定义阶段文件不会在升级时被覆盖。
+
+    [Release v1.25.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.25.0)
+
 ## Translations
 
 {{ translations("AOneBlock") }}
