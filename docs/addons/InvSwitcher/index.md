@@ -98,6 +98,13 @@ options:
 
     [发布 v1.17.0](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.17.0)
 
+??? note "v1.17.1 新内容"
+    **发布于：** 2026-05-09
+
+    - 🐛 **修复了从 BentoBox 世界传送到非 BentoBox 世界时物品栏被清空的问题。** 此前，当玩家离开 BentoBox 游戏世界（如 BSkyBlock）进入非 BentoBox 世界（如默认主世界或第三方插件世界）时，他们的"外部"物品栏可能会丢失，因为每个非 BentoBox 世界都将数据存储在自己的键下。现在所有非 BentoBox 世界共享一个存储键，玩家的物品栏总能正确恢复。包含旧的按世界键存储数据的自动迁移。
+
+    [发布 v1.17.1](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.17.1)
+
 ## 翻译
 
 {{ translations("InvSwitcher") }}

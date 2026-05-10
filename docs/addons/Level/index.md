@@ -433,6 +433,18 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
     [发布 v2.25.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.25.0)
 
+??? note "v2.26.0 新内容"
+    **发布于：** 2026-05-04
+
+    - **可配置捐献面板。** 捐献 GUI 现在通过新的 `panels/donation_panel.yml` 模板完全可配置，与价值面板、详情面板和前十面板一致。管理员可以将面板调整为 1 至 6 行、重新排列四个命名按钮（`INFO`、`CANCEL`、`PREVIEW`、`CONFIRM`）、更换图标，并添加装饰性物品。捐献网格会自动填充非边框、非命名按钮的所有格子。
+    - `force-shown: [1,2,3,4]` 控制面板使用的行数（支持 1–6 行）。四个必需按钮按其 `data.type` 放置。如果模板缺失或任一必需按钮不存在，面板将回退到先前硬编码的 4 行布局。
+    - 🐛 装饰性模板物品现在会真正显示在物品栏中；自定义 `title:` 现已生效；`force-shown` 现作为列表解析（与其他面板 YAML 一致）。
+    - 无 API 破坏、无语言变化、无 `config.yml` 迁移。
+
+    ⚙️ **捐献面板布局。** 首次启动时会生成新的 `panels/donation_panel.yml` — 不修改即保持 2.25.0 的布局，或编辑以自定义。
+
+    [发布 v2.26.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.26.0)
+
 ## 翻译
 
 {{ translations("Level") }}
