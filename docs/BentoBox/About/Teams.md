@@ -232,3 +232,52 @@ BentoBox 执行以下步骤以使玩家成为团队成员：
 岛主或具有足够高等级的玩家可以发出 `team untrusted` 或 `team uncoop` 命令从团队中移除具有这些等级的玩家。
 
 **API：** 如果成功，将为受影响的玩家触发 `IslandRankChangeEvent` 事件，标记他们现在具有访客等级。
+
+## 按世界禁用团队
+
+自 BentoBox 3.16.0 起，游戏模式可以通过 `WorldSettings#isTeamsDisabled()` API（默认 `false`）按世界禁用团队子系统。启用后，用于添加、移除或重新组织团队成员的操作命令将拒绝运行，并显示语言文件消息 `commands.island.team.errors.teams-disabled`。
+
+**禁用团队时被阻止的命令：**
+
+- `/island team invite` 和 `team invite accept`（仅限团队邀请——合作和信任邀请仍可接受）
+- `/island team kick`、`team leave`、`team promote`、`team demote`、`team setowner`
+- `/[admin] team add`
+
+**仍可使用的命令：**
+
+- 只读玩家命令：`/island team` 面板、`team info`、`team invites`、`team invite reject`
+- 信任和合作关系：`trust`、`coop`、`untrust`、`uncoop`——当团队被禁用时，这些是支持的替代方案
+- 对现有团队进行操作的管理员命令：`kick`、`disband`、`disbandall`、`setowner`、`fix`、`maxsize`
+
+在已有团队的世界上启用 `isTeamsDisabled` 后，运行一次 `/[admin] team disbandall` 以清理预先存在的团队。该管理员命令可在一次可确认的操作中，剥离当前世界中每个岛屿上的所有成员和副所有者。信任和合作玩家有意被保留不变。
+
+??? note "v3.16.0 新功能"
+    **发布日期：** 2026-05-10
+
+    完整发布说明请参阅：[Release 3.16.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.0)
+
+    **团队处理**
+
+    - 新的 `WorldSettings#isTeamsDisabled()` API（默认 `false`）允许游戏模式按世界禁用团队子系统。
+    - 新的管理员命令 `/[admin] team disbandall`，可在一次可确认的操作中，剥离当前世界中每个岛屿上的所有成员和副所有者。
+    - `/[admin] team kick` 现在在目标位于多个团队岛屿上时需要明确的 `x,y,z` 坐标，并拒绝踢出岛主（提示管理员改用 `setowner` 或 `disband`）。
+    - 现在 `/island team setowner` 和 `/[admin] team setowner` 都强制执行 setowner 上限——当接收者已达到并发岛屿上限时拒绝转让。
+
+    **错误修复**
+
+    - 当玩家家园方块缺失时，`ISLAND_RESPAWN` 不再将玩家放在世界出生点 (0,0)——现在会沿着最终以 `SafeSpotTeleport` 结束的备用链查找。
+    - `OFFLINE_GROWTH` 现在阻止所有蔓延植物（藤蔓、垂泪/扭曲藤蔓等）以及从树苗生长的树/蘑菇——而不仅仅是海带和竹子。
+    - Dynmap 区域/多边形标记现在使用世界完整的最小/最大高度，而不是始终在 y=64 处渲染。
+
+    **API 新增**
+
+    - `CraftEngineHook.getItemStack(String id)` 和 `CraftEngineHook.getItemId(ItemStack item)`，使附属插件无需直接依赖 CraftEngine 即可渲染和识别 CraftEngine 自定义物品。
+
+    **语言文件**
+
+    - 新增键：`commands.admin.team.disbandall.{description,confirmation,success}`、`commands.island.team.errors.teams-disabled`、`commands.admin.team.setowner.errors.at-max`。
+    - 更新 `commands.admin.team.kick.cannot-kick-owner` 消息，指引管理员改用 `setowner`/`disband`。
+    - 移除已废弃的 `commands.admin.team.kick.success-all` 键。
+    - 所有 22 种内置翻译已同步。
+
+    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。
