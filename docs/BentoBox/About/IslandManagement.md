@@ -43,7 +43,9 @@
 /[admin_command] delete <player>
 ```
 
-这将从数据库中移除岛屿并将该区域排队以进行清理。玩家之后将能够创建新岛屿。
+这将从数据库中移除岛屿并标记该区域以进行清理。玩家之后可以立即创建新岛屿。
+
+自 BentoBox 3.16.1 起，实际的区域文件会在下一次例行清理时被回收（默认：24 小时），而不是立即回收。如果该岛屿与其他在用岛屿共享区域文件，被删除的区域将保留在原地，直到该区域不再包含其他岛屿。要强制立即清理，请在删除后运行 `/bbox admin purge deleted` — 仅当区域文件不再包含任何在用岛屿时才会删除方块。对于共享区域中的精确方块删除，请使用 WorldEdit 或手动移除方块。
 
 ## 非活跃岛屿清理
 
@@ -70,3 +72,14 @@
 /[admin_command] info <player>
 ```
 这显示岛屿的位置、所有者、团队成员和当前保护范围。
+
+??? note "v3.16.1 新功能"
+    **发布日期：** 2026-05-17
+
+    针对 `/bbox admin delete` 的针对性补丁。完整发布说明请参阅：[Release 3.16.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.1)
+
+    - 🔺 `/bbox admin delete` 现在真的会删除岛屿。回收会在下一次例行清理时进行（默认：24 小时），而不是立即；如果区域文件仍然包含其他在用岛屿，被删除的岛屿将保持已删除状态，直到该区域被清空。如果你需要立即清理共享区域，请使用 WorldEdit 或手动移除方块。
+    - 🔺 不再创建种子世界（`<world>/bentobox`）。种子世界相关代码（`createSeedWorlds`、`removeSeedWorlds`、内存副本、磁盘文件夹）已被移除。如果存在早期版本残留的 `<world>/bentobox` 文件夹，可以安全地手动删除。
+    - 🔺 API：`GameModeAddon#isUsesNewChunkGeneration()` 已被弃用并将被移除。现有的覆盖实现仍然可以工作（该值被忽略）但会发出弃用警告——请在方便时移除该覆盖。
+
+    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。

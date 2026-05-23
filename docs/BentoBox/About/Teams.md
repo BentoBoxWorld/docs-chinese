@@ -281,3 +281,14 @@ BentoBox 执行以下步骤以使玩家成为团队成员：
     - 所有 22 种内置翻译已同步。
 
     **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。
+
+??? note "v3.16.2 新功能"
+    **发布日期：** 2026-05-19
+
+    小型后续补丁。完整发布说明请参阅：[Release 3.16.2](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.2)
+
+    - 🐛 **在 InvSwitcher 下接受团队邀请不再吞掉物品栏。** 在非 BentoBox 世界中（且 `island.reset.on-join.inventory: true` — Boxed 和 AOneBlock 默认如此）接受团队邀请的玩家，返回该世界时可能会发现物品消失。加入时的物品栏/经验/生命/饥饿/金钱重置现在在传送到岛屿世界*之后*运行，这样 InvSwitcher（及类似插件）就能在重置触发之前先将玩家在旧世界的真实物品栏保存下来。修复了针对 AOneBlock 1.25.0 / Boxed 3.3.0 / InvSwitcher 1.17.1 反馈的问题。
+    - 🔺 **API：`Island.setRange` 不再悄悄损坏岛屿数据。** `setRange` 现在拒绝任何与游戏模式配置的 `distance-between-islands` 不一致的值，并记录调用方的堆栈帧。合法调整领地大小的游戏模式（如 StrangerRealms）仍然可以工作——它们已经覆盖 `GameModeAddon.isEnforceEqualRanges()` 并返回 `false`。如果你维护的附属插件出现 `Refusing Island.setRange(...)` 警告，日志会指出确切的调用方。
+    - 🐛 **CraftEngine 26.5+ 兼容性。** `CraftEngineHook.getItemStack(id)` 现在使用 `BukkitItemDefinition#buildBukkitItem()`，可在重写后的 CraftEngine API 上正常工作。
+
+    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。

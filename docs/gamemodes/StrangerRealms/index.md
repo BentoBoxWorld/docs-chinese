@@ -65,6 +65,31 @@
 
 权限列表可以在[这里](Permissions)找到。
 
+??? note "v1.0.4 新功能"
+    **发布日期：** 2026-05-16
+
+    针对动态世界边界的 Bug 修复版本。完整发布说明请参阅：[Release 1.0.4](https://github.com/BentoBoxWorld/StrangerRealms/releases/tag/1.0.4)
+
+    - 修复了第一次动态边界缩小（例如玩家数下降时）`getBorderSize()` 中偶发的 `NullPointerException`，该问题会刷屏控制台并使边界停滞直至下次重启。取消路径现在使用具有 null 守护的 `cancelBorderTask()` 辅助方法。
+    - 启动时关于不要使用 BentoBox `Border` 插件的警告之前错误地引用了 "the Crowdbound world"；现在显示为 `StrangerRealms has its own Border, so do not use Border addon.`。
+    - 已针对 Paper API 1.21.11 构建并测试，以跟上 MockBukkit 的跟踪分支。
+
+    **兼容性：** BentoBox API 3.9.0+，Minecraft 1.21.10+，Java 21。
+
+!!! warning "v1.0.5 新功能 — 紧急修复"
+    **发布日期：** 2026-05-19
+
+    紧急修复一个可能损坏同一服务器上其他游戏模式岛屿的 Bug。完整发布说明请参阅：[Release 1.0.5](https://github.com/BentoBoxWorld/StrangerRealms/releases/tag/1.0.5)
+
+    - 🔺 **修复 `TeamListener` 损坏其他游戏模式岛屿范围的问题。** 当玩家离开团队或被踢出时，领地重置代码会影响同一服务器上属于其他游戏模式（例如 AOneBlock）的岛屿。如果你与其他游戏模式同时运行 StrangerRealms，请立即升级。
+
+    **受影响服务器的恢复方法。** 如果先前的 StrangerRealms 版本损坏了其他游戏模式的岛屿，这些岛屿仍会在启动时报 `Island distance mismatch` 错误而无法加载。要恢复，请选择以下方式之一：
+
+    - 编辑 `plugins/BentoBox/database/Island/*.json` 并将 `range` 改回受影响游戏模式配置的 `distance-between-islands`（例如 AOneBlock / BSkyBlock 为 `400`，Boxed 为 `320`），**或**
+    - 删除受影响的岛屿 JSON 文件（如果可以接受丢失它们）。
+
+    **兼容性：** BentoBox API 3.9.0+，Minecraft 1.21.10+，Java 21。
+
 ## 翻译
 
 {{ translations("StrangerRealms") }}
