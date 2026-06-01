@@ -20,3 +20,45 @@ Javadocs 在这里：[https://javadocs.bentobox.world](https://ci.codemc.io/job/
 # 示例插件
 
 @BONNe 在这里维护了一个示例插件：[https://github.com/BONNePlayground/ExampleAddon](https://github.com/BONNePlayground/ExampleAddon)
+
+# 可取消的玩家重置事件
+
+*BentoBox 3.17.0 新增。*
+
+当玩家离开队伍或其岛屿被重置时,BentoBox 可能会清空他们的物品栏、末影箱、金钱、生命值、饥饿度和经验值,并将其驯服的动物恢复野生——具体取决于每个游戏模式的 `island.reset.on-leave` 设置。现在,这些重置动作在执行**之前**都会触发一个**可取消的**事件,因此插件可以否决单个重置,而不是全有或全无。如果监听器取消了该事件,BentoBox 就会跳过该动作。
+
+这些事件位于 `world.bentobox.bentobox.api.events.player`:
+
+| 事件 | 触发时机(之前) |
+| --- | --- |
+| `PlayerTamedRemovalEvent` | 将玩家驯服的动物恢复野生 |
+| `PlayerResetEnderChestEvent` | 清空末影箱 |
+| `PlayerResetInventoryEvent` | 清空物品栏 |
+| `PlayerResetMoneyEvent` | 扣除玩家余额 |
+| `PlayerResetHealthEvent` | 重置生命值 |
+| `PlayerResetHungerEvent` | 重置饥饿度 |
+| `PlayerResetExpEvent` | 重置经验值 |
+
+所有事件都继承自 `PlayerBaseEvent`(实现了 `Cancellable`),并携带玩家 UUID、岛屿和世界。监听方式是标准的 Bukkit 方式:
+
+```java
+@EventHandler
+public void onInventoryReset(PlayerResetInventoryEvent e) {
+    if (shouldKeepInventory(e.getPlayerUUID())) {
+        e.setCancelled(true); // 物品栏将不会被清空
+    }
+}
+```
+
+事件通过一个小型构建器 API 构建和分发:
+
+```java
+PlayerEvent.builder()
+    .reason(PlayerEvent.Reason.INVENTORY_RESET)
+    .involvedPlayer(uuid)
+    .island(island)
+    .world(world)
+    .build();
+```
+
+这完全是新增的——所有类都是新的,没有更改任何现有 API,因此 3.17.0 与现有插件二进制兼容。[Inventory Switcher 插件](../addons/InvSwitcher/index.md)使用这些事件在重置时保护按世界的物品栏和余额。参见 [Release 3.17.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.17.0)。

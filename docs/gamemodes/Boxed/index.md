@@ -136,6 +136,22 @@ advancements:
 
 占位符可以在[这里](Placeholders)找到。
 
+## 更新日志
+
+??? note "v3.4.0 新内容"
+    **发布于：** 2026-05-30
+
+    - **试炼密室(Trial Chambers)支持。** 当结构从种子世界拉取到玩家的盒子中时,Boxed 现在会捕获并恢复试炼刷怪笼(Trial Spawner)的状态(包括普通*和*不祥(ominous)两种配置),并将 `trial_chambers` 识别为受进度驱动的盒子扩展所追踪的结构。
+    - 🐛 **不再跨游戏模式丢失进度。** 当在*其他*非 Boxed 游戏模式中重置岛屿时,Boxed 不再清除玩家的进度和统计数据。
+    - 🐛 删除岛屿时,待处理的结构粘贴现在会被取消,防止将结构放入已不存在的盒子。
+    - 🐛 不祥的试炼刷怪笼现在会以正确的配置恢复,而不是总是应用普通配置。
+    - 构建与测试栈现代化:Paper 1.21.11、BentoBox API 3.13.0、JUnit 5 + Mockito + MockBukkit。
+
+    !!! note
+        试炼密室是在生成盒子时从种子世界捕获的,因此在 3.4.0 *之前*创建的盒子不会追溯获得它们。新盒子(以及新扩展的区域)将包含它们。
+
+    [发布 v3.4.0](https://github.com/BentoBoxWorld/Boxed/releases/tag/3.4.0)
+
 ## 翻译
 
 {{ translations("Boxed") }}

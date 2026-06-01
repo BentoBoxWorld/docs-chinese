@@ -228,6 +228,15 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
 
     [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Challenges/releases)
 
+??? note "v1.6.1 新内容"
+    **发布于：** 2026-05-26
+
+    - 🐛 **确认对话在被放弃时不再触发 NPE。** 当确认对话被放弃而非回应时(例如在输入 `confirm` 之前多次点击库条目,或让提示超时),网络库以及管理 GUI 中的擦除/删除提示可能会向控制台抛出大量 `NullPointerException`。现在放弃操作会被静默地视为无操作。
+
+    直接替换——无需更改配置或语言文件。
+
+    [发布 v1.6.1](https://github.com/BentoBoxWorld/Challenges/releases/tag/1.6.1)
+
 ## 常见问题
 
 ??? question "你能添加 X 功能吗?"
