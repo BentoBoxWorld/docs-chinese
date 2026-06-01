@@ -113,3 +113,5 @@ TopBlock,aoneblock_island_phase_name_top_#rank#,Name of the phase they have reac
 TopBlock,aoneblock_island_phase_number_top_#rank#,Phase number (e.g. Plains is 1; Underground is 2) at the `#rank#` position, 1.0.1
 TopBlock,aoneblock_island_count_top_#rank#,Block Count of magic blocks mined this round at the `#rank#` position, 1.0.1
 TopBlock,aoneblock_island_lifetime_top_#rank#,Lifetime count of magic blocks mined at the `#rank#` position, 1.0.1Border,Border_color,Current border color (red/green/blue) for the player,4.8.0
+InvSwitcher,[gamemode]_invswitcher_balance,The player's money balance for this gamemode's world,1.18.0
+InvSwitcher,[gamemode]_invswitcher_balance_formatted,The player's money balance for this gamemode's world formatted with currency name,1.18.0

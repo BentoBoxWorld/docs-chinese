@@ -14,6 +14,7 @@
 * 经验值
 * 生命值
 * 游戏模式(创造、生存等)
+* 金钱(按世界经济,1.18.0 新增)
 
 ## 如何使用
 
@@ -51,6 +52,7 @@ options:
   experience: true
   ender-chest: true
   statistics: true
+  money: true          # 按世界金钱(1.18.0 新增)。需要 Vault。
   # 每个岛屿的物品栏切换(1.17.0 新增)
   # 世界级选项也必须为 true,岛屿选项才能生效。
   islands:
@@ -63,13 +65,53 @@ options:
     experience: false
     ender-chest: true
     statistics: false
+    money: false       # 每岛屿钱包(1.18.0 新增)。false 表示仅按世界金钱。
 ```
 
 将 `islands.active: true` 设置为允许拥有多个岛屿的玩家每个岛屿维护独立的物品栏(以及其他方面),而不仅仅是每个游戏模式世界。
 
+### 经济
+
+1.18.0 新增。启用 `options.money` 后,InvSwitcher 会将自身注册为 Vault 经济提供者,并为**每个切换的世界保留独立的余额**。交易(商店买卖、`/pay`、jobs 等)会被路由到其所属世界的余额——即使目标玩家离线或身处其他世界。InvSwitcher 不管理的世界会传递给你现有的经济插件(如 EssentialsX);如果不存在其他经济插件,InvSwitcher 会自己处理所有世界。
+
+!!! warning "需要 Vault"
+    按世界金钱需要 [Vault](https://www.spigotmc.org/resources/vault.34315/) 插件。单独的经济插件是可选的——InvSwitcher 可以作为唯一的经济系统。如果你使用 **Bank** 插件,岛屿钱包也会变为按世界。
+
+`economy:` 部分仅在 `options.money` 为 `true` 时使用:
+
+```yml
+economy:
+  starting-balance: 0.0              # 玩家首次进入受管理世界时获得的余额(除非已导入)
+  currency-name-singular: Dollar
+  currency-name-plural: Dollars
+  fractional-digits: 2               # 小数点后位数
+  import-existing-balances: true     # 首次进入时一次性导入每个玩家的现有余额
+  delegate-unmanaged-worlds: true    # 将不受管理的世界传递给之前的经济插件
+  debug: false                       # 将每笔交易记录到控制台(冗长)
+```
+
 ## 命令
 
-没有命令。
+1.18.0 新增。每个受管理的游戏模式都会获得自己的经济命令,作用域限定为该游戏模式的世界,因此无论你身处何处,`/bsb balance` 都会显示你的 BSkyBlock 余额,`/ai balance` 显示你的 AcidIsland 余额。
+
+!!! tip
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+
+=== "玩家命令"
+
+    | 命令 | 描述 |
+    |---|---|
+    | `/[player_command] balance` | 显示你在此世界的金钱余额 |
+    | `/[player_command] pay <玩家> <金额>` | 向另一名玩家付款 |
+
+=== "管理员命令"
+
+    | 命令 | 描述 |
+    |---|---|
+    | `/[admin_command] eco give <玩家> <金额>` | 给予玩家金钱 |
+    | `/[admin_command] eco take <玩家> <金额>` | 扣除玩家金钱 |
+    | `/[admin_command] eco set <玩家> <金额>` | 设置玩家余额 |
+    | `/[admin_command] eco balance <玩家>` | 显示玩家余额 |
 
 ## 它的作用
 
@@ -104,6 +146,25 @@ options:
     - 🐛 **修复了从 BentoBox 世界传送到非 BentoBox 世界时物品栏被清空的问题。** 此前，当玩家离开 BentoBox 游戏世界（如 BSkyBlock）进入非 BentoBox 世界（如默认主世界或第三方插件世界）时，他们的"外部"物品栏可能会丢失，因为每个非 BentoBox 世界都将数据存储在自己的键下。现在所有非 BentoBox 世界共享一个存储键，玩家的物品栏总能正确恢复。包含旧的按世界键存储数据的自动迁移。
 
     [发布 v1.17.1](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.17.1)
+
+??? warning "v1.18.0 新内容 — 需要 BentoBox 3.17.0"
+    **发布于：** 2026-05-31
+
+    - 🔺⚙️🔡 **按世界金钱。** InvSwitcher 现在可以为每个游戏世界提供独立的经济,在它已经切换的物品栏、生命值、经验值和统计数据之外。启用 `options.money` 后,它会将自身注册为 Vault 经济提供者,并将每笔交易路由到正确世界的余额——即使玩家离线或身处其他世界。
+    - ⚙️ **新增配置:** `options.money`、`options.islands.money` 以及一个 `economy:` 部分(起始余额、货币名称、小数位数、导入开关、委派开关、调试)。现有配置仍可正常工作;新键会以安全的默认值添加。
+    - 🔡 **新增命令和占位符:** 每个游戏模式的玩家 `balance` 和 `pay`、管理员 `eco give/take/set/balance`,以及 `<gamemode>_invswitcher_balance` 和 `<gamemode>_invswitcher_balance_formatted` 占位符,已翻译为 BentoBox 附带的所有语言。
+    - 🐛 进度在切换世界时不再错误地增加经验值。
+    - 🐛 BentoBox 岛屿重置不再清空错误世界的物品栏——InvSwitcher 现在会改为清除正确世界的*已存储*数据。
+
+    🔺 **需要 BentoBox 3.17.0:** InvSwitcher 现在会监听 BentoBox 的玩家重置事件(包括新的金钱重置事件),这些事件在 3.17.0 中引入。它无法在更旧的 BentoBox 版本上加载。
+
+    🔺 **经济行为变更:** 启用 `options.money` 后,InvSwitcher 会成为服务器的 Vault 经济提供者。它不管理的世界会传递给你现有的经济(如 EssentialsX);受管理的世界获得各自的按世界余额。金钱功能需要 Vault 插件。
+
+    [发布 v1.18.0](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.18.0)
+
+## 占位符
+
+{{ placeholders_source("InvSwitcher") }}
 
 ## 翻译
 
