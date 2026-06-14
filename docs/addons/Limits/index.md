@@ -30,21 +30,42 @@ config.yml 有以下部分:
 
 * blocklimits
 
+* blocklimits-nether
+
+* blocklimits-end
+
 * worlds
 
 * entitylimits
 
+* entitylimits-nether
+
+* entitylimits-end
+
+!!! info "按维度限制 (1.28.2+)"
+    自 **1.28.2** 起,方块数量、实体数量、限制和偏移量现在会**针对主世界、下界和末地分别独立追踪**。在 `blocklimits` 或 `entitylimits` 中定义的单个限制会分别应用于每个维度。例如 `HOPPER: 10` 允许主世界 10 个、下界 10 个、末地 10 个(整个岛屿共 30 个)漏斗。如需仅覆盖某个维度,请使用可选的 `-nether` / `-end` 部分。
+
+    升级后首次加载时,你现有的单维度数据会自动迁移到**主世界**槽位。磁盘上的格式会发生变化,因此升级前请先备份,并注意升级后不支持降级。
+
 ### blocklimits
 
-此部分列出了每种方块材料允许的最大方块数。不要使用非方块材料,因为它们无效。限制适用于所有游戏世界。
+此部分列出了每种方块材料允许的最大方块数。不要使用非方块材料,因为它们无效。限制会独立应用于每个维度(主世界、下界、末地)。
+
+### blocklimits-nether / blocklimits-end
+
+可选部分,分别用于覆盖下界或末地的 `blocklimits` 默认值。它们在默认配置中是注释掉的;取消注释并添加条目即可设置特定维度的方块限制。
 
 ### worlds
 
-此部分列出了特定世界的方块限制。你必须明确命名世界,例如 AcidIsland_world,然后列出材料和限制。
+此部分列出了特定世界的方块限制。你必须明确命名世界,例如 AcidIsland_world,然后列出材料和限制。世界命名的限制会覆盖上述特定世界的维度默认限制。
 
 ### entitylimits
 
-此部分列出了玩家岛屿空间(保护区域和岛屿限制)内的默认实体限制。限制为 5 将允许主世界中最多 5 个实体。影响所有类型的生物生成。还包括矿车等实体。请注意,下界和末地不再支持实体限制,因为限制需要加载区块以计数实体,这会导致太多卡顿。
+此部分列出了玩家岛屿空间(保护区域和岛屿限制)内的默认实体限制。限制为 5 将允许最多 5 个实体。影响所有类型的生物生成。还包括矿车等实体。自 **1.28.2** 起,实体限制会独立应用于每个维度,因此下界和末地现在会被正确计数和限制(修复了区块卸载时下界/末地计数重置为零的长期问题)。
+
+### entitylimits-nether / entitylimits-end
+
+可选部分,分别用于覆盖下界或末地的 `entitylimits` 默认值。它们在默认配置中是注释掉的;取消注释并添加条目即可设置特定维度的实体限制。
 
 注意:限制 GUI 中只显示前 49 个受限方块和实体。
 
@@ -70,11 +91,15 @@ entitygrouplimits:
 
 ## 权限
 
-岛主可以拥有覆盖默认设置或世界设置的独占权限。格式是:
+岛主可以拥有覆盖默认设置或世界设置的独占权限。支持两种格式:
 
-格式为 `GAME-MODE-NAME.island.limit.MATERIAL.LIMIT`
+1. `GAME-MODE-NAME.island.limit.MATERIAL.LIMIT` — 应用于所有维度。
 
-示例: `bskyblock.island.limit.hopper.10`
+    示例: `bskyblock.island.limit.hopper.10`
+
+2. `GAME-MODE-NAME.island.limit.ENV.MATERIAL.LIMIT` — 仅应用于单个维度,其中 `ENV` 为 `overworld`、`nether` 或 `end` 之一 (1.28.2+)。
+
+    示例: `bskyblock.island.limit.nether.hopper.5`
 
 权限在玩家登录时激活。
 
@@ -118,6 +143,20 @@ GAMEMODE_NAME.limits.admin.limits:
     - 修复:limits GUI 面板中方块限制显示不正确的问题。
 
     [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Limits/releases)
+
+??? warning "v1.28.2 新内容 — 按维度限制(数据迁移)"
+    **发布于:** 2026-06-13
+
+    - 🔺⚙️ **按维度限制。** 方块数量、实体数量、限制和偏移量现在会针对主世界、下界和末地分别独立追踪,修复了区块卸载时下界/末地计数重置为零的长期问题([#43](https://github.com/BentoBoxWorld/Limits/issues/43))。单个 `blocklimits`/`entitylimits` 值现在会分别应用于每个维度,并新增了可选的 `blocklimits-nether`、`blocklimits-end`、`entitylimits-nether` 和 `entitylimits-end` 覆盖部分。
+    - 🔺 **数据迁移。** 现有的单维度数据会在首次加载时迁移到**主世界**槽位。磁盘上的格式会发生变化,因此升级前请先备份;升级后不支持降级。
+    - 🔺 **按维度权限。** 新的 6 段式格式 `<gamemode>.island.limit.<overworld|nether|end>.<KEY>.<NUMBER>` 可将限制限定到单个维度。现有的 5 段式格式仍然应用于所有维度。
+    - 🐛 计数精度修复:床/门重复计数([#86](https://github.com/BentoBoxWorld/Limits/issues/86))、铁傀儡/雪傀儡的方块移除改为以南瓜为基准而非生成方块([#127](https://github.com/BentoBoxWorld/Limits/issues/127))、三个实体计数错误、达到限制时不再消耗刷怪蛋([#134](https://github.com/BentoBoxWorld/Limits/issues/134)),以及重新计数期间的计数泄漏。
+    - 🩹 修复了因引用 1.21.9 铜块而在 Minecraft 1.21.8 及更早版本服务器上发生的 `NoSuchFieldError` 崩溃;这些材料现在按名称解析。
+    - 🔡 所有捆绑的语言文件已从旧版 `&` 颜色代码转换为 MiniMessage,并在全部 21 种语言中同步了缺失的键。如果你自定义过任何语言字符串,请对照新文件进行检查。
+
+    兼容性: BentoBox API 2.7.1 · Minecraft 1.21.5 – 26.1.2 · Java 21。
+
+    [Release v1.28.2](https://github.com/BentoBoxWorld/Limits/releases/tag/1.28.2)
 
 ## 翻译
 
