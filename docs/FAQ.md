@@ -273,14 +273,38 @@ Level 插件只计算其 `blockconfig.yml` 中列出的方块。来自物品添�
 * **SQLite** 3.28 或更高
 * **PostgreSQL** 始终建议使用最新版本
 
-### 我的 BentoBox 世界文件夹非常大——如何缩减？
+### 当我的世界变得太大时该怎么办？
 
-两大占用空间的因素是：(1) 从未回来的玩家生成的区块；(2) 重置后遗留的旧岛屿区域。回收空间的方法：
+如果你的 BentoBox 世界文件夹已变得非常大、想要缩减它，请运行**清除（purge）**。自 BentoBox 3.15.0 起此功能已内置 —— BentoBox 会直接删除底层的区域（`.mca`）文件，因此你不再需要 Regionerator 之类的第三方工具。
 
-- **BentoBox 3.15.0+：** 使用 `/[admin_command] purge <days>` ——该命令现在可以一步完成识别废弃岛屿*并*删除其区域文件。对于软删除的岛屿（在重置或 `/admin delete` 后标记的岛屿），运行 `/[admin_command] purge deleted` 回收其区域文件。清除后重启服务器以清空 Paper 的区块缓存。
-- **旧版 BentoBox：** 使用 `/[admin_command] purge <days>` 标记岛屿，然后运行 `/[admin_command] purge regions` 删除区域文件。
+两大占用空间的因素是：(1) 重置后遗留的旧岛屿区域；(2) 从未回来的玩家生成的区块。回收这些空间有两种方法：
+
+**自动维护（默认开启）。** 当岛屿被重置时会被*软删除*，并由一个计划任务在后台回收其区域文件。这通过 BentoBox `config.yml` 中的 `island.deletion.housekeeping` 控制：
+
+```yaml
+island:
+  deletion:
+    housekeeping:
+      deleted-sweep:        # 回收已标记为删除的岛屿（例如重置）的区域
+        enabled: true       # 默认开启
+        interval-hours: 24
+      age-sweep:            # 无论是否重置，回收长期未访问的区域
+        enabled: false      # 默认关闭 —— 若需最积极地控制大小请开启
+        interval-days: 30
+        min-age-days: 60
+```
+
+**手动清除** —— 可根据需要从控制台或游戏内运行：
+
+- `/[admin_command] purge deleted` —— 立即回收所有已标记为删除的岛屿（重置、`/[admin_command] delete`）的区域文件。
+- `/[admin_command] purge <days>` —— 回收那些所有者已 `<days>` 天未登录、且区域文件至少已存在那么久的岛屿的区域。
+- `/[admin_command] purge unowned` —— 将所有无主岛屿标记为可删除，以便下次清扫将其移除。
+
+注意事项：
+
+- **大规模清除后请重启服务器。** 文件会立即从磁盘删除，但 Paper 会将最近加载的区块缓存在内存中；重启会清空该缓存并完全释放空间。
+- 受清除保护的岛屿、出生点岛屿，以及（使用 Level 附属时）等级高于所配置清除等级的岛屿，始终会被跳过。
 - **操作前务必备份世界文件夹。**
-- 对于非常旧的世界，可以使用 Regionerator 等第三方工具裁剪未使用的区块。
 
 ### MariaDB 和 MySQL 有区别吗？
 

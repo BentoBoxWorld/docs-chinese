@@ -35,45 +35,42 @@
 [下载官方 Boxed DataPack](https://github.com/BentoBoxWorld/BoxedDataPack) 获取自定义进度。
 或者你可以自己做。查看[教程视频了解更多信息](https://youtu.be/zNzQvIbweQs)
 
-## 使用 Regionerator
+## 控制世界大小
 
-*注意：此插件旨在删除你世界的未使用区域！如果你使用它，请确保进行备份！风险自负！*
+!!! warning "不再需要 Regionerator"
+    本指南的旧版本曾推荐使用第三方插件 [Regionerator](https://github.com/Jikoo/Regionerator) 来裁剪未使用的区块。**自 BentoBox 3.15.0 起，此功能已内置** —— BentoBox 现在会直接删除区域（`.mca`）文件，因此不再需要 Regionerator，也不再推荐在 Boxed 中使用它。如果你仍在运行它，可以将其移除：它是多余的，而且除非正确设置了种子世界的豁免，否则它可能会删除 Boxed 的种子世界并导致服务器启动非常缓慢。
 
-[Regionerator](https://github.com/Jikoo/Regionerator) 是一个插件，可以逐渐删除未使用的区块以保持世界大小较小。它不是由 BentoBox 团队编写，但它支持 BentoBox 并尊重盒子边界。它可以用来删除盒子区块，以便它们可以再生成。由于 Boxed 使用种子世界进行复制，这些可能会被 Regionerator 视为未使用并被删除，这意味着启动变得非常慢。为避免这种情况，将种子世界设置为免除其删除，将这些设置在 Regionarator 配置文件的世界部分：
+随着玩家扩展和重置盒子，Boxed 世界会不断增大，而这些磁盘占用现在由 BentoBox 自身通过两种方式回收。
 
+**自动维护（默认开启）。** 当盒子被重置时，它会被*软删除*（标记为待删除，而不是逐区块擦除），并由一个计划任务在后台回收其区域文件。deleted 清扫默认每 24 小时运行一次。BentoBox `config.yml` 中的相关部分为：
+
+```yaml
+island:
+  deletion:
+    housekeeping:
+      # 回收已被标记为删除的盒子（例如重置后）的区域文件。
+      # 默认开启。
+      deleted-sweep:
+        enabled: true
+        interval-hours: 24
+      # 回收长期未被访问的区域文件，无论盒子是否被重置。
+      # 默认关闭 —— 若需最积极地控制世界大小，请开启此项。
+      age-sweep:
+        enabled: false
+        interval-days: 30
+        min-age-days: 60
 ```
-# 插件能够删除区域的世界
-worlds:
-  # “default” 应用于未指定的所有世界。
-  boxed_world/seed_base:
-    days-till-flag-expires: -1
-  boxed_world/seed:
-    days-till-flag-expires: -1
-  default:
-    # 标记早于 x 天的旗帜可以被忽略并且该区域被删除。
-    # 设置为 -1 以在世界中禁用 Regionerator。
-    # 要禁用标记，请将此设置为 0。
-    # days-till-flag-expires 必须大于 0 才能与 delete-new-unvisited-chunks 一起使用
-    days-till-flag-expires: 0
-```
 
-为了
+**手动清除。** 你也可以根据需要从服务器控制台或游戏内回收空间（参见[命令](Commands)）：
 
-最大化利用 Regionarator，更改 BentoBox config.yml 文件以*不*在岛屿被移除时删除区块。这将留给它进行删除，并且如果未使用区域足够大，它应该会清理区块。配置是设置 `keep-previous-island-on-reset: true`：
+* `/boxadmin purge deleted` —— 立即回收所有已被标记为删除的盒子的区域文件。
+* `/boxadmin purge <days>` —— 回收那些所有者已 `<days>` 天未登录、且区域文件至少已存在那么久的盒子的区域文件。
+* `/boxadmin purge unowned` —— 将所有无主盒子标记为可删除，以便下次清扫将其移除。
 
-```
-deletion:
-    # 切换是否在玩家重置它们时应保留岛屿，在世界中保留或删除。
-    # * 如果设置为 'true'，每当玩家重置他的岛屿时，他的前一个岛屿将变为无主并且不会从世界中删除。
-    #   然而，你仍然可以通过清理删除那些无主岛屿。
-    #   在更大的服务器上，这可能导致世界大小增加。
-    #   然而，这允许管理员在重置命令不当使用的情况下检索玩家的旧岛屿。
-    #   管理员可以通过将他注册到它来重新添加玩家到他的旧岛屿。
-    # * 如果设置为 'false'，每当玩家重置他的岛屿时，他的前一个岛屿将从世界中删除。
-    #   这是默认行为。
-    # 自 1.13.0 版本添加。
-    keep-previous-island-on-reset: true
-```
+!!! note "大规模清除后请重启"
+    区域文件会立即从磁盘删除，但 Paper 会将最近加载的区块保留在内存缓存中。**大规模清除后请重启服务器**，以清空该缓存并完全释放回收的空间。受清除保护的盒子、出生点岛屿，以及（若安装了 Level 附属）等级高于所配置清除等级的盒子，始终会被跳过。一如既往，**请在清除前备份你的世界文件夹。**
+
+旧的 `keep-previous-island-on-reset` 设置已不复存在 —— 盒子在重置时始终会被软删除并由自动维护清理，因此无需为让 Regionerator“接管”而进行任何配置。
 
 
 ## 高级配置
