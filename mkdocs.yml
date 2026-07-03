@@ -56,6 +56,8 @@ nav:
         - "如何安装": BentoBox/Install-Bentobox.md
         - "将BentoBox世界设置为服务器的默认世界": BentoBox/Set-a-BentoBox-world-as-the-server-default-world.md
         - "数据库转移": BentoBox/Database-transition.md
+        - "自定义 GUI": Tutorials/generic/Customizable-GUI.md
+        - "更大的创建岛屿菜单": Tutorials/generic/Bigger-Create-Island-Menu.md
     - "教程 – API":
         - "创建一个插件": Tutorials/api/Create-an-addon.md
         - "配置API": BentoBox/Config-API.md
