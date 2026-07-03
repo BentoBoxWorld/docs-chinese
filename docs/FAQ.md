@@ -322,6 +322,10 @@ island:
 [蓝图页面](BentoBox/Blueprints.md)提供了所有开始使用蓝图的相关信息，以及一些提示和技巧。
 你也可以看看[这个视频](https://youtu.be/4gvaG89uxAs)，虽然有些过时，但可能帮助你在几分钟内创建第一个蓝图。
 
+### 我可以让创建岛屿菜单更大（5 或 6 行）吗？
+
+可以。创建岛屿菜单（以及玩家重置岛屿时显示的相同菜单）是一个[可自定义的 GUI](Tutorials/generic/Bigger-Create-Island-Menu.md)，由 `island_creation_panel.yml` 模板驱动。如果你只想要一个看起来更高的菜单，添加 `force-shown: 6` 来获得一个完整的 6 行（54 个槽位）的面板。如果你想要*一次看到更多岛屿捆绑包*，你也必须在新行上添加额外的 `blueprint_bundle_button` 条目——仅 `force-shown` 不会做到这一点。6 行（54 个槽位）是 Minecraft 箱子 GUI 的硬性最大值。参见[扩大创建岛屿菜单](Tutorials/generic/Bigger-Create-Island-Menu.md)了解完整的 6 行示例以及在哪里放置该文件。
+
 ### 如何更改语言字符串/消息？
 
 语言文件位于 `plugins/BentoBox/locales/`（BentoBox 核心）和 `plugins/BentoBox/addons/<插件名>/locales/`（每个插件）下。编辑对应的 `<语言>.yml` 文件。如果只想使用一种语言，在 BentoBox 的 `config.yml` 中设置 `default-language` 并移除玩家切换语言的权限。
