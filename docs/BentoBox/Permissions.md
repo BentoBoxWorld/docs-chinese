@@ -1,16 +1,16 @@
-# BentoBox Permissions
+# BentoBox 权限
 
-Permissions listed here are for BentoBox. Addons register their own permissions.
+此处列出的权限是 BentoBox 的权限。附加组件注册自己的权限。
 
-**BentoBox permissions (as of 1.6.0)**
+**BentoBox 权限（截至 1.6.0）**
 
-| Permission             | Parent permission | Default value | Description                            |
-|------------------------|-------------------|---------------|----------------------------------------|
-| bentobox.admin         |                   | op            | Allows most of BentoBox commands usage |
-| bentobox.admin.catalog | bentobox.admin    | op            | Allows to use /bentobox catalog        |
-| bentobox.admin.locale  | bentobox.admin    | op            | Allows to use /bentobox locale         |
-| bentobox.admin.manage  | bentobox.admin    | op            | Allows to use /bentobox manage         |
-| bentobox.admin.migrate | bentobox.admin    | op            | Allows to use /bentobox migrate        |
-| bentobox.admin.reload  | bentobox.admin    | op            | Allows to use /bentobox reload         |
-| bentobox.about         |                   | true          | Allows to use /bentobox about          |
-| bentobox.version       |                   | true          | Allows to use /bentobox version        |
+| 权限                   | 父权限            | 默认值 | 描述                          |
+|------------------------|-------------------|--------|-------------------------------|
+| bentobox.admin         |                   | op     | 允许使用大多数 BentoBox 命令    |
+| bentobox.admin.catalog | bentobox.admin    | op     | 允许使用 /bentobox catalog    |
+| bentobox.admin.locale  | bentobox.admin    | op     | 允许使用 /bentobox locale     |
+| bentobox.admin.manage  | bentobox.admin    | op     | 允许使用 /bentobox manage     |
+| bentobox.admin.migrate | bentobox.admin    | op     | 允许使用 /bentobox migrate    |
+| bentobox.admin.reload  | bentobox.admin    | op     | 允许使用 /bentobox reload     |
+| bentobox.about         |                   | true   | 允许使用 /bentobox about      |
+| bentobox.version       |                   | true   | 允许使用 /bentobox version    |

@@ -8,6 +8,7 @@ BentoBox,[gamemode]_island_protection_range_diameter,Diameter of the island's pr
 BentoBox,[gamemode]_island_owner,Name of the island's owner,1.4.0
 BentoBox,[gamemode]_island_creation_date,Creation date of the island,1.4.0
 BentoBox,[gamemode]_island_name,Name of the island,1.4.0
+BentoBox,[gamemode]_island_name_<number>,Name of the players <number> island,2.3.0
 BentoBox,[gamemode]_island_center,Coordinates of the island's center,1.5.0
 BentoBox,[gamemode]_island_center_x,X coordinate of the island's center,1.5.0
 BentoBox,[gamemode]_island_center_y,Y coordinate of the island's center,1.5.0
@@ -15,6 +16,7 @@ BentoBox,[gamemode]_island_center_z,Z coordinate of the island's center,1.5.0
 BentoBox,[gamemode]_island_members_max,Maximum number of members there can be on the island,1.5.0
 BentoBox,[gamemode]_island_members_count,"Number of members, subowners and owner there are on the island",1.5.0
 BentoBox,[gamemode]_island_members_list,Comma separated list of player names that are at least MEMBER on the island,1.13.0
+BentoBox,[gamemode]_island_members_list_<number>,Comma separated list of player names that are at least MEMBER on the players <number> island,2.3.0
 BentoBox,[gamemode]_island_trustees_count,Number of players trusted to the island,1.5.0
 BentoBox,[gamemode]_island_coops_count,Number of players cooped to the island,1.5.0
 BentoBox,[gamemode]_island_visitors_count,Number of players currently visiting the island,1.5.0
@@ -42,10 +44,18 @@ BentoBox,[gamemode]_resets,Number of times the player has reset his island,1.5.0
 BentoBox,[gamemode]_resets_left,Number of times the player can reset his island,1.5.0
 BentoBox,[gamemode]_deaths,Number of times the player died,1.12.0
 BentoBox,[gamemode]_on_island,Whether the player is on an island he is part of or not,1.13.0
+BentoBox,[gamemode]_island_online_members_count,The number of online island members,2.0.1
+BentoBox,[gamemode]_visited_island_online_members_count,The number of online visited island members,2.0.1
 Bank,Bank_[gamemode]_island_balance,Island balance of the player's island,1.1.0
 Bank,Bank_[gamemode]_visited_island_balance,Island balance of the island the player is standing on,1.1.0
-Bank,Bank_[gamemode]_top_value_#rank#,Island balance of the `#rank#`-th island on the leader board,1.1.0
-Bank,Bank_[gamemode]_top_name_#rank#,Island owner's name of the `#rank#`-th island on the leader board,1.1.0
+Bank,Bank_[gamemode]_island_balance_number,Island balance of the player's island as a raw number,1.3.0
+Bank,Bank_[gamemode]_visited_island_balance_number,Island balance of the island the player is standing on as a raw number,1.3.0
+Bank,Bank_[gamemode]_island_balance_formatted,Island balance of the player's island as formatted number,1.3.0
+Bank,Bank_[gamemode]_visited_island_balance_formatted,Island balance of the island the player is standing on as formatted number,1.3.0
+Bank,Bank_[gamemode]_top_value_<number>,Island balance of the `<number>`-th island on the leader board,1.1.0
+Bank,Bank_[gamemode]_top_name_<number>,Island owner's name of the `<number>`-th island on the leader board,1.1.0
+Bank,Bank_[gamemode]_top_island_<number>,Island name of the `<number>`-th island on the leader board,1.10.0
+Bank,Bank_[gamemode]_latest_transaction,The player's most recent island bank transaction (rendered as `[Username] [TxType] $[Amount]`),1.10.0
 Challenges,[gamemode]_challenges_total_completion_count,Number of times the player completed challenges,0.8.3
 Challenges,[gamemode]_challenges_completed_count,Number of challenges the player has completed,0.8.3
 Challenges,[gamemode]_challenges_uncompleted_count,Number of challenges the player has not yet completed,0.8.3
@@ -59,14 +69,14 @@ Challenges,[gamemode]_challenges_latest_level_completed_count,Number of challeng
 Challenges,[gamemode]_challenges_latest_level_uncompleted_count,Number of challenges the player has not yet completed in latest unlocked level,0.8.3
 Level,Level_[gamemode]_island_level,Island level of the player's island,1.9.0
 Level,Level_[gamemode]_visited_island_level,Island level of the island the player is standing on,1.9.0
-Level,Level_[gamemode]_top_value_#rank#,Island level of the `#rank#`-th island in the Top 10,1.9.0
-Level,Level_[gamemode]_top_name_#rank#,Island owner's name of the `#rank#`-th island in the Top 10,1.9.0
-Level,Level_[gamemode]_top_island_name_#rank#,Name of the `#rank#`-th island in the Top 10,2.11.0
-Level,Level_[gamemode]_top_members_#rank#,List of the members of the `#rank#`-th island in the Top 10,2.11.0
-Level,Level_[gamemode]_top_weighted_value_#rank#,Weighted island level (level/number of members) of the `#rank#`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_name_#rank#,Weighted island level name (level/number of members) of the `#rank#`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_members_#rank#,Weighted island members (level/number of members) of the `#rank#`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_island_name_#rank#,Weighted island name (level/number of members) of the `#rank#`-th island in the Top 10,2.12.0
+Level,Level_[gamemode]_top_value_<number>,Island level of the `<number>`-th island in the Top 10,1.9.0
+Level,Level_[gamemode]_top_name_<number>,Island owner's name of the `<number>`-th island in the Top 10,1.9.0
+Level,Level_[gamemode]_top_island_name_<number>,Name of the `<number>`-th island in the Top 10,2.11.0
+Level,Level_[gamemode]_top_members_<number>,List of the members of the <number>`-th island in the Top 10,2.11.0
+Level,Level_[gamemode]_top_weighted_value_<number>,Weighted island level (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
+Level,Level_[gamemode]_top_weighted_name_<number>,Weighted island level name (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
+Level,Level_[gamemode]_top_weighted_members_<number>,Weighted island members (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
+Level,Level_[gamemode]_top_weighted_island_name_<number>,Weighted island name (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
 Level,Level_[gamemode]_points_to_next_level,Points to the next level for player,2.3.3
 Level,Level_[gamemode]_rank_value,Displays island rank value,2.7.2
 Level,Level_[gamemode]_island_level_raw,Unformatted island level,2.8.1
@@ -88,18 +98,18 @@ Likes,[gamemode]_likes_addon_visited_island_rank_count,Rank number (likes - disl
 Likes,[gamemode]_likes_addon_visited_island_rank_place,Island place by rank for island at player location,2.1.0
 Likes,[gamemode]_likes_addon_visited_island_stars_value,Average stars added to island at player location,2.1.0
 Likes,[gamemode]_likes_addon_visited_island_stars_place,Island place by stars for island at player location,2.1.0
-Likes,[gamemode]_likes_addon_top_likes_owner_name_#rank#,Island owner name who are in place `#rank#` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_likes_island_name_#rank#,Island name which are in place `#rank#` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_likes_count_#rank#,Count of likes for island that are in place `#rank#` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_owner_name_#rank#,Island owner name who are in place `#rank#` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_island_name_#rank#,Island name which are in place `#rank#` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_count_#rank#,Count of dislikes for island that are in place `#rank#` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_owner_name_#rank#,Island owner name who are in place `#rank#` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_island_name_#rank#,Island name which are in place `#rank#` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_count_#rank#,Rank value for island that are in place `#rank#` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_stars_owner_name_#rank#,Island owner name who are in place `#rank#` by stars,2.0.0
-Likes,[gamemode]_likes_addon_top_stars_island_name_#rank#,Island name which are in place `#rank#` by stars,2.0.0
-Likes,[gamemode]_likes_addon_top_stars_count_#rank#,Average stars for island that are in place `#rank#` by stars,2.0.0
+Likes,[gamemode]_likes_addon_top_likes_owner_name_<number>,Island owner name who are in place `<number>` by likes,1.7.0
+Likes,[gamemode]_likes_addon_top_likes_island_name_<number>,Island name which are in place `<number>` by likes,1.7.0
+Likes,[gamemode]_likes_addon_top_likes_count_<number>,Count of likes for island that are in place `<number>` by likes,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_owner_name_<number>,Island owner name who are in place `<number>` by dislikes,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_island_name_<number>,Island name which are in place `<number>` by dislikes,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_count_<number>,Count of dislikes for island that are in place `<number>` by dislikes,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_owner_name_<number>,Island owner name who are in place `<number>` by rank,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_island_name_<number>,Island name which are in place `<number>` by rank,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_count_<number>,Rank value for island that are in place `<number>` by rank,1.7.0
+Likes,[gamemode]_likes_addon_top_stars_owner_name_<number>,Island owner name who are in place `<number>` by stars,2.0.0
+Likes,[gamemode]_likes_addon_top_stars_island_name_<number>,Island name which are in place `<number>` by stars,2.0.0
+Likes,[gamemode]_likes_addon_top_stars_count_<number>,Average stars for island that are in place `<number>` by stars,2.0.0
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_count,Number of currently active generators on player island,2.2.0
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_max_active_generator_count,Number of maximal allowed active generators on player island,2.2.0
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_names,List of active generator names separated with comma,2.2.0
@@ -109,11 +119,12 @@ MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaust
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,List of the player island's generators that are currently on exhaustion cooldown separated with comma,2.8.0
 Limits,Limits_[gamemode]_island_[material]_count,Current count of material (lower cased) on the island,1.17.2
 Limits,Limits_[gamemode]_island_[material]_limit,The limit of material (lower cased) for the island,1.17.2
-TopBlock,aoneblock_island_player_name_top_#rank#,Island owner's name at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_member_names_top_#rank#,Name of island team members at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_phase_name_top_#rank#,Name of the phase they have reached at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_phase_number_top_#rank#,Phase number (e.g. Plains is 1; Underground is 2) at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_count_top_#rank#,Block Count of magic blocks mined this round at the `#rank#` position, 1.0.1
-TopBlock,aoneblock_island_lifetime_top_#rank#,Lifetime count of magic blocks mined at the `#rank#` position, 1.0.1Border,Border_color,Current border color (red/green/blue) for the player,4.8.0
+TopBlock,aoneblock_island_player_name_top_<number>,Island owner's name at the `<number>` position, 1.0.1
+TopBlock,aoneblock_island_member_names_top_<number>,Name of island team members at the `<number>` position, 1.0.1
+TopBlock,aoneblock_island_phase_name_top_<number>,Name of the phase they have reached at the `<number>` position, 1.0.1
+TopBlock,aoneblock_island_phase_number_top_<number>,Phase number (e.g. Plains is 1; Underground is 2) at the `<number>` position, 1.0.1
+TopBlock,aoneblock_island_count_top_<number>,Block Count of magic blocks mined this round at the `<number>` position, 1.0.1
+TopBlock,aoneblock_island_lifetime_top_<number>,Lifetime count of magic blocks mined at the `<number>` position, 1.0.1
+Border,Border_color,Current border color (red/green/blue) for the player,4.8.0
 InvSwitcher,[gamemode]_invswitcher_balance,The player's money balance for this gamemode's world,1.18.0
 InvSwitcher,[gamemode]_invswitcher_balance_formatted,The player's money balance for this gamemode's world formatted with currency name,1.18.0

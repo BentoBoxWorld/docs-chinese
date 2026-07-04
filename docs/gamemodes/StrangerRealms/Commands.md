@@ -1,389 +1,69 @@
-<h1><b>Poseidon Admin Commands </b>(Alias: /padmin)</h2>
-<table width="100%" align="center">
-<tr>
-<td align='left'><b>Command</b></td>
-<td align='left'><b>Description</b></td>
-<td align='left'><b>Permission</b></td>
-</tr>
-<tr>
-<td align='left'><b>/padmin add <owner> <player></b></td>
-<td align='left'>add player to owner's team</td>
-<td align='left'>poseidon.mod.team</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin challenges</b></td>
-<td align='left'>Access /padmin challenges admin commands. Requires the Challenges Addon.</td>
-<td align='left'>poseidon.admin.challenges</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin deaths</b></td>
-<td align='left'>edit deaths of players</td>
-<td align='left'>poseidon.admin.deaths</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin delete</b></td>
-<td align='left'>deletes a player's realm</td>
-<td align='left'>poseidon.admin.delete</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin disband <owner></b></td>
-<td align='left'>disband owner's team</td>
-<td align='left'>poseidon.mod.team</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin getrank <player></b></td>
-<td align='left'>get a player's rank on their realm</td>
-<td align='left'>poseidon.admin.getrank</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin info <player></b></td>
-<td align='left'>get info on where you are or player's realm</td>
-<td align='left'>poseidon.mod.info</td>
-</tr>
-</tr>
-<tr>
-<td align='left'><b>/padmin kick <team player></b></td>
-<td align='left'>kick a player from a team</td>
-<td align='left'>poseidon.mod.team</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin level <player></b></td>
-<td align='left'>calculate the realm level for player - requires Level addon</td>
-<td align='left'>poseidon.admin.level</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin range</b></td>
-<td align='left'>Admin realm range command</td>
-<td align='left'>poseidon.admin.range</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin register <player></b></td>
-<td align='left'>register player to unowned realm you are on</td>
-<td align='left'>poseidon.admin.register</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin reload</b></td>
-<td align='left'>reload the plugin</td>
-<td align='left'>poseidon.admin.relaod</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin reset</b></td>
-<td align='left'>commands.admin.resets.reset.description</td>
-<td align='left'>poseidon.admin.settingsreset</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp</b></td>
-<td align='left'>manipulate blueprints</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp copy [air]</b></td>
-<td align='left'>copy the clipboard set by pos1 and pos2 and optionally the air blocks</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp load <schem name></b></td>
-<td align='left'>load blueprint into the clipboard</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp origin</b></td>
-<td align='left'>set the blueprint's origin to your position</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp paste</b></td>
-<td align='left'>paste the clipboard to your location</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp pos1</b></td>
-<td align='left'>set 1st corner of cuboid clipboard</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp pos2</b></td>
-<td align='left'>set 2nd corner of cuboid clipboard</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin bp save <blueprint name></b></td>
-<td align='left'>save the copied clipboard</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<td align='left'><b>/padmin bp rename <blueprint name></b></td>
-<td align='left'>rename the blueprint</td>
-<td align='left'>poseidon.admin.blueprint</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin setowner <player></b></td>
-<td align='left'>transfers realm ownership to the player</td>
-<td align='left'>poseidon.mod.team</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin setrank <player> <rank></b></td>
-<td align='left'>set a player's rank on their realm</td>
-<td align='left'>poseidon.admin.setrank</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin setspawn</b></td>
-<td align='left'>Sets the world spawn position to this location/td>
-<td align='left'>poseidon.admin.setspawn</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin top</b></td>
-<td align='left'>show the top ten list - requires the Level addon</td>
-<td align='left'>poseidon.admin.top</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin tp <player></b></td>
-<td align='left'>teleport to a player's realm</td>
-<td align='left'>poseidon.mod.tp</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin tpend <player></b></td>
-<td align='left'>teleport to a player's end realm</td>
-<td align='left'>poseidon.mod.tp</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin tpnether <player></b></td>
-<td align='left'>teleport to a player's nether realm</td>
-<td align='left'>poseidon.mod.tp</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin unregister <owner></b></td>
-<td align='left'>unregister owner from realm, but keep realm blocks</td>
-<td align='left'>poseidon.admin.unregister</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin version</b></td>
-<td align='left'>display BentoBox and addons versions</td>
-<td align='left'>poseidon.admin.version</td>
-</tr>
-<tr>
-<td align='left'><b>/padmin why <player></b></td>
-<td align='left'>toggle console protection debug reporting</td>
-<td align='left'>poseidon.admin.why</td>
-</tr>
-</table>
+# StrangerRealms 玩家命令（别名：/st）
 
-<h1><b>Poseidon Player Commands </b>(Alias: /po)</h2>
-<table width="100%" align="center">
-<tr>
-<td align='left'><b>Command</b></td>
-<td align='left'><b>Description</b></td>
-<td align='left'><b>Permission</b></td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon</b></td>
-<td align='left'>The main realm command</td>
-<td align='left'>poseidon.island</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon about</b></td>
-<td align='left'>About this addon</td>
-<td align='left'>poseidon.island</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon ban <player></b></td>
-<td align='left'>ban a player from your realm</td>
-<td align='left'>poseidon.island.ban</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon banlist</b></td>
-<td align='left'>list banned players</td>
-<td align='left'>poseidon.island.ban</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon biomes</b></td>
-<td align='left'>Main biome addon command that opens biome change GUI. Requires the Biomes addon.</td>
-<td align='left'>poseidon.admin.biomes</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon challenges [Level]</b></td>
-<td align='left'>Let the player use /poseidon challenges command. Requires the Chanllenges addon</td>
-<td align='left'>poseidon.challenges</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon create <blueprint></b></td>
-<td align='left'>create an realm with an optional blueprint. (Not usually used by players directly)</td>
-<td align='left'>poseidon.island.create</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon go [home name]</b></td>
-<td align='left'>teleport you to your realm or to a specific home name, if enabled</td>
-<td align='left'>poseidon.island.home</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon info <player></b></td>
-<td align='left'>display info about your realm or a player's realm</td>
-<td align='left'>poseidon.island.info</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon language</b></td>
-<td align='left'>select language</td>
-<td align='left'>poseidon.island.language</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon level [player]</b></td>
-<td align='left'>calculate your realm level or show the level of [player] - requires the Level addon</td>
-<td align='left'>poseidon.island.level</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon near</b></td>
-<td align='left'>Show the name of neighboring realms around you, if any</td>
-<td align='left'>poseidon.island.near</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon reset</b></td>
-<td align='left'>restart your realm and remove the old one</td>
-<td align='left'>poseidon.island.reset</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon homes</b></td>
-<td align='left'>list the homes you have set</td>
-<td align='left'>poseidon.island.homes</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon sethome [home name]</b></td>
-<td align='left'>set your home teleport point and optionally name it</td>
-<td align='left'>poseidon.island.sethome</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon deletehome [home name]</b></td>
-<td align='left'>delete a home teleport point</td>
-<td align='left'>poseidon.island.deletehome</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon rename [home name]</b></td>
-<td align='left'>rename a home teleport point</td>
-<td align='left'>poseidon.island.renamehome</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon settings</b></td>
-<td align='left'>display realm settings</td>
-<td align='left'>poseidon.island.settings</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon spawn</b></td>
-<td align='left'>teleport you to the spawn</td>
-<td align='left'>poseidon.island.home</td>
-</tr>
-  <tr>
-<td align='left'><b>/poseidon setname</b></td>
-<td align='left'>set your realm name</td>
-<td align='left'>poseidon.mod.setname</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon resetname</b></td>
-<td align='left'>reset your realm name</td>
-<td align='left'>poseidon.mod.resetname</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon unban <player></b></td>
-<td align='left'>unban a player from your realm</td>
-<td align='left'>poseidon.island.ban</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team</b></td>
-<td align='left'>manage your team</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team accept</b></td>
-<td align='left'>accept an invitation</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team coop <player></b></td>
-<td align='left'>make a player coop rank on your realm</td>
-<td align='left'>poseidon.island.team.coop</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team demote <player></b></td>
-<td align='left'>demote a player on your realm down a rank</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team leave</b></td>
-<td align='left'>leave your realm</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team invite</b></td>
-<td align='left'>invite a player to join your realm</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team kick <player></b></td>
-<td align='left'>remove a member from your realm</td>
-<td align='left'>poseidon.island.expel</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team promote <player></b></td>
-<td align='left'>promote a player on your realm up a rank</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team reject</b></td>
-<td align='left'>reject an invitation</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team setowner <player></b></td>
-<td align='left'>transfer your realm ownership to a member</td>
-<td align='left'>poseidon.island.team</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team trust <player></b></td>
-<td align='left'>give a player trusted rank on your realm</td>
-<td align='left'>poseidon.island.team.trust</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon top</b></td>
-<td align='left'>show the Top Ten - required the Level addon</td>
-<td align='left'>poseidon.island.level</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team uncoop <player></b></td>
-<td align='left'>remove a coop rank from player</td>
-<td align='left'>poseidon.island.team.coop</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon team untrust <player></b></td>
-<td align='left'>remove trusted player rank from player</td>
-<td align='left'>poseidon.island.team.trust</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon warp <name></b></td>
-<td align='left'>warp to the player's warp sign - requires the Warp Addon</td>
-<td align='left'>poseidon.island.warp</td>
-</tr>
-<tr>
-<td align='left'><b>/poseidon warps</b></td>
-<td align='left'>open the warps panel - rwquires the Warp addon</td>
-<td align='left'>poseidon.island.warp</td>
-</tr>
-</table>
-<BR>
-<h3>Realm Settings (/po settings)</h3>
-There are Protection Settings,General Settings and Poseidon Settings that can be applied to the Realm.  Each of which ENABLE or DISABLE access to one or more types of players: Visitor, Coop, Trusted, Member, Sub-Owner and Owners for that realm.  The below images provides the icons associated with each type and can be set by clicking once or more times to acquire the settings you desired for one or all player types.
+| 命令 | 描述 | 权限 |
+| --- | --- | --- |
+| `/strange` | 主命令 | `strangerrealms.island` |
+| `/strange claim` | 在世界中声称一块土地 | `strangerrealms.claim` |
+| `/strange unclaim` | 放弃声称 | `strangerrealms.unclaim` |
+| `/strange ban <player>` | 从您的领域中封禁一个玩家 | `strangerrealms.island.ban` |
+| `/strange banlist` | 列出被封禁的玩家 | `strangerrealms.island.ban` |
+| `/strange challenges [Level]` | 让玩家使用 /strange challenges 命令。需要 Challenges 附属 | `strangerrealms.challenges` |
+| `/strange go [home name]` | 将您传送到您的声称或特定的家名称（如果启用） | `strangerrealms.island.home` |
+| `/strange info <player>` | 显示您的声称或玩家声称的相关信息 | `strangerrealms.island.info` |
+| `/strange language` | 选择语言 | `strangerrealms.island.language` |
+| `/strange near` | 显示您周围相邻领域的名称（如果有） | `strangerrealms.island.near` |
+| `/strange homes` | 列出您设置的家 | `strangerrealms.island.homes` |
+| `/strange sethome [home name]` | 设置您的家传送点并可选地命名 | `strangerrealms.island.sethome` |
+| `/strange deletehome [home name]` | 删除一个家传送点 | `strangerrealms.island.deletehome` |
+| `/strange rename [home name]` | 重命名一个家传送点 | `strangerrealms.island.renamehome` |
+| `/strange settings` | 显示声称设置 | `strangerrealms.island.settings` |
+| `/strange spawn` | 将您传送到世界出生点 | `strangerrealms.island.spawn` |
+| `/strange setname` | 设置您的声称名称 | `strangerrealms.island.name` |
+| `/strange resetname` | 重置您的声称名称 | `strangerrealms.island.name` |
+| `/strange unban <player>` | 从您的声称中解除玩家的禁用 | `strangerrealms.island.ban` |
+| `/strange team` | 管理您的团队 | `strangerrealms.island.team` |
+| `/strange team accept` | 接受邀请 | `strangerrealms.island.team` |
+| `/strange team coop <player>` | 使玩家在您的声称中获得合作者级别 | `strangerrealms.island.team.coop` |
+| `/strange team demote <player>` | 将声称上的玩家降级 | `strangerrealms.island.team` |
+| `/strange team leave` | 离开团队 | `strangerrealms.island.team` |
+| `/strange team invite` | 邀请玩家加入您的声称 | `strangerrealms.island.team` |
+| `/strange team kick <player>` | 从您的声称中移除成员 | `strangerrealms.island.expel` |
+| `/strange team promote <player>` | 提升声称上的玩家 | `strangerrealms.island.team` |
+| `/strange team reject` | 拒绝邀请 | `strangerrealms.island.team` |
+| `/strange team setowner <player>` | 将您的声称所有权转让给成员 | `strangerrealms.island.team` |
+| `/strange team trust <player>` | 给予玩家在您声称上的受信任级别 | `strangerrealms.island.team.trust` |
+| `/strange team uncoop <player>` | 从玩家中移除合作者级别 | `strangerrealms.island.team.coop` |
+| `/strange team untrust <player>` | 从玩家中移除受信任的玩家级别 | `strangerrealms.island.team.trust` |
+| `/strange warp <name>` | 传送到玩家的传送标记 - 需要 Warp 附属 | `strangerrealms.island.warp` |
+| `/strange warps` | 打开传送面板 - 需要 Warp 附属 | `strangerrealms.island.warp` |
 
-<table width='100%' align='center'>
-<tr>
-<td align='left' valign='top'><b>Settings</b></td>
-<td align='left'><b>Flags to enable or disable</b></td>
-</tr>
-<tr>
-<td align='left' valign='top'>Protection Settings</td>
-<td align='left'>Animal riding, Anvils, Armor stands, Beacons, Beds, Break blocks, Breed animals, Brewing stands, Buckets, Buttons, Chorus fruits, Collect lava, Collect water, Egg throwing, Enchanting Table, End Portal, EnderPearls, Experience pickup, Fire, Fire extinguish, Fish scooping, Frost walker, Furnace, Gates, Hurt animals, Hurt monsters, Hurt villagers, Item drop, Item pickup, Jukebox use, Leash use, Lever use, Lock realm, Milking, Mount inventory, Name tags, Nether Portal, Note block, Place blocks, Pressure Plates, Redstone items, Shearing, Spawn eggs, Next Page (sign), TNT damage, Trample crops, Trap doors, Turtle Eggs, Use doors, Villager trading, Workbenches, Use containers, Use dispensers, Use droppers, Use hoppers, Use Item Frames, Throw Potions, Previous Page (sign)</td>
-</tr>
-<tr>
-<td align='left' valign='top'>General Settings</td>
-<td align='left'>Animal spawning, End PVP, Fire spread, Monster spawning, Nether PVP, Overworld PVP</td>
-</tr>
-<tr>
-<td align='left' valign='top'>BSkyBlock Settings</td>
-<td align='left'>Chest damage, Clean Super Flat, Coarse dirt tilling, Creeper damage, Creeper griefing, Ender Chests, Enderman griefing, Enter/Exit messages, Realm respawn, Offline Redstone, Piston Push, Remove monsters, Obsidian Scooping, Feather Fall Teleporting, Command Ranks, Invincible Visitors, Limit mobs to realm</td>
-</tr>
-</table>
+# StrangerRealms 管理员命令（别名：/stranger）
+
+| 命令 | 描述 | 权限 |
+| --- | --- | --- |
+| `/stranger add <owner> <player>` | 将玩家添加到所有者的团队 | `strangerrealms.mod.team` |
+| `/stranger challenges` | 访问 /stranger challenges 管理员命令。需要 Challenges 附属。 | `strangerrealms.admin.challenges` |
+| `/stranger deaths` | 编辑玩家的死亡次数 | `strangerrealms.admin.deaths` |
+| `/stranger disband <owner>` | 解散所有者的团队 | `strangerrealms.mod.team` |
+| `/stranger getrank <player>` | 获取玩家在其声称中的等级 | `strangerrealms.admin.getrank` |
+| `/stranger info <player>` | 获取您所在位置或玩家声称的信息 | `strangerrealms.mod.info` |
+| `/stranger kick <team player>` | 将玩家从团队中踢出 | `strangerrealms.mod.team` |
+| `/stranger range` | 管理员领域范围命令 - 临时更改声称的范围 | `strangerrealms.admin.range` |
+| `/stranger bp` | 操纵蓝图 - 默认只是在 y = -64 处放置的基岩块 | `strangerrealms.admin.blueprint` |
+| `/stranger bp copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选地包括空气块 | `strangerrealms.admin.blueprint` |
+| `/stranger bp load <schem name>` | 将蓝图加载到剪贴板 | `strangerrealms.admin.blueprint` |
+| `/stranger bp origin` | 将蓝图的原点设置为您的位置 | `strangerrealms.admin.blueprint` |
+| `/stranger bp paste` | 将剪贴板粘贴到您的位置 | `strangerrealms.admin.blueprint` |
+| `/stranger bp pos1` | 设置长方体剪贴板的第 1 个角 | `strangerrealms.admin.blueprint` |
+| `/stranger bp pos2` | 设置长方体剪贴板的第 2 个角 | `strangerrealms.admin.blueprint` |
+| `/stranger bp save <blueprint name>` | 保存复制的剪贴板 | `strangerrealms.admin.blueprint` |
+| `/stranger bp rename <blueprint name>` | 重命名蓝图 | `strangerrealms.admin.blueprint` |
+| `/stranger setowner <player> [claim owner]` | 将声称所有权转让给玩家；命名当前所有者以从控制台运行 | `strangerrealms.mod.team` |
+| `/stranger setrank <player> <rank>` | 设置玩家在其声称上的等级 | `strangerrealms.admin.setrank` |
+| `/stranger setspawn` | 将世界出生点位置设置到此位置 | `strangerrealms.admin.setspawn` |
+| `/stranger tp <player> [claim]` | 传送到玩家的声称 | `strangerrealms.mod.tp` |
+| `/stranger tpend <player> [claim]` | 传送到玩家的末地声称 | `strangerrealms.mod.tp` |
+| `/stranger tpnether <player> [claim]` | 传送到玩家的下界声称 | `strangerrealms.mod.tp` |
+| `/stranger unregister <owner>` | 从领域注销所有者，但保留声称方块 | `strangerrealms.admin.unregister` |
+| `/stranger version` | 显示 BentoBox 和附属版本 | `strangerrealms.admin.version` |
+| `/stranger why <player>` | 切换控制台保护调试报告 | `strangerrealms.admin.why` |

@@ -402,7 +402,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 ## 更新日志
 
 ??? note "v2.23.0 新内容"
-    **发布于:** 2026-03-xx
+    **发布于:** 2026-02-21
 
     - **Oraxen/Nexo 自定义方块支持。** Level 现在可以计算 Oraxen 和 Nexo 自定义方块的价值。在 `blockconfig.yml` 中使用 `oraxen:block_id` 或 `nexo:block_id` 格式定义价值。
     - **每方块占位符。** 针对岛屿中跟踪的每种方块类型动态注册占位符(例如 `[gamemode]_island_count_<block>`)。由于这些是基于配置动态生成的,请参考 `blockconfig.yml` 了解你服务器上可用的标识符。
@@ -410,14 +410,21 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     [发布 v2.23.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.23.0)
 
 ??? warning "v2.24.0 新内容 — 需要操作"
-    **发布于:** 2026-04-xx
+    **发布于:** 2026-04-12
 
-    - **方块捐献系统。** 玩家现在可以将方块从物品栏直接捐献给岛屿等级,而无需将其放置在岛屿上。新命令: `/[player_command] donate`(GUI)和 `/[player_command] donate hand [amount]`。
-    - 新旗帜 `ISLAND_BLOCK_DONATION` — 控制谁可以捐献方块(默认:岛屿所有者;最低:成员)。
-    - 排行榜面板中新增 `DONATED` 标签,显示捐献方块贡献。
-    - 等级公式中新增 `island_members` 变量。
-    - 🔡 **所有语言文件迁移至 MiniMessage。** 删除 `BentoBox/addons/Level/locales/` 并重启以重新生成。
-    - 🔺 **需要删除 `detail_panel.yml`** — 删除旧面板文件以获取包含捐献标签的更新版本。
+    - **方块捐献系统。** 玩家现在可以通过 `/[player_command] donate`（GUI）或 `/[player_command] donate hand [amount]`（快速捐献手中物品）永久捐献方块给岛屿等级。捐献的积分存储在每个岛屿上，并在每次等级重新计算后重新添加。
+    - 新的 `ISLAND_BLOCK_DONATION` 保护标志控制谁可以捐献。默认仅所有者；可扩展至成员等级。
+    - 排行榜面板中新增 `DONATED` 标签，显示岛屿的捐献历史。
+    - 等级公式中新增 `island_members` 变量，用于对较大团队进行调整。
+    - 管理员等级报告现在包括捐献方块的详细信息。
+    - 所有语言文件已迁移至 MiniMessage 格式。
+    - 🆕 添加俄语（`ru.yml`）语言文件。
+    - 在并发写入下修复了前十的排序。
+    - 悬挂标志、藤蔓和洞穴藤蔓的方块图标现在可以正确呈现。
+
+    🔺 **在重启前删除 `plugins/BentoBox/addons/Level/panels/detail_panel.yml`** 以生成包含新 DONATED 标签模板的文件。升级时不会覆盖该文件。
+
+    🔡 **如果你有自定义设置，请重新生成语言文件** — 旧的 `&` 颜色代码不再有效。
 
     [发布 v2.24.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.24.0)
 
@@ -444,6 +451,21 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     ⚙️ **捐献面板布局。** 首次启动时会生成新的 `panels/donation_panel.yml` — 不修改即保持 2.25.0 的布局，或编辑以自定义。
 
     [发布 v2.26.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.26.0)
+
+??? warning "v2.27.0 新内容 — 需要操作"
+    **发布于:** 2026-05-13
+
+    🔺 **需要 BentoBox 3.16.0 或更高版本。** 此版本将 `addon.yml` 中的 `api-version` 更新至 `3.16.0`，并依赖新的 `CraftEngineHook.getItemId` / `getItemStack` 助手。较旧的 BentoBox 版本将拒绝加载该插件。
+
+    - ⚙️ **仅捐献模式。** `config.yml` 中的新 `donations-only` 选项（默认 `false`）。设置为 `true` 时，每次重新计算时跳过分块扫描，岛屿等级仅从捐献积分计算。在此模式下不会注册 `/island detail`，前十查看器按钮停止打开详细面板。存储的 `initialCount` 在 `/island level` 时被忽略，因此为现有岛屿启用该模式不会推送玩家到极低负等级。
+    - 💎 **`/island donate inv` — 捐献物品栏中的所有内容。** 新的可确认 `inv` 子命令：列出玩家物品栏中每种可捐献方块的值和总计，然后在确认时捐献所有内容并运行等级重新计算。没有配置值的物品和非方块物品保留在物品栏中。制表符补完现在为第一个参数建议 `hand` / `inv`，为持有物品的数量建议。
+    - 🧱 **跨价值、详情和捐献菜单的自定义方块支持。** Oraxen、Nexo、ItemsAdder 和 CraftEngine 自定义方块不再从 `/level value` 中筛选出或在 `/level detail` 中呈现为无名称的纸张图标。价值面板和详情面板从每个插件的注册表中查找真实的自定义方块 `ItemStack`，以便保留配置的纹理/模型数据和显示名称。`/island value hand` 在持有自定义物品时现在报告配置的值和显示名称。捐献路径（`/island donate hand`、`/island donate inv`、捐献面板）接受自定义方块物品并在自定义 ID 下记录捐献。
+    - 🐛 **负进度修复。** 非线性 `level-calc` 公式（例如 `3 * sqrt(blocks / level_cost)`）不再在等级之间低于零。感谢 @msmith-codes！
+    - ⚡ **性能。** `tidyUp()` 在计算点边界时不再在主线程上线性遍历多达 1000 万个点 — 前向和后向扫描现在使用二进制搜索（约 23 次迭代而不是数百万次）。
+
+    🔡 **语言文件已更新。** 所有 18 个预装语言文件获得了新的 `island.donate.inv.*` 键（`keyword`、`confirm-header`、`confirm-line`、`confirm-total`）。如果你在 `plugins/BentoBox/addons/Level/locales/` 中有自定义语言文件，请将新的 `donate.inv` 块复制到其中，否则新的 `/island donate inv` 流程将显示原始键。
+
+    [发布 v2.27.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.27.0)
 
 ## 翻译
 

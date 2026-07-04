@@ -236,16 +236,19 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
     [发布 v1.7.0](https://github.com/BentoBoxWorld/Challenges/releases/tag/1.7.0)
 
 ??? warning "v1.6.0 新内容 — 需要语言文件迁移"
-    **发布于:** 2026-04-xx
+    **发布于:** 2026-04-13
 
-    - **所有语言文件迁移至 MiniMessage。** 每个语言文件已从旧版 `&` 颜色代码转换为 MiniMessage 标签,与 BentoBox 3.14 保持一致。
-    - 网络库更新,包含新的公共挑战库。
-    - 管理员 GUI 中新增菜单设置选项。
-    - 需要 BentoBox API 3.14.0+。
+    - 🔡 **所有语言文件迁移至 MiniMessage。** 每个语言文件已从旧版 `&` 颜色代码转换为 MiniMessage 标签。删除 `BentoBox/locales/Challenges/` 并重启以重新生成更新的文件。
+    - 新挑战菜单设置（由 @stuffyerface 贡献）。
+    - 改进的网络库面板：添加了语言过滤器，说明文字自动换行，下载目录时显示加载指示器，妥善处理格式错误的目录条目。
+    - 为挑战和等级说明中的奖励文本应用了自动换行，以获得更清晰的显示。
+    - **新增可下载的挑战库**，可通过游戏内网络库访问：
+        - **Skyblock** — 具有多个进度路径的现代 Skyblock 挑战（EN、ZH-CN、DE、ES、RU、FR）
+        - **AcidIsland** — 从沉船到海军上将的海洋挑战进度（EN、ZH-CN、DE、ES、RU、FR）
+        - **Poseidon** — Poseidon 游戏模式的默认挑战（EN、ZH-CN、DE、ES、RU、FR）
+    - 需要 BentoBox API 3.12.0+。
 
-    🔡 删除 `BentoBox/locales/Challenges/` 并重启服务器以重新生成语言文件。
-
-    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Challenges/releases)
+    [发布 v1.6.0](https://github.com/BentoBoxWorld/Challenges/releases/tag/1.6.0)
 
 ??? note "v1.6.1 新内容"
     **发布于：** 2026-05-26
@@ -260,3 +263,363 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
 
 ??? question "你能添加 X 功能吗?"
     请将其添加到[这里](https://github.com/BentoBoxWorld/Challenges/issues)的列表中。
+
+??? question "我如何添加新挑战?"
+    官方的方式是通过管理员 GUI 或模板文件添加挑战。
+    请注意,模板文件仅在使用管理员 GUI 中的正确图标("导入模板")后才会导入。GUI 将允许选择要导入到游戏模式中的模板。
+    
+    但是,也可以选择编辑导出的数据库文件。可以通过以下方式完成：`/[admin_command] challenges` 并单击"导出数据库"按钮。
+
+??? question "我可以按岛屿启用挑战吗?这样所有岛屿成员都有相同的挑战?"
+    是的,你可以通过插件配置文件来实现：`store-island-data: true`
+
+??? question "我可以按玩家启用挑战吗?"
+    是的,你可以通过插件配置文件来实现：`store-island-data: false`
+
+??? question "奖励命令不起作用。为什么?"
+    最可能的原因是奖励命令定义不正确。命令不需要在其前面加上 `/` 符号。
+    
+    如果你想从玩家的角度调用命令，你需要在命令调用前添加 `[SELF]`，例如 `[SELF] kill` 将导致玩家调用 `/kill` 命令。
+
+    也可能是由权限导致的。`[gamemode].command.challengeexempt` 将防止玩家执行命令。检查玩家是否没有此权限。
+
+??? question "如何在奖励命令中添加占位符?"
+    目前，插件不支持在奖励命令中使用占位符。如果有必要，你可以在 GitHub 上请求。
+    
+    当前在奖励命令中唯一支持的占位符是 `[player]` 它返回完成挑战的玩家的名字。
+
+??? question "我不喜欢挑战描述中元素的顺序。我可以改变它吗?"
+    是的,元素的顺序是在插件语言文件中定义的。
+
+    [挑战描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L852-L994)
+    [等级描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L995-L1042)
+
+    切换或删除说明的某些部分将改变其中显示元素的顺序。
+
+    ```yaml
+        lore: |-
+            [description]
+            [status]
+            [cooldown]
+            [requirements]
+            [rewards]
+    ```
+
+    这些部分中的每一个都由下面的标签生成，你也可以改变它们。例如 [status] 部分是由以下内容生成的：
+
+    ```yaml
+    status:
+        # 已完成不可重复挑战的状态消息
+        completed: "&2&l Completed"
+        # 包含无限可重复挑战完成次数的状态消息
+        completed-times: "&2 Completed &7&l [number] &r&2 time(-s)"
+        # 包含可重复挑战最大可用完成次数的状态消息
+        completed-times-of: "&2 Completed &7&l [number] &r&2 out of &7&l [max] &r&2 times"
+        # 表示达到可重复挑战最大完成次数的状态消息
+        completed-times-reached: "&2&l Completed all &7 [max] &2 times"
+    ```
+
+## 翻译
+
+!!! info "挑战的翻译"
+    翻译不涵盖挑战。
+    每个挑战都有自己的"显示名称"和"描述"，为了保持最终用户的配置过程尽可能简单，这些不会被本地化。
+    但是，你可以在我们的[在线挑战库](https://github.com/BentoBoxWorld/weblink/tree/master/challenges/library)上找到或提供各种挑战的翻译。
+
+    你也可以选择通过语言[文件](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L1248-L1270)翻译部分内容
+
+{{ translations("Challenges") }}
+
+## API
+
+自 Challenges 1.0 和 BentoBox 1.17 以来，其他插件可以直接访问 Challenges 插件数据。但是，插件请求仍然是那些不想使用过多依赖的插件的好解决方案。
+
+### Maven 依赖
+
+Challenges 为其他插件提供了 API。这涵盖 1.1.0 及以后的版本。
+
+!!! note
+    将 Challenges 依赖添加到你的 Maven POM.xml：
+
+    ```xml
+        <repositories>
+            <repository>
+                <id>codemc-repo</id>
+                <url>https://repo.codemc.io/repository/bentoboxworld/</url>
+            </repository>
+        </repositories>
+        
+        <dependencies>
+            <dependency>
+                <groupId>world.bentobox</groupId>
+                <artifactId>challenges</artifactId>
+                <version>1.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    ```
+
+使用最新的 Challenges 版本。
+
+Challenges 的 JavaDocs 可以在[这里](https://ci.codemc.io/job/BentoBoxWorld/job/Challenges/ws/target/apidocs/index.html)找到。
+
+### 事件
+
+自 BentoBox 1.17 API 以来，实现了解决类加载器问题的功能。想要直接使用事件的插件现在可以这样做。
+
+=== "ChallengeCompletedEvent"
+    !!! summary "描述"
+        当玩家完成挑战时触发的事件。
+
+        此事件仅提供信息。不能被取消。
+
+        链接到类：[ChallengeCompletedEvent](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/java/world/bentobox/challenges/events/ChallengeCompletedEvent.java)
+
+
+    !!! question "变量"
+        - `String challengeId` - 被完成的挑战的 id。
+        - `UUID user` - 完成挑战的玩家的 id。
+        - `Boolean admin` - 表示挑战是否由管理员完成。
+        - `Integer completionCount` - 挑战完成次数。
+        
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onLevelCompletion(ChallengeCompletedEvent event) {
+            UUID user = event.getPlayerUUID();
+            String challenge = event.getChallengeID();
+            boolean isAdmin = event.isAdmin();
+            int count = event.getCompletionCount();
+        }
+        ``` 
+
+=== "LevelCompletedEvent"
+    !!! summary "描述"
+        当玩家完成等级时触发的事件。
+
+        此事件仅提供信息。不能被取消。
+
+        链接到类：[LevelCompletedEvent](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/java/world/bentobox/challenges/events/LevelCompletedEvent.java)
+
+
+    !!! question "变量"
+        - `String levelId` - 被完成的等级的 id。
+        - `UUID user` - 完成等级的玩家的 id。
+        - `Boolean admin` - 表示等级是否由管理员完成。
+        
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onLevelCompletion(LevelCompletedEvent event) {
+            UUID user = event.getPlayerUUID();
+            String levelId = event.getLevelID();
+            boolean isAdmin = event.isAdmin();
+        }
+        ``` 
+
+=== "ChallengeResetAllEvent"
+    !!! summary "描述"
+        当玩家的所有挑战被重置时触发的事件。它包括挑战等级数据。
+
+        此事件仅提供信息。不能被取消。
+
+        链接到类：[ChallengeResetAllEvent](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/java/world/bentobox/challenges/events/ChallengeResetAllEvent.java)
+
+    !!! question "变量"
+        - `String worldName` - 挑战被重置的世界的名称。
+        - `UUID playerUUID` - 被针对的玩家的 id。
+        - `Boolean admin` - 表示重置是否由管理员完成。
+        - `String reason` - 包含重置的原因。
+
+    !!! warning "常量值"
+        - `reason` - 如果由玩家完成则设置为"ISLAND_RESET"，如果由管理员完成则设置为"RESET_ALL"。
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onLevelCompletion(ChallengeResetAllEvent event) {
+            UUID user = event.getPlayerUUID();
+            String worldName = event.getWorldName();
+            boolean isAdmin = event.isAdmin();
+            String reason = event.getReason();
+        }
+        ``` 
+
+=== "ChallengeResetEvent"
+    !!! summary "描述"
+        当管理员重置挑战时触发的事件。
+
+        此事件仅提供信息。不能被取消。
+
+        链接到类：[ChallengeResetEvent](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/java/world/bentobox/challenges/events/ChallengeResetEvent.java)
+
+    !!! question "变量"
+        - `String challengeID` - 被重置的挑战的 id。
+        - `UUID playerUUID` - 被针对的玩家的 id。
+        - `Boolean admin` - 表示挑战是否由管理员重置。
+        - `String reason` - 包含重置的原因。
+
+    !!! warning "常量值"
+        - `admin` - 设置为 true。尚未实现非管理员的单个挑战重置。
+        - `reason` - 设置为"RESET"。
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onLevelCompletion(ChallengeResetEvent event) {
+            UUID user = event.getPlayerUUID();
+            String challengeId = event.getChallengeID();
+            boolean isAdmin = event.isAdmin();
+            String reason = event.getReason();
+        }
+        ```
+
+### 插件请求处理器
+
+在 BentoBox 1.17 之前，由于我们用来加载插件的类加载器，访问 BentoBox 环境之外的数据存在问题。
+这意味着数据仅可从其他插件访问。但 BentoBox 实现了 PlAddon 功能，这意味着请求处理器不再必要。
+
+更多关于插件请求处理器的信息可以在[这里](/en/latest/BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons/)找到
+
+=== "challenge-list"
+    !!! summary "描述"
+        返回在给定世界中定义的所有挑战的 uniqueIds 列表。
+
+    !!! question "输入"
+        - `world-name`: String - 世界的名称。
+
+    !!! success "输出"
+        输出是一个 `List<String>` 包含为指定世界定义的挑战的 uniqueIds 列表。
+
+    !!! failure
+        如果未提供 `world-name`，或 `world-name` 不存在或不是游戏模式世界，此处理器将返回空列表。
+
+    !!! example "代码示例"
+        ```java
+        public List<String> getChallenges(String worldName) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("Challenges")
+                .label("challenge-list")
+                .addMetaData("world-name", worldName)
+                .request();
+        }
+        ```
+
+=== "challenge-data"
+    !!! summary "描述"
+        返回一个 `Map<String, Object>` 包含关于所请求挑战的所有信息。
+
+    !!! question "输入"
+        - `challenge-name`: String - 所请求挑战的唯一 ID。
+
+    !!! success "输出"
+        输出是一个 `Map<String, Object>` 具有以下键：
+
+        - `uniqueId`: String - 所请求挑战的唯一 ID。
+        - `name`: String - 挑战的显示名称。
+        - `icon`: ItemStack - 在 GUI 中代表挑战的物品。
+        - `levelId`: String - 分配所请求挑战的等级的 uniqueId。
+        - `order`: Integer - 给定挑战的顺序号。
+        - `deployed`: Boolean - 如果挑战被部署则为 `true`，否则为 `false`。
+        - `description`: List&lt;String&gt; - 挑战的描述。
+        - `type`: String - 所请求的挑战类型的名称。
+        - `repeatable`: Boolean - 如果挑战可重复则为 `true`，否则为 `false`。
+        - `maxTimes`: Integer - 所请求挑战的最大完成次数。
+
+    !!! failure
+        如果未提供 `challengeId`，或在数据库中找不到 `challengeId`，此处理器将返回空映射。
+
+    !!! example "代码示例"
+        ```java
+        public Map<String, Object> getChallengeDataMap(String challengeId) {
+            return (Map<String, Object>) new AddonRequestBuilder()
+                .addon("Challenges")
+                .label("challenge-data")
+                .addMetaData("challenge-name", challengeId)
+                .request();
+        }
+        ```
+
+=== "level-list"
+    !!! summary "描述"
+        返回在给定世界中定义的所有等级的 uniqueIds 列表。
+
+    !!! question "输入"
+        - `world-name`: String - 世界的名称。
+
+    !!! success "输出"
+        输出是一个 `List<String>` 包含为指定世界定义的等级的 uniqueIds 列表。
+
+    !!! failure
+        如果未提供 `world-name`，或 `world-name` 不存在或不是游戏模式世界，此处理器将返回空列表。
+
+    !!! example "代码示例"
+        ```java
+        public List<String> getChallengeLevels(String worldName) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("Challenges")
+                .label("level-list")
+                .addMetaData("world-name", worldName)
+                .request();
+        }
+        ```
+
+=== "level-data"
+    !!! summary "描述"
+        返回一个 `Map<String, Object>` 包含关于所请求等级的所有信息。
+
+    !!! question "输入"
+        - `level-name`: String - 所请求等级的唯一 ID。
+
+    !!! success "输出"
+        输出是一个 `Map<String, Object>` 具有以下键：
+
+        - `uniqueId`: String - 所请求等级的唯一 ID。
+        - `name`: String - 等级的显示名称。
+        - `icon`: ItemStack - 在 GUI 中代表等级的物品。
+        - `world`: String - 等级操作的世界名称。
+        - `order`: Integer - 给定等级的顺序号。
+        - `message`: String - 给定等级的解锁消息。
+        - `waiveramount`: Integer - 在解锁前可以保留未完成的挑战数。
+        - `challenges`: List&lt;String&gt; - 分配的挑战的 ids 列表。
+
+    !!! failure
+        如果未提供 `levelId`，或在数据库中找不到 `levelId`，此处理器将返回空映射。
+
+    !!! example "代码示例"
+        ```java
+        public Map<String, Object> getChallengeLevelData(String levelId) {
+            return (Map<String, Object>) new AddonRequestBuilder()
+                .addon("Challenges")
+                .label("level-data")
+                .addMetaData("level-name", levelId)
+                .request();
+        }
+        ```
+
+=== "completed-challenges"
+    !!! summary "描述"
+        返回在给定世界中定义的已完成挑战的 uniqueIds 列表，由给定玩家完成。
+
+    !!! question "输入"
+        - `player`: UUID - 玩家的 UUID。
+        - `world-name`: String - 世界的名称。
+
+    !!! success "输出"
+        输出是一个 `Set<String>` 包含玩家为指定世界完成的挑战的 uniqueIds 集合。
+
+    !!! failure
+        如果未提供 `world-name`，或 `world-name` 不存在或不是游戏模式世界，此处理器将返回空集合。
+        如果未提供 `player` 或 `player` 不存在，此处理器将返回空集合。
+
+    !!! example "代码示例"
+        ```java
+        public List<String> getCompletedChallenges(UUID playerUUID, String worldName) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("Challenges")
+                .label("completed-challenges")
+                .addMetaData("player", playerUUID)
+                .addMetaData("world-name", worldName)
+                .request();
+        }
+        ```

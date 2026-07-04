@@ -143,21 +143,21 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 === "requirements"
     !!! summary "描述"
         `requirements` 部分允许限制访问下一阶段，直到满足特定要求。
-        目前，有 4 个要求字段：
+        目前，有 5 个要求字段：
     
         - `economy-balance` - 最低玩家经济余额（需要 Vault 和经济插件）
         - `bank-balance` - 最低岛屿银行余额（需要 Bank 插件）
         - `level` - 岛屿等级（需要 Levels 插件）
         - `permission` - 权限字符串
+        - `cooldown` - 阶段上次启动后必须经过的最少秒数（防止快速切换阶段）
 
-    !!! example
-
- "示例"
+    !!! example "示例"
         ```yaml
             requirements:
               bank-balance: 10000
               level: 10
               permission: ready.for.battle
+              cooldown: 60
         ```
 
 === "blocks"
@@ -196,6 +196,13 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
         
         要在 `blocks` 部分定义自定义方块，您需要在每个元素前添加 `-`。
         此外，必须使用类型、数据和概率值定义方块。
+        支持的类型有：
+        
+          - `block-data` - 使用 `/setblock` 命令将方块放置在世界中。需要 `data` 字段
+          - `mob` - 使用生成实体 API 创建请求的实体。需要 `mob` 字段，以及可选的 `underlying-block` 字段（默认值：STONE）
+          - `itemsadder` - 使用 [ItemsAdder](https://itemsadder.devs.beer/) API 创建方块。需要 `id` 字段。必须安装 ItemsAdder 插件。
+          - `nexo` - 使用 [Nexo](https://polymart.org/resource/nexo.6901) API 创建方块。需要 `id` 字段。必须安装 Nexo 插件。
+          - `craftengine` - 使用 [CraftEngine](https://github.com/Xiao-MoMi/craft-core) API 创建方块。需要 `id` 字段。必须安装 CraftEngine 插件。需要 BentoBox 3.15.0+。
 
     !!! example "示例"
         ```yaml
@@ -212,8 +219,26 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
               - type: block-data
                 data: minecraft:chest
                 probability: 10
+              - type: mob
+                mob: ZOMBIE
+                underlying-block: STONE
+                probability: 5
+              - type: itemsadder
+                id: mypack:ruby_ore
+                probability: 10
+              - type: nexo
+                id: mypack:custom_block
+                probability: 10
+              - type: craftengine
+                id: mypack:custom_block
+                probability: 10
               - DIRT: 10     # 旧语法仍然有效。
         ```
+
+    !!! tip "ItemsAdder 和 Nexo"
+        要使用来自 ItemsAdder 或 Nexo 的自定义方块，必须在服务器上安装相应的插件。
+        AOneBlock 在启动时自动检测这些插件并注册相应的方块处理器。
+        如果你配置了 `itemsadder` 或 `nexo` 方块但插件未安装，方块将降级为 STONE。
 
 
 在宝箱文件中，它只有阶段号和宝箱部分。
@@ -331,6 +356,18 @@ BentoBox 1.17 API 引入了一个功能，允许实现可定制的 GUI。此插�
 [完整的 AOneBlock 权限列表](Permissions)
 
 
+## 标志
+
+AOneBlock 引入了几个用于控制游戏行为的自定义标志：
+
+| 标志 | 类型 | 描述 | 默认值 |
+|------|------|-------------|---------|
+| `START_SAFETY` | 世界设置 | 启用后，玩家在创建新岛屿时会有短暂时间无法移动，以防止他们立即掉落。持续时间由配置中的 `starting-safety-duration` 设置。 | false |
+| `ONEBLOCK_BOSSBAR` | 岛屿设置 | 切换是否为玩家显示 OneBlock 阶段进度的 boss 血条。仅在配置中设置 `bossbar: true` 时可用。 | true |
+| `ONEBLOCK_ACTIONBAR` | 岛屿设置 | 切换是否为玩家显示 OneBlock 阶段进度的动作栏。仅在配置中设置 `actionbar: true` 时可用。 | true |
+| `MAGIC_BLOCK` | 保护 | 设置破坏魔法方块所需的最低岛屿等级。默认等级为 Coop。 | COOP |
+
+
 ## 占位符
 
 AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储的数据相关。
@@ -428,13 +465,19 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 
 ## 更新日志
 
-??? warning "v1.23.0 新内容"
-    **发布于:** 2026-04-xx
+??? warning "v1.23.0 新内容 — 需要语言文件更新"
+    **发布于:** 2026-04-11
 
-    - **Nexo 自定义方块支持。** AOneBlock 现在可以在阶段配置中使用 Nexo 自定义方块作为方块和固定方块。使用 `nexo:<block_id>` 语法。
-    - 🔡 动作栏消息已迁移至 MiniMessage 格式。删除 `BentoBox/addons/AOneBlock/locales/` 并重启以重新生成。
+    - **Nexo 自定义方块支持。** AOneBlock 现在支持在阶段定义中使用 [Nexo](https://github.com/Nexo-MC/Nexo) 自定义方块（与现有 ItemsAdder 支持并列）。在 phases 配置中使用 `type: nexo` 和 `id` 字段定义它们。
+    - **动作栏支持十六进制/MiniMessage 颜色。** `/ob actionbar` 文本现在能正确渲染十六进制颜色和完整的 MiniMessage 格式。
+    - 🔡 俄语语言文件更新为 MiniMessage 格式并修正了语法错误。
+    - 修复了多个动作栏语言文件和翻译错误。
 
-    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/AOneBlock/releases)
+    🔺 **Nexo 支持是一个新的配置选项。** 如果你使用 Nexo，请在 phase `.yml` 文件中添加 Nexo 类型的方块条目。
+
+    🔡 **如果有自定义内容，请重新生成语言文件。**
+
+    [发布 v1.23.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.23.0)
 
 ??? warning "v1.24.0 新内容 — 需要 BentoBox 3.15.0"
     **发布于：** 2026-04-26

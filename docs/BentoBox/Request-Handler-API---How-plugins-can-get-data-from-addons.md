@@ -1,20 +1,20 @@
-# The Request Handler API
-This API enables plugin authors to request data from addons. Addon authors can decide exactly what data they wish to expose. Plugins cannot directly access any classes inside an addon because of Java security rules on class loaders.
+# 请求处理程序 API
+此 API 使插件作者能够从附加组件请求数据。附加组件作者可以决定他们希望公开的确切数据。由于 Java 安全规则对类加载器的限制，插件无法直接访问附加组件内的任何类。
 
-## Example with Level addon
+## 使用 Level 附加组件的示例
 
-The Level addon exposes two request handlers [LevelRequestHandler](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/java/world/bentobox/level/requests/LevelRequestHandler.java) and [TopTenRequestHandler](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/java/world/bentobox/level/requests/TopTenRequestHandler.java). Here is how a plugin would obtain a player's level from LevelRequestHandler:
+Level 附加组件公开两个请求处理程序 [LevelRequestHandler](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/java/world/bentobox/level/requests/LevelRequestHandler.java) 和 [TopTenRequestHandler](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/java/world/bentobox/level/requests/TopTenRequestHandler.java)。以下是插件从 LevelRequestHandler 获取玩家等级的方式：
 
 ### LevelRequestHandler
 
-Label: `island-level`
+标签：`island-level`
 
-Input map:
+输入映射：
 
-* Key: `world-name` -> String
-* Value: `player` -> UUID
+* 键：`world-name` -> String
+* 值：`player` -> UUID
 
-Therefore, the code to obtain the level of a player is for example:
+因此，获取玩家等级的代码示例如下：
 
 ```
 UUID uuid = player.getUniqueId();
@@ -27,10 +27,10 @@ Long result = (Long)AddonRequestBuilder
     .request();
 ```
 
-You can find out what data is exposed by addons by looking at their code or at their documentation.
+您可以通过查看附加组件的代码或其文档来了解附加组件公开了哪些数据。
 
-# Exposing data from an addon
-To expose data, create classes for each element that extend [AddonRequestHandler](https://bentoboxworld.github.io/BentoBox/world/bentobox/bentobox/api/addons/request/AddonRequestHandler.html). Then register the request handlers in your addon. For example:
+# 从附加组件暴露数据
+要暴露数据，请为扩展 [AddonRequestHandler](https://bentoboxworld.github.io/BentoBox/world/bentobox/bentobox/api/addons/request/AddonRequestHandler.html) 的每个元素创建类。然后在您的附加组件中注册请求处理程序。例如：
 
 ```
         // Register request handlers
@@ -38,27 +38,27 @@ To expose data, create classes for each element that extend [AddonRequestHandler
         registerRequestHandler(new TopTenRequestHandler(this));
 ```
 
-The handler should define its label in its constructor, for example:
+处理程序应在其构造函数中定义其标签，例如：
 
 ```
     public LevelRequestHandler(Level addon) {
-        super("island-level"); // the label is "island-level"
+        super("island-level"); // 标签是 "island-level"
         this.addon = addon;
     }
 ```
 
-The label must be unique for your addon.
+标签对于您的附加组件必须是唯一的。
 
-Then, override the `handle` method that takes a map as a parameter:
+然后，覆盖接受映射作为参数的 `handle` 方法：
 
 ```
     @Override
     public Object handle(Map<String, Object> map) {
 ```
 
-You can define the contents of the map but the Object must NEVER be any unique class in your addon. It can only be classes that exist for all plugins. If you try to reference a hidden class, the plugin will generate an exception. So, integers, longs, Bukkit Locations, worlds, etc. are fine.
+您可以定义映射的内容，但对象绝不能是您的附加组件中的任何唯一类。它只能是所有插件都存在的类。如果您尝试引用隐藏类，插件将生成异常。因此，整数、长整数、Bukkit 位置、世界等都没有问题。
 
-It is good practice to document what your map will be because plugin authors will be using it:
+记录您的映射将是什么是个好习惯，因为插件作者会使用它：
 
 ```
         /*
@@ -71,7 +71,7 @@ It is good practice to document what your map will be because plugin authors wil
          */
 ```
 
-After that process the map and provide the result:
+之后处理映射并提供结果：
 
 ```
 
@@ -86,7 +86,7 @@ After that process the map and provide the result:
     }
 ```
 
-Note that you are returning an `Object` so the plugin author will need to cast it to the correct form, in this case, a `long`. It is good practice to protect your addon from erroneous map formats by performing an appropriate level of parameter checking.
+请注意，您返回的是 `Object`，所以插件作者需要将其转换为正确的形式，在这种情况下是 `long`。通过执行适当级别的参数检查来保护您的附加组件免受错误的映射格式是个好习惯。
 
 
 

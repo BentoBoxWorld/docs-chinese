@@ -15,6 +15,7 @@
 | skygrid.admin.settingsreset         | op   | 将所有区域重置为默认保护设置                           |
 | skygrid.admin.unregister            | op   | 从某个区域移除一个玩家，不再生区域方块                     |
 | skygrid.mod.bypasscooldowns         | op   | 允许管理员绕过冷却时间                             |
+| skygrid.mod.bypassdelays            | op   | 允许管理员绕过延迟                                |
 | skygrid.mod.bypassexpel             | op   | 允许管理员绕过区域驱逐                             |
 | skygrid.mod.bypasslock              | op   | 绕过区域锁定                                   |
 | skygrid.mod.bypassprotect           | op   | 允许管理员绕过区域保护                             |
@@ -29,6 +30,7 @@
 | skygrid.island.ban                  | true | 允许禁止访客                                   |
 | skygrid.island.expel                | true | 允许驱逐访客                                   |
 | skygrid.island.home                 | true | 允许传送到玩家区域                                |
+| skygrid.island.go                   | true | 使用 skygrid go 命令                             |
 | skygrid.island.language             | true | 玩家可以选择语言                                 |
 | skygrid.island.lock                 | false| 允许区域锁定                                   |
 | skygrid.island.name                 | true | 玩家可以设置其区域的名称                            |
@@ -39,11 +41,9 @@
 | skygrid.island.spawn                | true | 如果存在出生点，玩家可以使用区域出生命令                  |
 | skygrid.island.team                 | true | 允许玩家使用团队命令                               |
 | skygrid.island.team.coop            | true | 允许玩家使用团队合作命令                            |
-|
-
- skygrid.island.team.trust           | true | 允许玩家使用团队信任命令                            |
+| skygrid.island.team.trust           | true | 允许玩家使用团队信任命令                            |
 | skygrid.settings.*                  | true | 允许在区域上使用设置                               |
-| skygrid.skygrid                     | true | 使用 **/skygrid** 命令                          |
+| skygrid.island                      | true | 使用 **/skygrid** 命令                          |
 | skygrid.team.maxsize.[NUMBER]       | false| 允许玩家拥有默认值以上的更大团队尺寸。                  |
 | skygrid.island.maxhomes.[NUMBER]    | false| 允许玩家拥有默认值以上的更多家。                      |
 | skygrid.island.range.[NUMBER]       | false| 允许玩家拥有默认值以上的更大保护范围。                  |
