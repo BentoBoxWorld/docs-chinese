@@ -1,11 +1,11 @@
 # addons
 
-This is where add-ons are placed.
+这是放置附加组件的地方。
 
 # locales
 
-This is where language files are placed
+这是放置语言文件的地方。
 
 # database
 
-This is where the flat file database is stored (YAML files). It is where data is stored from add-ons.
+这是平面文件数据库的存储位置（YAML 文件）。这是附加组件数据的存储位置。

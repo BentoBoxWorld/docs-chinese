@@ -259,6 +259,27 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
 ## 更新日志
 
+??? note "v2.3.2 新内容"
+    **发布于：** 2026-06-15
+
+    2.3.1 的小型后续版本，完成了海洋生态区修复并修复了插件写入配置的方式。
+
+    - ⚙️ **`change-ocean-biomes` 现在在 `config.yml` 中。** 该选项（在 2.3.0 中添加）从未写入发布的配置模板，所以它没有出现在磁盘上，无法配置。
+    - 🔧 **`config.yml` 现在在加载时自我修复。** 设置在加载后写回，所以新版本中添加的选项会自动添加到现有配置中并使用其默认值 — 这是该选项不可见的根本原因。
+
+    🔺 **从 2.3.0 / 2.3.1 升级 — 无需编辑配置。** 首次加载时配置自我修复：`change-ocean-biomes` 自动写出为 `true`，生态区变更开箱即用。（如果你之前故意将其设置为 `false` 以保留海洋，该值会被保留。）
+
+    [发布 v2.3.2](https://github.com/BentoBoxWorld/Biomes/releases/tag/2.3.2)
+
+??? warning "v2.3.1 新内容 — 海洋岛屿已修复"
+    **发布于：** 2026-06-14
+
+    - ⚙️🔺 **生态区变更再次适用于海洋岛屿。** `change-ocean-biomes` 选项（在 2.3.0 中添加）默认为 `false`，这使得生态区跳过已经在海洋生态区中的每一个方块 — 所以一个全海洋岛屿（SkyBlock/AcidIsland 虚空世界，完全是 `warm_ocean`）被完全跳过，同时仍然报告成功。**默认值现在为 `true`。** 修复 [#171](https://github.com/BentoBoxWorld/Biomes/issues/171)。
+
+    🔺 **注意：** 在从 2.3.0 升级的服务器上，`change-ocean-biomes` 行不会在此版本中自动写入到现有的 `config.yml` 中，但新的默认值（`true`）在内存中生效，所以生态区变更再次工作。这个配置可见性差距在 2.3.2 中得到完全修复。
+
+    [发布 v2.3.1](https://github.com/BentoBoxWorld/Biomes/releases/tag/2.3.1)
+
 ??? warning "v2.3.0 新内容 — 需要 BentoBox 3.14.0+ 和 Paper"
     **发布于：** 2026-05-05
 
@@ -484,5 +505,117 @@ Coordinate` - 生态区更改的最小坐标。
             int maxZ = event.getMaxZ();
 
             String resultName = event.getResultName();
+        }
+        ```
+
+### 插件请求处理器
+
+在BentoBox 1.17之前，由于我们用来加载插件的类加载器，访问BentoBox环境之外的数据存在问题。
+这意味着数据仅可从其他插件访问。但BentoBox实现了PlAddon功能，这意味着请求处理器不再必要。
+
+
+=== "biome-data"
+    !!! summary "描述"
+        返回一个 `Map<String, Object>` 包含关于所请求生态区的所有信息。
+
+    !!! question "输入"
+        - `biomeId`: String - 所请求生态区的唯一ID。
+
+    !!! success "输出"
+        输出是一个 `Map<String, Object>` 具有以下键：
+
+        - `uniqueId`: String - 所请求生态区的唯一ID。
+        - `world`: String - 生态区可用的世界名称。
+        - `biome`: String - 对应的Minecraft生态区的名称。
+        - `name`: String - 生态区的显示名称。
+        - `deployed`: Boolean - 如果生态区已部署则为 `true`，否则为 `false`。
+        - `description`: List&lt;String&gt; - 生态区的描述。
+        - `icon`: ItemStack - 在GUI中代表生态区的物品。
+        - `order`: Integer - 给定生态区的顺序号。
+        - `cost`: Integer - 使用生态区的费用。
+        - `level`: Long - 使用生态区所需的最小岛屿等级。
+        - `permissions`: Set&lt;String&gt; - 使用生态区所需的权限列表。
+
+    !!! failure
+        如果未提供 `biomeId` 或在数据库中找不到 `biomeId`，此处理器将返回空映射。
+
+    !!! example "代码示例"
+        ```java
+        public Map<String, Object> getBiomeData(String biomeId) {
+            return (Map<String, Object>) new AddonRequestBuilder()
+                .addon("Biomes")
+                .label("biome-data")
+                .addMetaData("biomeId", biomeId)
+                .request();
+        }
+        ```
+
+=== "biomes-list"
+    !!! summary "描述"
+        返回在给定世界中定义的所有生态区的uniqueIds列表。
+
+    !!! question "输入"
+        - `world-name`: String - 世界的名称。
+
+    !!! success "输出"
+        输出是一个 `List<String>` 包含为指定世界定义的生态区的uniqueIds列表。
+
+    !!! failure
+        如果未提供 `world-name`，或 `world-name` 不存在或不是游戏模式世界，此处理器将返回空列表。
+
+    !!! example "代码示例"
+        ```java
+        public List<String> getBiomesList(String worldName) {
+            return (List<String>) new AddonRequestBuilder()
+                .addon("Biomes")
+                .label("biomes-list")
+                .addMetaData("world-name", worldName)
+                .request();
+        }
+        ```
+
+=== "biome-request-change"
+    !!! summary "描述"
+        请求使用提供的参数进行生态区更改。
+
+    !!! question "输入"
+        - 必需参数：
+            - `player`: UUID - 目标玩家的UUID。
+            - `world-name`: String - 将更改生态区的世界名称。
+            - `biomeId`: String - 生态区的uniqueId。
+        - 可选参数：
+            - `updateMode`: String - 更改生态区时使用的模式。
+                                     可以是ISLAND、RANGE或CHUNK。
+                                     (默认: config)
+            - `range`: Integer - 将更改生态区的范围。
+                                 (默认: config)
+            - `checkRequirements`: Boolean - 如果为 `true`，玩家必须满足指定生态区的所有要求。
+                                   (默认: true)
+            - `withdraw`: Boolean - 如果为 `true`，金钱将从玩家的银行账户中扣除。
+                          (默认: true)
+
+    !!! success "输出"
+        输出是一个 `Map<String, Object>` 具有以下键：
+
+        - `status`: Boolean - 如果生态区成功更改则为 `true`，否则为 `false`。
+        - `reason`: String - 说明发生了什么的消息（无论更改是否成功）。
+
+    !!! failure
+        如果此处理器失败，将返回 `false` 作为其状态和相应的原因。
+
+    !!! example "代码示例"
+        ```java
+        public Map<String, Object> requestBiomeChange(UUID player, String worldName, String biomeId, String mode, int range, boolean requirements, boolean withdraw) {
+            return (Map<String, Object>) new AddonRequestBuilder()
+                .addon("Biomes")
+                .label("biome-request-change")
+                .addMetaData("player", player)
+                .addMetaData("world-name", worldName)
+                .addMetaData("biomeId", biomeId)
+                .addMetaData("updateMode", mode)
+                .addMetaData("range", range)
+                .addMetaData("checkRequirements", requirements)
+                .addMetaData("withdraw", withdraw)
+                .request();
         }
         ```

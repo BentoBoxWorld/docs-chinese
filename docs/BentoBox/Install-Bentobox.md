@@ -12,7 +12,7 @@ BentoBox 是一个功能强大的插件，安装方式与普通 Spigot 插件有
 
 # 下载 BentoBox
 
-你可以在不同的网站上**免费**下载 BentoBox。官方版本可以在插件的 Spigot 页面或 [GitHub `Releases` 选项卡](https://github.com/BentoBoxWorld/bentobox/releases)中找到，而**未经测试的**开发版本可以从 [Jenkins](https://ci.codemc.org/job/BentoBoxWorld/job/BentoBox/) 下载。
+你可以在不同的网站上**免费**下载 BentoBox。官方版本可以在插件的 Spigot 页面或 [GitHub `Releases` 选项卡](https://github.com/BentoBoxWorld/bentobox/releases)中找到，而**未经测试的**开发版本可以从 [Jenkins](https://ci.codemc.io/job/BentoBoxWorld/job/BentoBox/) 下载。
 
 # 设置 BentoBox
 
@@ -26,7 +26,7 @@ BentoBox 是一个功能强大的插件，安装方式与普通 Spigot 插件有
 
 [Addons](/BentoBox/Addons) 是 BentoBox 的特色所在。但是，请注意，这些**不是插件**：如果你只是把它们放在 `plugins` 文件夹中，它们**不会启动**。
 
-首先，下载你想要的附加组件。官方附加组件可以在 [BentoBoxWorld 的仓库列表](https://github.com/BentoBoxWorld) 中找到，从各自仓库的 `Releases` 选项卡下载（也可以从 [Jenkins](https://ci.codemc.org/job/BentoBoxWorld/) 获取**未经测试的**开发版本）。你也可以直接访问 [https://download.bentobox.world](https://download.bentobox.world) 一次性下载所有官方插件的整合包。
+首先，下载你想要的附加组件。官方附加组件可以在 [BentoBoxWorld 的仓库列表](https://github.com/BentoBoxWorld) 中找到，从各自仓库的 `Releases` 选项卡下载（也可以从 [Jenkins](https://ci.codemc.io/job/BentoBoxWorld/) 获取**未经测试的**开发版本）。你也可以直接访问 [https://download.bentobox.world](https://download.bentobox.world) 一次性下载所有官方插件的整合包。
 
 下载好所需的附加组件后，将它们全部放入 `plugins\BentoBox\addons` 文件夹，启动服务器以生成配置文件和目录，然后再次关闭服务器，方便在不影响服务器运行的情况下修改配置。
 

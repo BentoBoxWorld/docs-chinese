@@ -59,6 +59,53 @@
 
 默认情况下，每个玩家在每个游戏模式中拥有一个岛屿。BentoBox 可选地支持**并发岛屿** — 允许单个玩家同时拥有多个岛屿。这是在游戏模式的 `config.yml` 中配置并由权限控制的高级功能。
 
+### 配置示例
+
+有两个位置可以配置并发岛屿：
+
+**1. BentoBox `config.yml`** — 为所有游戏模式设置全局默认值：
+
+```yaml
+island:
+  # 玩家可能拥有的并发岛屿的默认数量。
+  # 这可能会被各个游戏模式配置设置覆盖。
+  concurrent-islands: 1
+```
+
+**2. 游戏模式 `config.yml`**（例如 BSkyBlock） — 覆盖该游戏模式的全局默认值：
+
+```yaml
+world:
+  # 玩家在世界中可以拥有的并发岛屿的数量。
+  # 值为 0 将使用 BentoBox config.yml 默认值。
+  concurrent-islands: 1
+  # 如果玩家在团队中，则禁止他们拥有其他岛屿。
+  disallow-team-member-islands: true
+```
+
+例如，要让 BSkyBlock 中的每个玩家最多拥有 **3** 个岛屿，请在 BSkyBlock `config.yml` 中设置 `concurrent-islands: 3`。如果你还想让团队成员能够创建自己的岛屿，请设置 `disallow-team-member-islands: false`。
+
+### 权限
+
+可以使用权限节点覆盖每个玩家的最大值：
+
+```
+[gamemode].island.number.<number>
+```
+
+用游戏模式前缀替换 `[gamemode]`，用允许的最大岛屿数替换 `<number>`。例如：
+
+| 权限 | 效果 |
+|---|---|
+| `bskyblock.island.number.5` | 允许玩家在 BSkyBlock 中拥有最多 5 个岛屿 |
+| `acidisland.island.number.3` | 允许玩家在 AcidIsland 中拥有最多 3 个岛屿 |
+| `caveblock.island.number.2` | 允许玩家在 CaveBlock 中拥有最多 2 个岛屿 |
+
+权限值会覆盖该玩家的 `concurrent-islands` 配置值。如果玩家没有该权限，则使用配置值作为默认值。
+
+!!! tip
+    有关完整指南（包括玩家如何创建、导航和管理多个岛屿），请参阅[并发岛屿](../../BentoBox/ConcurrentIslands.md)页面。
+
 ## 岛屿范围和间距
 
 岛屿放在网格中。岛屿中心之间的间距在 `config.yml`（`distance-between-islands`）中设置一次，**世界创建后无法更改**。在玩家开始加入前选择此值。较大的值提供岛屿之间更多的构建空间；较小的值使世界更加紧凑。

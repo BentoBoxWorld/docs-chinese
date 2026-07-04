@@ -1,34 +1,34 @@
-# Introduction
+# 介绍
 
-BentoBox relies on **_Addons_ to provide new features or new _Gamemodes_**.
-This tutorial will guide you through the process of **creating your first addon**.
+BentoBox 依赖于**插件来提供新功能或新游戏模式**。
+本教程将指导您完成**创建您的第一个插件**的过程。
 
-Creating an Addon is often easier and quicker than creating a addon from scratch, because BentoBox provides [wrappers](https://en.wikipedia.org/wiki/Wrapper_function) and key API features.
-Addons also have direct access to the other addons' API, unlike plugins, due to the [visibility principle of Java Classloaders](https://www.javatpoint.com/classloader-in-java).
-Moreover, they have access to BentoBox's [Config API](../../BentoBox/Config-API.md) and [Database API](../../BentoBox/Database-API.md).
+创建插件通常比从头开始创建插件更容易更快，因为 BentoBox 提供了[包装器](https://en.wikipedia.org/wiki/Wrapper_function)和关键的 API 功能。
+与插件不同，由于 [Java 类加载器的可见性原则](https://www.javatpoint.com/classloader-in-java)，插件可以直接访问其他插件的 API。
+此外，它们可以访问 BentoBox 的[配置 API](../../BentoBox/Config-API.md) 和[数据库 API](../../BentoBox/Database-API.md)。
 
-In order to comfortably follow this tutorial, you should have previous experience in addon development.
-The addon development process is indeed very similar to the latter, and we will consider throughout this tutorial that you understand the key Java concepts, for the sake of concision.
+为了顺利学习本教程，您应该有插件开发的先前经验。
+插件开发过程确实与后者非常相似，为了简洁起见，我们将在整个教程中假设您理解关键的 Java 概念。
 
-# Prepare the project
+# 准备项目
 
-## Using the pre-made Addon template
+## 使用预制的插件模板
 
-The template currently does not exist.
+模板目前不存在。
 
-## Manually creating the project
+## 手动创建项目
 
-### Import BentoBox as a dependency
+### 将 BentoBox 作为依赖导入
 
-BentoBox holds all the API you will need to create and register your addon.
-Therefore, you should add it as a dependency of your project.
+BentoBox 包含创建和注册插件所需的所有 API。
+因此，您应该将其添加为项目的依赖。
 
-BentoBox uses Maven and our Maven repository is kindly provided by [CodeMC](https://codemc.org/).
-However, you can also use Gradle to grab BentoBox.
+BentoBox 使用 Maven，我们的 Maven 仓库由 [CodeMC](https://codemc.org/) 慷慨提供。
+但是，您也可以使用 Gradle 来获取 BentoBox。
 
 #### Maven
 
-Add the following to your `pom.xml` file.
+将以下内容添加到您的 `pom.xml` 文件。
 
 ```xml
 <repositories>
@@ -50,7 +50,7 @@ Add the following to your `pom.xml` file.
 
 #### Gradle
 
-Add the following to your `build.gradle` file.
+将以下内容添加到您的 `build.gradle` 文件。
 
 ```groovy
 repositories {
@@ -62,18 +62,18 @@ dependencies {
 }
 ```
 
-If you have any issues, please have a look at [Gradle's documentation about declaring dependencies](https://docs.gradle.org/current/userguide/declaring_dependencies.html).
+如有任何问题，请查看 [Gradle 关于声明依赖的文档](https://docs.gradle.org/current/userguide/declaring_dependencies.html)。
 
-### Setup the project architecture
+### 设置项目架构
 
-# Create the main Addon class
+# 创建主插件类
 
-The **main class of an Addon** works similarly as to one of a addon.
-It most notably handles the code that runs when laoding, enabling, reloading and disabling the addon.
+**插件的主类**的工作方式与插件的主类相似。
+它最主要处理在加载、启用、重新加载和禁用插件时运行的代码。
 
-The main class **extends `Addon`**. 
+主类**扩展 `Addon`**。
 
-*Example:*
+*示例：*
 ```java
 import world.bentobox.bentobox.api.addons.Addon;
 
@@ -83,19 +83,19 @@ public class MyAddon extends Addon {
 ```
 
 !!! tip
-    When naming your main class, consider the following:
-    We recommend you to keep its name as close to the addon's name as possible.
-    You can also append "Addon" to the class name to further disambiguate its purpose.
+    命名主类时，请考虑以下几点：
+    我们建议您保持其名称尽可能接近插件的名称。
+    您也可以在类名中追加"Addon"以进一步澄清其目的。
 
-*Genuine examples*: [Greenhouses](https://github.com/BentoBoxWorld/Greenhouses/blob/develop/src/main/java/world/bentobox/greenhouses/Greenhouses.java),
-[Chat](https://github.com/BentoBoxWorld/Chat/blob/develop/src/main/java/world/bentobox/chat/Chat.java),
-[Biomes](https://github.com/BentoBoxWorld/Biomes/blob/develop/src/main/java/world/bentobox/biomes/BiomesAddon.java).
+*真实示例*：[Greenhouses](https://github.com/BentoBoxWorld/Greenhouses/blob/develop/src/main/java/world/bentobox/greenhouses/Greenhouses.java)、
+[Chat](https://github.com/BentoBoxWorld/Chat/blob/develop/src/main/java/world/bentobox/chat/Chat.java)、
+[Biomes](https://github.com/BentoBoxWorld/Biomes/blob/develop/src/main/java/world/bentobox/biomes/BiomesAddon.java)。
 
-## Mandatory methods
+## 强制方法
 
-Like Bukkit plugins, Addons must override a few methods in order to be properly enabled.
+与 Bukkit 插件一样，插件必须覆盖一些方法才能被正确启用。
 
-As such, your main Addon class should look like the following:
+因此，您的主插件类应该如下所示：
 
 ```java
 import world.bentobox.bentobox.api.addons.Addon;
@@ -111,15 +111,15 @@ public class MyAddon extends Addon {
 
 ### onEnable()
 
-This method is called after `#onLoad()`.
+此方法在 `#onLoad()` 之后调用。
 
 ### onDisable()
 
-This method is called when the Addon is being disabled, which usually occurs when the server is being shutdown.
+此方法在插件被禁用时调用，通常在服务器关闭时发生。
 
-## Optional methods
+## 可选方法
 
-Additional methods can be overridden if needs be.
+如果需要，可以覆盖其他方法。
 
 ```java
 import world.bentobox.bentobox.api.addons.Addon;
@@ -140,15 +140,15 @@ public class MyAddon extends Addon {
 ```
 
 ### onLoad()
-The code in the onLoad() method is run when the Addon is loaded and before onEnable(). It is a good place to load configs and set up commands if this addon is a game mode:
+onLoad() 方法中的代码在插件加载时和 onEnable() 之前运行。如果此插件是游戏模式，这是加载配置和设置命令的好地方：
 ```
     @Override
     public void onLoad() {
-        // Save the default config from config.yml
+        // 从 config.yml 保存默认配置
         saveDefaultConfig();
-        // Load settings from config.yml. This will check if there are any issues with it too.
+        // 从 config.yml 加载设置。这也会检查是否有任何问题。
         loadSettings();
-        // Register game mode commands
+        // 注册游戏模式命令
         playerCommand = new DefaultPlayerCommand(this)
 
         {
@@ -164,10 +164,10 @@ The code in the onLoad() method is run when the Addon is loaded and before onEna
 ```
 
 ### onReload()
-The code in this method is run when (or if) the admin reloads Addons using the `bbox reload` command.
+此方法中的代码在管理员使用 `bbox reload` 命令重新加载插件时（如果重新加载）运行。
 
-# Create the addon.yml
-The addon.yml is required to describe your addon to BentoBox. It is almost identical to plugin.yml used by Bukkit. Here is a minimal example:
+# 创建 addon.yml
+addon.yml 是向 BentoBox 描述插件所必需的。它几乎与 Bukkit 使用的 plugin.yml 相同。以下是一个最小示例：
 
 ```
 name: Bank
@@ -176,58 +176,58 @@ version: 1.0.0
 api-version: 1.15.4
 authors: tastybento
 ```
-The above tags are mandatory and must be included in every addon.yml.<br>
+以上标签是强制性的，必须包含在每个 addon.yml 中。<br>
 
 <table cellspacing="0" cellpadding="4" border="1">
-   <caption>addon.yml Attributes
+   <caption>addon.yml 属性
    </caption>
    <tbody>
        <tr>
-           <th>Attribute
+           <th>属性
            </th>
-           <th>Required
+           <th>必需
            </th>
-           <th>Description
+           <th>描述
            </th>
-           <th>Example
+           <th>示例
            </th>
-           <th>Notes
+           <th>备注
            </th>
        </tr>
        <tr style="font-weight: bold;">
            <td>name
            </td>
-           <td>yes
+           <td>是
            </td>
-           <td>The name of your addon.
+           <td>您的插件的名称。
            </td>
            <td>
                <code>name: MyAddon</code>
            </td>
            <td>
                <ul>
-                   <li>Alphanumeric characters and underscores (a-z,A-Z,0-9, _)</li>
-                   <li>Used to determine the name of the addon's data folder. Data folders are placed in the ./addons/ directory by default.</li>
-                   <li>It is good practice to name your jar the same as this, for example 'Bank.jar'</li>
+                   <li>字母数字字符和下划线 (a-z,A-Z,0-9, _)</li>
+                   <li>用于确定插件的数据文件夹的名称。数据文件夹默认放在 ./addons/ 目录中。</li>
+                   <li>最好将 jar 文件命名为相同的名称，例如 'Bank.jar'</li>
                </ul>
            </td>
        </tr>
        <tr style="font-weight: bold;">
            <td>version
            </td>
-           <td>yes
+           <td>是
            </td>
-           <td>The version of this addon.
+           <td>此插件的版本。
            </td>
            <td>
                <code>version: 1.3.1</code>
            </td>
            <td>
                <ul>
-                   <li>Version is an arbitrary string, however the most common format is MajorRelease.MinorRelease.Build (eg: 1.4.1).</li>
-                   <li>Typically you will increment this every time you release a new feature or bug fix.</li>
+                   <li>版本是任意字符串，但最常见的格式是 MajorRelease.MinorRelease.Build（例如：1.4.1）。</li>
+                   <li>通常每次发布新功能或错误修复时，您都会增加此值。</li>
                    <li>
-                       Displayed when a user types 
+                       在用户输入以下命令时显示
                        <code>/bbox version</code>
                    </li>
                </ul>
@@ -236,18 +236,18 @@ The above tags are mandatory and must be included in every addon.yml.<br>
        <tr>
            <td>description
            </td>
-           <td>no
+           <td>否
            </td>
-           <td>Person friendly description of the functionality your addon provides.
+           <td>对插件提供的功能的人性化描述。
            </td>
            <td>
                <code>description: This addon is so boxy.</code>
            </td>
            <td>
                <ul>
-                   <li>The description can have multiple lines.</li>
+                   <li>描述可以有多行。</li>
                    <li>
-                       Displayed when a user types 
+                       在用户输入以下命令时显示
                        <code>/version addonName</code>
                    </li>
                </ul>
@@ -256,43 +256,43 @@ The above tags are mandatory and must be included in every addon.yml.<br>
        <tr>
            <td>authors
            </td>
-           <td>yes
+           <td>是
            </td>
-           <td>Allows you to list one or multiple authors, if it is a collaborative project. If you list more than one then use a YAML string list format.
-           This is actually a mandatory item.
+           <td>允许您列出一个或多个作者（如果是协作项目）。如果列出多个作者，则使用 YAML 字符串列表格式。
+           这实际上是一个强制项目。
            </td>
            <td>
 <code>authors:
 - BONNe
 - tastybento</code><br>
-or<br>
+或<br>
 <code>authors: tastybento</code>
            </td>
            <td>
                <ul>
-                   <li>You can list one author or multiple authors.</li>
+                   <li>您可以列出一个作者或多个作者。</li>
                </ul>
            </td>
        </tr>
        <tr style="font-weight: bold;">
            <td>main
            </td>
-           <td>yes
+           <td>是
            </td>
-           <td>Points to the class that extends Addon or Pladdon
+           <td>指向扩展 Addon 或 Pladdon 的类
            </td>
            <td>
                <code>main: world.bentobox.acidisland.AcidIsland</code>
            </td>
            <td>
                <ul>
-                   <li>Note that this must contain the full namespace including the class file itself.</li>
+                   <li>注意这必须包含完整的命名空间，包括类文件本身。</li>
                    <li>
-                       If your namespace is 
+                       如果您的命名空间是
                        <code>world.bentobox.addon</code>
-                       , and your class file is called 
+                       ，您的类文件被称为
                        <code>Myaddon</code>
-                        then this must be 
+                        那么这必须是
                        <code>world.bentobox.addon.Myaddon</code>
                    </li>
                </ul>
@@ -301,9 +301,9 @@ or<br>
        <tr>
            <td>depend
            </td>
-           <td>no
+           <td>否
            </td>
-           <td>A list of addons that your addon requires to load.
+           <td>插件需要加载的插件列表。
            </td>
            <td>
                <code>depend: Oneaddon, Anotheraddon</code>
@@ -311,20 +311,20 @@ or<br>
            <td>
                <ul>
                    <li>
-                       The value is comma delimited
+                       该值用逗号分隔
                    </li>
-                   <li>Use the "name" attribute of the required addon in order to specify the dependency.</li>
-                   <li>If any addon listed here is not found your addon will fail to load.</li>
-                   <li>If multiple addons list each other as a depend, so that there are no addons without an unloadable dependency, all will fail to load.</li>
+                   <li>使用所需插件的"name"属性来指定依赖关系。</li>
+                   <li>如果此处列出的任何插件未找到，您的插件将无法加载。</li>
+                   <li>如果多个插件相互列为依赖，以至于没有插件的依赖可以加载，所有插件都将无法加载。</li>
                </ul>
            </td>
        </tr>
        <tr>
            <td>softdepend
            </td>
-           <td>no
+           <td>否
            </td>
-           <td>A list of addons that your addon may require but are not mandatory.
+           <td>插件可能需要但不是强制性的插件列表。
            </td>
            <td>
                <code>softdepend: AcidIsland, BSkyBlock, SkyGrid, CaveBock, AOneBlock</code>
@@ -332,20 +332,20 @@ or<br>
            <td>
                <ul>
                    <li>
-                       The value is comma delimited.
+                       该值用逗号分隔。
                    </li>
-                   <li>Use the "name" attribute of the desired addon in order to specify the dependancy.</li>
-                   <li>Your addon will load after any plugins listed here.</li>
-                   <li>Circular soft dependencies are loaded arbitrarily.</li>
+                   <li>使用所需插件的"name"属性来指定依赖关系。</li>
+                   <li>您的插件将在此处列出的任何插件之后加载。</li>
+                   <li>循环软依赖项的加载是任意的。</li>
                </ul>
            </td>
        </tr>
        <tr>
            <td>permissions
            </td>
-           <td>no
+           <td>否
            </td>
-           <td>Permissions that the addon wishes to register. Each node represents a permission to register. Each permission can have additional attributes.
+           <td>插件希望注册的权限。每个节点代表要注册的权限。每个权限都可以有其他属性。
            </td>
            <td>
                <pre>permissions:    
@@ -361,9 +361,9 @@ or<br>
            </td>
            <td>
                <ul>
-                   <li>Permission registration is optional, can also be done from code</li>
-                   <li>Permission registration allows you to set descriptions, defaults, and child parent relationships</li>
-                   <li>Permission names can include the <code>[gamemode]</code> tag to enable the permission to apply to all the loaded game modes on the server.</li>
+                   <li>权限注册是可选的，也可以从代码完成</li>
+                   <li>权限注册允许您设置描述、默认值和子父关系</li>
+                   <li>权限名称可以包含 <code>[gamemode]</code> 标记以使权限适用于服务器上所有加载的游戏模式。</li>
                </ul>
            </td>
        </tr>
@@ -371,27 +371,28 @@ or<br>
 </table>
 
 # Pladdons
-Pladdons are a combination of a Bukkit Plugin and Addon. The main benefit of a Pladdon is that it is loaded with the Bukkit Server class loader and so data within it can be accessed directly by Plugins. If you are writing a utility Addon, for example, a Level addon, then other Plugin writers may want to access the data it generates in code via an API. The simplest way to do this is to make a Pladdon and they can call methods in your code directly. If you do **not** want plugins to access data in your addon, then keep it as an Addon.
+Pladdons 是 Bukkit 插件和插件的组合。Pladdon 的主要好处是它随 Bukkit 服务器类加载器一起加载，因此其中的数据可以由插件直接访问。如果您正在编写实用程序插件（例如 Level 插件），其他插件编写者可能希望通过 API 在代码中访问它生成的数据。最简单的方法是制作 Pladdon，他们可以直接调用您代码中的方法。如果您**不**希望插件访问插件中的数据，则将其保持为插件。
 
-## Making the Addon a Pladdon
-To do this, make a class with the recommended name of `MyAddonPladdon.java`, where MyAddon is the same name as your Addon and extend `Pladdon`. Instead of creating a `plugin.yml` the components are declared using Annotations. The annotations should be as below. The ApiVersion may be updated to the latest server version if you require it.
+## 使插件成为 Pladdon
+为此，请创建一个推荐名称为 `MyAddonPladdon.java` 的类，其中 MyAddon 是您的插件的名称，并扩展 `Pladdon`。不是创建 `plugin.yml`，而是使用注解声明组件。注解应该如下所示。如果需要，可以将 ApiVersion 更新为最新的服务器版本。
 
 ```
 @Plugin(name="Pladdon", version="1.0")
 @ApiVersion(ApiVersion.Target.v1_16)
 @Dependency(value = "BentoBox")
 public class LevelPladdon extends Pladdon {
+    private Addon addon;
+    
     @Override
     public Addon getAddon() {
-        return new Level();
+        if (addon == null) {
+            addon = new Level();
+        }
+        return addon;
     }
 }
 ```
 
-The only method that should be defined is the `getAddon()` method that must return an instance of your Addon.
+应该定义的唯一方法是 `getAddon()` 方法，它必须返回您的插件的实例。确保您只返回一个实例，以便在多次调用此方法时不会创建重复项。
 
-Once this is done, the Addon will be loaded just like a plugin and will be able to be accessed via other plugins.
-
-
-
-
+完成此操作后，插件将像真正的插件一样加载，并且可以由其他插件访问。

@@ -127,13 +127,28 @@ permissions:
 
     [发布 v1.10.1](https://github.com/BentoBoxWorld/Bank/releases/tag/1.10.1)
 
+??? warning "v1.10.0 新内容 — 破坏性变更（Java 21、BentoBox 3.14.0、MiniMessage）"
+    **发布于:** 2026-06-16
+
+    一个现代化版本。Bank 现在面向 **Java 21、Paper 1.21.11 和 BentoBox 3.14.0**，其整个语言文件集已迁移到 BentoBox 的 **MiniMessage** 颜色格式。
+
+    - 🔡 **新占位符 `%Bank_[gamemode]_latest_transaction%`** — 显示用户最近的岛屿银行交易，格式为 `[用户名] [交易类型] $[金额]`（例如 `tastybento Deposited $500.0`）。完全本地化。
+    - 🔡 **完整语言覆盖** — Bank 现在覆盖完整的 BentoBox 语言集（23 种语言）。
+    - 🔡 🔺 **MiniMessage 语言文件格式。** 所有语言文件从旧版 `&`/`§` 颜色代码转换为 MiniMessage。任何自定义的 Bank 语言文件必须重新用 MiniMessage 语法表达 — 备份它们，删除旧文件使其重新生成，然后重做编辑。
+    - 🔺 **平台现代化。** 构建升级到 Java 21 / Paper 1.21.11 / BentoBox 3.14.0；`plugin.yml` `api-version` 升级到 1.21；测试套件迁移到 JUnit 5 + MockBukkit。
+    - 🐛 加强了银行交易历史解析防止格式错误的条目并本地化了最近交易占位符回退文本。
+
+    🔺 **更新:** 在安装此版本之前，更新 BentoBox 到 3.14.0 并确保服务器运行 Java 21。首先备份任何自定义语言文件。
+
+    [发布 v1.10.0](https://github.com/BentoBoxWorld/Bank/releases/tag/1.10.0)
+
 ??? note "v1.9.1 新内容"
-    **发布于:** 2026-03-xx
+    **发布于:** 2026-03-28
 
-    - **前排名岛屿名称占位符。** 新增 `%Bank_[gamemode]_top_name_1%` 等占位符,用于显示顶级岛屿名称(而不仅仅是玩家名称)。
-    - 修复:配置文件中的利息计算选项在某些设置下无法正确应用。
+    - **排行榜岛屿名称占位符。** `%Bank_[gamemode]_top_island_<number>%` 现在公开每个排行榜位置的岛屿名称（不只是所有者名称）。岛屿名称与所有者名称和余额一起缓存。
+    - ⚙️ 利息复利文档和配置注释已更正 — `compound-periods-per-year` 计算有一个差一错误，导致复利计算略有不正确。通过替换旧 jar 来更新你的配置注释。
 
-    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Bank/releases)
+    [发布 v1.9.1](https://github.com/BentoBoxWorld/Bank/releases/tag/1.9.1)
 
 ## 翻译
 

@@ -1,291 +1,104 @@
-# Boxed Permissions
+# Boxed 权限
 
-All permissions are the same as other game modes, like BSkyBlock
+所有权限与其他游戏模式相同，如 BSkyBlock
 
-<table align='center'>
-<tr>
-<td align='left'><b>Permission</b></td>
-<td align='left'><b>Enable For</b></td>
-<td align='left'><b>Description</b></td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.clearresetall</td>
-<td align='left'>op</td>
-<td align='left'>Allow clearing of island reset limit of all players</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.delete</td>
-<td align='left'>op</td>
-<td align='left'>Let a player completely remove a player (including island)</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.deleteisland</td>
-<td align='left'>op</td>
-<td align='left'>Let a player completely remove the island the player is on</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.noban</td>
-<td align='left'>op</td>
-<td align='left'>Player cannot be banned from an island</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.purge</td>
-<td align='left'>op</td>
-<td align='left'>Let a player purge old islands</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.register</td>
-<td align='left'>op</td>
-<td align='left'>Let a player register the nearest island to another player</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.reload</td>
-<td align='left'>op</td>
-<td align='left'>Reload the config.yml</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.reserve</td>
-<td align='left'>op</td>
-<td align='left'>Reserves an empty spot for a player's next island</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.setlanguage</td>
-<td align='left'>op</td>
-<td align='left'>Resets all player languages and sets the default language</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.setrange</td>
-<td align='left'>op</td>
-<td align='left'>Allows setting of island protection range</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.setspawn</td>
-<td align='left'>op</td>
-<td align='left'>Allows use of spawn tools</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.settingsreset</td>
-<td align='left'>op</td>
-<td align='left'>Resets all the islands to default protection settings</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.tp</td>
-<td align='left'>op</td>
-<td align='left'>Allows teleport to an island</td>
-</tr>
-<tr>
-<td align='left'>boxed.admin.unregister</td>
-<td align='left'>op</td>
-<td align='left'>Removes a player from an island without deleting the island blocks</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.bypasscooldowns</td>
-<td align='left'>op</td>
-<td align='left'>Allow moderator to bypass cooldowns</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.bypassdelays</td>
-<td align='left'>op</td>
-<td align='left'>Allow moderator to bypass delays</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.bypassexpel</td>
-<td align='left'>op</td>
-<td align='left'>Allow moderator to bypass island expulsion</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.bypasslock</td>
-<td align='left'>op</td>
-<td align='left'>Bypasses an island lock</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.bypassprotect</td>
-<td align='left'>op</td>
-<td align='left'>Allow moderator to bypass island protection</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.clearreset</td>
-<td align='left'>false</td>
-<td align='left'>Allow clearing of island reset limit</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.info</td>
-<td align='left'>op</td>
-<td align='left'>Let a moderator see info on a player and island</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.lock</td>
-<td align='left'>op</td>
-<td align='left'>Locks or unlocks an island</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.resethome</td>
-<td align='left'>op</td>
-<td align='left'>Allows setting or reseting of a player's home position</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.name</td>
-<td align='left'>false</td>
-<td align='left'>Enables naming of player's islands</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.resetname</td>
-<td align='left'>false</td>
-<td align='left'>Enables reset of player's island names</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.team</td>
-<td align='left'>false</td>
-<td align='left'>Enables modification of teams via kick and add commands</td>
-</tr>
-<tr>
-<td align='left'>boxed.mod.tp</td>
-<td align='left'>op</td>
-<td align='left'>Allows teleport to an island</td>
-</tr>
-<tr>
-<td align='left'>boxed.island</td>
-<td align='left'>true</td>
-<td align='left'>Allow island command usage</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.ban</td>
-<td align='left'>true</td>
-<td align='left'>Allows banning of visitors</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.create</td>
-<td align='left'>true</td>
-<td align='left'>Allow island creation</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.expel</td>
-<td align='left'>true</td>
-<td align='left'>Allows expelling of visitors</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.home</td>
-<td align='left'>true</td>
-<td align='left'>Allow teleporting to player island</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.info</td>
-<td align='left'>true</td>
-<td align='left'>Let the player use the island info command</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.language</td>
-<td align='left'>true</td>
-<td align='left'>Player can select a language</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.lock</td>
-<td align='left'>false</td>
-<td align='left'>Allows island locking</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.name</td>
-<td align='left'>true</td>
-<td align='left'>Player can set the name of their island</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.number</td>
-<td align='left'>false</td>
-<td align='left'>x sets how many islands the player can make.</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.reset</td>
-<td align='left'>true</td>
-<td align='left'>Player can use the island reset or restart command</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.sethome</td>
-<td align='left'>true</td>
-<td align='left'>Let the player use the sethome command</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.settings</td>
-<td align='left'>true</td>
-<td align='left'>Player can see server settings</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.spawn</td>
-<td align='left'>true</td>
-<td align='left'>Player can use the island spawn command if spawn exists</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.*</td>
-<td align='left'>true</td>
-<td align='left'>Let a player use all team commands (Recommended)</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team</td>
-<td align='left'>true</td>
-<td align='left'>Let a player use team command</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.invite</td>
-<td align='left'>true</td>
-<td align='left'>Let a player invite others</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.accept</td>
-<td align='left'>true</td>
-<td align='left'>Player can accept team invites</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.reject</td>
-<td align='left'>true</td>
-<td align='left'>Player can reject team invites</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.coop</td>
-<td align='left'>true</td>
-<td align='left'>Let a player coop other players</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.trust</td>
-<td align='left'>true</td>
-<td align='left'>Let a player trust other players</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.promote</td>
-<td align='left'>true</td>
-<td align='left'>Let a player promote others</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.kick</td>
-<td align='left'>true</td>
-<td align='left'>Let a player kick another player from their team</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.leave</td>
-<td align='left'>true</td>
-<td align='left'>Let a player leave a team</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.team.setowner</td>
-<td align='left'>true</td>
-<td align='left'>Let a player set another player as owner of island</td>
-</tr>
-<tr>
-<td align='left'>boxed.settings.*</td>
-<td align='left'>true</td>
-<td align='left'>Allow use of settings on island. Negating this permission or setting to false, would also block all <b>/box command</b> and <b>/box subcommand</b>.</td>
-</tr>
-<tr>
-<td align='left'>boxed.team.maxsize.[NUMBER]</td>
-<td align='left'>false</td>
-<td align='left'>Let a player to get larger team size than default value.</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.maxhomes.[NUMBER]</td>
-<td align='left'>false</td>
-<td align='left'>Let a player to get more homes than default value.</td>
-</tr>
-<tr>
-<td align='left'>boxed.island.range.[NUMBER]</td>
-<td align='left'>false</td>
-<td align='left'>Let a player to get larger protection range than default value. Not recommended for Boxed!</td>
-</tr>
-</table>
+| 权限 | 启用对象 | 描述 |
+|------|--------|------|
+| boxed.admin.clearresetall | op | 允许清除所有玩家的岛屿重置限制 |
+| boxed.admin.delete | op | 允许玩家完全删除一个玩家（包括岛屿） |
+| boxed.admin.deleteisland | op | 允许玩家完全删除玩家所在的岛屿 |
+| boxed.admin.noban | op | 玩家不能被封禁离开岛屿 |
+| boxed.admin.noexpel | op | 玩家不能被驱逐离开岛屿 |
+| boxed.admin.purge | op | 允许玩家清除旧岛屿 |
+| boxed.admin.register | op | 允许玩家将最近的岛屿注册给另一个玩家 |
+| boxed.admin.reload | op | 重新加载 config.yml |
+| boxed.admin.reserve | op | 为玩家的下一个岛屿保留一个空位 |
+| boxed.admin.setlanguage | op | 重置所有玩家语言并设置默认语言 |
+| boxed.admin.setrange | op | 允许设置岛屿保护范围 |
+| boxed.admin.setspawn | op | 允许使用出生点工具 |
+| boxed.admin.settingsreset | op | 将所有岛屿重置为默认保护设置 |
+| boxed.admin.tp | op | 允许传送到一个岛屿 |
+| boxed.admin.tpuser | op | 允许将玩家传送到另一个玩家的岛屿 |
+| boxed.admin.getrank | op | 允许检索玩家在其方框中的等级 |
+| boxed.admin.setrank | op | 允许设置玩家在其方框中的等级 |
+| boxed.admin.version | op | 显示 BentoBox 和附属版本 |
+| boxed.admin.blueprint | op | 允许操纵蓝图 |
+| boxed.admin.blueprint.load | op | 将蓝图加载到剪贴板 |
+| boxed.admin.blueprint.paste | op | 将剪贴板粘贴到您的位置 |
+| boxed.admin.blueprint.origin | op | 将蓝图的原点设置为您的位置 |
+| boxed.admin.blueprint.copy | op | 复制由 pos1 和 pos2 设置的剪贴板 |
+| boxed.admin.blueprint.save | op | 保存复制的剪贴板 |
+| boxed.admin.blueprint.rename | op | 重命名蓝图 |
+| boxed.admin.blueprint.delete | op | 删除蓝图 |
+| boxed.admin.blueprint.pos1 | op | 设置长方体剪贴板的第 1 个角 |
+| boxed.admin.blueprint.pos2 | op | 设置长方体剪贴板的第 2 个角 |
+| boxed.admin.blueprint.list | op | 列出可用的蓝图 |
+| boxed.admin.range | op | 管理员方框范围命令 |
+| boxed.admin.range.display | op | 显示/隐藏方框范围指示器 |
+| boxed.admin.range.set | op | 设置方框受保护范围 |
+| boxed.admin.range.reset | op | 将受保护范围重置为世界默认值 |
+| boxed.admin.range.add | op | 增加岛屿受保护范围 |
+| boxed.admin.range.remove | op | 减少岛屿受保护范围 |
+| boxed.admin.resets | op | 编辑玩家重置值 |
+| boxed.admin.resets.set | op | 设置玩家重置岛屿的次数 |
+| boxed.admin.resets.add | op | 添加到玩家的岛屿重置计数 |
+| boxed.admin.resets.remove | op | 减少玩家的岛屿重置计数 |
+| boxed.admin.why | op | 切换控制台保护调试报告 |
+| boxed.admin.deaths | op | 编辑玩家的死亡次数 |
+| boxed.admin.deaths.reset | op | 重置玩家的死亡次数 |
+| boxed.admin.deaths.set | op | 设置玩家的死亡次数 |
+| boxed.admin.deaths.add | op | 添加玩家的死亡次数 |
+| boxed.admin.deaths.remove | op | 移除玩家的死亡次数 |
+| boxed.admin.setspawnpoint | op | 将当前位置设置为该岛屿的出生点 |
+| boxed.admin.resetflags | op | 将所有岛屿重置为 config.yml 中的默认标志设置 |
+| boxed.admin.level | op | 计算玩家的岛屿等级 |
+| boxed.admin.top | op | 显示前十名列表 |
+| boxed.admin.top.remove | op | 从前十名列表中移除玩家 |
+| boxed.admin.levelstatus | op | 显示有多少个岛屿在扫描队列中 |
+| boxed.admin.level.sethandicap | op | 设置或更改岛屿障碍 |
+| boxed.admin.stats | op | 显示该服务器上岛屿的统计信息 |
+| boxed.admin.unregister | op | 从岛屿移除玩家而不删除岛屿方块 |
+| boxed.mod.bypasscooldowns | op | 允许管理员绕过冷却时间 |
+| boxed.mod.bypassdelays | op | 允许管理员绕过延迟 |
+| boxed.mod.bypassexpel | op | 允许管理员绕过岛屿驱逐 |
+| boxed.mod.bypasslock | op | 绕过岛屿锁定 |
+| boxed.mod.bypassban | op | 绕过岛屿禁令 |
+| boxed.mod.switch | op | 允许管理员切换绕过保护的开关 |
+| boxed.mod.bypassprotect | op | 允许管理员绕过岛屿保护 |
+| boxed.mod.clearreset | false | 允许清除岛屿重置限制 |
+| boxed.mod.info | op | 允许管理员查看玩家和岛屿的信息 |
+| boxed.mod.lock | op | 锁定或解锁岛屿 |
+| boxed.mod.resethome | op | 允许设置或重置玩家的家位置 |
+| boxed.mod.name | false | 允许为玩家的岛屿命名 |
+| boxed.mod.resetname | false | 允许重置玩家的岛屿名称 |
+| boxed.mod.team | false | 允许通过踢出和添加命令修改团队 |
+| boxed.mod.tp | op | 允许传送到一个岛屿 |
+| boxed.island | true | 允许岛屿命令使用 |
+| boxed.island.ban | true | 允许封禁访客 |
+| boxed.island.create | true | 允许创建岛屿 |
+| boxed.island.expel | true | 允许驱逐访客 |
+| boxed.island.home | true | 允许传送到玩家岛屿 |
+| boxed.island.info | true | 让玩家使用岛屿信息命令 |
+| boxed.island.language | true | 玩家可以选择语言 |
+| boxed.island.lock | false | 允许岛屿锁定 |
+| boxed.island.name | true | 玩家可以设置其岛屿的名称 |
+| boxed.island.number | false | x 设置玩家可以创建的岛屿数量 |
+| boxed.island.reset | true | 玩家可以使用岛屿重置或重新开始命令 |
+| boxed.island.sethome | true | 让玩家使用 sethome 命令 |
+| boxed.island.settings | true | 玩家可以查看服务器设置 |
+| boxed.island.spawn | true | 玩家可以使用岛屿出生点命令（如果出生点存在） |
+| boxed.island.team.* | true | 让玩家使用所有团队命令（推荐） |
+| boxed.island.team | true | 让玩家使用团队命令 |
+| boxed.island.team.invite | true | 让玩家邀请其他人 |
+| boxed.island.team.accept | true | 玩家可以接受团队邀请 |
+| boxed.island.team.reject | true | 玩家可以拒绝团队邀请 |
+| boxed.island.team.coop | true | 让玩家与其他玩家合作 |
+| boxed.island.team.trust | true | 让玩家信任其他玩家 |
+| boxed.island.team.promote | true | 让玩家升级他人 |
+| boxed.island.team.kick | true | 让玩家将另一个玩家踢出其团队 |
+| boxed.island.team.leave | true | 让玩家离开一个团队 |
+| boxed.island.team.setowner | true | 让玩家将另一个玩家设置为岛屿所有者 |
+| boxed.settings.* | true | 允许在岛屿上使用设置。否定此权限或设置为 false 也会阻止所有 `/box 命令` 和 `/box 子命令`。 |
+| boxed.team.maxsize.[NUMBER] | false | 让玩家获得比默认值更大的团队规模 |
+| boxed.island.maxhomes.[NUMBER] | false | 让玩家获得比默认值更多的家 |
+| boxed.island.range.[NUMBER] | false | 让玩家获得比默认值更大的保护范围。不推荐用于 Boxed！ |

@@ -2,7 +2,9 @@
 
 这些包括一些流行的游戏模式：
 * [**BSkyBlock**](https://github.com/BentoBoxWorld/BSkyBlock)：流行的 ASkyBlock 的继任者。
+* [**AOneBlock**](https://github.com/BentoBoxWorld/AOneBlock)：你只有一个方块！
 * [**AcidIsland**](https://github.com/BentoBoxWorld/AcidIsland)：你被困在一个酸性海洋中！
+* [**Boxed**](https://github.com/BentoBoxWorld/Boxed)：你从一个小小的 4x4 的盒子开始，只能通过完成进度来扩大它！
 * [**CaveBlock**](https://github.com/BentoBoxWorld/CaveBlock)：尝试在地下生活！
 * [**SkyGrid**](https://github.com/BentoBoxWorld/SkyGrid)：在由散落的方块组成的世界中生存 - 真是一次冒险！
 

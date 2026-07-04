@@ -36,6 +36,12 @@
 **权限**: `[gamemode].border.set-type`。默认: `true`。
 **示例**: `/[player command] border type barrier`
 
+### color {red|green|blue}
+**命令**: `/[player command] color {red | green | blue}`
+**描述**: 为玩家设置原版世界边界颜色。仅在使用原版边界类型时适用。
+**权限**: `[gamemode].color.red`、`[gamemode].color.green`、`[gamemode].color.blue`（或 `[gamemode].color.*` 表示全部）。默认: `op`。
+**示例**: `/[player command] color green`
+
 !!! tip
     `[gamemode]` 是一个根据你运行的游戏模式而不同的前缀。
     前缀是游戏模式的小写名称,即如果你使用 BSkyBlock,前缀就是 `bskyblock`。
@@ -122,22 +128,11 @@ show-particles: true
 ```
 
 ### 在地图上显示传送点
-设置为 `true` 时,边界数据将作为标记显示在网页地图插件(Dynmap、BlueMap)上。
-
-需要兼容的地图插件以及 BentoBox 地图钩子处于活动状态。
-
-默认值: `true`
+控制原版世界边界颜色功能是否可用。个别玩家的颜色通过 `/[player_command] color` 命令设置。需要网页地图插件(Dynmap 或 BlueMap)以及 BentoBox 地图钩子。
 
 ```yml
 show-warps-on-map: true
 ```
-
-## 命令补充
-
-### color {red|green|blue}
-**命令**: `/[player command] border color {red|green|blue}`
-**描述**: 将玩家的屏障粒子颜色设置为红色、绿色或蓝色。
-**权限**: `[gamemode].border.color`。默认: `true`。
 
 ## 占位符
 
@@ -148,16 +143,17 @@ show-warps-on-map: true
 ## 更新日志
 
 ??? note "v4.7.0 → v4.8.2 新内容"
-    **v4.7.0 发布于:** 2026-03-xx
+    **发布于:** 2026-02-16 至 2026-04-04
 
-    - **边界颜色命令。** 玩家现在可以使用 `/[player_command] border color {red|green|blue}` 选择屏障粒子颜色。
-    - ⚙️ 新配置选项 `show-warps-on-map`(默认: true)。
-    - 新权限 `[gamemode].border.color`(默认: true)。
-    - 新占位符 `%Border_color%`。
+    - **原版世界边界颜色选择。** 使用原版边界类型的玩家现在可以通过 `/[player_command] color {red|green|blue}` 选择自己的边界颜色——红色、绿色或蓝色。
+    - 新占位符 `%Border_color%`，返回玩家当前的边界颜色。
+    - 新权限 `[gamemode].color.red`、`[gamemode].color.green`、`[gamemode].color.blue`（或使用 `[gamemode].color.*` 授予全部颜色）。默认值：op。
+    - 错误修复：玩家位于所有岛屿区域之外时，边界传送可被绕过（4.7.0）。
+    - 错误修复：玩家在岛屿之间传送时原版世界边界未重置——导致 Bedrock/Geyser 玩家进入受限状态（4.8.1）。
+    - 错误修复：在某些配置下 `%Border_color%` 占位符抛出空值错误（4.8.1）。
+    - 错误修复：边界在原版下界和末地世界中错误地被激活（4.8.1）。
 
-    **v4.8.0 — v4.8.2:** 错误修复和稳定性改进。
-
-    [在 GitHub 上查看发布记录](https://github.com/BentoBoxWorld/Border/releases)
+    [发布 v4.7.0](https://github.com/BentoBoxWorld/Border/releases/tag/4.7.0) · [v4.8.0](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.0) · [v4.8.1](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.1) · [v4.8.2](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.2)
 
 ??? note "v4.8.3 新内容"
     **发布于：** 2026-04-26

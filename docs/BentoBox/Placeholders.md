@@ -81,6 +81,24 @@ BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholde
 | %[gamemode]_deaths% | 玩家死亡的次数 | 1.12.0 |
 | %[gamemode]_on_island% | 玩家是否在其所属的岛屿上 | 1.13.0 |
 
+### 标志占位符
+
+游戏模式中注册的每个保护标志和设置标志也会公开一个占位符。占位符名称是 `flag_` 后跟小写的标志 ID：
+
+| 占位符 | 描述 |
+|-------------|-------------|
+| %[gamemode]_flag_[flag_id]% | 值取决于标志类型：**保护** → 最小允许等级的翻译名称（例如 `成员`）；**设置** → `true` 或 `false`；**世界设置** → `true` 或 `false` |
+
+**示例：**
+
+```
+%bskyblock_flag_pvp_overworld%   → "false"
+%bskyblock_flag_break_blocks%    → "Member"
+%bskyblock_flag_ender_chest%     → "true"
+```
+
+插件定义的标志在运行时添加标志时会自动注册。
+
 ## 另请参阅
 游戏模式和附加组件也可以带来自己的占位符。我们强烈建议您查看以下页面，它们可能更适合您的需求。
 

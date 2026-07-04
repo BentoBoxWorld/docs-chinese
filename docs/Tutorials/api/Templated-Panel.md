@@ -1,41 +1,41 @@
-# BentoBox TemplatedPanel Documentation
+# BentoBox TemplatedPanel 文档
 
-The BentoBox TemplatedPanel is a powerful tool for Minecraft developers, enabling the creation of customizable inventory-based user interfaces (UIs) with ease. By defining panel layouts in YAML, developers can quickly adjust UI elements without needing to alter the codebase extensively. Here's a detailed breakdown of how to configure a TemplatedPanel using YAML.
+BentoBox TemplatedPanel 是一个强大的工具，为 Minecraft 开发者提供便利，让他们可以轻松创建可自定义的基于物品栏的用户界面（UI）。通过在 YAML 中定义面板布局，开发者可以快速调整 UI 元素，而无需进行大量代码修改。以下是如何使用 YAML 配置 TemplatedPanel 的详细说明。
 
-## Panel Definition
+## 面板定义
 
-### Panel Identification
-- `detail_panel`: Define the unique name for the panel for reference in the code.
+### 面板识别
+- `detail_panel`：为面板定义唯一的名称，以便在代码中引用。
 
-### Panel Title
-- `title`: Set the display title of the panel. This title can be localized through a reference in the locale file.
+### 面板标题
+- `title`：设置面板的显示标题。此标题可以通过本地化文件中的引用进行本地化。
 
-### Panel Type
-- `type`: Choose the type of inventory to display. Options include `INVENTORY`, `HOPPER`, and `DROPPER`.
+### 面板类型
+- `type`：选择要显示的物品栏类型。选项包括 `INVENTORY`、`HOPPER` 和 `DROPPER`。
 
-### Background and Border
-- `background`: Customize the background of the panel using Minecraft items. For example, `BLACK_STAINED_GLASS_PANE` can be used for aesthetic effect.
-- `border`: Define the appearance of the panel's border, again using Minecraft items. This helps to contrast the panel items.
+### 背景和边框
+- `background`：使用 Minecraft 物品自定义面板的背景。例如，`BLACK_STAINED_GLASS_PANE` 可用于美观效果。
+- `border`：定义面板边框的外观，同样使用 Minecraft 物品。这有助于突出面板物品。
 
-### Display Configuration
-- `force-shown`: Specify which rows in the panel are to be displayed, affecting the panel's vertical size.
+### 显示配置
+- `force-shown`：指定面板中要显示的行，影响面板的垂直大小。
 
-## Content Configuration
+## 内容配置
 
-### Button Layout and Functionality
-- `content`: Within this section, detail each item or button in the panel. Use row and column numbers to position each element.
-  - `icon`: Set the Minecraft item to be used as the button icon.
-  - `title`: Provide a title for the button, which can be localized.
-  - `description`: Add a description for the button, also localizable.
-  - `data`: Include data relevant to the button's function, such as the type of action it triggers.
-  - `actions`: Define the actions that occur when the button is interacted with, specifying the type of click and any tooltips.
+### 按钮布局和功能
+- `content`：在此部分中，详细说明面板中的每个物品或按钮。使用行号和列号来定位每个元素。
+  - `icon`：设置用作按钮图标的 Minecraft 物品。
+  - `title`：为按钮提供标题，可以本地化。
+  - `description`：为按钮添加描述，也可本地化。
+  - `data`：包含与按钮功能相关的数据，例如它触发的操作类型。
+  - `actions`：定义与按钮交互时发生的操作，指定点击类型和任何工具提示。
 
-### Reusable Buttons
-- `reusable`: Define templates for buttons that are used multiple times within the panel.
-  - Within this section, specify details like the button's icon, title, description, and associated data.
+### 可复用按钮
+- `reusable`：为在面板中多次使用的按钮定义模板。
+  - 在此部分中，指定按钮的图标、标题、描述和关联数据等详细信息。
 
-## Example Button Configuration
-- For a button at row 1, column 2:
+## 按钮配置示例
+- 对于第 1 行第 2 列的按钮：
   ```yaml
   1:
     2:
@@ -51,7 +51,7 @@ The BentoBox TemplatedPanel is a powerful tool for Minecraft developers, enablin
           tooltip: level.gui.tips.click-to-view
   ```
 
-- For a reusable button named `material_button`:
+- 对于名为 `material_button` 的可复用按钮：
   ```yaml
   reusable:
     material_button:
@@ -61,83 +61,83 @@ The BentoBox TemplatedPanel is a powerful tool for Minecraft developers, enablin
         type: BLOCK
   ```
 
-This TemplatedPanel system offers BentoBox developers a streamlined and flexible way to design and implement interactive UI elements in the game, enhancing user engagement and functionality.
+TemplatedPanel 系统为 BentoBox 开发者提供了一种流畅而灵活的方式来设计和实现游戏中的交互式 UI 元素，增强用户体验和功能。
 
-# TemplatedPanelBuilder Documentation
+# TemplatedPanelBuilder 文档
 
-The `TemplatedPanelBuilder` class is part of the BentoBox API, designed to facilitate the creation of `TemplatedPanel` objects. It provides a fluent interface for constructing panels with various customization options, such as templates, user context, world context, and listeners. Here's an overview of its functionality and usage.
+`TemplatedPanelBuilder` 类是 BentoBox API 的一部分，旨在便于创建 `TemplatedPanel` 对象。它提供了一个流畅的接口来构建具有各种自定义选项的面板，例如模板、用户上下文、世界上下文和监听器。以下是其功能和用法的概览。
 
-## Class Overview
+## 类概览
 
-`TemplatedPanelBuilder` is used for building instances of `TemplatedPanel`. It allows for setting various parameters and configurations necessary for the panel's operation within the Minecraft world, specifically within the BentoBox framework.
+`TemplatedPanelBuilder` 用于构建 `TemplatedPanel` 的实例。它允许设置各种参数和配置，这些参数和配置对于面板在 Minecraft 世界中的运行是必需的，特别是在 BentoBox 框架内。
 
-## Methods
+## 方法
 
-### Template Methods
+### 模板方法
 
-- `template(String guiName, File dataFolder)`: Sets the template for the panel based on the GUI name and the data folder. Returns the `TemplatedPanelBuilder` instance for chaining.
-- `template(String panelName, String templateName, File dataFolder)`: Sets the template for the panel based on the panel name, template name, and the data folder. Introduced in version 1.20.0. Returns the `TemplatedPanelBuilder` instance for chaining.
+- `template(String guiName, File dataFolder)`：基于 GUI 名称和数据文件夹为面板设置模板。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
+- `template(String panelName, String templateName, File dataFolder)`：基于面板名称、模板名称和数据文件夹为面板设置模板。在 1.20.0 版本中引入。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
 
-### User Method
+### 用户方法
 
-- `user(User user)`: Sets the user for whom the panel is being built. Returns the `TemplatedPanelBuilder` instance for chaining.
+- `user(User user)`：为正在构建的面板设置用户。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
 
-### World Method
+### 世界方法
 
-- `world(World world)`: Sets the world context for the panel. Returns the `TemplatedPanelBuilder` instance for chaining.
+- `world(World world)`：为面板设置世界上下文。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
 
-### Parameters Method
+### 参数方法
 
-- `parameters(@NonNull String... parameters)`: Sets the parameters for the panel title. Returns the `TemplatedPanelBuilder` instance for chaining. Available from version 1.20.0.
-- Example: `panelBuilder.parameters("[name]", this.user.getName());` places the user's name into the title of the panel
+- `parameters(@NonNull String... parameters)`：为面板标题设置参数。返回 `TemplatedPanelBuilder` 实例以进行链式调用。自 1.20.0 版本可用。
+- 示例：`panelBuilder.parameters("[name]", this.user.getName());` 将用户名称放入面板标题中。
 
-### Listener Method
+### 监听器方法
 
-- `listener(PanelListener listener)`: Adds a `PanelListener` to the panel for handling user interactions. Returns the `TemplatedPanelBuilder` instance for chaining.
-- Listeners are not required as functionality for moving to another tab, or reacting to a click is handled within the API.
-- You may only need a Listener if you need some custom functionality.
+- `listener(PanelListener listener)`：为面板添加 `PanelListener` 以处理用户交互。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
+- 监听器不是必需的，因为切换到另一个标签页或对点击做出反应的功能已在 API 中处理。
+- 只有在需要自定义功能时才可能需要监听器。
 
-### Type Builder Registration
+### 类型构建器注册
 
-- `registerTypeBuilder(String type, BiFunction<ItemTemplateRecord, TemplatedPanel.ItemSlot, PanelItem> buttonCreator)`: Registers a new button type builder for the panel. Returns the `TemplatedPanelBuilder` instance for chaining.
-- Example:
+- `registerTypeBuilder(String type, BiFunction<ItemTemplateRecord, TemplatedPanel.ItemSlot, PanelItem> buttonCreator)`：为面板注册一个新的按钮类型构建器。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
+- 示例：
 ```
         panelBuilder.registerTypeBuilder("NEXT", this::createNextButton);
         panelBuilder.registerTypeBuilder("PREVIOUS", this::createPreviousButton);
         panelBuilder.registerTypeBuilder("BLOCK", this::createMaterialButton);
 ```
-- When the button with the associated name is clicked, the appropriate method will be called. It is passed the ItemTemplateRecord, the ItemSlot, and the PanelItem.
+- 当单击具有关联名称的按钮时，将调用相应的方法。它被传入 ItemTemplateRecord、ItemSlot 和 PanelItem。
 
-### Build Method
+### 构建方法
 
-- `build()`: Constructs and returns a `TemplatedPanel` instance based on the provided configuration.
+- `build()`：根据提供的配置构建并返回一个 `TemplatedPanel` 实例。
 
-## Getters
+## 获取器
 
-- `getPanelTemplate()`: Retrieves the current `PanelTemplateRecord`.
-- `getUser()`: Gets the `User` object associated with the panel.
-- `getWorld()`: Returns the `World` context for the panel.
-- `getParameters()`: Retrieves the list of parameters set for the panel title.
-- `getListener()`: Returns the `PanelListener` attached to the panel.
-- `getObjectCreatorMap()`: Provides access to the map linking objects with their panel item creators.
+- `getPanelTemplate()`：检索当前的 `PanelTemplateRecord`。
+- `getUser()`：获取与面板关联的 `User` 对象。
+- `getWorld()`：返回面板的 `World` 上下文。
+- `getParameters()`：检索为面板标题设置的参数列表。
+- `getListener()`：返回附加到面板的 `PanelListener`。
+- `getObjectCreatorMap()`：提供对将对象与其面板物品创建者链接的映射的访问。
 
-## Variables
+## 变量
 
-- `panelTemplate`: Stores the GUI template record.
-- `user`: Holds the reference to the user who opens the GUI.
-- `world`: Represents the world where the GUI operates.
-- `listener`: Stores the `PanelListener` for handling GUI interactions.
-- `parameters`: A list to store parameters for the title object.
-- `objectCreatorMap`: A map linking object types to their respective panel item creators.
+- `panelTemplate`：存储 GUI 模板记录。
+- `user`：保存打开 GUI 的用户的引用。
+- `world`：代表 GUI 运行的世界。
+- `listener`：存储用于处理 GUI 交互的 `PanelListener`。
+- `parameters`：用于存储标题对象参数的列表。
+- `objectCreatorMap`：将对象类型链接到其各自的面板物品创建者的映射。
 
-## Usage
+## 用法
 
-To use the `TemplatedPanelBuilder`, instantiate it and chain its methods to configure the panel as required. Once all configurations are set, call the `build()` method to create a `TemplatedPanel` instance.
+要使用 `TemplatedPanelBuilder`，请实例化它并链式调用其方法来根据需要配置面板。设置所有配置后，调用 `build()` 方法来创建 `TemplatedPanel` 实例。
 
-Example:
+示例：
 
 ```
-        // Start building panel.
+        // 开始构建面板。
         TemplatedPanelBuilder panelBuilder = new TemplatedPanelBuilder();
         panelBuilder.user(this.user);
         panelBuilder.world(this.user.getWorld());
@@ -152,10 +152,10 @@ Example:
 
         panelBuilder.registerTypeBuilder("FILTER", this::createFilterButton);
 
-        // Register tabs
+        // 注册标签页
         panelBuilder.registerTypeBuilder("TAB", this::createTabButton);
 
-        // Register unknown type builder.
+        // 注册未知类型构建器。
         panelBuilder.build();
 ```
 

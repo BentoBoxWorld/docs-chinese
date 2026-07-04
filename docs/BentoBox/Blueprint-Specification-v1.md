@@ -1,47 +1,47 @@
-# BentoBox Blueprint Specification
+# BentoBox 蓝图规范
 
-**Version 1**
+**第1版**
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
+本文档中的关键词"MUST"、"MUST NOT"、"REQUIRED"、"SHALL"、"SHALL NOT"、"SHOULD"、"SHOULD NOT"、"RECOMMENDED"、"MAY"和"OPTIONAL"应按照[RFC 2119](http://www.ietf.org/rfc/rfc2119.txt)中的描述进行解释。
 
-## Introduction
+## 简介
 
-This specification defines a format that describes a region (made up of blocks and entities) of a [Minecraft](https://minecraft.net) world for the purpose of serialization and storage to disk or to JSON-based database. It is designed in order to allow maximum cross-compatibility between platforms, versions, and various states of modification.
+此规范定义了一种格式，该格式描述[Minecraft](https://minecraft.net)世界的一个区域（由方块和实体组成），用于序列化并存储到磁盘或基于JSON的数据库。它的设计目的是允许平台、版本和各种修改状态之间的最大跨兼容性。
 
-The goal of the BentoBox Blueprint format is to grant us the ability to serialize regions of a Minecraft world to disk or to any user-chosen storage method to be later placed back in the world, while avoiding to rely on third-party softwares or plugins to provide us the serialization and deserialization capabilities.
+BentoBox蓝图格式的目标是让我们能够将Minecraft世界的区域序列化到磁盘或任何用户选择的存储方法，以便稍后放回世界中，同时避免依赖第三方软件或插件来提供序列化和反序列化功能。
 
-## Revision history
+## 修订历史
 
-| Version | Date | BentoBox version | Description
+| 版本 | 日期 | BentoBox 版本 | 描述
 |---|---|---|---|
-| 1 | 2019-06-09 | [1.5.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/1.5.0) | Initial version, derivative of the BentoBox Schem format
+| 1 | 2019-06-09 | [1.5.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/1.5.0) | 初始版本，源自 BentoBox Schem 格式
 
-## Definitions
+## 定义
 
-### <a name="defMaterial"></a>Material
+### <a name="defMaterial"></a>材质（Material）
 
-A [Material](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html) is an ID provided by the [Bukkit API](https://dev.bukkit.org/) that defines the literal type of a block or an item. It affects various rendering options client-side such as light, transparency or display. They represent a programmatical shortcut to the actual corresponding NamespacedKey.
+[Material](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html) 是由 [Bukkit API](https://dev.bukkit.org/) 提供的一个ID，定义了方块或物品的实际类型。它影响客户端的各种渲染选项，例如光线、透明度或显示效果。它们代表实际对应 NamespacedKey 的编程快捷方式。
 
-## Specifications
+## 规范
 
-### Format
+### 格式
 
-The structure specified by this specification is persisted to the user-chosen storage method using the [JavaScript Object Notation](https://json.org) (JSON) format. The data must then be compressed using the ... data compression algorithm.
+由本规范指定的结构使用[JavaScript 对象表示法](https://json.org)（JSON）格式持久化到用户选择的存储方法。数据必须使用...数据压缩算法进行压缩。
 
-Files using this specification must use one of the following file extensions:
+使用此规范的文件必须使用以下文件扩展名之一：
 * `.blueprint` ;
 * `.blu`
 
-All field names in the specification are **case sensitive**.
+规范中的所有字段名称都**区分大小写**。
 
-### Schema
+### 模式
 
-#### Fields
+#### 字段
 
-| Field name | Type | Description |
+| 字段名 | 类型 | 描述 |
 |---|---|---|
-| name | `String` | Display name of the Blueprint |
-| icon | `String` | [Material](#defMaterial) of the item representing the Blueprint in game as an icon |
+| name | `String` | 蓝图的显示名称 |
+| icon | `String` | 代表蓝图在游戏中的图标的物品的[材质](#defMaterial) |
 | attached | `Array` | |
 | entities | `Array` | |
 | blocks | `Array` | |
