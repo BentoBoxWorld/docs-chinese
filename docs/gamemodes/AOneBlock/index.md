@@ -466,6 +466,16 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 
     [Release v1.25.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.25.0)
 
+??? note "v1.25.1 新内容"
+    **发布于：** 2026-07-03
+
+    bug 修复版本 — 即插即用替换，无配置或本地化更改。
+
+    - 🐛 **矿工仆从现在可以再次挖掘魔法方块。** 使用 JetsMinions 矿工仆从破坏魔法方块抛出 `NullPointerException` 并将方块留作缺失状态，直到用 `/ob respawnblock` 手动恢复。仆从破坏路径不再运行仅限玩家的魔法方块保护检查，该检查导致了崩溃，所以方块像预期一样循环和重生。这个回归自 1.22.0 以来一直存在。
+    - 🐛 **访问团队成员时 `my_island_*` 占位符已修复。** 当属于团队的玩家访问另一个岛屿时，`my_island_*` 占位符解析为访问的岛屿的团队数据而不是玩家自己的岛屿。现在它们总是解析为玩家自己的岛屿。
+
+    [Release v1.25.1](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.25.1)
+
 ## Translations
 
 {{ translations("AOneBlock") }}

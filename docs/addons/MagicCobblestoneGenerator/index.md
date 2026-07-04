@@ -116,6 +116,41 @@
           - generator_id_2
     ```
 
+### 生成器耗尽（速率限制）
+
+自 **2.8.0** 起，生成器可以被设上限制，以便在一段时间内只产生一定数量的方块，然后进入冷却状态 — 适用于阻止完全自动化的 AFK 农场。该功能是**可选的，默认禁用**（限制为 `0`），所以现有设置不受影响，直到你启用它。当生成器暂时处于冷却状态时，玩家会收到 `generator-exhausted` 消息。
+
+=== "exhaustion.limit"
+    !!! summary "说明"
+        生成器在单个耗尽期间可能产生的默认方块数。`0` 或更少禁用限制（默认值）。每个生成器层级可以通过每层级的 `exhaustion-limit` 密钥覆盖此设置（见下文）。
+
+        默认值：`0`
+
+=== "exhaustion.period"
+    !!! summary "说明"
+        耗尽期的长度，以**分钟**为单位。方块计数在每个周期结束时重置。
+
+        默认值：`60`
+
+=== "exhaustion.cooldown"
+    !!! summary "说明"
+        生成器达到其耗尽限制后保持冷却的时间，以**分钟**为单位。
+
+        默认值：`1440`（24 小时）
+
+=== "exhaustion.notification-cooldown"
+    !!! summary "说明"
+        向同一玩家显示两个耗尽警告消息之间的最少时间，以**秒**为单位。
+
+        默认值：`60`
+
+!!! tip "按层级限制"
+    每个生成器层级可以通过生成器模板（以及管理员 GUI）中的 `exhaustion-limit` 密钥覆盖全局限制，所以不同层级可以独立节流。
+
+### 按方块高度范围
+
+同样自 **2.8.0** 起，生成器 — 以及生成器内的单个方块 — 可以限制为最小和最大 Y 级别，所以不同的材料在不同的高度产生。新的 GUI 按钮让管理员设置和清除范围，生成器说明向玩家显示每个生成器的运行位置。没有高度范围的遗留模板保持完全兼容。
+
 ## 命令
 
 !!! 小贴士
@@ -261,6 +296,19 @@
               basalt: "&8 Basalt Generators"
               any: "&7&l Supports &e&o all &r&7&l generators"
     ```
+
+## 更新日志
+
+!!! warning "v2.8.0 新内容 — 需要 BentoBox 3.14.0 / Java 21"
+    **发布于：** 2026-07-03
+
+    - ⚙️ **生成器耗尽。** 可选地限制生成器每个周期产生多少方块，达到限制后进入冷却。全局配置（`config.yml` 中的 `exhaustion.*`）和按生成器层级配置（模板中的 `exhaustion-limit`）。可选的，默认禁用。详见上面的"配置"部分。
+    - **按方块高度范围。** 将生成器和单个方块限制到最小/最大 Y 级别，配合新的 GUI 控制和面向玩家的说明。
+    - 🔡 **新占位符** `[gamemode]_magiccobblestonegenerator_generator_exhaustion_status` 和 `[gamemode]_magiccobblestonegenerator_exhausted_generator_names` 公开耗尽状态。
+    - 🔡 🔺 **MiniMessage 本地化 + 13 种新语言。** 每个语言文件都从旧版 `&`/`§` 颜色代码转换为 MiniMessage（BentoBox 3.14 原生渲染），并添加了 cs、hr、hu、id、it、ja、ko、lv、nl、pt、pt-BR、ro 和 zh-HK 的翻译 — 共 24 种本地化，与 BentoBox 核心匹配。如果你保留了对任何 `locales/*.yml` 的自定义编辑，请以 MiniMessage 格式重新应用它们（或删除文件以重新生成新的）。
+    - 🔺 **针对 BentoBox 3.14 / Java 21 现代化。** 更新到当前 BentoBox API 和 Paper，测试套件迁移到 MockBukkit。此版本不会在较旧的 BentoBox 或 Java 版本上加载 — 请先更新 BentoBox。
+
+    [发布 v2.8.0](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/releases/tag/2.8.0)
 
 ## 翻译
 

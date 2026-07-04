@@ -34,6 +34,8 @@ BentoBox 为服务器管理员提供了一系列工具来管理游戏、调查�
 | `/[admin] info <player>` | 显示玩家的岛屿的完整详细信息 |
 | `/[admin] delete <player>` | 删除玩家的岛屿 |
 | `/[admin] setrange <player> <range>` | 更改玩家的岛屿保护范围 |
+| `/[admin] range removebonus <player> [id]` | 从单个岛屿移除所有奖励保护范围，或仅移除给定 id 的范围 |
+| `/[admin] range purgebonus <id>` | 从世界中的**每个**岛屿移除奖励范围 id — 理想情况下在卸载提供奖励范围的附属之后。扫描以异步运行，不会冻结大型服务器 |
 | `/[admin] settings` | 打开管理员的世界设置面板 |
 | `/[admin] settings <player>` | 打开特定玩家的岛屿设置面板 |
 | `/[admin] why <player>` | 开始跟踪为什么玩家可以或不可以做某事（见下文） |
@@ -97,3 +99,25 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 /bentobox reload
 ```
 这将重新加载 BentoBox 和所有插件，包括地区。请注意，某些更改（如世界生成设置）始终需要完全重启才能生效。
+
+## 更新日志
+
+!!! warning "v3.18.0 新内容 — Minecraft 26.2 支持需要 Java 25（服务器）"
+    **发布于：** 2026-06-27
+
+    - 🔺 **Minecraft 26.2 支持 + Java 25。** BentoBox 现在运行在 Minecraft 26.x 系列上（运行时支持 26.2），构建已迁移到 Java 25 工具链。**你的服务器必须运行在能够支持 Java 25 的 Paper 26.x 构建上。** 已构建的附属 jar 保持不变 — 只有重新编译此版本的附属*开发者*需要将他们自己的构建迁移到 Java 25。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
+    - ⚙️ **Dynmap 岛屿标记/区域切换。** `config.yml` 中的新 `dynmap` 部分添加了 `island-markers`（每个岛屿中心的房屋图标）和 `island-areas`（保护区域边框框）开关。两者都默认为 `true`，保持现有行为；将任一项设置为 `false` 并运行 `/bbox reload` 以在岛屿密集时隐藏地图上的这些叠加层。
+    - **管理员范围奖励管理。** 新增 `/[admin] range removebonus` 和 `/[admin] range purgebonus` 命令用于清除单个岛屿或每个岛屿的奖励保护范围 — 理想情况下在卸载提供奖励范围的附属之后（见上面的"每个游戏模式的管理员命令"表）。
+    - 🐛 `/is team setowner` 在转移给现有队伍成员时不再被岛屿限制所阻挡。
+    - 🐛 Vault 钩子现在在附属启用后重试，修复了依赖加载顺序的经济集成。
+
+    [发布 v3.18.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.18.0)
+
+??? note "v3.18.1 新内容"
+    **发布于：** 2026-07-01
+
+    维护版本。
+
+    - 🐛 **多行物品栏名称 & 名称保持颜色。** GUI 工具提示的第一行之后的文本不再回退到默认紫色 — 序列化程序现在在每个换行符后重新发射活跃颜色（和装饰），修复了所有附属中的工具提示。
+
+    [发布 v3.18.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.18.1)
