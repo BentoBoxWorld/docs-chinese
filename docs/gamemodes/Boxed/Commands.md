@@ -29,7 +29,7 @@
 | `/boxadmin bp pos1` | 设置立方体剪贴板的第一个角落 | |
 | `/boxadmin bp pos2` | 设置立方体剪贴板的第二个角落 | |
 | `/boxadmin bp save <bp name>` | 保存复制的剪贴板 | |
-| `/boxadmin setowner <player>` | 将岛屿所有权转移给玩家 | `boxed.admin.register` |
+| `/boxadmin setowner <player> [island owner]` | 将岛屿所有权转移给玩家；指定当前所有者即可从控制台运行 | `boxed.admin.register` |
 | `/boxadmin setrank <player> <rank>` | 设置玩家在其岛屿上的等级 | |
 | `/boxadmin setspawn` | 设置生成点 | `boxed.admin.setspawn` |
 | `/boxadmin top` | 显示前十名列表 | |

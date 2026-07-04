@@ -26,7 +26,7 @@
 | `/bsbadmin bp pos2` | 设置立方体剪贴板的第二个角落 | `bskyblock.admin.blueprint` |
 | `/bsbadmin bp save <blueprint name>` | 保存复制的剪贴板 | `bskyblock.admin.blueprint` |
 | `/bsbadmin bp rename <blueprint name>` | 重命名蓝图 | `bskyblock.admin.blueprint` |
-| `/bsbadmin setowner <player>` | 将岛屿所有权转移给玩家 | `bskyblock.mod.team` |
+| `/bsbadmin setowner <player> [island owner]` | 将岛屿所有权转移给玩家；指定当前所有者即可从控制台运行 | `bskyblock.mod.team` |
 | `/bsbadmin setrank <player> <rank>` | 设置玩家在其岛屿上的等级 | `bskyblock.admin.setrank` |
 | `/bsbadmin setspawn` | 将世界生成位置设置为此位置 | `bskyblock.admin.setspawn` |
 | `/bsbadmin top` | 显示前十名列表 - 需要等级插件 | `bskyblock.admin.top` |

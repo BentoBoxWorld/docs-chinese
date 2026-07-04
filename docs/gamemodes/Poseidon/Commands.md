@@ -171,10 +171,10 @@
       <td align='left'>
          <b>
             /padmin setowner 
-            <player>
+            <player> [realm owner]
          </b>
       </td>
-      <td align='left'>将领域所有权转让给该玩家</td>
+      <td align='left'>将领域所有权转让给该玩家；指定当前所有者即可从控制台运行</td>
       <td align='left'>poseidon.mod.team</td>
    </tr>
    <tr>
