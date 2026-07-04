@@ -118,6 +118,15 @@ permissions:
 
 ## 更新日志
 
+??? note "v1.10.1 新内容"
+    **发布于：** 2026-06-21
+
+    bug 修复版本 — 即插即用替换，无配置或本地化更改。
+
+    - 🐛 **经济由附属提供时，银行不再禁用自己。** BentoBox 在早期钩子阶段挂接 Vault，在附属启用之前。如果到那时没有经济插件注册提供者，那个早期钩子就被丢弃 — 所以当经济来自附属时（例如 [InvSwitcher](../InvSwitcher/index.md)，在其自己的 `onEnable()` 中注册按世界 Vault 经济），Bank 找不到 Vault 提供者并以*"需要 Vault"*关闭自己。Bank 现在在放弃之前重试 Vault 钩子，并声明 `InvSwitcher` 为 `softdepend`，以便在存在时优先启用，使加载顺序确定。
+
+    [发布 v1.10.1](https://github.com/BentoBoxWorld/Bank/releases/tag/1.10.1)
+
 ??? note "v1.9.1 新内容"
     **发布于:** 2026-03-xx
 

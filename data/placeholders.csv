@@ -105,6 +105,8 @@ MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_max_active_genera
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_names,List of active generator names separated with comma,2.2.0
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_unlocked_generator_names,List of unlocked generator names separated with comma,2.2.0
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_purchased_generator_names,List of purchased generator names separated with comma,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaustion_status,Exhaustion status (generated count / limit) for every active generator on the player island,2.8.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,List of the player island's generators that are currently on exhaustion cooldown separated with comma,2.8.0
 Limits,Limits_[gamemode]_island_[material]_count,Current count of material (lower cased) on the island,1.17.2
 Limits,Limits_[gamemode]_island_[material]_limit,The limit of material (lower cased) for the island,1.17.2
 TopBlock,aoneblock_island_player_name_top_#rank#,Island owner's name at the `#rank#` position, 1.0.1
