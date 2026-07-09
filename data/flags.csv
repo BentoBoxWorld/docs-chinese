@@ -8,6 +8,7 @@ BentoBox,AXOLOTL_SCOOPING,"Axolotl Scooping",AXOLOTL_BUCKET,"Allow scooping of a
 BentoBox,BARREL,"Barrels",BARREL,"Toggle barrel interaction",PROTECTION,ADVANCED,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,BEACON,"Beacons",BEACON,"Toggle interaction",PROTECTION,EXPERT,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,BED,"Beds",RED_BED,"Toggle interaction",PROTECTION,EXPERT,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
+BentoBox,BED_ANCHOR_RESPAWN,"Bed/anchor respawn",RED_BED,"Respawn players at a valid bed or respawn anchor if it is on an island they are a member of.",WORLD_SETTING,EXPERT,true,,
 BentoBox,BLOCK_EXPLODE_DAMAGE,"Block explode damage",TNT_MINECART,"Allow Bed & Respawn Anchors to break blocks and damage entities.",SETTING,ADVANCED,false,,
 BentoBox,BOAT,"Boats",OAK_BOAT,"Toggle placing, breaking and entering into boats.",PROTECTION,BASIC,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,BREAK_BLOCKS,"Break blocks",STONE_PICKAXE,"Toggle breaking",PROTECTION,BASIC,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
@@ -54,6 +55,7 @@ BentoBox,FIRE_BURNING,"Fire burning",CHARCOAL,"Toggle whether fire can burn bloc
 BentoBox,FIRE_EXTINGUISH,"Fire extinguish",POTION,"Toggle extinguishing fires",PROTECTION,EXPERT,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,FIRE_IGNITE,"Fire ignition",FLINT_AND_STEEL,"Toggle whether fire can be ignited by non-player means or not.",SETTING,ADVANCED,true,,
 BentoBox,FIRE_SPREAD,"Fire spread",FIREWORK_STAR,"Toggle whether fire can spread to nearby blocks or not.",SETTING,ADVANCED,true,,
+BentoBox,FISHING,"Fishing",FISHING_ROD,"Allow fishing with a fishing rod. Prevents fishing into protected areas from outside the island.",PROTECTION,EXPERT,VISITOR_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,FISH_SCOOPING,"Fish Scooping",TROPICAL_FISH_BUCKET,"Allow scooping of fishes using a bucket",PROTECTION,EXPERT,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,FLINT_AND_STEEL,"Flint and steel",FLINT_AND_STEEL,"Allow players to ignite fires or campfires using flint and steel or fire charges.",PROTECTION,ADVANCED,MEMBER_RANK,VISITOR_RANK,OWNER_RANK
 BentoBox,FLOWER_POT,"Flower pots",FLOWER_POT,"Toggle flower pot interaction",PROTECTION,ADVANCED,MEMBER_RANK,VISITOR_RANK,OWNER_RANK

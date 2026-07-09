@@ -151,6 +151,25 @@
 
 同样自 **2.8.0** 起，生成器 — 以及生成器内的单个方块 — 可以限制为最小和最大 Y 级别，所以不同的材料在不同的高度产生。新的 GUI 按钮让管理员设置和清除范围，生成器说明向玩家显示每个生成器的运行位置。没有高度范围的遗留模板保持完全兼容。
 
+### 解锁进程与要求
+
+自 **2.9.0** 起，生成器可以设置更丰富的要求门槛，让你能够设计真正的解锁树，而不是一份扁平的等级列表。以下所有内容都在管理员 GUI 的生成器编辑面板中配置：
+
+- **前置生成器** —— 要求先解锁一个或多个其他生成器，从而构建多步进程。
+- **AOneBlock 阶段要求** —— 在 AOneBlock 游戏模式上，将生成器门槛设为特定的岛屿阶段，使各等级随岛屿的推进而解锁。
+- **OneBlock 破坏方块数要求** —— 将生成器门槛设为在 OneBlock 岛屿上破坏的方块数量。
+- **解锁即激活** —— 一个针对每个生成器的选项，在生成器解锁的那一刻自动激活它，为玩家省去一趟 GUI。
+- **购买确认** —— 可选择在购买生成器扣款前要求明确确认，防止误购。
+
+=== "lose-tiers-on-level-loss"
+    !!! summary "描述"
+        *在 2.9.0 中新增。* 恢复 2.0.0 之前的行为：如果岛屿等级之后跌破要求，通过岛屿等级解锁的生成器会被重新锁定。已购买的等级始终保留 —— 只有免费的、按等级解锁的等级会被重新锁定。升级后首次加载时会自动写入 `config.yml`。
+
+        默认值：`false`
+
+!!! warning "受权限门槛限制的生成器现在会被撤销"
+    自 **2.9.0** 起，当岛屿当前（在线）拥有者不再持有所需权限时 —— 例如在所有权转移之后 —— 通过权限解锁的生成器会被重新检查并从该岛屿的已解锁和已激活列表中**撤销**。已购买的等级会被保留，因此如果重新获得权限，访问权限会恢复；离线拥有者不受影响。以前这样的授予是永久性的。
+
 ## 命令
 
 !!! 小贴士
@@ -171,6 +190,7 @@
     - `/[admin_command] generator database import <file>`：能够导入导出的数据库<file>。
     - `/[admin_command] generator database export <file>`：能够将数据库导出到保存在`/plugins/BentoBox/addons/MagicCobblestoneGenerator/`文件夹中的<file>。
     - `/[admin_command] generator why <player>`：一个调试命令，允许为每个玩家找到生成器问题。
+    - `/[admin_command] generator reset <player>`：在确认提示后重置某个玩家的岛屿生成器数据 —— 已解锁、已购买和已激活的生成器。*（在 2.9.0 中新增。）*
 
 ## 权限
 
@@ -303,7 +323,24 @@
 
 ## 更新日志
 
-!!! warning "v2.8.0 新内容 — 需要 BentoBox 3.14.0 / Java 21"
+??? warning "v2.9.0 新内容 — 受权限门槛限制的生成器现在会被撤销"
+    **发布于：** 2026-07-08
+
+    新增更丰富的解锁进程以及若干管理员/API 改进。
+
+    - 🔒 **前置生成器。** 将生成器门槛设为一个或多个其他生成器，让各等级按设计好的进程解锁。通过新的管理员 GUI 选择器配置。修复 [#88](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/88)。
+    - 🧱 **OneBlock / AOneBlock 门槛。** 要求特定的 AOneBlock 阶段，或在 OneBlock 岛屿上破坏一定数量的方块，生成器才会可用。修复 [#121](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/121)、[#117](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/117)。
+    - ⚙️ **等级下降时重新锁定等级层。** 新的 `lose-tiers-on-level-loss` 设置（默认 `false`）会在岛屿等级下降时重新锁定按等级解锁的生成器。已购买的等级始终保留。修复 [#118](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/118)。
+    - ✨ **解锁即激活。** 生成器现在可以在解锁的那一刻自动激活。修复 [#106](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/106)。
+    - 💰 **购买确认。** 可选择在为生成器扣款前要求玩家确认。修复 [#109](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/109)。
+    - 🛠️ **管理员数据重置。** 新的 `/[admin_command] generator reset <player>` 命令会在确认提示后重置某个玩家的已解锁、已购买和已激活的生成器。修复 [#149](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/149)。
+    - 🔌 **新的可取消 API 事件** `GeneratorPreBuyEvent` 和 `GeneratorTreasureDropEvent`，供其他插件挂接（见下面的 API 部分）。
+    - 🔺 **行为变更：** 当岛屿的在线拥有者不再持有所需权限时 —— 例如在所有权转移之后 —— 受权限门槛限制的生成器现在会被**撤销**。已购买的等级会被保留，因此如果重新获得权限，访问权限会恢复。
+    - 🔡 **本地化说明：** 为前置选择器、解锁即激活、购买确认、管理员重置命令以及 OneBlock/AOneBlock 要求消息新增了 `en-US.yml` 键。请重新生成或更新你的语言文件以获取新字符串。
+
+    [发布 v2.9.0](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/releases/tag/2.9.0)
+
+??? warning "v2.8.0 新内容 — 需要 BentoBox 3.14.0 / Java 21"
     **发布于：** 2026-07-03
 
     - ⚙️ **生成器耗尽。** 可选地限制生成器每个周期产生多少方块，达到限制后进入冷却。全局配置（`config.yml` 中的 `exhaustion.*`）和按生成器层级配置（模板中的 `exhaustion-limit`）。可选的，默认禁用。详见上面的"配置"部分。
@@ -430,6 +467,67 @@ MagicCobblestoneGenerator 的 JavaDocs 可以在[这里](https://ci.codemc.io/jo
 
             String generator = event.getGenerator();
             String generatorID = event.getGeneratorID();
+        }
+        ```
+
+=== "GeneratorPreBuyEvent"
+    !!! summary "描述"
+        在生成器被购买**之前**触发的事件，允许取消或检查此次购买。继承共享的 `GeneratorEvent` 基类。
+        此事件可取消。
+
+        自 2.9.0 版本起。
+
+        类链接：[GeneratorPreBuyEvent](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/java/world/bentobox/magiccobblestonegenerator/events/GeneratorPreBuyEvent.java)
+
+    !!! question "变量"
+        - `String islandUUID` - 目标岛屿 ID。
+        - `UUID targetPlayer` - 购买生成器的玩家的 ID。
+        - `String generator` - 被购买生成器的名称。
+        - `String generatorID` - 被购买生成器的 ID。
+
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.LOW)
+        public void onGeneratorPreBuy(GeneratorPreBuyEvent event) {
+            UUID user = event.getTargetPlayer();
+            String island = event.getIslandUUID();
+            String generatorID = event.getGeneratorID();
+
+            // 如有需要，否决此次购买
+            if (someCondition) {
+                event.setCancelled(true);
+            }
+        }
+        ```
+
+=== "GeneratorTreasureDropEvent"
+    !!! summary "描述"
+        在生成器即将掉落宝藏时触发的事件，允许取消或修改该掉落。继承共享的 `GeneratorEvent` 基类。
+        此事件可取消。
+
+        自 2.9.0 版本起。
+
+        类链接：[GeneratorTreasureDropEvent](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/java/world/bentobox/magiccobblestonegenerator/events/GeneratorTreasureDropEvent.java)
+
+    !!! question "变量"
+        - `String islandUUID` - 目标岛屿 ID。
+        - `UUID targetPlayer` - 宝藏为其掉落的玩家的 ID。
+        - `String generator` - 掉落宝藏的生成器的名称。
+        - `String generatorID` - 掉落宝藏的生成器的 ID。
+        - `Location location` - 宝藏即将掉落的位置。
+        - `ItemStack itemStack` - 即将掉落的宝藏物品（可被修改）。
+
+
+    !!! example "代码示例"
+        ```java
+        @EventHandler(priority = EventPriority.LOW)
+        public void onTreasureDrop(GeneratorTreasureDropEvent event) {
+            Location location = event.getLocation();
+            ItemStack treasure = event.getItemStack();
+
+            // 取消掉落或替换物品
+            event.setCancelled(true);
         }
         ```
 

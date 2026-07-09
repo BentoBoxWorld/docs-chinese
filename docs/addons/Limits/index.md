@@ -127,6 +127,16 @@ GAMEMODE_NAME.limits.admin.limits:
 
 ## 更新日志
 
+??? note "v1.28.4 新内容"
+    **发布于：** 2026-07-06
+
+    以保持实体计数准确并可靠持久化为重点的维护版本。无需任何配置或本地化更改。
+
+    - 🐛 **实体计数不再高于实际值。** 在某些生成/移除序列下，被跟踪的实体计数可能会超过岛屿上实际存在的实体数量，最终阻止本应被允许的生成。计数现在会与岛屿的真实数量保持同步。[[#273](https://github.com/BentoBoxWorld/Limits/pull/273)]
+    - 🐛 **实体计数持久化已集中化。** 所有实体计数的变更现在都通过 `BlockLimitsListener` 进行，因此这些变更会被纳入正常的批量保存周期，而不是仅在附属禁用时才写入。这可以防止在非正常关闭或崩溃时丢失计数。[[#274](https://github.com/BentoBoxWorld/Limits/pull/274)]
+
+    [发布 v1.28.4](https://github.com/BentoBoxWorld/Limits/releases/tag/1.28.4)
+
 ??? note "v1.28.3 新内容"
     **发布于：** 2026-06-29
 
