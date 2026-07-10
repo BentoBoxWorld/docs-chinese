@@ -32,15 +32,15 @@
 
 ### border type {...}  
 **命令**: `/[player command] border type {barrier | vanilla}`
-**描述**: 设置边界类型。
-**权限**: `[gamemode].border.set-type`。默认: `true`。
+**描述**: 设置边界类型。不带参数运行可在可用类型之间切换。
+**权限**: `[gamemode].border.type`。默认: `true`。
 **示例**: `/[player command] border type barrier`
 
-### color {red|green|blue}
-**命令**: `/[player command] color {red | green | blue}`
+### border color {red|green|blue}
+**命令**: `/[player command] border color {red | green | blue}`
 **描述**: 为玩家设置原版世界边界颜色。仅在使用原版边界类型时适用。
-**权限**: `[gamemode].color.red`、`[gamemode].color.green`、`[gamemode].color.blue`（或 `[gamemode].color.*` 表示全部）。默认: `op`。
-**示例**: `/[player command] color green`
+**权限**: `[gamemode].border.color.red`、`[gamemode].border.color.green`、`[gamemode].border.color.blue`（或 `[gamemode].border.color.*` 表示全部）。默认: `op`。
+**示例**: `/[player command] border color green`
 
 !!! tip
     `[gamemode]` 是一个根据你运行的游戏模式而不同的前缀。
@@ -70,6 +70,33 @@ disabled-gamemodes:
 disabled-gamemodes: []
 ```
 
+### 边界类型
+新玩家获得的默认边界种类。有两种选择：
+
+- `VANILLA` —— 使用 Minecraft 自带的圆形世界边界效果（你在原版游戏中看到的晃动的墙）。它可以被染上颜色。
+- `BARRIER` —— 使用不可见的屏障方块和彩色粒子，只有当你靠近边缘时才会出现。
+
+拥有权限的玩家可以使用 `/[player command] border type` 切换自己的边界。如果他们没有权限，就会使用你在这里设置的类型。
+
+```yml
+type: VANILLA
+```
+
+### 原版边界颜色
+原版世界边界的颜色。仅在边界类型为 `VANILLA` 时使用。  
+可选值为 `RED`、`GREEN` 或 `BLUE`。拥有权限的玩家可以使用 `/[player command] border color` 选择自己的颜色。
+
+```yml
+color: BLUE
+```
+
+### 弹回物品
+如果为 `true`，玩家向边界扔出的物品会被弹回内侧，而不是飞出去。设置为 `false` 可让扔出的物品穿过。
+
+```yml
+bounce-back: true
+```
+
 ### 返回传送
 控制如果玩家设法穿过边界(例如在同一个世界传送),是否应将他们传送回他们的岛屿。
 
@@ -87,6 +114,13 @@ return-teleport: true
     use-barrier-blocks: false
     return-teleport: false 
     ```
+
+### 返回传送安全方块
+仅在 `return-teleport` 为 `true` 时使用。如果玩家被传送回边界内侧并落在不安全的地方（例如悬崖上方或岩浆中），此设置会在他们脚下放置一个安全方块，使他们不会受伤。
+
+```yml
+return-teleport-safety-block: true
+```
 
 ### 使用屏障方块
 仅适用于 **不** 使用原版边界类型的玩家。
@@ -127,11 +161,19 @@ show-max-border: true
 show-particles: true  
 ```
 
-### 在地图上显示传送点
-控制原版世界边界颜色功能是否可用。个别玩家的颜色通过 `/[player_command] color` 命令设置。需要网页地图插件(Dynmap 或 BlueMap)以及 BentoBox 地图钩子。
+### 屏障偏移
+仅适用于 **不** 使用原版边界类型的玩家。
+
+通常边界正好位于玩家保护范围的边缘。此设置将屏障**向外**推移你所给定的方块数，因此玩家可以在撞到墙之前走出他们的受保护区域一小段距离。
+
+需要了解的重点：
+
+- 它**不会**扩大受保护区域 —— 玩家仍然无法在多出的空间建造或保护，他们只能站在那里。
+- 无论你设置多大的数值，边界都不会超出岛屿间距。
+- 最小值（也是默认值）为 `0`，表示边界正好位于保护范围上。
 
 ```yml
-show-warps-on-map: true
+barrier-offset: 0
 ```
 
 ## 占位符
@@ -139,6 +181,51 @@ show-warps-on-map: true
 | 占位符 | 描述 | 版本 |
 |---|---|---|
 | `%Border_color%` | 玩家当前的边界颜色(red/green/blue) | 4.8.0 |
+
+## 常见问题
+
+??? question "我怎么改变边界的大小？"
+    边界本身没有独立的大小 —— 它是围绕每个岛屿的**保护范围**绘制的。所以要让边界变大或变小，你需要改变保护范围。
+
+    - 通过类似 `[gamemode].island.range.<number>` 的权限给玩家更大的范围（例如 `bskyblock.island.range.150`）。
+    - 管理员可以用管理员范围命令为特定岛屿设置范围，例如 `/bsbadmin range set <player> <number>`。
+    - 范围永远不能大于**岛屿间距的一半**，而该间距在世界创建时设置一次，之后无法更改。
+
+    完整细节请参阅[岛屿范围和间距](../../BentoBox/About/IslandManagement.md#岛屿范围和间距)。
+
+??? question "我可以让边界比岛屿的范围稍大一些吗？"
+    可以！使用 `config.yml` 中的 `barrier-offset` 设置。它会将边界向外推移你所选择的方块数，因此玩家可以在撞到墙之前走出他们的受保护区域一小段距离。
+
+    请记住这只会移动墙 —— 它**不会**给玩家任何可以建造或保护的额外土地。参见上面的[屏障偏移](#屏障偏移)设置。
+
+??? question "屏障和原版边界类型有什么区别？"
+    - **原版**使用 Minecraft 内置的世界边界效果 —— 你在普通游戏中已经熟悉的闪烁的墙。你可以将它染成红色、绿色或蓝色。
+    - **屏障**使用不可见的屏障方块加上彩色粒子，只有当你靠近边缘时才会显示。
+
+    拥有权限的玩家可以用 `/[player command] border type` 在两者之间切换。
+
+??? question "我不想要一堵实体墙 —— 能否只显示一条玩家可以穿过的线？"
+    可以。设置 `use-barrier-blocks: false` 使其没有实体墙，并设置 `return-teleport: false` 使玩家不会被拉回。这样就只剩下视觉边界。在 `config.yml` 中加入：
+
+    ```yml
+    use-barrier-blocks: false
+    return-teleport: false
+    ```
+
+??? question "我怎么改变边界的颜色？"
+    颜色只在**原版**边界类型下有效。在 `config.yml` 中用 `color` 设置一个服务器范围的默认值（`RED`、`GREEN` 或 `BLUE`）。拥有权限的玩家可以在游戏中用 `/[player command] border color {red|green|blue}` 选择自己的颜色。
+
+??? question "我怎么关闭边界？"
+    玩家可以用 `/[player command] border` 打开或关闭自己的边界（他们需要 `[gamemode].border.toggle` 权限）。要让所有人默认关闭，请在 `config.yml` 中设置 `show-by-default: false`。
+
+??? question "边界没有显示 —— 我该检查什么？"
+    - 确保该游戏模式没有列在 `config.yml` 的 `disabled-gamemodes` 下。
+    - 检查玩家是否确实打开了边界（`/[player command] border`），以及 `show-by-default` 是否为 `true`。
+    - 边界只在你自己岛屿的保护范围周围显示，所以你需要靠近边缘才能看到它。
+    - 如果你使用**屏障**类型并设置了 `show-particles: false`，那么在你触碰之前墙是不可见的 —— 这是预期行为。
+
+??? question "你能添加某个功能 X 吗？"
+    请在[问题追踪器](https://github.com/BentoBoxWorld/Border/issues)上提出请求。
 
 ## 更新日志
 
