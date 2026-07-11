@@ -119,6 +119,10 @@ MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaust
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,List of the player island's generators that are currently on exhaustion cooldown separated with comma,2.8.0
 Limits,Limits_[gamemode]_island_[material]_count,Current count of material (lower cased) on the island,1.17.2
 Limits,Limits_[gamemode]_island_[material]_limit,The limit of material (lower cased) for the island,1.17.2
+Limits,Limits_[gamemode]_island_reached_limits,"Comma-separated list of every limited block, entity, and entity group that is at or over its limit across all dimensions",1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_overworld,Reached limits in the overworld only,1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_nether,Reached limits in the nether only,1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_end,Reached limits in the end only,1.29.0
 TopBlock,aoneblock_island_player_name_top_<number>,Island owner's name at the `<number>` position, 1.0.1
 TopBlock,aoneblock_island_member_names_top_<number>,Name of island team members at the `<number>` position, 1.0.1
 TopBlock,aoneblock_island_phase_name_top_<number>,Name of the phase they have reached at the `<number>` position, 1.0.1

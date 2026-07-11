@@ -105,7 +105,20 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! warning "v3.19.0 新内容 — 现在会遵循床/重生锚的重生点"
+!!! note "v3.20.0 新内容 — 命令建议与核心结构抑制"
+    **发布于：** 2026-07-11
+
+    一个提升使用体验的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。除非你主动启用，否则升级后行为不变。
+
+    - 🔡 ⚙️ **"你是不是想输入"命令建议。** 输错的命令（如 `/teams` 或 `/island invit Floris`）现在会给出最接近的 BentoBox 命令——可点击，或在 30 秒内输入 `yes`/`y` 接受——而不再直接抛出帮助文本。建议会匹配所有命令树中的标签和别名，按权限过滤，并根据玩家所在的游戏模式世界来消除歧义。`config.yml` 中 `general.did-you-mean` 下新增两个开关 `unknown-commands` 和 `subcommands`，两者都**默认开启**；将任一项设为 `false` 并执行 `/bbox reload` 即可禁用。
+    - ⚙️ 🔺 **面向所有游戏模式的核心原版结构抑制。** 禁用某个原版结构现在是一项核心设置，不再需要逐个附属去处理。`config.yml` 中新增的 `world.disabled-structures` 列表（应用于每个 BentoBox 主世界/下界/末地）会阻止所列结构生成，**并**在结构搜索中跳过它们——`/locate`、末影之眼、探险家/藏宝图、海豚以及村民制图师交易——从而修复长期存在的 `/locate` 主线程冻结问题和出生点附近的结构泄漏。键名对大小写和分隔符不敏感（`trial_chambers`、`ancient-city`）。游戏模式可以逐结构覆盖该列表。**该列表默认为空，因此在你主动启用之前行为不变。**
+    - 🔌 **Nexo 钩子。** BentoBox 现在可以放置和检测 [Nexo](https://nexomc.com/) 自定义方块和物品，与其他自定义物品集成并列。
+    - 🔌 **Oraxen 方块放置。** `OraxenHook.placeBlock` 向附属公开 Oraxen 自定义方块放置能力，与其他自定义方块钩子相匹配。
+    - 🔡 **本地化说明：** 所有 22 个内置本地化文件都新增了三个 `general.did-you-mean` 键，且在每个非英文文件中补全了此前缺失的键 `commands.admin.team.setowner.specify-island`。请重新生成或更新任何自定义本地化文件。
+
+    [发布 v3.20.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.20.0)
+
+??? warning "v3.19.0 新内容 — 现在会遵循床/重生锚的重生点"
     **发布于：** 2026-07-08
 
     兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
