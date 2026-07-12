@@ -34,6 +34,10 @@ config.yml 有以下部分:
 
 * blocklimits-end
 
+* blockgrouplimits *(1.29.0+)*
+
+* blockgrouplimits-nether / blockgrouplimits-end *(1.29.0+)*
+
 * worlds
 
 * entitylimits
@@ -41,6 +45,10 @@ config.yml 有以下部分:
 * entitylimits-nether
 
 * entitylimits-end
+
+* entitygrouplimits
+
+此外还有以下顶级开关(除注明外均在 **1.29.0** 中新增)：`apply-member-limit-perms`、`show-limit-messages`、`stacked-plants-count-as-one` 和 `log-limits-on-join`。
 
 !!! info "按维度限制 (1.28.2+)"
     自 **1.28.2** 起,方块数量、实体数量、限制和偏移量现在会**针对主世界、下界和末地分别独立追踪**。在 `blocklimits` 或 `entitylimits` 中定义的单个限制会分别应用于每个维度。例如 `HOPPER: 10` 允许主世界 10 个、下界 10 个、末地 10 个(整个岛屿共 30 个)漏斗。如需仅覆盖某个维度,请使用可选的 `-nether` / `-end` 部分。
@@ -89,6 +97,78 @@ entitygrouplimits:
     - CREEPER
 ```
 
+### blockgrouplimits
+
+!!! info "自 1.29.0 起"
+    `entitygrouplimits` 的方块版对应功能：对一组方块材料共享一个限制。组内每个成员的数量会被累加并与组限制进行比对,因此玩家无法通过在相关方块之间转换(例如草方块 → 泥土)或分散到多个变种(活塞/粘性活塞)来规避限制。如果同时设置了 `blocklimits`,单个限制仍会叠加生效。
+
+用 `icon`、共享的 `limit` 和 `materials` 列表定义一个命名组：
+
+```yaml
+blockgrouplimits:
+  Pistons:
+    icon: PISTON
+    limit: 10
+    materials:
+    - PISTON
+    - STICKY_PISTON
+  Soil:
+    icon: GRASS_BLOCK
+    limit: 200
+    materials:
+    - GRASS_BLOCK
+    - DIRT
+    - DIRT_PATH
+    - FARMLAND
+```
+
+可通过 `blockgrouplimits-nether` / `blockgrouplimits-end` 进行按环境覆盖,它们只覆盖已在 `blockgrouplimits` 中定义的某个组的数值限制：
+
+```yaml
+blockgrouplimits-nether:
+  Pistons: 5
+```
+
+!!! warning "更改分组后请运行重新计数"
+    在添加方块组(或更改下面的 `stacked-plants-count-as-one`)后,请运行 `/[player_command] limits recount`,使存储的计数与新的计数规则相匹配。
+
+### ItemsAdder 和 Oraxen 自定义方块
+
+!!! info "自 1.29.0 起"
+    来自 **ItemsAdder** 和 **Oraxen** 的自定义方块可以直接在现有的 `blocklimits` 部分(及其 `-nether`/`-end` 和 `worlds:` 覆盖)中使用它们的 ID 进行限制。强制执行通过 BentoBox 钩子使用各插件自己的放置/破坏事件,仅在安装了对应插件时才会注册。含冒号的键需要加引号。
+
+```yaml
+blocklimits:
+  "iafestivities:christmas/christmas_tree/green_orb": 5
+  "oraxen:caveblock": 10
+```
+
+### 其他开关
+
+=== "apply-member-limit-perms"
+    !!! summary "说明"
+        (**1.29.0+**) 设为 `true` 时,队伍成员的 `<gamemode>.island.limit.*` 权限会在其登录时并入岛屿的限制 —— 取最高值。合作者(coop)和信任玩家不是队伍成员,他们的权限永远不会生效。
+
+        默认值：`false`
+
+=== "show-limit-messages"
+    !!! summary "说明"
+        (**1.29.0+**) 设为 `false` 时,限制会被静默执行 —— 放置和生成仍会被阻止,但玩家不会收到到达限制的提示消息。
+
+        默认值：`true`
+
+=== "stacked-plants-count-as-one"
+    !!! summary "说明"
+        (**1.29.0+**) 设为 `true` 时,无论一根 `SUGAR_CANE`(甘蔗)或 `BAMBOO`(竹子)长多高,都只算作一株植物 —— 只计算基座段。更改此选项后请运行重新计数。
+
+        默认值：`false`
+
+=== "log-limits-on-join"
+    !!! summary "说明"
+        当岛屿拥有者加入时,将该岛屿的限制记录到控制台。自 **1.29.0** 起,此项**默认为 `false`**(此前默认为 `true`),因为它在拥有大量基于权限的限制的服务器上会刷屏控制台。如果你依赖该输出进行调试,可将其改回 `true`。
+
+        默认值：`false`
+
 ## 权限
 
 岛主可以拥有覆盖默认设置或世界设置的独占权限。支持两种格式:
@@ -126,6 +206,27 @@ GAMEMODE_NAME.limits.admin.limits:
 {{ placeholders_source(source="Limits") }}
 
 ## 更新日志
+
+??? note "v1.29.0 新内容"
+    **发布于：** 2026-07-10
+
+    兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.2 · Java 21。
+
+    - ⚙️ **方块组限制。** 对一组方块材料共享一个限制(例如活塞 + 粘性活塞,或草/泥土/耕地),使玩家无法通过在相关方块之间转换来规避限制。在 `blockgrouplimits` 下配置,支持 `-nether`/`-end` 覆盖。详见上面的"配置"部分。
+    - ⚙️ **ItemsAdder 和 Oraxen 自定义方块限制。** 直接在 `blocklimits` 中使用命名空间 ID 来限制自定义方块。
+    - ⚙️ **队伍成员限制权限(可选启用)。** 设置 `apply-member-limit-perms: true` 后,队伍成员的 `island.limit.*` 权限可以为岛屿限制作出贡献,而不仅限于拥有者。
+    - 🔡 **到达限制占位符与 API。** 新增 `%Limits_<gamemode>_island_reached_limits%` 占位符(以及 `_overworld`/`_nether`/`_end`)列出哪些限制已达上限,由新的 `Limits#getReachedLimits(...)` API 支持。关闭了追踪器中最古老的未决工单(2018 年提交)。
+    - ⚙️ **可堆叠植物可算作一株。** 可选地将整根甘蔗或竹子算作一株植物(`stacked-plants-count-as-one`)。
+    - ⚙️ **静默执行选项。** `show-limit-messages: false` 关闭到达限制的聊天消息,同时仍强制执行限制。
+    - 🔡 **手动翻译材料/实体名称。** 本地化文件现在可以翻译 GUI 和到达限制消息中显示的方块/实体名称。
+    - **物品展示框、荧光物品展示框和画现在可以在 `entitylimits` 下限制。**
+    - 🐛 **修复：来自穿越传送门的生物导致的幽灵实体计数**(例如岛上没有鸡却显示 `Chicken 10/10`),以及铜傀儡建造绕过 `COPPER_CHEST` 限制的问题。
+    - ⚙️ **`log-limits-on-join` 现在默认为 `false`** —— 如果你依赖该控制台输出,可将其改回 `true`。
+
+    !!! warning "新配置选项不会自动添加"
+        新键**不会**出现在现有的 `config.yml` 中 —— 请从上面的列表中添加你需要的键,或删除配置以重新生成。在添加方块组或更改 `stacked-plants-count-as-one` 后,请运行重新计数,使存储的计数与新的计数规则相匹配。
+
+    [发布 v1.29.0](https://github.com/BentoBoxWorld/Limits/releases/tag/1.29.0)
 
 ??? note "v1.28.4 新内容"
     **发布于：** 2026-07-06
@@ -226,6 +327,5 @@ GAMEMODE_NAME.limits.admin.limits:
 
 * 末影龙
 
-* 物品展示框
-
-* 绘画
+!!! tip "物品展示框和画现在可以被限制 (1.29.0)"
+    物品展示框、荧光物品展示框和画此前也在此列表中。自 **1.29.0** 起,实体计数是持久化且事件驱动的,因此这三者现在都可以像其他任何实体一样在 `entitylimits` 下配置。

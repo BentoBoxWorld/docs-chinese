@@ -170,6 +170,20 @@
 !!! warning "受权限门槛限制的生成器现在会被撤销"
     自 **2.9.0** 起，当岛屿当前（在线）拥有者不再持有所需权限时 —— 例如在所有权转移之后 —— 通过权限解锁的生成器会被重新检查并从该岛屿的已解锁和已激活列表中**撤销**。已购买的等级会被保留，因此如果重新获得权限，访问权限会恢复；离线拥有者不受影响。以前这样的授予是永久性的。
 
+### 自定义方块产出（ItemsAdder、CraftEngine、Oraxen、Nexo）
+
+自 **2.10.0** 起，生成器等级可以产出来自 ItemsAdder、CraftEngine、Oraxen 和 Nexo 的**自定义方块**，而不仅限于原版材料 —— 例如一个镶嵌钻石的 ItemsAdder 矿石可以和其他所有方块一起进入加权随机的产出组合中。对这些插件的所有访问都通过 BentoBox 核心钩子进行路由，因此该附属从不直接依赖它们。
+
+- 方块以字符串 ID 存储：原版名称如 `COBBLESTONE`，或带提供者前缀的 ID `itemsadder:namespace:id`、`craftengine:namespace:id`、`oraxen:id`、`nexo:id`。**现有数据库和模板可原样加载。**
+- 管理员编辑面板新增了一个**添加自定义方块**按钮 —— 在聊天中输入 ID，它会根据钩子注册表进行验证。面板会以提供者自身的纹理和显示名称渲染自定义方块。
+- 如果所选的自定义方块在生成时不可用（提供者或方块缺失），生成器会回退到原版方块，并通过 `/[admin_command] generator why` 报告原因，而不是无声地失败。模板中未注册的自定义方块会在导入时给出警告，从而使模板在各服务器间保持可移植。
+
+!!! note "提供者可用性"
+    ItemsAdder 和 CraftEngine 目前即可生成方块。Oraxen 和 Nexo 已接线就绪，将在对应的 BentoBox 核心钩子发布后生成（BentoBox 3.20.0 添加了 Nexo 钩子和 `OraxenHook.placeBlock`）。
+
+!!! warning "需要 BentoBox 3.19.1 或更新版本"
+    2.10.0 依赖 BentoBox 3.19.1 中新增的自定义方块钩子 API，**无法在更旧的核心上加载**。放入此 jar 前请先更新 BentoBox。
+
 ## 命令
 
 !!! 小贴士
@@ -322,6 +336,20 @@
     ```
 
 ## 更新日志
+
+??? warning "v2.10.0 新内容 — 自定义方块，需要 BentoBox 3.19.1"
+    **发布于：** 2026-07-11
+
+    生成器现在可以产出来自其他插件的自定义方块，通过 BentoBox 核心钩子进行路由。
+
+    - 🔺 **自定义方块支持。** 生成器等级除了原版材料外，还可以产出来自 **ItemsAdder、CraftEngine、Oraxen 和 Nexo** 的方块。方块以字符串 ID 存储（`COBBLESTONE`，或 `itemsadder:namespace:id`、`craftengine:namespace:id`、`oraxen:id`、`nexo:id`）；现有数据库可原样加载。修复 [#103](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/103)。详见上面的"配置"部分。
+    - ✨ **添加自定义方块面板按钮**，通过聊天输入并根据钩子注册表进行验证；面板会以提供者自身的纹理和名称渲染自定义方块。不可用的自定义方块会回退到原版方块并给出 `/why` 报告，而不是无声地失败。ItemsAdder 和 CraftEngine 目前即可生成；Oraxen 和 Nexo 在 BentoBox 3.20.0 的钩子就位后即可生成。
+    - 🐛 **宝藏几率的编辑现在会保存。** 在管理员面板中编辑宝藏几率时写入的是已弃用的 `treasureChanceMap` 而非 `treasureItemChanceMap`，导致编辑丢失 —— 现已修复。
+    - ⚙️ **模板接受自定义方块。** `generatorTemplate.yml` 现在接受带引号、带提供者前缀的方块键。现有配置无需任何操作；未注册的自定义方块导入时会给出警告。
+    - 🔡 **本地化说明：** 为自定义方块 UI 新增了 `en-US.yml` 键。请重新生成或更新你的本地化文件以获取新字符串。
+    - 🔺 **需要 BentoBox 3.19.1 或更新版本。** 此版本调用的自定义方块钩子 API 仅在 3.19.1 及以后可用；该附属无法在更旧的核心上加载。请先更新 BentoBox。
+
+    [发布 v2.10.0](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/releases/tag/2.10.0)
 
 ??? warning "v2.9.0 新内容 — 受权限门槛限制的生成器现在会被撤销"
     **发布于：** 2026-07-08
