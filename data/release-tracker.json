@@ -1,21 +1,21 @@
 {
-  "last_run": "2026-07-08T02:07:59Z",
+  "last_run": "2026-07-26T04:16:18Z",
   "repos": {
     "BentoBox": {
-      "last_checked": "2026-07-08T02:07:59Z",
-      "last_release": "3.19.0",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "3.21.0",
       "doc_path": "BentoBox/",
       "category": "core"
     },
     "AcidIsland": {
-      "last_checked": "2026-05-23T00:37:17Z",
-      "last_release": "1.22.0",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "2.0.0",
       "doc_path": "gamemodes/AcidIsland/index.md",
       "category": "gamemode"
     },
     "AOneBlock": {
-      "last_checked": "2026-07-08T02:07:59Z",
-      "last_release": "1.25.1",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "1.26.2",
       "doc_path": "gamemodes/AOneBlock/index.md",
       "category": "gamemode"
     },
@@ -110,8 +110,8 @@
       "category": "addon"
     },
     "ExtraMobs": {
-      "last_checked": "2026-05-23T00:37:17Z",
-      "last_release": "",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "1.15.0",
       "doc_path": "addons/ExtraMobs/index.md",
       "category": "addon"
     },
@@ -122,8 +122,8 @@
       "category": "addon"
     },
     "Greenhouses": {
-      "last_checked": "2026-06-04T14:25:55Z",
-      "last_release": "1.9.5",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "1.10.0",
       "doc_path": "addons/Greenhouses/index.md",
       "category": "addon"
     },
@@ -152,8 +152,8 @@
       "category": "addon"
     },
     "Limits": {
-      "last_checked": "2026-07-08T02:07:59Z",
-      "last_release": "1.28.4",
+      "last_checked": "2026-07-26T04:16:18Z",
+      "last_release": "1.29.1",
       "doc_path": "addons/Limits/index.md",
       "category": "addon"
     },

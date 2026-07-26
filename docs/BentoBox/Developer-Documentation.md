@@ -62,3 +62,39 @@ PlayerEvent.builder()
 ```
 
 这完全是新增的——所有类都是新的,没有更改任何现有 API,因此 3.17.0 与现有插件二进制兼容。[Inventory Switcher 插件](../addons/InvSwitcher/index.md)使用这些事件在重置时保护按世界的物品栏和余额。参见 [Release 3.17.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.17.0)。
+
+# 模态对话框 { #modal-dialogs }
+
+*BentoBox 3.21.0 新增。*
+
+`world.bentobox.bentobox.api.dialogs` 封装了 Paper 的模态对话框系统，该系统需要 **Minecraft 26 或更高版本**。对话框与 Panels API 并列存在：面板是一个玩家可以随手点掉的物品栏，而对话框是玩家必须作答的模态窗口。核心用它来实现命令确认、`/island go` 目的地选择器、队伍邀请，以及首次加入时的游戏模式选择器。
+
+| 类 | 用途 |
+| --- | --- |
+| `Dialogs` | `Dialogs.isSupported()` —— 当前服务端能否显示对话框 |
+| `DialogBuilder` | 流式构建器：`title`、`body`、`escapable`、`pause`、`confirmation`、`button`、`build` |
+| `DialogButton` | 一个标签、一个可选的提示文本，以及一个 `Consumer<User>` 点击处理器 |
+| `BBDialog` | 构建好的对话框 —— 用 `show(User)` 显示它 |
+
+`title(...)`、`body(...)` 和 `DialogButton.of(...)` 都既可以接收一个 Adventure `Component`，也可以接收一个 `User` 加一个本地化键引用（以及可选的变量），因此对话框文本的翻译方式与插件其余部分完全一致。整条链路都基于 `Component`，所以点击动作得以保留。
+
+```java
+if (!Dialogs.isSupported()) {
+    // 26 之前的服务端：回退到你原有的聊天或面板流程
+    askInChat(user);
+    return;
+}
+new DialogBuilder()
+    .title(user, "myaddon.confirm.title")
+    .body(user, "myaddon.confirm.body", "[name]", island.getName())
+    .confirmation(
+        DialogButton.of(user, "myaddon.confirm.yes", u -> doTheThing(u)),
+        DialogButton.of(user, "myaddon.confirm.no", u -> u.sendMessage("myaddon.confirm.cancelled")))
+    .build()
+    .show(user);
+```
+
+!!! warning "务必提供回退方案"
+    请像核心那样检查 `Dialogs.isSupported()`，并为更旧的服务端保留原有的聊天或面板行为。按钮的点击处理器运行在主线程上，因此可以直接调用 Bukkit API。
+
+参见 [Release 3.21.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.21.0)。
