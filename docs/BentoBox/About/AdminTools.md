@@ -105,7 +105,19 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! note "v3.20.0 新内容 — 命令建议与核心结构抑制"
+!!! note "v3.21.0 新内容 — 模态对话框"
+    **发布于：** 2026-07-22
+
+    一个提升玩家体验的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
+
+    - ⚙️ 🔡 **为高摩擦流程引入模态对话框。** 敏感命令的确认、`/island go` 的目的地选择器、队伍邀请，以及首次加入时的游戏模式选择器，现在都可以显示为真正的模态对话框——玩家不会看错，也无法一划而过。`config.yml` 中新增的 `island.dialogs` 小节为每个流程提供一个开关：`confirmations`、`go-picker` 和 `team-invites` **默认开启**，`game-mode-selection` **默认关闭**，因为它天生就具有打断性。对话框需要 Minecraft 26+ 的服务端；在更旧的版本上，所有开关都会被忽略并沿用经典的聊天/命令行为，因此无需做任何处理。
+    - **更宽容的 `/island go` 匹配。** `/island go myisland`、`hom`，以及大小写不对或中间多打了一个空格的名称，现在都会把玩家传送到他想去的地方，而不是因为精确匹配失败而抛出完整的目的地清单。参见[家园位置](IslandManagement.md#home-locations)。
+    - 🔡 **本地化说明：** 全部 22 个内置本地化文件都新增了对话框相关的键（`general.dialogs.*`，以及确认命令、`island go` 和队伍邀请命令下的对话框与选择器键）。请重新生成或更新任何自定义本地化文件。
+    - 🔧 **插件开发者**可以使用与核心相同的 `world.bentobox.bentobox.api.dialogs` API——参见[模态对话框](../Developer-Documentation.md#modal-dialogs)。
+
+    [发布 v3.21.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.21.0)
+
+??? note "v3.20.0 新内容 — 命令建议与核心结构抑制"
     **发布于：** 2026-07-11
 
     一个提升使用体验的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。除非你主动启用，否则升级后行为不变。
