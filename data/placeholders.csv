@@ -59,6 +59,7 @@ Bank,Bank_[gamemode]_latest_transaction,The player's most recent island bank tra
 Challenges,[gamemode]_challenges_total_completion_count,Number of times the player completed challenges,0.8.3
 Challenges,[gamemode]_challenges_completed_count,Number of challenges the player has completed,0.8.3
 Challenges,[gamemode]_challenges_uncompleted_count,Number of challenges the player has not yet completed,0.8.3
+Challenges,[gamemode]_challenges_completed_percent,Percentage of all challenges the player has completed,1.8.0
 Challenges,[gamemode]_challenges_completed_level_count,Number of levels the player has completed,0.8.3
 Challenges,[gamemode]_challenges_uncompleted_level_count,Number of levels the player has not yet completed,0.8.3
 Challenges,[gamemode]_challenges_unlocked_level_count,Number of levels that are unlocked for the player,0.8.3
@@ -67,6 +68,7 @@ Challenges,[gamemode]_challenges_latest_level_name,Latest unlocked challenge lev
 Challenges,[gamemode]_challenges_latest_level_id,Latest unlocked challenge level id,0.8.3
 Challenges,[gamemode]_challenges_latest_level_completed_count,Number of challenges the player has completed in latest unlocked level,0.8.3
 Challenges,[gamemode]_challenges_latest_level_uncompleted_count,Number of challenges the player has not yet completed in latest unlocked level,0.8.3
+Challenges,[gamemode]_challenges_latest_level_completed_percent,Percentage of challenges the player has completed in latest unlocked level,1.8.0
 Level,Level_[gamemode]_island_level,Island level of the player's island,1.9.0
 Level,Level_[gamemode]_visited_island_level,Island level of the island the player is standing on,1.9.0
 Level,Level_[gamemode]_top_value_<number>,Island level of the `<number>`-th island in the Top 10,1.9.0
