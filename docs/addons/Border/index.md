@@ -36,11 +36,23 @@
 **权限**: `[gamemode].border.type`。默认: `true`。
 **示例**: `/[player command] border type barrier`
 
+### bordertype {...}
+**命令**: `/[player command] bordertype {barrier | vanilla}`  
+**描述**: 与 `border type` 是同一个命令，直接注册在游戏模式命令之下。  
+**权限**: `[gamemode].border.bordertype`。默认: `false`。  
+**示例**: `/[player command] bordertype vanilla`  
+
 ### border color {red|green|blue}
-**命令**: `/[player command] border color {red | green | blue}`
+**命令**: `/[player command] border color {red | green | blue}`（也可以写作 `/[player command] bordercolor {red | green | blue}`）
 **描述**: 为玩家设置原版世界边界颜色。仅在使用原版边界类型时适用。
-**权限**: `[gamemode].border.color.red`、`[gamemode].border.color.green`、`[gamemode].border.color.blue`（或 `[gamemode].border.color.*` 表示全部）。默认: `op`。
+**权限**: 执行该命令本身需要 `[gamemode].border.color`。默认: `true`。
+此外每种颜色还各自需要一个权限: `[gamemode].border.color.red`、`[gamemode].border.color.green`、`[gamemode].border.color.blue`（或 `[gamemode].border.color.*` 表示全部）。默认: `op`。
 **示例**: `/[player command] border color green`
+
+!!! warning "4.8.5 中的权限变动"
+    `[gamemode].border.color` 在 4.8.5 之前从未被声明，于是悄悄退回到仅限 OP，普通玩家根本无法执行颜色命令。现在它已声明，默认值为 `true`。
+
+    已声明的节点 `[gamemode].bordertype` 也被改名为 `[gamemode].border.bordertype`，即命令真正检查的那个节点。如果你在 LuckPerms（或类似插件）中授予或拒绝过 `[gamemode].bordertype`，请更新对应规则 —— 旧节点其实从来没有起过任何作用。
 
 !!! tip
     `[gamemode]` 是一个根据你运行的游戏模式而不同的前缀。
@@ -263,6 +275,20 @@ barrier-offset: 0
     无需更改配置或语言文件。如果你之前用 `bordertype barrier` 绕过此问题,安装 4.8.4 后即可切换回 `vanilla`。
 
     [发布 v4.8.4](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.4)
+
+??? warning "v4.8.5 新内容 —— 权限变动"
+    **发布于：** 2026-08-01
+
+    一个兼容性与权限修复版本。无需修改配置或语言文件。
+
+    - 🐛 **不再抢走其他插件的死亡掉落物。** 4.7.0 加入的死亡掉落保护会把 `PlayerDeathEvent` 中的每一件物品都取出来、自己生成一遍，然后清空列表。于是 DeathChest、墓碑类插件和保留物品栏功能在更晚的优先级上运行时，看到的是一个空事件，而物品早已散落在地上。在默认的 `bounce-back: true` 下，这会静默地破坏所有这些插件。现在 Border 不再触碰事件中的掉落物，改在 MONITOR 优先级运行，只对下一 tick 内服务器自己在死亡点附近生成的物品执行回弹。如果掉落物被其他插件取走，就不会有任何回弹；如果掉落物仍然存在，则与以往完全一样地弹回边界内，并保留原版的初速度和消失计时。
+    - 🔺 **`[gamemode].border.color` 现已声明，默认值为 `true`，** 普通玩家因此可以像文档所述那样使用颜色命令。此前它从未在 `addon.yml` 中声明，所以退回到了仅限 OP。各个颜色（`.red`、`.green`、`.blue`）仍为 `op`。如果你之前为绕过这个问题而显式授予过这些权限，它们依然有效。
+    - 🔺 **`[gamemode].bordertype` 改名为 `[gamemode].border.bordertype`，** 也就是 `BorderTypeCommand` 真正检查的节点。其 `false` 默认值不变。请更新任何引用旧节点的 LuckPerms 规则 —— 旧节点无论如何都不起作用。
+    - 除现有的 Modrinth 流程外，发布时现在会自动推送到 CurseForge 和 Hangar；Modrinth 上的适配版本已覆盖 1.21.5 – 1.21.11 和 26.1.x。
+
+    兼容性：BentoBox API 3.12.0+，Minecraft 1.21.5 – 1.21.11 和 26.1.x，Java 21。
+
+    [发布 v4.8.5](https://github.com/BentoBoxWorld/Border/releases/tag/4.8.5)
 
 ## 翻译
 

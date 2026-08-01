@@ -174,6 +174,12 @@ Level 插件有 3 个通用配置项:
 
     格式: `MATERIAL: NUMBER`
 
+    从 Level 2.28.0 起，这些限制同样适用于**捐献**的方块，玩家无法通过捐献而非放置来突破某种方块的上限赚取积分：
+
+    - 等级计算会按当前限制为每种被捐献的方块封顶。如果管理员在玩家捐献之后调低了某个限制，那么只有不超过新限制的部分才会计入。
+    - `/[player_command] donate hand`、`/[player_command] donate inv` 和捐献面板都会预先检查限制，把确认提示裁剪到真正会计入的数量（发生裁剪时会给出一行警告），当玩家提供的东西已全部触及上限时则直接拒绝。
+    - 限制查找不区分大小写，因此大小写混用的自定义方块 ID（例如 Oraxen 物品）在各处都会解析到同一个限制。
+
 ??? note "blocks"
     本节列出了所有游戏模式(世界)中方块的价值。
     要指定特定世界的价值,请使用下一节。
@@ -321,6 +327,10 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - `/[player_command] value [material]`: 允许检查方块价值。需要 `[gamemode].island.value` 权限。
     - `/[player_command] donate`: 打开方块捐献 GUI,将方块价值捐献给岛屿等级。需要 `[gamemode].island.level.donate` 权限。
     - `/[player_command] donate hand [amount]`: 将手持物品捐献指定数量给岛屿等级。
+    - `/[player_command] donate inv`: 列出玩家物品栏中每一种可捐献方块及其单价与合计，确认后全部捐献并触发一次等级重算。没有配置价值的物品和非方块物品会留在物品栏中。需要 `[gamemode].island.level.donate` 权限。
+
+    !!! note "说明"
+        从 2.28.0 起，三条捐献途径都会遵守 [`blockconfig.yml`](#blockconfigyml) 中设置的方块 `limits`，并且每次重算时都会按当前的方块价值重新计算捐献积分。
 
 === "管理员命令"
     - `/[admin_command] level <player>`: 触发玩家的等级计算。需要 `[gamemode].admin.level` 权限。
@@ -466,6 +476,34 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     🔡 **语言文件已更新。** 所有 18 个预装语言文件获得了新的 `island.donate.inv.*` 键（`keyword`、`confirm-header`、`confirm-line`、`confirm-total`）。如果你在 `plugins/BentoBox/addons/Level/locales/` 中有自定义语言文件，请将新的 `donate.inv` 块复制到其中，否则新的 `/island donate inv` 流程将显示原始键。
 
     [发布 v2.27.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.27.0)
+
+??? warning "v2.28.0 新内容 —— 需要注意"
+    **发布于：** 2026-07-28
+
+    兼容性：BentoBox API 3.16.0，Minecraft 1.21.x 和 26.1.x，Java 21。
+
+    - 🔺 **捐献限制在各个环节全面生效。** [`blockconfig.yml`](#blockconfigyml) 中定义的方块限制现在会在所有涉及捐献的地方生效。等级计算按当前限制为每种被捐献的方块封顶；`/island donate hand`、`/island donate inv` 和捐献 GUI 都会预先检查限制 —— 把确认提示裁剪到真正会计入的数量，跳过已经触及上限的材料，并在玩家提供的东西全部触顶时给出明确的“已达捐献限制”提示，而不是一个令人误解的 0 积分确认框。管理员的等级报告也会按当前限制截断捐献条目（标注为 “capped at N”），使其与捐献总数相符。
+    - **捐献积分现在跟随当前方块价值。** 每次重算都会用当前的（以及特定世界的）价值，从已保存的捐献方块记录重新计算积分，因此修改 `blockconfig.yml` 中的价值会追溯应用到过去的捐献，而不是沿用陈旧的存储总值。捐献 GUI 中的“当前已捐献”显示的也是等级所使用的同一个实际积分。
+    - 限制查找不区分大小写，因此大小写混用的自定义方块 ID（例如 Oraxen 物品）在各处都会解析到同一个限制。
+    - 除 Modrinth 外，发布时现在会自动推送到 CurseForge 和 Hangar；支持的版本新增了 Minecraft 26.1.2。
+
+    🔺 **升级后岛屿等级可能会下降。** 在玩家曾经越过方块限制捐献的服务器上，超出的那部分方块现在会被排除在等级计算之外。这是有意为之的修复，但请做好应对玩家提问的准备。
+
+    🔡 **语言文件已更新。** 全部 17 个随包语言文件在 `island.donate` 下新增了三个键（`limit-reached`、`limit-notice`、`limit-reached-all`）。如果你在 `plugins/BentoBox/addons/Level/locales/` 中有自定义的语言文件，请补上这些键，否则限制警告会显示原始键名。
+
+    !!! note "使用开发版的用户请注意"
+        本周期的快照版本中出现过的实验性逐区块清零引擎已在发布前移除，**不**包含在 2.28.0 中。使用稳定版的用户不受影响。
+
+    [发布 v2.28.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.28.0)
+
+??? note "v2.28.1 新内容"
+    **发布于：** 2026-07-29
+
+    一个错误修复版本，可直接替换 2.28.0，没有语言、配置或面板方面的改动。
+
+    - 🐛 **价值面板的搜索按钮不再堆叠重复的聊天提示。** 每点击一次就会开启一个新的、时长 90 秒的“请输入搜索内容”对话。如果第一个提示没有显示出来 —— 例如被 CMI 之类的聊天管理插件吞掉 —— 玩家就会反复点击按钮，堆积起来的对话随后会以 `Conversation cancelled!` 和 `Please enter a search value` 交替刷屏的形式重放，并且每次都会重新打开 GUI。现在搜索输入会先检查玩家是否已有待处理的对话，若有则只是重复提问，而不会再排入第二个对话。
+
+    [发布 v2.28.1](https://github.com/BentoBoxWorld/Level/releases/tag/2.28.1)
 
 ## 翻译
 

@@ -645,6 +645,17 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 
     [Release v1.26.2](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.26.2)
 
+??? note "v1.26.3 新内容"
+    **发布于：** 2026-07-29
+
+    针对阶段 GUI 的错误修复版本，可直接替换，无需修改配置、语言或阶段文件。
+
+    - 🐛 **只有点击真的能成功时才提供“点击更改”。** `/[player_command] phases` 面板此前仅凭岛屿状态和阶段要求来决定是否提供切换阶段的操作，从未检查玩家是否拥有点击时实际用到的 `aoneblock.island.setcount` 权限。因此在为部分或全部权限组取消了该权限的服务器上，玩家会在每个符合条件的阶段上看到这个提示，点击后却得到*“你没有权限执行此命令”*。现在面板会先检查权限，再决定是否提供该操作。如果由于任何原因无法解析该子命令，面板仍会像以前一样保持宽松，因此不会有任何阶段因这次改动而变得无法点击。**拥有**该权限的玩家不会感到任何差别。
+
+    兼容性：BentoBox API 3.15.0+，Minecraft 1.21.5 或更高版本（Sulfur Caves 阶段本身需要 Minecraft 26.2+ 才会启用），Java 21。
+
+    [发布 v1.26.3](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.26.3)
+
 ## Translations
 
 {{ translations("AOneBlock") }}
