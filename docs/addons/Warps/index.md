@@ -192,6 +192,19 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插
 
     [发布 v1.19.0](https://github.com/BentoBoxWorld/Warps/releases/tag/1.19.0)
 
+??? note "v1.19.1 新内容"
+    **发布于：** 2026-07-30
+
+    一个补丁版本，无需修改配置或语言文件。
+
+    - 🐛 **传送落到告示牌方块上时，牌主现在会收到通知。** 当传送牌前方找不到安全落点时 —— 告示牌位于平台边缘、正前方是虚空的情况很常见 —— 访客会被悄无声息地传送到告示牌自身所在的方块上：既不触发 `WarpInitiateEvent`，也不做隐身检查，牌主更收不到“X 传送到了你的传送牌！”的提示。现在这条回退路径与正常传送走同一套收尾流程，因此无论访客落在哪里，事件、隐身处理、音效和牌主通知的行为都完全一致。落地时的朝向也会与告示牌的朝向一致。
+    - 除现有的 Modrinth 流程外，发布时通过 GitHub Actions 自动推送到 CurseForge 和 Hangar；Modrinth 的适配版本列表新增了 MC 26.1.2。
+    - `addon.yml` 的 API 版本提升到 3.12.0，并新增了若干 softdepend 条目以改善加载顺序。
+
+    兼容性：BentoBox API 3.12.0+，Minecraft 1.21.x，Java 21。
+
+    [发布 v1.19.1](https://github.com/BentoBoxWorld/Warps/releases/tag/1.19.1)
+
 ## 翻译
 
 {{ translations("Warps") }}
