@@ -2,7 +2,7 @@
 
 本 FAQ 按照问题在 [BentoBox Discord](https://discord.bentobox.world) `#support-en` 频道中的出现频率排列——最常见的问题在最上方，罕见或旧版问题归纳在底部。
 
-!!! info "诊断速查表——在寻求帮助*前*请先运行以下命令"
+!!! info "诊断速查表——在寻求帮助*前*请先运行以下指令"
     - `/bentobox version` — 显示 BentoBox 及插件版本和服务器构建信息
     - `/[admin_command] why <玩家>` — 精确说明是哪个 BentoBox 标志（如果有）阻止了玩家的操作；这是调试"我无法破坏/放置/交互"问题的最快方法
     - `/papi parse me <占位符>` — 验证某个 PlaceholderAPI 占位符是否在你的服务器上正常解析
@@ -41,13 +41,13 @@ BentoBox 主版本号与 Minecraft 版本对应：
 - **BentoBox 2.7** — Minecraft **1.21.1**
 - **BentoBox 2.6** — Minecraft **1.20.6**
 
-升级服务器的 Minecraft 版本时，必须同时升级 BentoBox（以及对应的插件），反之亦然。使用更新的 BentoBox 配合旧版 Minecraft 将无法启动；在更新的 Minecraft 上使用旧版 BentoBox 通常会产生粒子缺失错误、"执行此命令时发生内部错误"提示，或 GUI 异常。旧版本可以在每个项目的 GitHub *Releases* 页面找到。
+升级服务器的 Minecraft 版本时，必须同时升级 BentoBox（以及对应的插件），反之亦然。使用更新的 BentoBox 配合旧版 Minecraft 将无法启动；在更新的 Minecraft 上使用旧版 BentoBox 通常会产生粒子缺失错误、"执行此指令时发生内部错误"提示，或 GUI 异常。旧版本可以在每个项目的 GitHub *Releases* 页面找到。
 
 ### 我的 BentoBox 版本需要哪些插件版本？
 
 选择发行说明针对相同 BentoBox 主版本的插件。最简单的方式是从 [https://download.bentobox.world](https://download.bentobox.world) 下载"整合包"，其中始终包含兼容的插件套装。将 BentoBox 3.x 与需要 BentoBox 2.x 的插件混用（或反之）是插件加载失败最常见的原因。
 
-### 尝试创建岛屿时提示"执行此命令时发生内部错误"是什么原因？
+### 尝试创建岛屿时提示"执行此指令时发生内部错误"是什么原因？
 
 几乎在所有情况下，这是 BentoBox 与 Minecraft 版本不匹配（见上文）。运行 `/bentobox version` 并确认 BentoBox 主版本与 Minecraft 版本一致。如果一致，请在报告问题时提供完整的服务器日志（而不仅仅是聊天框中的错误）。
 
@@ -59,7 +59,7 @@ BentoBox 主版本号与 Minecraft 版本对应：
 
 ### 我可以在同一台服务器上运行两种游戏模式（例如 BSkyBlock 和 Boxed）吗？
 
-可以——你不能在**同一个世界**中运行两种游戏模式，但每个 BentoBox 游戏模式插件都会创建并管理自己的世界，因此并排安装多个游戏模式插件只需添加多组世界即可。玩家通过对应的 `/island`（或 `/box`、`/ob` 等）命令选择要玩的模式。要移除某个游戏模式，直接删除对应的插件 jar 文件即可；删除世界文件夹是可选的。
+可以——你不能在**同一个世界**中运行两种游戏模式，但每个 BentoBox 游戏模式插件都会创建并管理自己的世界，因此并排安装多个游戏模式插件只需添加多组世界即可。玩家通过对应的 `/island`（或 `/box`、`/ob` 等）指令选择要玩的模式。要移除某个游戏模式，直接删除对应的插件 jar 文件即可；删除世界文件夹是可选的。
 
 ### 如何完全重置 BentoBox / 清除所有岛屿？
 
@@ -71,7 +71,7 @@ BentoBox 主版本号与 Minecraft 版本对应：
 
 ```
 # 岛屿半径（以方块为单位）。（因此岛屿间距为该值的两倍）
-  # 每个维度（主世界、地狱和末地）的值相同。
+  # 每个维度（主世界、下界和末地）的值相同。
   # 该值在游戏运行中无法更改，如果值不同，插件将无法启动。
   # /!\ BentoBox 目前不支持在游戏中更改此值。如需更改，请完全重置数据库和世界。
   distance-between-islands: 400
@@ -94,7 +94,7 @@ Island distance in config.yml cannot be changed mid-game! Fix config.yml or clea
 
 **但我刚刚建立服务器！如何更改此值并清理数据库？**
 
-以下步骤适用于默认的 JSON 数据库（平面文件）：
+以下步骤适用于默认的 JSON 数据库（扁平文件）：
 
 1. 停止服务器
 2. 将 config.yml 中的岛屿距离值改为所需数值。
@@ -109,9 +109,9 @@ Island distance in config.yml cannot be changed mid-game! Fix config.yml or clea
 4. 删除游戏模式的世界文件夹（BSkyBlock 默认为：`bskyblock_world`、`bskyblock_world_nether`、`bskyblock_world_the_end`）
 5. 重启服务器。
 
-如果使用 MySQL 等其他数据库，步骤相同，但需要使用 SQL 命令来删除数据库、表或条目。
+如果使用 MySQL 等其他数据库，步骤相同，但需要使用 SQL 指令来删除数据库、表或条目。
 
-### 如何启用地狱传送门相互链接？
+### 如何启用下界传送门相互链接？
 
 BentoBox 1.16 中实现了传送门正确链接的选项。但该选项仅在 server.properties 中启用了 `allow-nether` 且在 bukkit.yml 中启用了 `allow-end` 时才有效。
 
@@ -150,14 +150,14 @@ Multiverse 通常可与大多数游戏模式配合使用，但 **Boxed 和 Posei
 每个岛屿都有一个受保护区域。你可以将保护区域增加到岛屿间距离的值。有三种机制，在某些游戏模式（尤其是 Boxed）中必须选择**其中一种**，因为它们互斥：
 
 - **权限** — 授予 `[gamemode].island.range.<数字>`（例如 `bskyblock.island.range.150`）。权限仅在玩家登录时检查，所以所有者必须重新连接才能生效。如果岛屿所有者更换，岛屿范围将调整为新所有者的权限，若无权限则恢复为默认范围。
-- **管理员命令** — `/[admin_command] range set <玩家> <数字>` — 立即生效。
-- **进度（仅 Boxed 默认）** — 领地随所有者解锁进度而增大。若要在 Boxed 中改用命令或权限，在 Boxed 配置中设置 `ignore-advancements: true`。
+- **管理员指令** — `/[admin_command] range set <玩家> <数字>` — 立即生效。
+- **进度（仅 Boxed 默认）** — 领地随所有者解锁进度而增大。若要在 Boxed 中改用指令或权限，在 Boxed 配置中设置 `ignore-advancements: true`。
 
 保护范围永远不能超过游戏模式的 `distance-between-islands` 值。请记住，保护范围适用于整个岛屿。
 
 ### 为什么我的 Boxed 领地在每次重启后缩回默认大小？
 
-这是进度模式的正常行为：启动时，BentoBox 会根据所有者解锁的进度重新计算领地大小。要么让所有者解锁更多进度，要么在 Boxed 配置中设置 `ignore-advancements: true` 并改用命令/权限。
+这是进度模式的正常行为：启动时，BentoBox 会根据所有者解锁的进度重新计算领地大小。要么让所有者解锁更多进度，要么在 Boxed 配置中设置 `ignore-advancements: true` 并改用指令/权限。
 
 ### 如何防止玩家看到附近的岛屿？
 
@@ -181,7 +181,7 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 
 ### 为什么岛屿边界显示了新大小，但玩家仍然无法在那里建造？
 
-视觉边界显示的是保护范围。如果玩家已获得更高范围的权限但尚未重新登录，边界仍显示旧的半径。让他们重新加入（或使用立即生效的管理员范围命令）即可。
+视觉边界显示的是保护范围。如果玩家已获得更高范围的权限但尚未重新登录，边界仍显示旧的半径。让他们重新加入（或使用立即生效的管理员范围指令）即可。
 
 ### 我删除了一个岛屿，但方块仍然存在——"This island is marked for deletion and is awaiting region cleanup"
 
@@ -207,7 +207,7 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 - **团队成员** — 通过 `/island team invite <玩家>` 授予。被邀请者必须接受，**且在此过程中会失去自己的岛屿**。每个岛屿只有一名所有者；团队成员不是所有者。
 - **所有权转让** — `/island team setowner <玩家>` 可转让所有权。
 
-对于以上所有情况，各保护操作所需的确切等级可在岛屿 `设置` GUI 的*保护标志*和*命令等级*选项卡中配置。
+对于以上所有情况，各保护操作所需的确切等级可在岛屿 `设置` GUI 的*保护标志*和*指令等级*选项卡中配置。
 
 ### 如何让他人帮我建造而不给他们我的岛屿？
 
@@ -230,7 +230,7 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 按顺序检查以下三点：
 
 1. Level 插件已安装并对该游戏模式启用。
-2. 玩家至少运行过一次 `/[player_command] level`——默认情况下，等级只有在玩家运行命令时才会计算。（你可以在 Level 插件配置中启用 `calculate-level-on-login` 以在玩家加入时计算。）
+2. 玩家至少运行过一次 `/[player_command] level`——默认情况下，等级只有在玩家运行指令时才会计算。（你可以在 Level 插件配置中启用 `calculate-level-on-login` 以在玩家加入时计算。）
 3. 由该玩家运行 `/papi parse me %Level_<gamemode>_island_level%` 是否返回一个数字。如果是，问题出在你的聊天/Tab 插件，而非 BentoBox。
 
 ## AOneBlock
@@ -371,7 +371,7 @@ island:
 ### 如何开始为 BentoBox 编写插件？有 API 吗？
 
 是的，绝对有 API。
-编写插件与编写普通插件非常相似，只是有更多 API 可用，涵盖团队、保护、命令、面板和粘贴等功能。
+编写插件与编写普通插件非常相似，只是有更多 API 可用，涵盖团队、保护、指令、面板和粘贴等功能。
 
 按照[本教程](Tutorials/api/Create-an-addon.md)来创建你的第一个插件！
 
@@ -484,7 +484,7 @@ use-own-generator: false
 
 如果有备份，使用备份将服务器世界和 BentoBox 数据库恢复到之前的状态。
 
-如果没有备份，登录服务器并使用 `/[admin-command] settings` 命令打开管理员设置面板。
+如果没有备份，登录服务器并使用 `/[admin-command] settings` 指令打开管理员设置面板。
 找到"*清理超平坦*"标志并切换开启。
 根据你的设置、语言和运行的 BentoBox 版本，名称、图标或描述可能有所不同，但我们相信你一定能找到该标志！
 

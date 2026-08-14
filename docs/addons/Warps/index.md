@@ -49,9 +49,9 @@
     玩家必须拥有 `welcomewarpsigns.warp` 权限才能使用。
 
 ??? question "什么是 warp 和 warps?"
-    命令 `warp` 需要 `<player>` 来指定应该传送到哪里,而 `warps` 打开一个菜单,允许选择玩家。
+    指令 `warp` 需要 `<player>` 来指定应该传送到哪里,而 `warps` 打开一个菜单,允许选择玩家。
 
-    如果你启用了 `allow in other worlds`,那么它将作为主命令 `/warp`
+    如果你启用了 `allow in other worlds`,那么它将作为主指令 `/warp`
 
     而对于每个 BentoBox 游戏模式,它仍将是 `/[player_cmd] warp`
 
@@ -128,15 +128,15 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插
               tooltip: warps.gui.tips.click-to-warp
     ```
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的 `config.yml` 文件包含允许你修改这些值的选项。
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`。
-    请注意,此插件允许在插件 `config.yml` 文件中更改玩家命令别名。
+    请注意,此插件允许在插件 `config.yml` 文件中更改玩家指令别名。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] warp <player>`: 将玩家传送到目标标志。
     - `/[player_command] warps`: 打开允许查看所有可用传送标志的 GUI。
 
@@ -148,9 +148,9 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。此插
     类似地,如果你使用 AcidIsland,前缀就是 `acidisland`。
 
 === "玩家权限"
-    - `[gamemode].island.warp` - 玩家可以使用 `/[player_command] warp` 和 `/[player_command] warps` 命令。默认启用。
+    - `[gamemode].island.warp` - 玩家可以使用 `/[player_command] warp` 和 `/[player_command] warps` 指令。默认启用。
     - `[gamemode].island.addwarp` - 玩家可以创建传送标志。默认启用。
-    - `welcomewarpsigns.warp` - 玩家可以使用 `/warp` 和 `/warps` 命令。默认禁用。需要 `allow-in-other-worlds`。
+    - `welcomewarpsigns.warp` - 玩家可以使用 `/warp` 和 `/warps` 指令。默认禁用。需要 `allow-in-other-worlds`。
     - `welcomewarpsigns.addwarp` - 玩家可以创建传送标志。默认禁用。需要 `allow-in-other-worlds`。
 
 ??? question "有缺失的内容吗?"

@@ -6,7 +6,7 @@
 
 | 权限                   | 父权限            | 默认值 | 描述                          |
 |------------------------|-------------------|--------|-------------------------------|
-| bentobox.admin         |                   | op     | 允许使用大多数 BentoBox 命令    |
+| bentobox.admin         |                   | op     | 允许使用大多数 BentoBox 指令    |
 | bentobox.admin.catalog | bentobox.admin    | op     | 允许使用 /bentobox catalog    |
 | bentobox.admin.locale  | bentobox.admin    | op     | 允许使用 /bentobox locale     |
 | bentobox.admin.manage  | bentobox.admin    | op     | 允许使用 /bentobox manage     |

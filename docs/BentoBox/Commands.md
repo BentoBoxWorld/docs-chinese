@@ -1,10 +1,10 @@
-BentoBox 实现了一些命令来帮助您管理整个 BentoBox 安装。
+BentoBox 实现了一些指令来帮助您管理整个 BentoBox 安装。
 
-**可用命令（截至 2.2.0 版）**
+**可用指令（截至 2.2.0 版）**
 
-| 命令                                     | 权限                        | 描述                                                       |
+| 指令                                     | 权限                        | 描述                                                       |
 |-----------------------------------------|------------------------------|------------------------------------------------------------|
-| /bentobox [help/h]                      | bentobox.admin               | 显示所有可用的 BentoBox 命令                               |
+| /bentobox [help/h]                      | bentobox.admin               | 显示所有可用的 BentoBox 指令                               |
 | /bentobox about                         | bentobox.about               | 显示版权和许可信息                                         |
 | /bentobox catalog                       | bentobox.admin.catalog       | 显示目录                                                   |
 | /bentobox locale                        | bentobox.admin.locale        | 执行本地化文件分析                                         |
@@ -17,4 +17,4 @@ BentoBox 实现了一些命令来帮助您管理整个 BentoBox 安装。
 
 `/bentobox` 的别名是 `/bbox`。
 
-在提交错误报告或寻求支持时，**必须**提供 `/bentobox version` 命令的输出，以便我们了解您正在使用的软件、数据库和插件的版本。
+在提交错误报告或寻求支持时，**必须**提供 `/bentobox version` 指令的输出，以便我们了解您正在使用的软件、数据库和插件的版本。

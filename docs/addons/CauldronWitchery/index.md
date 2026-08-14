@@ -10,7 +10,7 @@
 
 1. 将插件 jar 文件放入 BentoBox 插件的 addons 文件夹
 2. 启动服务器 
-3. 运行管理员命令,例如 `/[admin_cmd] witchery` 来配置插件
+3. 运行管理员指令,例如 `/[admin_cmd] witchery` 来配置插件
 
 ## 配置
 
@@ -164,9 +164,9 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。这个
     可以,只要 Spigot 支持它们。但是,你无法通过模板文件来实现。只有管理员 GUI 支持添加自定义物品。
 
 ??? question "玩家如何获得魔法棒?"
-    玩家可以使用 `/[player_cmd] witchery` 命令购买魔法棒。
+    玩家可以使用 `/[player_cmd] witchery` 指令购买魔法棒。
 
-    管理员也可以创建自己的分发魔法棒的方式。有一个管理员命令可以生成它们:
+    管理员也可以创建自己的分发魔法棒的方式。有一个管理员指令可以生成它们:
 
     `/[admin_cmd] witchery get stick <stick_id>`
 

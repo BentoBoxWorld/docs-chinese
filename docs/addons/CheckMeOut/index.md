@@ -124,20 +124,20 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
           tooltip: checkmeout.gui.tips.click-to-check
     ```
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]`和`[admin_command]`是根据你运行的游戏模式而变化的命令。
+    `[player_command]`和`[admin_command]`是根据你运行的游戏模式而变化的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
-    请注意，这个插件允许在插件的`config.yml`文件中更改玩家命令别名。
+    请注意，这个插件允许在插件的`config.yml`文件中更改玩家指令别名。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] checkmeout`：提交岛屿供审核。
     - `/[player_command] checkmeout view`：打开GUI，允许查看其他提交的岛屿。
 
-=== "管理员命令"
-    - `/[admin_command] checkmeout`：主管理员命令。
+=== "管理员指令"
+    - `/[admin_command] checkmeout`：主管理员指令。
     - `/[admin_command] checkmeout check <player>`：传送玩家到提交的岛屿。
     - `/[admin_command] checkmeout clearall`：移除所有提交的岛屿。
     - `/[admin_command] checkmeout delete <player>`：移除<player>提交的岛屿。
@@ -151,15 +151,15 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "玩家权限"
-    - `[gamemode].checkmeout` - 让玩家使用 '/[player_command] checkmeout' 命令提交岛屿。默认为真。
-    - `[gamemode].checkmeout.view` - 让玩家使用 '/[admin_command] checkmeout view' 命令查看所有提交的岛屿。默认为真。
+    - `[gamemode].checkmeout` - 让玩家使用 '/[player_command] checkmeout' 指令提交岛屿。默认为真。
+    - `[gamemode].checkmeout.view` - 让玩家使用 '/[admin_command] checkmeout view' 指令查看所有提交的岛屿。默认为真。
     - `checkmeout.icon.[material]` - 允许更改玩家在View GUI中拥有的岛屿图标。默认为假。
 
 === "管理员权限"
-    - `[gamemode].checkmeout.admin.check` - 让玩家使用'/[admin_command] checkmeout check'命令。默认为OP。
-    - `[gamemode].checkmeout.admin.delete` - 让玩家使用'/[admin_command] checkmeout delete'命令。默认为OP。
-    - `[gamemode].checkmeout.admin.clearsubmissions` - 让玩家使用'/[admin_command] checkmeout clearall'命令。默认为OP。
-    - `[gamemode].checkmeout.admin.seesubs` - 让玩家使用'/[admin_command] checkmeout seesubs'命令。默认为OP。
+    - `[gamemode].checkmeout.admin.check` - 让玩家使用'/[admin_command] checkmeout check'指令。默认为OP。
+    - `[gamemode].checkmeout.admin.delete` - 让玩家使用'/[admin_command] checkmeout delete'指令。默认为OP。
+    - `[gamemode].checkmeout.admin.clearsubmissions` - 让玩家使用'/[admin_command] checkmeout clearall'指令。默认为OP。
+    - `[gamemode].checkmeout.admin.seesubs` - 让玩家使用'/[admin_command] checkmeout seesubs'指令。默认为OP。
 
 ??? 问题 "缺少什么？"
     你可以在这个插件的[addon.yml](https://github.com/BentoBoxWorld/Visit/blob/develop/src/main/resources/addon.yml)文件中找到权限的综合列表。  

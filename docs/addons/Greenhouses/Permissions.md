@@ -2,8 +2,8 @@
 
 | **权限**                     | **描述**                                                                                                                                     | **默认** |
 |-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| [gamemode].greenhouses.player       | 授予玩家命令的访问权限 - 将 [gamemode] 更改为你的游戏模式，例如 bskyblock、acidisland、aoneblock 等。                                            | true        |
-| [gamemode].greenhouses.admin        | 授予管理员命令的访问权限                                                                                                                      | op          |
+| [gamemode].greenhouses.player       | 授予玩家指令的访问权限 - 将 [gamemode] 更改为你的游戏模式，例如 bskyblock、acidisland、aoneblock 等。                                            | true        |
+| [gamemode].greenhouses.admin        | 授予管理员指令的访问权限                                                                                                                      | op          |
 | [gamemode].greenhouses.admin.list   | 允许列出温室（1.10.0 起）                                                                                                                     | op          |
 | [gamemode].greenhouses.admin.info   | 允许查看某个温室的详细信息（1.10.0 起）                                                                                                        | op          |
 | [gamemode].greenhouses.admin.delete | 允许删除温室记录（1.10.0 起）                                                                                                                 | op          |

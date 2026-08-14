@@ -38,7 +38,7 @@ Level 插件有 3 个通用配置项:
     默认值: `[]`
 
 ??? note "log-report-to-console"
-    如果从控制台执行命令,则允许查看等级报告。
+    如果从控制台执行指令,则允许查看等级报告。
 
     默认值: `true`
 
@@ -314,14 +314,14 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
         type: BLOCK
     ```
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的 `config.yml` 文件包含允许你修改这些值的选项。
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`,默认的 `[admin_command]` 是 `bsbadmin`。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] top`: 访问排行榜面板。需要 `[gamemode].island.top` 权限。
     - `/[player_command] level`: 触发玩家的等级计算。需要 `[gamemode].island.level` 权限。
     - `/[player_command] value [material]`: 允许检查方块价值。需要 `[gamemode].island.value` 权限。
@@ -332,7 +332,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     !!! note "说明"
         从 2.28.0 起，三条捐献途径都会遵守 [`blockconfig.yml`](#blockconfigyml) 中设置的方块 `limits`，并且每次重算时都会按当前的方块价值重新计算捐献积分。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] level <player>`: 触发玩家的等级计算。需要 `[gamemode].admin.level` 权限。
     - `/[admin_command] levelstatus`: 显示有多少岛屿在队列中。需要 `[gamemode].admin.levelstatus` 权限。
     - `/[admin_command] sethandicap <player> <number>`: 允许设置岛屿等级的初始数值。需要 `[gamemode].admin.level.sethandicap` 权限。
@@ -348,21 +348,21 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
 
 === "玩家权限"
     - `[gamemode].intopten` - (默认: `true`) - 让玩家出现在前 10 名面板中。
-    - `[gamemode].island.level` - (默认: `true`) - 允许玩家使用 `/[player_command] level` 命令。
-    - `[gamemode].island.top` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 命令。
-    - `[gamemode].island.value` - (默认: `true`) - 允许玩家使用 `/[player_command] value` 命令。
-    - `[gamemode].island.level.donate` - (默认: `true`) - 允许玩家使用 `/[player_command] donate` 命令。
+    - `[gamemode].island.level` - (默认: `true`) - 允许玩家使用 `/[player_command] level` 指令。
+    - `[gamemode].island.top` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 指令。
+    - `[gamemode].island.value` - (默认: `true`) - 允许玩家使用 `/[player_command] value` 指令。
+    - `[gamemode].island.level.donate` - (默认: `true`) - 允许玩家使用 `/[player_command] donate` 指令。
     - `[gamemode].island.level.details.blocks` - (默认: `true`) - 允许玩家查看岛屿的详细方块列表。
     - `[gamemode].island.level.details.spawners` - (默认: `false`) - 允许玩家查看岛屿的详细刷怪笼列表。
     - `[gamemode].island.level.details.underwater` - (默认: `false`) - 允许玩家查看岛屿的详细水下方块列表。
     - `[gamemode].island.level.details.above-sea-level` - (默认: `false`) - 允许玩家查看岛屿海平面以上的详细方块列表。
 
 === "管理员权限"
-    - `[gamemode].admin.level` - (默认: `op`) - 允许玩家使用 `/[admin_command] level <player>` 命令。
-    - `[gamemode].admin.levelstatus` - (默认: `op`) - 允许玩家使用 `/[admin_command] levelstatus` 命令。
-    - `[gamemode].admin.level.sethandicap` - (默认: `op`) - 允许玩家使用 `/[admin_command] sethandicap <player> <number>` 命令。
-    - `[gamemode].admin.top` - (默认: `op`) - 允许访问 `/[admin_command] top` 命令。
-    - `[gamemode].admin.top.remove` - (默认: `op`) - 允许访问 `/[admin_command] top remove <player>` 命令。
+    - `[gamemode].admin.level` - (默认: `op`) - 允许玩家使用 `/[admin_command] level <player>` 指令。
+    - `[gamemode].admin.levelstatus` - (默认: `op`) - 允许玩家使用 `/[admin_command] levelstatus` 指令。
+    - `[gamemode].admin.level.sethandicap` - (默认: `op`) - 允许玩家使用 `/[admin_command] sethandicap <player> <number>` 指令。
+    - `[gamemode].admin.top` - (默认: `op`) - 允许访问 `/[admin_command] top` 指令。
+    - `[gamemode].admin.top.remove` - (默认: `op`) - 允许访问 `/[admin_command] top remove <player>` 指令。
 
 ??? question "有缺失的内容吗?"
     你可以在此插件的 [addon.yml](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/resources/addon.yml) 文件中找到完整的权限列表。
@@ -468,7 +468,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     🔺 **需要 BentoBox 3.16.0 或更高版本。** 此版本将 `addon.yml` 中的 `api-version` 更新至 `3.16.0`，并依赖新的 `CraftEngineHook.getItemId` / `getItemStack` 助手。较旧的 BentoBox 版本将拒绝加载该插件。
 
     - ⚙️ **仅捐献模式。** `config.yml` 中的新 `donations-only` 选项（默认 `false`）。设置为 `true` 时，每次重新计算时跳过分块扫描，岛屿等级仅从捐献积分计算。在此模式下不会注册 `/island detail`，前十查看器按钮停止打开详细面板。存储的 `initialCount` 在 `/island level` 时被忽略，因此为现有岛屿启用该模式不会推送玩家到极低负等级。
-    - 💎 **`/island donate inv` — 捐献物品栏中的所有内容。** 新的可确认 `inv` 子命令：列出玩家物品栏中每种可捐献方块的值和总计，然后在确认时捐献所有内容并运行等级重新计算。没有配置值的物品和非方块物品保留在物品栏中。制表符补完现在为第一个参数建议 `hand` / `inv`，为持有物品的数量建议。
+    - 💎 **`/island donate inv` — 捐献物品栏中的所有内容。** 新的可确认 `inv` 子指令：列出玩家物品栏中每种可捐献方块的值和总计，然后在确认时捐献所有内容并运行等级重新计算。没有配置值的物品和非方块物品保留在物品栏中。制表符补完现在为第一个参数建议 `hand` / `inv`，为持有物品的数量建议。
     - 🧱 **跨价值、详情和捐献菜单的自定义方块支持。** Oraxen、Nexo、ItemsAdder 和 CraftEngine 自定义方块不再从 `/level value` 中筛选出或在 `/level detail` 中呈现为无名称的纸张图标。价值面板和详情面板从每个插件的注册表中查找真实的自定义方块 `ItemStack`，以便保留配置的纹理/模型数据和显示名称。`/island value hand` 在持有自定义物品时现在报告配置的值和显示名称。捐献路径（`/island donate hand`、`/island donate inv`、捐献面板）接受自定义方块物品并在自定义 ID 下记录捐献。
     - 🐛 **负进度修复。** 非线性 `level-calc` 公式（例如 `3 * sqrt(blocks / level_cost)`）不再在等级之间低于零。感谢 @msmith-codes！
     - ⚡ **性能。** `tidyUp()` 在计算点边界时不再在主线程上线性遍历多达 1000 万个点 — 前向和后向扫描现在使用二进制搜索（约 23 次迭代而不是数百万次）。

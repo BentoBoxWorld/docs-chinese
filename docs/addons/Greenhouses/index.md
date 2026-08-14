@@ -77,26 +77,26 @@
 
 阅读文件发布说明以了解更改和如何升级的说明。
 
-## 玩家命令
+## 玩家指令
 
-添加到/island, /ai。命令标签为 `greenhouse`，别名为 `gh` 和 `greenhouses`。
+添加到/island, /ai。指令标签为 `greenhouse`，别名为 `gh` 和 `greenhouses`。
 
 * **greenhouses** - 打开配方 GUI；点击一个配方会尝试制作该类型的温室
-* **greenhouses help** - 列出这些命令
+* **greenhouses help** - 列出这些指令
 * **greenhouses make [recipe]**: 尝试制作一个温室，可以自动寻找第一个有效的配方，也可以使用指定名称的配方
 * **greenhouses remove**: 如果你是所有者，移除你站立处的温室
 
 !!! warning "`list` 和 `recipe` 已在 1.10.0 中移除"
-    这两个玩家命令虽然被写进了文档，但从未真正注册过——它们是无法访问的空壳，调用它们只会得到"未知命令"的错误。它们已在 1.10.0 中删除。不带参数的 `/is greenhouses` 会打开配方 GUI，这正是它们本应做的事。
+    这两个玩家指令虽然被写进了文档，但从未真正注册过——它们是无法访问的空壳，调用它们只会得到"未知指令"的错误。它们已在 1.10.0 中删除。不带参数的 `/is greenhouses` 会打开配方 GUI，这正是它们本应做的事。
 
-## 管理员命令
+## 管理员指令
 
 !!! new "Greenhouses 1.10.0 新增"
-    在 1.10.0 之前，本插件根本没有管理员命令树。一旦某条温室记录出了问题，唯一的办法就是停服并手动编辑数据库。
+    在 1.10.0 之前，本插件根本没有管理员指令树。一旦某条温室记录出了问题，唯一的办法就是停服并手动编辑数据库。
 
-注册在你的游戏模式管理员命令之下，例如 `/bsbadmin greenhouses` 或 `/acid greenhouses`。命令标签为 `greenhouses`，别名为 `greenhouse` 和 `gh`。
+注册在你的游戏模式管理员指令之下，例如 `/bsbadmin greenhouses` 或 `/acid greenhouses`。指令标签为 `greenhouses`，别名为 `greenhouse` 和 `gh`。
 
-| 命令 | 作用 |
+| 指令 | 作用 |
 |---|---|
 | `list [player] [page]` | 分页列出温室，也可以只列出某个玩家的。加载失败的记录**始终**会一并列出，并附上原因。 |
 | `info [id]` | 显示配方、所有者、世界、位置、边界框、面积、原始生物群系、漏斗、损坏状态以及缺失的方块。不带 ID 时，使用你当前所在的温室。 |
@@ -106,7 +106,7 @@
 | `reload` | 重新读取 `biomes.yml`，然后从数据库重新加载温室。 |
 
 - ID 来自 `list`，可以缩短为**只匹配一个**温室的任意前缀。有歧义的前缀会被当作没有匹配，而不是去猜——因为删错温室是无法撤销的。
-- 除 `tp` 之外的所有命令都可以在服务器控制台中使用。
+- 除 `tp` 之外的所有指令都可以在服务器控制台中使用。
 - 无法加载的温室记录——重叠、配方未知、世界缺失、没有位置——会连同原因一起保留在内存中，而不是被悄悄丢弃。正因如此，它们才能被列出和删除。
 - 记录永远不会被自动删除。未经询问就移除玩家的温室，比反复出现的警告更糟糕。
 
@@ -131,35 +131,35 @@
 
   greenhouses.player:
 
-     description: 授予玩家命令的访问权限
+     description: 授予玩家指令的访问权限
      default: true
 
   greenhouses.admin:
 
-     description: 授予管理员命令的访问权限
+     description: 授予管理员指令的访问权限
      default: op
 
-自 1.10.0 起，每个管理员子命令还各有自己的权限节点——`greenhouses.admin.list`、`.info`、`.delete`、`.tp`、`.verify` 和 `.reload`——全部默认为 `op`。管理员无需做任何事，但如果你是通过权限插件来授予管理员权限的，就需要把它们加上。在该版本之前，这些节点在 `addon.yml` 中完全缺失，这也正是除了 OP 之外什么都用不了的原因。
+自 1.10.0 起，每个管理员子指令还各有自己的权限节点——`greenhouses.admin.list`、`.info`、`.delete`、`.tp`、`.verify` 和 `.reload`——全部默认为 `op`。管理员无需做任何事，但如果你是通过权限插件来授予管理员权限的，就需要把它们加上。在该版本之前，这些节点在 `addon.yml` 中完全缺失，这也正是除了 OP 之外什么都用不了的原因。
 
 ## 翻译
 
 {{ translations("Greenhouses") }}
 
-!!! note "v1.10.0 新内容 — 管理员命令"
+!!! note "v1.10.0 新内容 — 管理员指令"
     **发布于：** 2026-07-26
 
-    Greenhouses 终于有了管理员命令树。兼容性：BentoBox API 2.7.1 · Minecraft 1.21.5+ · Java 21。
+    Greenhouses 终于有了管理员指令树。兼容性：BentoBox API 2.7.1 · Minecraft 1.21.5+ · Java 21。
 
-    - 🛠️ **管理员命令。** `list`、`info`、`delete`、`tp`、`verify` 和 `reload`，注册在你的游戏模式管理员命令之下（例如 `/bsbadmin greenhouses`）。详见上面的"管理员命令"章节。无法加载的温室记录——重叠、配方未知、世界缺失、没有位置——现在会连同原因一起保留在内存中，而不是被悄悄丢弃，正因如此它们才能被显示和删除。记录仍然永远不会被自动删除。
-    - ⚙️ **新增权限。** 六个子命令各有自己的 `greenhouses.admin.*` 节点，全部默认为 `op`。在本版本之前，它们在 `addon.yml` 中完全缺失，这正是除了 OP 之外什么都用不了的原因。
+    - 🛠️ **管理员指令。** `list`、`info`、`delete`、`tp`、`verify` 和 `reload`，注册在你的游戏模式管理员指令之下（例如 `/bsbadmin greenhouses`）。详见上面的"管理员指令"章节。无法加载的温室记录——重叠、配方未知、世界缺失、没有位置——现在会连同原因一起保留在内存中，而不是被悄悄丢弃，正因如此它们才能被显示和删除。记录仍然永远不会被自动删除。
+    - ⚙️ **新增权限。** 六个子指令各有自己的 `greenhouses.admin.*` 节点，全部默认为 `op`。在本版本之前，它们在 `addon.yml` 中完全缺失，这正是除了 OP 之外什么都用不了的原因。
     - 🐛 **检查配方已不存在的温室时不再抛出 NPE。** 当数据库记录指向一个不在 `biomes.yml` 中的配方时，检查现在会报告 `FAIL_UNKNOWN_RECIPE`。
     - 🐛 **`getFloorHeight` 在处理没有位置的记录时不再抛异常**——而这类记录恰恰最可能是坏掉的。它现在会回退到边界框。
     - 🔺 **降雪现在会汇报所有扫描过的列的成功情况，** 而不只是最后一列。`SnowTracker` 在每一列都会覆盖自己的结果，因此一个在九十列中都造出了雪、只有最后一列没造出雪的温室会被判定为失败——而这个值决定了是否从漏斗中消耗水。
     - 🧹 解决了全部 68 个未处理的 SonarCloud 问题，将五个方法重构到认知复杂度阈值以下，移除了死代码，测试套件从 177 个增加到 224 个。
 
-    🔡 **征集翻译。** 管理员命令新增了 `greenhouses.commands.admin.*` 下的消息，目前只有英文。其余 24 个本地化文件在翻译完成前会回退显示键名。
+    🔡 **征集翻译。** 管理员指令新增了 `greenhouses.commands.admin.*` 下的消息，目前只有英文。其余 24 个本地化文件在翻译完成前会回退显示键名。
 
-    🔺 **删除了三个玩家命令——但它们本来就都不能用。** `InfoCommand`、`ListCommand` 和 `RecipeCommand` 都是未注册的空壳，方法体只有占位内容。`InfoCommand` 甚至把自己声明在 `make` 标签下，一旦有人真的启用它，就会和真正的 make 命令冲突。本页此前把 `greenhouses list` 和 `greenhouses recipe` 列为可用的玩家命令；它们并不可用，现已更正。不带参数的 `/is greenhouses` 仍然会打开配方 GUI。
+    🔺 **删除了三个玩家指令——但它们本来就都不能用。** `InfoCommand`、`ListCommand` 和 `RecipeCommand` 都是未注册的空壳，方法体只有占位内容。`InfoCommand` 甚至把自己声明在 `make` 标签下，一旦有人真的启用它，就会和真正的 make 指令冲突。本页此前把 `greenhouses list` 和 `greenhouses recipe` 列为可用的玩家指令；它们并不可用，现已更正。不带参数的 `/is greenhouses` 仍然会打开配方 GUI。
 
     [发布 v1.10.0](https://github.com/BentoBoxWorld/Greenhouses/releases/tag/1.10.0)
 
@@ -172,7 +172,7 @@
 
     ⚙️ **`biomes.yml` 的这项修复不会自动应用。** 你的服务器磁盘上已有自己的 `biomes.yml`，插件不会覆盖它。如果你看到关于 `SQUID` 的 SnakeYAML 重复键警告，请打开 `plugins/BentoBox/addons/Greenhouses/biomes.yml`，找到 `OCEAN` 小节，删除两行 `SQUID:` 中的第一行。全新安装会自动得到修正后的文件。
 
-    🔺 **本版本只报告重叠的温室，并不会移除它们。** 被跳过的记录会被有意保留在数据库中——悄悄删除玩家的温室比反复出现的警告更糟糕。在 1.9.6 中，你需要根据日志中打印的 `uniqueId` 自行移除过期记录；1.10.0 新增的管理员命令可以在游戏内完成这件事。
+    🔺 **本版本只报告重叠的温室，并不会移除它们。** 被跳过的记录会被有意保留在数据库中——悄悄删除玩家的温室比反复出现的警告更糟糕。在 1.9.6 中，你需要根据日志中打印的 `uniqueId` 自行移除过期记录；1.10.0 新增的管理员指令可以在游戏内完成这件事。
 
     [发布 v1.9.6](https://github.com/BentoBoxWorld/Greenhouses/releases/tag/1.9.6)
 

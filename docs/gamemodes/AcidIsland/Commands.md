@@ -1,10 +1,10 @@
-# AcidIsland 管理员命令
+# AcidIsland 管理员指令
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/acid` | 管理员命令 | `acidisland.island` |
+| `/acid` | 管理员指令 | `acidisland.island` |
 | `/acid add <owner> <player>` | 将玩家添加到所有者的团队 | `acidisland.mod.register` |
-| `/acid challenges <player>` | 访问挑战管理员命令 | `acidisland.admin.challenges` |
+| `/acid challenges <player>` | 访问挑战管理员指令 | `acidisland.admin.challenges` |
 | `/acid deaths` | 编辑玩家的死亡次数 | |
 | `/acid deaths reset <player>` | 重置玩家的死亡次数 | |
 | `/acid deaths set <player> <deaths>` | 设置玩家的死亡次数 | |
@@ -13,13 +13,13 @@
 | `/acid getrank <player>` | 获取玩家在其岛屿上的等级 | |
 | `/acid info <player>` | 获取你所在位置或玩家岛屿的信息 | `acidisland.mod.info` |
 | `/acid kick <team player>` | 将玩家从团队中踢出 | `acidisland.island.expel` |
-| `/acid range` | AcidIsland 范围命令 | |
+| `/acid range` | AcidIsland 范围指令 | |
 | `/acid range display` | 显示/隐藏岛屿范围指示器 | |
 | `/acid range reset <player>` | 将岛屿保护范围重置为世界默认值 | |
 | `/acid range set <player> <range>` | 设置岛屿保护范围 | |
 | `/acid register <player>` | 注册玩家到你所在的无主岛屿 | `acidisland.admin.register` |
 | `/acid reload` | 重新加载插件 | `acidisland.admin.reload` |
-| `/acid reset` | 重置命令管理员设置 | `acidisland.mod.resethome` |
+| `/acid reset` | 重置指令管理员设置 | `acidisland.mod.resethome` |
 | `/acid blueprint` | 操纵蓝图 | |
 | `/acid blueprint copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选包括空气块 | |
 | `/acid blueprint load <blueprint name>` | 将蓝图加载到剪贴板 | |
@@ -36,9 +36,9 @@
 | `/acid version` | 显示 BentoBox 和插件的版本 | `acidisland.mod.info` |
 | `/acid why <player>` | 切换调试开/关以了解为什么某些东西不工作 | |
 
-# AcidIsland 玩家命令
+# AcidIsland 玩家指令
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
 | `/ai` | 传送玩家到他们的 AcidIsland | `acidisland.island` |
 | `/ai about` | 关于此插件 | `acidisland.island` |
@@ -54,7 +54,7 @@
 | `/ai sethome` | 设置你的家传送点 | `acidisland.island.home` |
 | `/ai setname <name>` | 为你的岛屿设置名称 | `acidisland.island.name` |
 | `/ai settings` | 显示 AcidIsland 设置菜单 | `acidisland.island.settings` |
-| `/ai team` | 显示团队命令 | `acidisland.island.team` |
+| `/ai team` | 显示团队指令 | `acidisland.island.team` |
 | `/ai team accept` | 接受邀请 | `acidisland.island.team` |
 | `/ai team coop <player>` | 让玩家获得你岛屿上的合作等级 | `acidisland.island.team.coop` |
 | `/ai team demote <player>` | 将岛屿上的玩家降级 | `acidisland.island.team` |

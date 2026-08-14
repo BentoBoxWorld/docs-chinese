@@ -33,7 +33,7 @@
 | boxed.admin.blueprint.pos1 | op | 设置长方体剪贴板的第 1 个角 |
 | boxed.admin.blueprint.pos2 | op | 设置长方体剪贴板的第 2 个角 |
 | boxed.admin.blueprint.list | op | 列出可用的蓝图 |
-| boxed.admin.range | op | 管理员方框范围命令 |
+| boxed.admin.range | op | 管理员方框范围指令 |
 | boxed.admin.range.display | op | 显示/隐藏方框范围指示器 |
 | boxed.admin.range.set | op | 设置方框受保护范围 |
 | boxed.admin.range.reset | op | 将受保护范围重置为世界默认值 |
@@ -71,24 +71,24 @@
 | boxed.mod.resethome | op | 允许设置或重置玩家的家位置 |
 | boxed.mod.name | false | 允许为玩家的岛屿命名 |
 | boxed.mod.resetname | false | 允许重置玩家的岛屿名称 |
-| boxed.mod.team | false | 允许通过踢出和添加命令修改团队 |
+| boxed.mod.team | false | 允许通过踢出和添加指令修改团队 |
 | boxed.mod.tp | op | 允许传送到一个岛屿 |
-| boxed.island | true | 允许岛屿命令使用 |
+| boxed.island | true | 允许岛屿指令使用 |
 | boxed.island.ban | true | 允许封禁访客 |
 | boxed.island.create | true | 允许创建岛屿 |
 | boxed.island.expel | true | 允许驱逐访客 |
 | boxed.island.home | true | 允许传送到玩家岛屿 |
-| boxed.island.info | true | 让玩家使用岛屿信息命令 |
+| boxed.island.info | true | 让玩家使用岛屿信息指令 |
 | boxed.island.language | true | 玩家可以选择语言 |
 | boxed.island.lock | false | 允许岛屿锁定 |
 | boxed.island.name | true | 玩家可以设置其岛屿的名称 |
 | boxed.island.number | false | x 设置玩家可以创建的岛屿数量 |
-| boxed.island.reset | true | 玩家可以使用岛屿重置或重新开始命令 |
-| boxed.island.sethome | true | 让玩家使用 sethome 命令 |
+| boxed.island.reset | true | 玩家可以使用岛屿重置或重新开始指令 |
+| boxed.island.sethome | true | 让玩家使用 sethome 指令 |
 | boxed.island.settings | true | 玩家可以查看服务器设置 |
-| boxed.island.spawn | true | 玩家可以使用岛屿出生点命令（如果出生点存在） |
-| boxed.island.team.* | true | 让玩家使用所有团队命令（推荐） |
-| boxed.island.team | true | 让玩家使用团队命令 |
+| boxed.island.spawn | true | 玩家可以使用岛屿出生点指令（如果出生点存在） |
+| boxed.island.team.* | true | 让玩家使用所有团队指令（推荐） |
+| boxed.island.team | true | 让玩家使用团队指令 |
 | boxed.island.team.invite | true | 让玩家邀请其他人 |
 | boxed.island.team.accept | true | 玩家可以接受团队邀请 |
 | boxed.island.team.reject | true | 玩家可以拒绝团队邀请 |
@@ -98,7 +98,7 @@
 | boxed.island.team.kick | true | 让玩家将另一个玩家踢出其团队 |
 | boxed.island.team.leave | true | 让玩家离开一个团队 |
 | boxed.island.team.setowner | true | 让玩家将另一个玩家设置为岛屿所有者 |
-| boxed.settings.* | true | 允许在岛屿上使用设置。否定此权限或设置为 false 也会阻止所有 `/box 命令` 和 `/box 子命令`。 |
+| boxed.settings.* | true | 允许在岛屿上使用设置。否定此权限或设置为 false 也会阻止所有 `/box 指令` 和 `/box 子指令`。 |
 | boxed.team.maxsize.[NUMBER] | false | 让玩家获得比默认值更大的团队规模 |
 | boxed.island.maxhomes.[NUMBER] | false | 让玩家获得比默认值更多的家 |
 | boxed.island.range.[NUMBER] | false | 让玩家获得比默认值更大的保护范围。不推荐用于 Boxed！ |

@@ -56,19 +56,19 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
 
     查看和管理面板包含每种模式的3个不同面板。
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] likes`：打开添加/删除点赞、点踩或星级的GUI。
     - `/[player_command] likes top`：打开显示点赞、点踩或星级排名前的岛屿的GUI。
     - `/[player_command] likes view <player>`：打开显示谁给岛屿添加了点赞或星级的GUI。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] likes`：打开管理员GUI。
     - `/[admin_command] likes settings`：打开管理员设置GUI。
 
@@ -80,16 +80,16 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "玩家权限"
-    - `[gamemode].likes` - (默认：`true`) - 允许玩家使用`/[player_command] likes`命令。
-    - `[gamemode].likes.top` - (默认：`true`) - 允许玩家使用`/[player_command] likes top`命令。
-    - `[gamemode].likes.view` - (默认：`true`) - 允许玩家使用`/[player_command] likes top`命令。
+    - `[gamemode].likes` - (默认：`true`) - 允许玩家使用`/[player_command] likes`指令。
+    - `[gamemode].likes.top` - (默认：`true`) - 允许玩家使用`/[player_command] likes top`指令。
+    - `[gamemode].likes.view` - (默认：`true`) - 允许玩家使用`/[player_command] likes top`指令。
     - `[gamemode].likes.icon.[MATERIAL]` - (默认：`false`) - 允许在Top GUIs中更改岛屿所有者的图标。
 
 === "管理员权限"
-    - `[gamemode].likes.view.others` - (默认：`op`) - 允许玩家使用`/[player_command] likes view <player>`命令。
+    - `[gamemode].likes.view.others` - (默认：`op`) - 允许玩家使用`/[player_command] likes view <player>`指令。
     - `[gamemode].likes.bypass-cost` - (默认：`op`) - 允许绕过插件操作的成本。
-    - `[gamemode].likes.admin` - (默认：`op`) - 允许使用`/[admin_command] likes`命令。
-    - `[gamemode].likes.admin.settings` - (默认：`op`) - 允许使用`/[admin_command] likes settings`命令。
+    - `[gamemode].likes.admin` - (默认：`op`) - 允许使用`/[admin_command] likes`指令。
+    - `[gamemode].likes.admin.settings` - (默认：`op`) - 允许使用`/[admin_command] likes settings`指令。
 
 ??? 问题 "缺少什么？"
     你可以在这个插件的[addon.yml](https://github.com/BentoBoxWorld/Likes/blob/develop/src/main/resources/addon.yml)文件中找到权限的综合列表。  

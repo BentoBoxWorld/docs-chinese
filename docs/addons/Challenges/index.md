@@ -10,7 +10,7 @@
 
 1. 将插件 jar 文件放入 BentoBox 插件的 addons 文件夹
 2. 重启服务器
-3. 运行管理员挑战命令,例如 `/bsbadmin challenges` 来配置插件
+3. 运行管理员挑战指令,例如 `/bsbadmin challenges` 来配置插件
 
 ## 配置
 
@@ -216,18 +216,18 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
     在操作下指定 `type: ACCEPT` 允许完成挑战。
     在操作下指定 `type: INPUT` 允许要求玩家在聊天中写入数字。
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的 `config.yml` 文件包含允许你修改这些值的选项。
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`,默认的 `[admin_command]` 是 `bsbadmin`。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/challenges`: 访问玩家挑战 GUI。包含当前世界中的挑战或启用了挑战的世界列表。必须在配置中启用。
     - `/[player_command] challenges [challenge] [number]`: 访问 BSkyBlock 玩家挑战 GUI。如果提供了挑战名称,则此方法将完成该挑战一次。如果提供了数字,则它将完成 0-number 次挑战。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/challengesadmin`: 访问管理员挑战 GUI。包含启用了挑战的世界列表。必须在配置中启用。
     - `/[admin_command] challenges`: 访问 BSkyBlock 管理员挑战 GUI。
     - `/[admin_command] challenges reload [hard]`: 能够重新加载挑战插件配置。此方法还会清除缓存数据。参数 hard 允许重置数据库连接。
@@ -240,17 +240,17 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
     类似地,如果你使用 AcidIsland,前缀就是 `acidisland`。
 
 === "玩家权限"
-    - `[gamemode].challenges` - (默认: `true`) - 允许玩家使用 '/[player_command] challenges' 命令。
+    - `[gamemode].challenges` - (默认: `true`) - 允许玩家使用 '/[player_command] challenges' 指令。
     - `[gamemode].challenges.multiple` - (默认: `true`) - 允许玩家一次完成挑战多次。
-    - `[gamemode].challenges.complete` - (默认: `false`) - 允许玩家使用 '/[player_command] challenges complete <challenge> <number>' 命令。
-    - `addon.challenges` - (默认: `true`) - 如果在配置中启用,允许访问 '/challenges' 命令。
-    - `[gamemode].command.challengeexempt` - (默认: `false`) - 允许阻止为玩家执行奖励命令。
+    - `[gamemode].challenges.complete` - (默认: `false`) - 允许玩家使用 '/[player_command] challenges complete <challenge> <number>' 指令。
+    - `addon.challenges` - (默认: `true`) - 如果在配置中启用,允许访问 '/challenges' 指令。
+    - `[gamemode].command.challengeexempt` - (默认: `false`) - 允许阻止为玩家执行奖励指令。
 
 === "管理员权限" 
-    - `[gamemode].admin.challenges` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges' 命令。
-    - `[gamemode].admin.challenges.complete` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges complete' 命令。
-    - `[gamemode].admin.challenges.reset` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges reset' 命令。
-    - `addon.admin.challenges` - (默认: `op`) - 如果在配置中启用,允许访问 '/challengesadmin' 命令。
+    - `[gamemode].admin.challenges` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges' 指令。
+    - `[gamemode].admin.challenges.complete` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges complete' 指令。
+    - `[gamemode].admin.challenges.reset` - (默认: `op`) - 允许玩家使用 '/[admin_command] challenges reset' 指令。
+    - `addon.admin.challenges` - (默认: `op`) - 如果在配置中启用,允许访问 '/challengesadmin' 指令。
 
 ??? question "有缺失的内容吗?"
     你可以在此插件的 [addon.yml](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/addon.yml) 文件中找到完整的权限列表。
@@ -341,17 +341,17 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
 ??? question "我可以按玩家启用挑战吗?"
     是的,你可以通过插件配置文件来实现：`store-island-data: false`
 
-??? question "奖励命令不起作用。为什么?"
-    最可能的原因是奖励命令定义不正确。命令不需要在其前面加上 `/` 符号。
+??? question "奖励指令不起作用。为什么?"
+    最可能的原因是奖励指令定义不正确。指令不需要在其前面加上 `/` 符号。
     
-    如果你想从玩家的角度调用命令，你需要在命令调用前添加 `[SELF]`，例如 `[SELF] kill` 将导致玩家调用 `/kill` 命令。
+    如果你想从玩家的角度调用指令，你需要在指令调用前添加 `[SELF]`，例如 `[SELF] kill` 将导致玩家调用 `/kill` 指令。
 
-    也可能是由权限导致的。`[gamemode].command.challengeexempt` 将防止玩家执行命令。检查玩家是否没有此权限。
+    也可能是由权限导致的。`[gamemode].command.challengeexempt` 将防止玩家执行指令。检查玩家是否没有此权限。
 
-??? question "如何在奖励命令中添加占位符?"
-    目前，插件不支持在奖励命令中使用占位符。如果有必要，你可以在 GitHub 上请求。
+??? question "如何在奖励指令中添加占位符?"
+    目前，插件不支持在奖励指令中使用占位符。如果有必要，你可以在 GitHub 上请求。
     
-    当前在奖励命令中唯一支持的占位符是 `[player]` 它返回完成挑战的玩家的名字。
+    当前在奖励指令中唯一支持的占位符是 `[player]` 它返回完成挑战的玩家的名字。
 
 ??? question "我不喜欢挑战描述中元素的顺序。我可以改变它吗?"
     是的,元素的顺序是在插件语言文件中定义的。

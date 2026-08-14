@@ -43,7 +43,7 @@
 
 ### 翻译注意事项
 
-- 保留技术名称的英文原文：命令名（如 `/island`）、YAML 键名（如 `disabled-gamemodes`）、Java 类名、MkDocs 宏（如 `{{ addon_description("Level") }}`）。
+- 保留技术名称的英文原文：指令名（如 `/island`）、YAML 键名（如 `disabled-gamemodes`）、Java 类名、MkDocs 宏（如 `{{ addon_description("Level") }}`）。
 - 翻译章节标题、描述和解释性文字。
 - 保持现有的 Markdown 格式（代码块、admonition 提示块、表格）。
 

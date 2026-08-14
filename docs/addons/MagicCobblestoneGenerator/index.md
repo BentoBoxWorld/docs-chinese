@@ -10,14 +10,14 @@
 
 1. 将插件jar文件放入BentoBox插件的addons文件夹中
 2. 重启服务器
-3. 运行`/[admincmd] generator`命令来配置插件
+3. 运行`/[admincmd] generator`指令来配置插件
 
 ## 配置
 
 默认情况下，插件试图从模板文件中导入所有数据，以简化首次设置。许多插件设置在Admin GUI中公开，然而，有些设置不是。
 最新的配置选项及其详细解释可以在[这里](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/resources/config.yml)找到。
 
-模板文件主要是为那些不喜欢使用游戏内编辑GUI的用户准备的。然而，模板文件在每次更改时不会自动导入。需要通过命令或Admin GUI导入。
+模板文件主要是为那些不喜欢使用游戏内编辑GUI的用户准备的。然而，模板文件在每次更改时不会自动导入。需要通过指令或Admin GUI导入。
 
 ??? question "模板文件结构"
     ```
@@ -184,26 +184,26 @@
 !!! warning "需要 BentoBox 3.19.1 或更新版本"
     2.10.0 依赖 BentoBox 3.19.1 中新增的自定义方块钩子 API，**无法在更旧的核心上加载**。放入此 jar 前请先更新 BentoBox。
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
-    注意，这个插件允许在插件`config.yml`文件中更改玩家命令别名。
+    注意，这个插件允许在插件`config.yml`文件中更改玩家指令别名。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] generator`：访问生成器选择GUI。
     - `/[player_command] generator view <generator>`：访问特定生成器的详细视图。
     - `/[player_command] generator activate <generator> [false]`：允许激活（或停用）特定生成器。
     - `/[player_command] generator buy <generator>`：允许购买特定生成器。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] generator`：访问插件的管理员GUI
     - `/[admin_command] generator import`：导入默认模板文件 - `/plugins/BentoBox/addons/MagicCobblestoneGenerator/generatorTemplate.yml`。
     - `/[admin_command] generator database import <file>`：能够导入导出的数据库<file>。
     - `/[admin_command] generator database export <file>`：能够将数据库导出到保存在`/plugins/BentoBox/addons/MagicCobblestoneGenerator/`文件夹中的<file>。
-    - `/[admin_command] generator why <player>`：一个调试命令，允许为每个玩家找到生成器问题。
+    - `/[admin_command] generator why <player>`：一个调试指令，允许为每个玩家找到生成器问题。
     - `/[admin_command] generator reset <player>`：在确认提示后重置某个玩家的岛屿生成器数据 —— 已解锁、已购买和已激活的生成器。*（在 2.9.0 中新增。）*
 
 ## 权限
@@ -214,7 +214,7 @@
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "玩家权限"
-    - `[gamemode].stone-generator` - 让玩家使用`/[player_command] generator`命令及其子命令。
+    - `[gamemode].stone-generator` - 让玩家使用`/[player_command] generator`指令及其子指令。
     - `[gamemode].stone-generator.active-generators.3` - 设置岛屿所有者可以拥有的最大活跃生成器数量。3可以被任何正整数替换。这只是一个例子。
     - `[gamemode].stone-generator.max-range.30` - 设置生成器继续
 
@@ -222,9 +222,9 @@
     - `[gamemode].stone-generator.bundle.[bundle_id]` - 指定将用于用户拥有的岛屿的套餐。
 
 === "管理员权限"
-    - `[gamemode].admin.stone-generator` - 让玩家使用`/[admin_command] generator`命令及其子命令。
-    - `[gamemode].admin.stone-generator.why` - 让玩家使用调试命令`/[admin_command] why generator <player>`。
-    - `[gamemode].admin.stone-generator.database` - 让玩家使用`/[admin_command] generator database`命令及其子命令。
+    - `[gamemode].admin.stone-generator` - 让玩家使用`/[admin_command] generator`指令及其子指令。
+    - `[gamemode].admin.stone-generator.why` - 让玩家使用调试指令`/[admin_command] why generator <player>`。
+    - `[gamemode].admin.stone-generator.database` - 让玩家使用`/[admin_command] generator database`指令及其子指令。
     
 ??? question "缺少什么？"
     你可以在这个插件的[addon.yml](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/blob/develop/src/main/resources/addon.yml)文件中找到权限的综合列表。  
@@ -244,7 +244,7 @@
 ??? question "如何添加新的生成器等级？"
     目前，插件支持3种添加新生成器的方式：
     
-    - 通过使用游戏内GUI，可通过`/[admin] generator`命令访问。
+    - 通过使用游戏内GUI，可通过`/[admin] generator`指令访问。
     - 通过向模板文件添加生成器。
     - 通过向导出的数据库文件添加生成器。
 
@@ -361,10 +361,10 @@
     - ⚙️ **等级下降时重新锁定等级层。** 新的 `lose-tiers-on-level-loss` 设置（默认 `false`）会在岛屿等级下降时重新锁定按等级解锁的生成器。已购买的等级始终保留。修复 [#118](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/118)。
     - ✨ **解锁即激活。** 生成器现在可以在解锁的那一刻自动激活。修复 [#106](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/106)。
     - 💰 **购买确认。** 可选择在为生成器扣款前要求玩家确认。修复 [#109](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/109)。
-    - 🛠️ **管理员数据重置。** 新的 `/[admin_command] generator reset <player>` 命令会在确认提示后重置某个玩家的已解锁、已购买和已激活的生成器。修复 [#149](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/149)。
+    - 🛠️ **管理员数据重置。** 新的 `/[admin_command] generator reset <player>` 指令会在确认提示后重置某个玩家的已解锁、已购买和已激活的生成器。修复 [#149](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/issues/149)。
     - 🔌 **新的可取消 API 事件** `GeneratorPreBuyEvent` 和 `GeneratorTreasureDropEvent`，供其他插件挂接（见下面的 API 部分）。
     - 🔺 **行为变更：** 当岛屿的在线拥有者不再持有所需权限时 —— 例如在所有权转移之后 —— 受权限门槛限制的生成器现在会被**撤销**。已购买的等级会被保留，因此如果重新获得权限，访问权限会恢复。
-    - 🔡 **本地化说明：** 为前置选择器、解锁即激活、购买确认、管理员重置命令以及 OneBlock/AOneBlock 要求消息新增了 `en-US.yml` 键。请重新生成或更新你的语言文件以获取新字符串。
+    - 🔡 **本地化说明：** 为前置选择器、解锁即激活、购买确认、管理员重置指令以及 OneBlock/AOneBlock 要求消息新增了 `en-US.yml` 键。请重新生成或更新你的语言文件以获取新字符串。
 
     [发布 v2.9.0](https://github.com/BentoBoxWorld/MagicCobblestoneGenerator/releases/tag/2.9.0)
 

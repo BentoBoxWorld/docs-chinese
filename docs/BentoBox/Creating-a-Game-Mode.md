@@ -89,11 +89,11 @@ addon.getPlugin().getSchemsManager().loadIslands(islandWorld);
 * nether-island.schem（可选）
 * end-island.schem（可选）
 
-要制作原理图，请使用 BentoBox 的 schem 命令（或 BSkyBlock 的或 AcidIsland 的 schem 命令）。
+要制作原理图，请使用 BentoBox 的 schem 指令（或 BSkyBlock 的或 AcidIsland 的 schem 指令）。
 
-= 注册命令
+= 注册指令
 
-在注册了世界、相关的世界/游戏模式设置和原理图之后，下一步是让您的附加组件执行某些操作。如果它需要命令，您可以通过扩展 CompositeCommand 来制作它们。让我们看一下 BSkyBlock 如何注册其顶级命令 */island* 和其下的子命令：
+在注册了世界、相关的世界/游戏模式设置和原理图之后，下一步是让您的附加组件执行某些操作。如果它需要指令，您可以通过扩展 CompositeCommand 来制作它们。让我们看一下 BSkyBlock 如何注册其顶级指令 */island* 和其下的子指令：
 
 [source,java]
 ----
@@ -110,7 +110,7 @@ public class IslandCommand extends CompositeCommand {
         setPermissionPrefix("bskyblock");
         setPermission("island");
         setWorld(((BSkyBlock)getAddon()).getIslandWorld());
-        // 设置子命令
+        // 设置子指令
         new IslandAboutCommand(this);
         new IslandCreateCommand(this);
         new IslandGoCommand(this);
@@ -123,26 +123,26 @@ public class IslandCommand extends CompositeCommand {
         new IslandBanCommand(this);
         new IslandUnbanCommand(this);
         new IslandBanlistCommand(this);
-        // 团队命令
+        // 团队指令
         new IslandTeamCommand(this);
     }
 ----
 
-注册命令的关键行是：
+注册指令的关键行是：
 
 ```
 super(addon, "island", "is");
 ```
 
-这告诉 BentoBox "/island" 是 BSkyBlock 附加组件的顶级命令，它的别名是 "/is"。然后在 setup() 方法中，有一些非常重要的（顶级命令必需的）声明：
+这告诉 BentoBox "/island" 是 BSkyBlock 附加组件的顶级指令，它的别名是 "/is"。然后在 setup() 方法中，有一些非常重要的（顶级指令必需的）声明：
 
 ```
 setWorld(((BSkyBlock)getAddon()).getIslandWorld());
 ```
 
-这非常重要。它定义了该命令将在其中运行的世界。所有子命令都将使用 getWorld() 方法引用它。
+这非常重要。它定义了该指令将在其中运行的世界。所有子指令都将使用 getWorld() 方法引用它。
 
-之后，命令实例化了一些子命令，将自身作为参数传递。这些类将使用该参数作为它们各自 super() 调用中的父类。
+之后，指令实例化了一些子指令，将自身作为参数传递。这些类将使用该参数作为它们各自 super() 调用中的父类。
 
 = 结论
 

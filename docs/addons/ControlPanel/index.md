@@ -1,6 +1,6 @@
 # ControlPanel
 
-**ControlPanel** 为你的玩家提供一个可点击的 GUI 菜单来运行他们最常用的岛屿命令——无需输入。服务器管理员可以使用简单的 YAML 文件构建完全可自定义的面板，支持多种点击操作、自定义图标和实时占位符。
+**ControlPanel** 为你的玩家提供一个可点击的 GUI 菜单来运行他们最常用的岛屿指令——无需输入。服务器管理员可以使用简单的 YAML 文件构建完全可自定义的面板，支持多种点击操作、自定义图标和实时占位符。
 
 由 [BONNe](https://github.com/BONNe) 创建和维护。
 
@@ -11,30 +11,30 @@
 1. 将 ControlPanel 插件 jar 放入 BentoBox 插件的 `addons` 文件夹。
 2. 重启服务器。ControlPanel 将在 `plugins/BentoBox/addons/ControlPanel/` 内创建一个默认的 `controlPanelTemplate.yml`。
 3. 编辑 `controlPanelTemplate.yml` 来构建你的面板（见下面的[配置](#configuration)）。
-4. 用管理员命令导入面板：
+4. 用管理员指令导入面板：
 ```
 /{admin} cp import
 ```
 
 !!! tip
-    将 `{admin}` 替换为你的游戏模式的管理员命令标签，例如 BSkyBlock 的 `bsb`、AOneBlock 的 `oa`、AcidIsland 的 `acid`。
+    将 `{admin}` 替换为你的游戏模式的管理员指令标签，例如 BSkyBlock 的 `bsb`、AOneBlock 的 `oa`、AcidIsland 的 `acid`。
 
-## 命令
+## 指令
 
-### 玩家命令
+### 玩家指令
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 |---|---|---|
 | `/[label] controlpanel` | 打开玩家分配的控制面板 | `[gamemode].controlpanel` |
-| `/[label] cp` | 上述命令的快捷别名 | `[gamemode].controlpanel` |
+| `/[label] cp` | 上述指令的快捷别名 | `[gamemode].controlpanel` |
 
-将 `[label]` 替换为游戏模式的玩家命令，例如 BSkyBlock 的 `island` 或 AOneBlock 的 `ob`。
+将 `[label]` 替换为游戏模式的玩家指令，例如 BSkyBlock 的 `island` 或 AOneBlock 的 `ob`。
 
 显示的面板取决于玩家的权限。没有特定面板权限的玩家会看到标记为 `defaultPanel: true` 的面板。如果玩家通过 `[gamemode].controlpanel.panel.<suffix>` 有特定面板的权限，则会显示该面板。
 
-### 管理员命令
+### 管理员指令
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 |---|---|---|
 | `/{admin} cp import` | 从 `controlPanelTemplate.yml` 导入面板 | `[gamemode].controlpanel.admin` |
 | `/{admin} cp import <filename>` | 从自定义 YAML 文件导入面板 | `[gamemode].controlpanel.admin` |
@@ -49,7 +49,7 @@
 | 权限 | 默认值 | 描述 |
 |---|---|---|
 | `[gamemode].controlpanel` | `true` | 允许玩家打开控制面板 |
-| `[gamemode].controlpanel.admin` | `op` | 允许使用管理员导入命令 |
+| `[gamemode].controlpanel.admin` | `op` | 允许使用管理员导入指令 |
 | `[gamemode].controlpanel.panel.default` | `true` | 授予对默认面板的访问权限 |
 | `[gamemode].controlpanel.panel.<suffix>` | — | 授予对具有给定后缀的自定义面板的访问权限 |
 
@@ -127,9 +127,9 @@ panel-list:
 | `icon` | 否 | BentoBox `ItemParser` 格式，例如 `minecraft:diamond_block`。优先于 `material`。 |
 | `itemsadder` | 否 | [ItemsAdder](https://github.com/LoneDev6/ItemsAdder) 自定义物品 ID，例如 `iasurvival:ruby`。需要安装 ItemsAdder。否则退回到纸张。 |
 | `description` | 否 | 显示在按钮名称下的 lore 行。支持 `&` 颜色代码、使用 `|-` 的多行、PlaceholderAPI `%placeholders%` 和 `[gamemode]` 替换。 |
-| `command` | 否 | 左键点击时执行的命令（以及所有其他点击类型的后备）。 |
-| `right_click_command` | 否 | 右键点击或 Shift+右键点击时执行的命令。如果省略，退回到 `command`。 |
-| `shift_click_command` | 否 | Shift+左键点击时执行的命令。如果省略，退回到 `command`。 |
+| `command` | 否 | 左键点击时执行的指令（以及所有其他点击类型的后备）。 |
+| `right_click_command` | 否 | 右键点击或 Shift+右键点击时执行的指令。如果省略，退回到 `command`。 |
+| `shift_click_command` | 否 | Shift+左键点击时执行的指令。如果省略，退回到 `command`。 |
 
 !!! info "图标优先级"
     如果指定了多个图标字段，优先级为：`itemsadder` > `icon` > `material`。如果都未设置，按钮默认为 `PAPER`。
@@ -138,7 +138,7 @@ panel-list:
 
 每个按钮可以根据玩家点击它的方式做出不同的响应：
 
-| 点击操作 | 使用的命令 |
+| 点击操作 | 使用的指令 |
 |---|---|
 | 左键点击 | `command` |
 | 右键点击 | `right_click_command`（退回到 `command`） |
@@ -146,15 +146,15 @@ panel-list:
 | Shift + 右键点击 | `right_click_command`（退回到 `command`） |
 | 其他任何点击 | `command` |
 
-#### 命令占位符
+#### 指令占位符
 
 这些占位符可以在 `command`、`right_click_command` 和 `shift_click_command` 字段中使用：
 
 | 占位符 | 替换为 |
 |---|---|
-| `[label]` | 游戏模式的玩家命令标签，例如 `island`、`ob` |
+| `[label]` | 游戏模式的玩家指令标签，例如 `island`、`ob` |
 | `[player]` | 点击玩家的用户名 |
-| `[server]` | 使命令作为服务器控制台而不是玩家运行 |
+| `[server]` | 使指令作为服务器控制台而不是玩家运行 |
 
 #### 描述占位符
 
@@ -182,7 +182,7 @@ GUI 是一个箱子物品栏。每行有 9 个槽位（0–8），最大是 6 �
 
 ## 示例：默认和 VIP 面板
 
-下面是一个实际示例，展示两个面板——一个所有玩家都能看到的默认面板和一个捐献者的 VIP 面板。它演示了槽位范围、多个点击操作、控制台命令、PlaceholderAPI 占位符和 ItemsAdder 图标。
+下面是一个实际示例，展示两个面板——一个所有玩家都能看到的默认面板和一个捐献者的 VIP 面板。它演示了槽位范围、多个点击操作、控制台指令、PlaceholderAPI 占位符和 ItemsAdder 图标。
 
 ```yaml
 panel-list:
@@ -238,7 +238,7 @@ panel-list:
           &7 保护设置。
         command: '[label] settings'
 
-      # 控制台命令——作为服务器运行，不是玩家
+      # 控制台指令——作为服务器运行，不是玩家
       17:
         name: '&c&l Report Bug'
         icon: minecraft:writable_book
@@ -296,8 +296,8 @@ panel-list:
       command: ''
     ```
 
-??? tip "以控制台身份运行命令"
-    在命令前缀加上 `[server]` 来以服务器控制台身份执行它。这让你可以授予 kits、运行经济命令或执行玩家没有直接权限运行的管理操作：
+??? tip "以控制台身份运行指令"
+    在指令前缀加上 `[server]` 来以服务器控制台身份执行它。这让你可以授予 kits、运行经济指令或执行玩家没有直接权限运行的管理操作：
     ```yaml
     command: '[server] give [player] diamond 64'
     ```
@@ -315,7 +315,7 @@ panel-list:
     ```
 
 ??? tip "重新加载更改后"
-    编辑 `controlPanelTemplate.yml` 后，运行 `/{admin} cp import` 来重新加载。如果你进行了 `config.yml` 的更改，请使用 BentoBox 重新加载命令：`/{admin} bentobox reload`。
+    编辑 `controlPanelTemplate.yml` 后，运行 `/{admin} cp import` 来重新加载。如果你进行了 `config.yml` 的更改，请使用 BentoBox 重新加载指令：`/{admin} bentobox reload`。
 
 ## 常见问题
 
@@ -328,11 +328,11 @@ panel-list:
 ??? question "支持什么图标类型？"
     ControlPanel 支持三种图标类型，按此优先级顺序检查：ItemsAdder 自定义物品（`itemsadder` 字段）、BentoBox ItemParser 格式（`icon` 字段）和原版 Minecraft 材料（`material` 字段）。如果都未指定，按钮默认为纸张。
 
-??? question "我可以以服务器控制台身份运行命令吗？"
-    可以。在命令前缀加上 `[server]`，它将由控制台而不是玩家执行。你也可以在命令字符串中使用 `[player]` 来插入点击玩家的名称。例如：`[server] give [player] diamond 64`。
+??? question "我可以以服务器控制台身份运行指令吗？"
+    可以。在指令前缀加上 `[server]`，它将由控制台而不是玩家执行。你也可以在指令字符串中使用 `[player]` 来插入点击玩家的名称。例如：`[server] give [player] diamond 64`。
 
 ??? question "单个按钮可以根据我如何点击它来做不同的事情吗？"
-    可以。每个按钮支持多达三个不同的命令：`command` 用于左键点击、`right_click_command` 用于右键点击、`shift_click_command` 用于 shift+左键点击。如果未设置特定的点击命令，它会退回到常规的 `command`。
+    可以。每个按钮支持多达三个不同的指令：`command` 用于左键点击、`right_click_command` 用于右键点击、`shift_click_command` 用于 shift+左键点击。如果未设置特定的点击指令，它会退回到常规的 `command`。
 
 ??? question "你能添加功能 X 吗？"
     请在[这里](https://github.com/BentoBoxWorld/ControlPanel/issues)添加。

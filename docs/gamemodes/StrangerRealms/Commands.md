@@ -1,13 +1,13 @@
-# StrangerRealms 玩家命令（别名：/st）
+# StrangerRealms 玩家指令（别名：/st）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/strange` | 主命令 | `strangerrealms.island` |
+| `/strange` | 主指令 | `strangerrealms.island` |
 | `/strange claim` | 在世界中声称一块土地 | `strangerrealms.claim` |
 | `/strange unclaim` | 放弃声称 | `strangerrealms.unclaim` |
 | `/strange ban <player>` | 从您的领域中封禁一个玩家 | `strangerrealms.island.ban` |
 | `/strange banlist` | 列出被封禁的玩家 | `strangerrealms.island.ban` |
-| `/strange challenges [Level]` | 让玩家使用 /strange challenges 命令。需要 Challenges 附属 | `strangerrealms.challenges` |
+| `/strange challenges [Level]` | 让玩家使用 /strange challenges 指令。需要 Challenges 附属 | `strangerrealms.challenges` |
 | `/strange go [home name]` | 将您传送到您的声称或特定的家名称（如果启用） | `strangerrealms.island.home` |
 | `/strange info <player>` | 显示您的声称或玩家声称的相关信息 | `strangerrealms.island.info` |
 | `/strange language` | 选择语言 | `strangerrealms.island.language` |
@@ -37,18 +37,18 @@
 | `/strange warp <name>` | 传送到玩家的传送标记 - 需要 Warp 附属 | `strangerrealms.island.warp` |
 | `/strange warps` | 打开传送面板 - 需要 Warp 附属 | `strangerrealms.island.warp` |
 
-# StrangerRealms 管理员命令（别名：/stranger）
+# StrangerRealms 管理员指令（别名：/stranger）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
 | `/stranger add <owner> <player>` | 将玩家添加到所有者的团队 | `strangerrealms.mod.team` |
-| `/stranger challenges` | 访问 /stranger challenges 管理员命令。需要 Challenges 附属。 | `strangerrealms.admin.challenges` |
+| `/stranger challenges` | 访问 /stranger challenges 管理员指令。需要 Challenges 附属。 | `strangerrealms.admin.challenges` |
 | `/stranger deaths` | 编辑玩家的死亡次数 | `strangerrealms.admin.deaths` |
 | `/stranger disband <owner>` | 解散所有者的团队 | `strangerrealms.mod.team` |
 | `/stranger getrank <player>` | 获取玩家在其声称中的等级 | `strangerrealms.admin.getrank` |
 | `/stranger info <player>` | 获取您所在位置或玩家声称的信息 | `strangerrealms.mod.info` |
 | `/stranger kick <team player>` | 将玩家从团队中踢出 | `strangerrealms.mod.team` |
-| `/stranger range` | 管理员领域范围命令 - 临时更改声称的范围 | `strangerrealms.admin.range` |
+| `/stranger range` | 管理员领域范围指令 - 临时更改声称的范围 | `strangerrealms.admin.range` |
 | `/stranger bp` | 操纵蓝图 - 默认只是在 y = -64 处放置的基岩块 | `strangerrealms.admin.blueprint` |
 | `/stranger bp copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选地包括空气块 | `strangerrealms.admin.blueprint` |
 | `/stranger bp load <schem name>` | 将蓝图加载到剪贴板 | `strangerrealms.admin.blueprint` |

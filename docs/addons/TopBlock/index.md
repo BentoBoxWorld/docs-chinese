@@ -108,20 +108,20 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
             tooltip: topblock.gui.tips.click-to-view
     ```
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的 `config.yml` 文件包含允许你修改这些值的选项。
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`,默认的 `[admin_command]` 是 `bsbadmin`。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] topblock`: 访问排行榜面板。需要 `aoneblock.island.topblock` 权限。
 
 ## 权限
 
 === "玩家权限"
-    - `aoneblock.island.topblock` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 命令。
+    - `aoneblock.island.topblock` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 指令。
     - `aoneblock.intopten` - (默认: `true`) - 控制该玩家的岛屿是否出现在前十名中。从管理员或测试人员处移除此权限可将其排除在排行榜之外。
 
 ??? question "有缺失的内容吗?"
