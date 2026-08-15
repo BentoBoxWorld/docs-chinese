@@ -88,7 +88,7 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
     !!! summary "描述"
         阶段图标仅在 `phases` 面板中使用。
 
-        图标是使用 [BentoBox ItemParser](https://docs.bentobox.world/en/latest/BentoBox/ItemParser/) 创建的。
+        图标是使用 [BentoBox ItemParser](https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/) 创建的。
 
 === "fixedBlocks"
     !!! summary "描述"
@@ -129,7 +129,7 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
     !!! summary "描述"
         `biome` 是一个实验性选项。然而，它只改变“魔法”方块位置的生物群系。
         因此，我们建议使用具有更改整个岛屿生物群系选项的 Biomes 插件。
-        您可以在阶段开始命令中使用它，这将触发生物群系变化。
+        您可以在阶段开始指令中使用它，这将触发生物群系变化。
 
 === "requiredMinecraftVersion"
     !!! summary "描述"
@@ -150,15 +150,15 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 
 === "start-commands"
     !!! summary "描述"
-        `start-commands` 部分允许定义在玩家开始此阶段时将触发的命令。
+        `start-commands` 部分允许定义在玩家开始此阶段时将触发的指令。
     
-        命令作为控制台运行，除非命令前缀为 `[SUDO]`，那么命令将作为触发命令的玩家运行。
+        指令作为控制台运行，除非指令前缀为 `[SUDO]`，那么指令将作为触发指令的玩家运行。
     
-        这些占位符将在命令字符串中被替换为相应的值：
+        这些占位符将在指令字符串中被替换为相应的值：
     
         - `[island]` - 岛屿名称
         - `[owner]` - 岛屿所有者的名称
-        - `[player]` - 破坏方块触发命令的玩家名称
+        - `[player]` - 破坏方块触发指令的玩家名称
         - `[phase]` - 此阶段的名称
         - `[blocks]` - 破坏的方块数量
         - `[level]` - 你的岛屿等级（需要 Levels 插件）
@@ -175,15 +175,15 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 
 === "end-commands"
     !!! summary "描述"
-        `end-commands` 部分允许定义在玩家完成此阶段时将触发的命令。
+        `end-commands` 部分允许定义在玩家完成此阶段时将触发的指令。
     
-        命令作为控制台运行，除非命令前缀为 `[SUDO]`，那么命令将作为触发命令的玩家运行。
+        指令作为控制台运行，除非指令前缀为 `[SUDO]`，那么指令将作为触发指令的玩家运行。
     
-        这些占位符将在命令字符串中被替换为相应的值：
+        这些占位符将在指令字符串中被替换为相应的值：
     
         - `[island]` - 岛屿名称
         - `[owner]` - 岛屿所有者的名称
-        - `[player]` - 破坏方块触发命令的玩家名称
+        - `[player]` - 破坏方块触发指令的玩家名称
         - `[phase]` - 此阶段的名称
         - `[blocks]` - 破坏的方块数量
         - `[level]` - 你的岛屿等级（需要 Levels 插件）
@@ -254,7 +254,7 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
         此外，必须使用类型、数据和概率值定义方块。
         支持的类型有：
         
-          - `block-data` - 使用 `/setblock` 命令将方块放置在世界中。需要 `data` 字段
+          - `block-data` - 使用 `/setblock` 指令将方块放置在世界中。需要 `data` 字段
           - `mob` - 使用生成实体 API 创建请求的实体。需要 `mob` 字段，以及可选的 `underlying-block` 字段（默认值：STONE）
           - `itemsadder` - 使用 [ItemsAdder](https://itemsadder.devs.beer/) API 创建方块。需要 `id` 字段。必须安装 ItemsAdder 插件。
           - `nexo` - 使用 [Nexo](https://polymart.org/resource/nexo.6901) API 创建方块。需要 `id` 字段。必须安装 Nexo 插件。
@@ -307,7 +307,7 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
         最后是宝箱的稀有度，可以是 COMMON、UNCOMMON、RARE 或 EPIC。它们的几率是硬编码的，值为：62%，25%，9% 和 4%。
         
         设置宝箱的最佳方式是在游戏中进行。
-        用您想要的内容填充一个宝箱，然后在看着它时输入命令 `/<admin_cmd> setchest <phase> <rarity>`，其中 <phase> 是阶段的名称，rarity 是稀有度。使用 Tab Complete 查看选项。宝箱将自动添加到 oneblocks.yml 文件中并准备使用。目前，删除宝箱必须通过编辑 oneblocks.yml 文件并重新加载插件来完成。
+        用您想要的内容填充一个宝箱，然后在看着它时输入指令 `/<admin_cmd> setchest <phase> <rarity>`，其中 <phase> 是阶段的名称，rarity 是稀有度。使用 Tab Complete 查看选项。宝箱将自动添加到 oneblocks.yml 文件中并准备使用。目前，删除宝箱必须通过编辑 oneblocks.yml 文件并重新加载插件来完成。
     
         编辑宝箱物品时要非常小心，并检查材料是否是真正的 Bukkit 材料并且拼写正确。
 
@@ -361,24 +361,24 @@ BentoBox 1.17 API 引入了一个功能，允许实现可定制的 GUI。此插�
     ```
 
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 和 `[admin_command]` 是根据您运行的游戏模式不同而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据您运行的游戏模式不同而不同的指令。
     
     游戏模式的 `config.yml` 文件包含允许您修改这些值的选项。
     
     例如，在 AOneBlock 上，默认的 `[player_command]` 是 `ob`，默认的 `[admin_command]` 是 `oba`。
     
-    请注意，此插件允许在插件 `config.yml` 文件中更改玩家命令别名。
+    请注意，此插件允许在插件 `config.yml` 文件中更改玩家指令别名。
 
-=== "AOneBlock 独特的玩家命令"
+=== "AOneBlock 独特的玩家指令"
     - `/[player_command] count`：在 chant 中发送关于当前阶段进度的消息。
     - `/[player_command] phases`：打开 GUI，允许查看和选择阶段。
     - `/[player_command] setcount <number>`：允许更改当前阶段，其中 <number> 是阶段开始编号。
     - `/[player_command] check`：在魔法方块周围产生粒子或重新生成它，如果由于某种原因它丢失了。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] sanity [<phase>]`：如果阶段（或 <phase>）的宝箱正确，则发送消息。
     - `/[admin_command] setcount <player> <number>`：允许更改 <player> 的当前阶段，其中 <number> 是阶段开始编号。
     - `/[admin_command] setchest <phase> <rarity>`：将玩家正在看的宝箱保存到 <phase> 宝箱部分，并带有 <rarity>。
@@ -394,9 +394,9 @@ BentoBox 1.17 API 引入了一个功能，允许实现可定制的 GUI。此插�
         已禁用的阶段显示为灰色玻璃，受版本限制的阶段显示为屏障——两者仍然可以重新排序。没有配置图标的阶段会使用它的第一个方块作为图标。
 
 
-默认情况下，BentoBox GameMode 插件附带默认的子命令集，但是，每个插件都可能引入更多子命令。
+默认情况下，BentoBox GameMode 插件附带默认的子指令集，但是，每个插件都可能引入更多子指令。
 
-[完整的 AOneBlock 命令列表](Commands)
+[完整的 AOneBlock 指令列表](Commands)
 
 
 ## 权限
@@ -407,16 +407,16 @@ BentoBox 1.17 API 引入了一个功能，允许实现可定制的 GUI。此插�
 === "玩家权限"
     - `aoneblock.count` - 允许
 
-玩家使用 '/[player_command] count' 命令。默认启用。
-    - `aoneblock.phases` - 允许玩家使用 '/[player_command] phases' 命令。默认禁用。
-    - `aoneblock.island.setcount` - 允许玩家使用 '/[player_command] setcount' 命令。默认禁用。
-    - `aoneblock.respawn-block` - 允许玩家使用 '/[player_command] check' 命令。默认启用。
+玩家使用 '/[player_command] count' 指令。默认启用。
+    - `aoneblock.phases` - 允许玩家使用 '/[player_command] phases' 指令。默认禁用。
+    - `aoneblock.island.setcount` - 允许玩家使用 '/[player_command] setcount' 指令。默认禁用。
+    - `aoneblock.respawn-block` - 允许玩家使用 '/[player_command] check' 指令。默认启用。
 
 === "管理员权限"
-    - `aoneblock.admin.sanity` - 允许玩家使用 '/[admin_command] sanity' 命令。默认 OP。
-    - `aoneblock.admin.setchest` - 允许玩家使用 '/[admin_command] setchest' 命令。默认 OP。
-    - `aoneblock.admin.setcount` - 允许玩家使用 '/[admin_command] setcount' 命令。默认 OP。
-    - `aoneblock.admin.phases` - 允许玩家使用 '/[admin_command] phases' 命令打开阶段顺序编辑器。默认 OP。（1.26.0 起）
+    - `aoneblock.admin.sanity` - 允许玩家使用 '/[admin_command] sanity' 指令。默认 OP。
+    - `aoneblock.admin.setchest` - 允许玩家使用 '/[admin_command] setchest' 指令。默认 OP。
+    - `aoneblock.admin.setcount` - 允许玩家使用 '/[admin_command] setcount' 指令。默认 OP。
+    - `aoneblock.admin.phases` - 允许玩家使用 '/[admin_command] phases' 指令打开阶段顺序编辑器。默认 OP。（1.26.0 起）
 
 默认情况下，BentoBox GameMode 插件附带默认的子权限集，但是，每个插件都可能引入更多子权限。
 
@@ -650,7 +650,7 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 
     针对阶段 GUI 的错误修复版本，可直接替换，无需修改配置、语言或阶段文件。
 
-    - 🐛 **只有点击真的能成功时才提供“点击更改”。** `/[player_command] phases` 面板此前仅凭岛屿状态和阶段要求来决定是否提供切换阶段的操作，从未检查玩家是否拥有点击时实际用到的 `aoneblock.island.setcount` 权限。因此在为部分或全部权限组取消了该权限的服务器上，玩家会在每个符合条件的阶段上看到这个提示，点击后却得到*“你没有权限执行此命令”*。现在面板会先检查权限，再决定是否提供该操作。如果由于任何原因无法解析该子命令，面板仍会像以前一样保持宽松，因此不会有任何阶段因这次改动而变得无法点击。**拥有**该权限的玩家不会感到任何差别。
+    - 🐛 **只有点击真的能成功时才提供“点击更改”。** `/[player_command] phases` 面板此前仅凭岛屿状态和阶段要求来决定是否提供切换阶段的操作，从未检查玩家是否拥有点击时实际用到的 `aoneblock.island.setcount` 权限。因此在为部分或全部权限组取消了该权限的服务器上，玩家会在每个符合条件的阶段上看到这个提示，点击后却得到*“你没有权限执行此指令”*。现在面板会先检查权限，再决定是否提供该操作。如果由于任何原因无法解析该子指令，面板仍会像以前一样保持宽松，因此不会有任何阶段因这次改动而变得无法点击。**拥有**该权限的玩家不会感到任何差别。
 
     兼容性：BentoBox API 3.15.0+，Minecraft 1.21.5 或更高版本（Sulfur Caves 阶段本身需要 Minecraft 26.2+ 才会启用），Java 21。
 

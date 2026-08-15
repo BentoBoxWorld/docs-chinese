@@ -17,42 +17,42 @@
 3. 在 `config.yml` 中自定义设置(可选) 
 4. 重启服务器以应用新设置
 
-## 命令
+## 指令
 
 !!! tip
-    `[player_command]` 是一个根据你运行的游戏模式而不同的命令。
+    `[player_command]` 是一个根据你运行的游戏模式而不同的指令。
     游戏模式的 `config.yml` 文件包含允许你修改此值的设置。
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`。
 
 ### border
-**命令**: `/[player command] border`
+**指令**: `/[player command] border`
 **描述**: 打开/关闭边界。
 **权限**: `[gamemode].border.toggle`。默认: `op`。 
 **注意**: 自 Version 3.0.0 起需要权限。
 
 ### border type {...}  
-**命令**: `/[player command] border type {barrier | vanilla}`
+**指令**: `/[player command] border type {barrier | vanilla}`
 **描述**: 设置边界类型。不带参数运行可在可用类型之间切换。
 **权限**: `[gamemode].border.type`。默认: `true`。
 **示例**: `/[player command] border type barrier`
 
 ### bordertype {...}
-**命令**: `/[player command] bordertype {barrier | vanilla}`  
-**描述**: 与 `border type` 是同一个命令，直接注册在游戏模式命令之下。  
+**指令**: `/[player command] bordertype {barrier | vanilla}`  
+**描述**: 与 `border type` 是同一个指令，直接注册在游戏模式指令之下。  
 **权限**: `[gamemode].border.bordertype`。默认: `false`。  
 **示例**: `/[player command] bordertype vanilla`  
 
 ### border color {red|green|blue}
-**命令**: `/[player command] border color {red | green | blue}`（也可以写作 `/[player command] bordercolor {red | green | blue}`）
+**指令**: `/[player command] border color {red | green | blue}`（也可以写作 `/[player command] bordercolor {red | green | blue}`）
 **描述**: 为玩家设置原版世界边界颜色。仅在使用原版边界类型时适用。
-**权限**: 执行该命令本身需要 `[gamemode].border.color`。默认: `true`。
+**权限**: 执行该指令本身需要 `[gamemode].border.color`。默认: `true`。
 此外每种颜色还各自需要一个权限: `[gamemode].border.color.red`、`[gamemode].border.color.green`、`[gamemode].border.color.blue`（或 `[gamemode].border.color.*` 表示全部）。默认: `op`。
 **示例**: `/[player command] border color green`
 
 !!! warning "4.8.5 中的权限变动"
-    `[gamemode].border.color` 在 4.8.5 之前从未被声明，于是悄悄退回到仅限 OP，普通玩家根本无法执行颜色命令。现在它已声明，默认值为 `true`。
+    `[gamemode].border.color` 在 4.8.5 之前从未被声明，于是悄悄退回到仅限 OP，普通玩家根本无法执行颜色指令。现在它已声明，默认值为 `true`。
 
-    已声明的节点 `[gamemode].bordertype` 也被改名为 `[gamemode].border.bordertype`，即命令真正检查的那个节点。如果你在 LuckPerms（或类似插件）中授予或拒绝过 `[gamemode].bordertype`，请更新对应规则 —— 旧节点其实从来没有起过任何作用。
+    已声明的节点 `[gamemode].bordertype` 也被改名为 `[gamemode].border.bordertype`，即指令真正检查的那个节点。如果你在 LuckPerms（或类似插件）中授予或拒绝过 `[gamemode].bordertype`，请更新对应规则 —— 旧节点其实从来没有起过任何作用。
 
 !!! tip
     `[gamemode]` 是一个根据你运行的游戏模式而不同的前缀。
@@ -145,7 +145,7 @@ use-barrier-blocks: true
 ```
 
 ### 默认边界行为
-如果玩家拥有适当的权限,他们可以使用命令打开和关闭边界。
+如果玩家拥有适当的权限,他们可以使用指令打开和关闭边界。
 此设置将默认值设置为打开或关闭;将其设置为 `true` 以默认打开。
 
 ```yml
@@ -200,7 +200,7 @@ barrier-offset: 0
     边界本身没有独立的大小 —— 它是围绕每个岛屿的**保护范围**绘制的。所以要让边界变大或变小，你需要改变保护范围。
 
     - 通过类似 `[gamemode].island.range.<number>` 的权限给玩家更大的范围（例如 `bskyblock.island.range.150`）。
-    - 管理员可以用管理员范围命令为特定岛屿设置范围，例如 `/bsbadmin range set <player> <number>`。
+    - 管理员可以用管理员范围指令为特定岛屿设置范围，例如 `/bsbadmin range set <player> <number>`。
     - 范围永远不能大于**岛屿间距的一半**，而该间距在世界创建时设置一次，之后无法更改。
 
     完整细节请参阅[岛屿范围和间距](../../BentoBox/About/IslandManagement.md#岛屿范围和间距)。
@@ -282,7 +282,7 @@ barrier-offset: 0
     一个兼容性与权限修复版本。无需修改配置或语言文件。
 
     - 🐛 **不再抢走其他插件的死亡掉落物。** 4.7.0 加入的死亡掉落保护会把 `PlayerDeathEvent` 中的每一件物品都取出来、自己生成一遍，然后清空列表。于是 DeathChest、墓碑类插件和保留物品栏功能在更晚的优先级上运行时，看到的是一个空事件，而物品早已散落在地上。在默认的 `bounce-back: true` 下，这会静默地破坏所有这些插件。现在 Border 不再触碰事件中的掉落物，改在 MONITOR 优先级运行，只对下一 tick 内服务器自己在死亡点附近生成的物品执行回弹。如果掉落物被其他插件取走，就不会有任何回弹；如果掉落物仍然存在，则与以往完全一样地弹回边界内，并保留原版的初速度和消失计时。
-    - 🔺 **`[gamemode].border.color` 现已声明，默认值为 `true`，** 普通玩家因此可以像文档所述那样使用颜色命令。此前它从未在 `addon.yml` 中声明，所以退回到了仅限 OP。各个颜色（`.red`、`.green`、`.blue`）仍为 `op`。如果你之前为绕过这个问题而显式授予过这些权限，它们依然有效。
+    - 🔺 **`[gamemode].border.color` 现已声明，默认值为 `true`，** 普通玩家因此可以像文档所述那样使用颜色指令。此前它从未在 `addon.yml` 中声明，所以退回到了仅限 OP。各个颜色（`.red`、`.green`、`.blue`）仍为 `op`。如果你之前为绕过这个问题而显式授予过这些权限，它们依然有效。
     - 🔺 **`[gamemode].bordertype` 改名为 `[gamemode].border.bordertype`，** 也就是 `BorderTypeCommand` 真正检查的节点。其 `false` 默认值不变。请更新任何引用旧节点的 LuckPerms 规则 —— 旧节点无论如何都不起作用。
     - 除现有的 Modrinth 流程外，发布时现在会自动推送到 CurseForge 和 Hangar；Modrinth 上的适配版本已覆盖 1.21.5 – 1.21.11 和 26.1.x。
 

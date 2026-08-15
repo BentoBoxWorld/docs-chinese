@@ -11,12 +11,12 @@
 
 1. 将插件jar文件放入BentoBox插件的addons文件夹中
 2. 重启服务器
-3. 运行`/[admin_cmd] visit`命令来配置插件
+3. 运行`/[admin_cmd] visit`指令来配置插件
 
 ## 配置
 
 很多插件设置在管理员GUI中公开，但有些没有。
-更改命令标签需要重新启动服务器。
+更改指令标签需要重新启动服务器。
 
 ### config.yml
 
@@ -187,20 +187,20 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
             tooltip: visit.gui.tips.click-to-toggle
     ```
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
-    注意，这个插件允许在插件`config.yml`文件中更改玩家命令别名。
+    注意，这个插件允许在插件`config.yml`文件中更改玩家指令别名。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] visit <player>`：打开GUI或访问目标玩家的岛屿。
     - `/[player_command] visit configure`：打开GUI，允许管理访问设置。
     - `/[player_command] visit setlocation`：允许更改访客出生点位置。
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] visit <player>`：打开GUI，允许编辑插件设置和配置岛屿数据。
 
 ## 权限
@@ -211,13 +211,13 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "玩家权限"
-    - `[gamemode].visit` - 让玩家使用`/[player_command] visit`命令。
-    - `[gamemode].visit.configure` - 让玩家使用`/[admin_command] visit configure`命令。
-    - `[gamemode].visit.setlocation` - 让玩家使用`/[admin_command] visit setlocation`命令。
+    - `[gamemode].visit` - 让玩家使用`/[player_command] visit`指令。
+    - `[gamemode].visit.configure` - 让玩家使用`/[admin_command] visit configure`指令。
+    - `[gamemode].visit.setlocation` - 让玩家使用`/[admin_command] visit setlocation`指令。
     - `visit.icon.[material]` - 允许更改访问面板中玩家拥有的岛屿的图标。
 
 === "管理员权限"
-    - `[gamemode].admin.visit` - 让玩家使用`/[admin_command] visit`命令及其子命令。
+    - `[gamemode].admin.visit` - 让玩家使用`/[admin_command] visit`指令及其子指令。
     
 ??? question "缺少什么？"
     你可以在这个插件的[addon.yml](https://github.com/BentoBoxWorld/Visit/blob/develop/src/main/resources/addon.yml)文件中找到权限的综合列表。  
@@ -237,10 +237,10 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
     请在[这里](https://github.com/BentoBoxWorld/Visit/issues)添加。
 
 ??? question "玩家可以更改访客被传送的地点吗？"
-    是的，玩家可以使用命令：`/[player_cmd] visit setlocation`来设置。但是，请注意，访客不会被传送到“危险”的地点，如果位置不安全，他们将被传送到更安全的位置。
+    是的，玩家可以使用指令：`/[player_cmd] visit setlocation`来设置。但是，请注意，访客不会被传送到“危险”的地点，如果位置不安全，他们将被传送到更安全的位置。
 
 ??? question "管理员可以更改访客被传送的地点吗？"
-    是的，管理员可以使用命令：`/[admin_cmd] setspawnpoint`来设置。但是，请注意，访客不会被传送到“危险”的地点，如果位置不安全，他们将被传送到更安全的位置。
+    是的，管理员可以使用指令：`/[admin_cmd] setspawnpoint`来设置。但是，请注意，访客不会被传送到“危险”的地点，如果位置不安全，他们将被传送到更安全的位置。
 
 ??? question "玩家可以有自定义图标吗？"
     是的，通过添加权限`visit.icon.[material]`给岛屿所有者，可以更改访问面板中岛屿的图标。
@@ -249,10 +249,10 @@ BentoBox 1.17 API引入了一个功能，允许实现自定义GUI。这个插件
     是的，配置选项`disable-economy`将完全禁用所有经济部分。
 
 ??? question "如何允许/不允许岛屿成员更改访问值？"
-    岛屿所有者（和拥有`CHANGE_SETTINGS`权限的成员）可以通过设置面板编辑`RANKED_COMMANDS`访问。那里将有`/[player_cmd] visit configure`命令。
+    岛屿所有者（和拥有`CHANGE_SETTINGS`权限的成员）可以通过设置面板编辑`RANKED_COMMANDS`访问。那里将有`/[player_cmd] visit configure`指令。
 
 ??? question "如何允许/不允许岛屿成员更改访问位置？"
-    岛屿所有者（和拥有`CHANGE_SETTINGS`权限的成员）可以通过设置面板编辑`RANKED_COMMANDS`访问。那里将有`/[player_cmd] visit setlocation`命令。
+    岛屿所有者（和拥有`CHANGE_SETTINGS`权限的成员）可以通过设置面板编辑`RANKED_COMMANDS`访问。那里将有`/[player_cmd] visit setlocation`指令。
 
 
 

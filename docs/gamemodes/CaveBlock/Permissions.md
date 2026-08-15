@@ -124,7 +124,7 @@
 <tr>
 <td align='left'>caveblock.mod.team</td>
 <td align='left'>false</td> 
-<td align='left'>允许通过踢出和添加命令修改团队</td>
+<td align='left'>允许通过踢出和添加指令修改团队</td>
 </tr>
 <tr>
 <td align='left'>caveblock.mod.tp</td>
@@ -139,7 +139,7 @@
 <tr>
 <td align='left'>caveblock.island</td>
 <td align='left'>true</td>
-<td align='left'>允许使用 <b>/cave</b> 命令</td>
+<td align='left'>允许使用 <b>/cave</b> 指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.island.ban</td>
@@ -164,7 +164,7 @@
 <tr>
 <td align='left'>caveblock.island.info</td>
 <td align='left'>true</td>
-<td align='left'>让玩家使用岛屿信息命令</td>
+<td align='left'>让玩家使用岛屿信息指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.island.language</td>
@@ -188,7 +188,7 @@
 <tr>
 <td align='left'>caveblock.island.reset</td>
 <td align='left'>true</td>
-<td align='left'>玩家可以使用洞穴重置或重启命令</td>
+<td align='left'>玩家可以使用洞穴重置或重启指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.island.sethome</td>
@@ -203,22 +203,22 @@
 <tr>
 <td align='left'>caveblock.island.spawn</td>
 <td align='left'>true</td>
-<td align='left'>如果出生点存在，玩家可以使用洞穴出生点命令</td>
+<td align='left'>如果出生点存在，玩家可以使用洞穴出生点指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.island.team</td>
 <td align='left'>true</td>
-<td align='left'>让玩家使用团队命令</td>
+<td align='left'>让玩家使用团队指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.island.team.coop</td>
 <td align='left'>true</td>
-<td align='left'>让玩家使用团队合作命令</td> 
+<td align='left'>让玩家使用团队合作指令</td> 
 </tr>
 <tr>
 <td align='left'>caveblock.island.team.trust</td>
 <td align='left'>true</td>
-<td align='left'>让玩家使用团队信任命令</td>
+<td align='left'>让玩家使用团队信任指令</td>
 </tr>
 <tr>
 <td align='left'>caveblock.settings.*</td>

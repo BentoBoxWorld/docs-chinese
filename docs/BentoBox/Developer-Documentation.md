@@ -67,7 +67,7 @@ PlayerEvent.builder()
 
 *BentoBox 3.21.0 新增。*
 
-`world.bentobox.bentobox.api.dialogs` 封装了 Paper 的模态对话框系统，该系统需要 **Minecraft 26 或更高版本**。对话框与 Panels API 并列存在：面板是一个玩家可以随手点掉的物品栏，而对话框是玩家必须作答的模态窗口。核心用它来实现命令确认、`/island go` 目的地选择器、队伍邀请，以及首次加入时的游戏模式选择器。
+`world.bentobox.bentobox.api.dialogs` 封装了 Paper 的模态对话框系统，该系统需要 **Minecraft 26 或更高版本**。对话框与 Panels API 并列存在：面板是一个玩家可以随手点掉的物品栏，而对话框是玩家必须作答的模态窗口。核心用它来实现指令确认、`/island go` 目的地选择器、队伍邀请，以及首次加入时的游戏模式选择器。
 
 | 类 | 用途 |
 | --- | --- |

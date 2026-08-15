@@ -85,35 +85,35 @@ hide:
   <div class="bb-modes">
     <a href="gamemodes/BSkyBlock/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#cfe7d4"></span>
-      <span><span class="bb-mode-name">BSkyBlock</span><span class="bb-mode-sub">天空 &middot; 岛屿</span></span>
+      <span><span class="bb-mode-name">BSkyBlock</span><span class="bb-mode-sub">空 &middot; 岛</span></span>
     </a>
     <a href="gamemodes/AcidIsland/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#a8d6ee"></span>
-      <span><span class="bb-mode-name">AcidIsland</span><span class="bb-mode-sub">酸液海洋</span></span>
+      <span><span class="bb-mode-name">AcidIsland</span><span class="bb-mode-sub">酸岛</span></span>
     </a>
     <a href="gamemodes/AOneBlock/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#e8d49e"></span>
-      <span><span class="bb-mode-name">AOneBlock</span><span class="bb-mode-sub">一块方块</span></span>
+      <span><span class="bb-mode-name">AOneBlock</span><span class="bb-mode-sub">单方块</span></span>
     </a>
     <a href="gamemodes/CaveBlock/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#a09689"></span>
-      <span><span class="bb-mode-name">CaveBlock</span><span class="bb-mode-sub">地下</span></span>
+      <span><span class="bb-mode-name">CaveBlock</span><span class="bb-mode-sub">洞穴生存</span></span>
     </a>
     <a href="gamemodes/Boxed/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#bfa6c9"></span>
-      <span><span class="bb-mode-name">Boxed</span><span class="bb-mode-sub">边界盒子</span></span>
+      <span><span class="bb-mode-name">Boxed</span><span class="bb-mode-sub">边界生存</span></span>
     </a>
     <a href="gamemodes/Poseidon/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#7fb3cc"></span>
-      <span><span class="bb-mode-name">Poseidon</span><span class="bb-mode-sub">水下</span></span>
+      <span><span class="bb-mode-name">Poseidon</span><span class="bb-mode-sub">波塞冬生存</span></span>
     </a>
     <a href="gamemodes/SkyGrid/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#c4d68f"></span>
-      <span><span class="bb-mode-name">SkyGrid</span><span class="bb-mode-sub">方块网格</span></span>
+      <span><span class="bb-mode-name">SkyGrid</span><span class="bb-mode-sub">天空网格</span></span>
     </a>
     <a href="gamemodes/StrangerRealms/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#cf6e72"></span>
-      <span><span class="bb-mode-name">StrangerRealms</span><span class="bb-mode-sub">神秘领域</span></span>
+      <span><span class="bb-mode-name">StrangerRealms</span><span class="bb-mode-sub">异界生存</span></span>
     </a>
   </div>
 </div>
@@ -133,6 +133,7 @@ hide:
     <a href="addons/Chat/" class="bb-chip">Chat</a>
     <a href="addons/CheckMeOut/" class="bb-chip">CheckMeOut</a>
     <a href="addons/ControlPanel/" class="bb-chip">ControlPanel</a>
+    <a href="addons/DeathChest/" class="bb-chip">DeathChest</a>
     <a href="addons/DimensionalTrees/" class="bb-chip">DimensionalTrees</a>
     <a href="addons/ExtraMobs/" class="bb-chip">ExtraMobs</a>
     <a href="addons/FarmersDance/" class="bb-chip">FarmersDance</a>
@@ -157,12 +158,12 @@ hide:
   <div class="bb-twin">
     <div class="bb-dev-card">
       <p class="bb-card-eyebrow" style="color:#7fb3cc">开发者</p>
-      <p class="bb-card-title">开发附加功能</p>
+      <p class="bb-card-title">开发附属</p>
       <ul class="bb-dev-links">
         <li><a href="BentoBox/Developer-Documentation">API 简介</a></li>
-        <li><a href="Tutorials/api/Create-an-addon">创建附加功能</a></li>
+        <li><a href="Tutorials/api/Create-an-addon">创建附属</a></li>
         <li><a href="BentoBox/Config-API">配置与数据库 API</a></li>
-        <li><a href="Tutorials/api/Templated-Panel">模板面板 API</a></li>
+        <li><a href="Tutorials/api/Templated-Panel">TemplatedPanel API</a></li>
         <li><a href="https://bentoboxworld.github.io/BentoBox">Javadocs &#8599;</a></li>
       </ul>
     </div>

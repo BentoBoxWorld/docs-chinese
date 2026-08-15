@@ -25,25 +25,25 @@
 | skygrid.mod.name                    | false| 允许为玩家的区域命名                               |
 | skygrid.mod.resethome               | op   | 允许设置或重置玩家的家位置                          |
 | skygrid.mod.resetname               | false| 允许重置玩家区域名                                |
-| skygrid.mod.team                    | false| 允许通过踢出和添加命令修改团队                       |
+| skygrid.mod.team                    | false| 允许通过踢出和添加指令修改团队                       |
 | skygrid.mod.tp                      | op   | 允许传送到一个区域                                |
 | skygrid.island.ban                  | true | 允许禁止访客                                   |
 | skygrid.island.expel                | true | 允许驱逐访客                                   |
 | skygrid.island.home                 | true | 允许传送到玩家区域                                |
-| skygrid.island.go                   | true | 使用 skygrid go 命令                             |
+| skygrid.island.go                   | true | 使用 skygrid go 指令                             |
 | skygrid.island.language             | true | 玩家可以选择语言                                 |
 | skygrid.island.lock                 | false| 允许区域锁定                                   |
 | skygrid.island.name                 | true | 玩家可以设置其区域的名称                            |
 | skygrid.island.number               | false| x 设置玩家可以制作的区域数量。                       |
-| skygrid.island.reset                | true | 玩家可以使用区域重置或重启命令                         |
-| skygrid.island.sethome              | true | 允许玩家使用sethome命令                          |
+| skygrid.island.reset                | true | 玩家可以使用区域重置或重启指令                         |
+| skygrid.island.sethome              | true | 允许玩家使用sethome指令                          |
 | skygrid.island.settings             | true | 玩家可以查看设置                                 |
-| skygrid.island.spawn                | true | 如果存在出生点，玩家可以使用区域出生命令                  |
-| skygrid.island.team                 | true | 允许玩家使用团队命令                               |
-| skygrid.island.team.coop            | true | 允许玩家使用团队合作命令                            |
-| skygrid.island.team.trust           | true | 允许玩家使用团队信任命令                            |
+| skygrid.island.spawn                | true | 如果存在出生点，玩家可以使用区域出生指令                  |
+| skygrid.island.team                 | true | 允许玩家使用团队指令                               |
+| skygrid.island.team.coop            | true | 允许玩家使用团队合作指令                            |
+| skygrid.island.team.trust           | true | 允许玩家使用团队信任指令                            |
 | skygrid.settings.*                  | true | 允许在区域上使用设置                               |
-| skygrid.island                      | true | 使用 **/skygrid** 命令                          |
+| skygrid.island                      | true | 使用 **/skygrid** 指令                          |
 | skygrid.team.maxsize.[NUMBER]       | false| 允许玩家拥有默认值以上的更大团队尺寸。                  |
 | skygrid.island.maxhomes.[NUMBER]    | false| 允许玩家拥有默认值以上的更多家。                      |
 | skygrid.island.range.[NUMBER]       | false| 允许玩家拥有默认值以上的更大保护范围。                  |

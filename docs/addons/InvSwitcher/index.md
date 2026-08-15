@@ -90,23 +90,23 @@ economy:
   debug: false                       # 将每笔交易记录到控制台(冗长)
 ```
 
-## 命令
+## 指令
 
-1.18.0 新增。每个受管理的游戏模式都会获得自己的经济命令,作用域限定为该游戏模式的世界,因此无论你身处何处,`/bsb balance` 都会显示你的 BSkyBlock 余额,`/ai balance` 显示你的 AcidIsland 余额。
+1.18.0 新增。每个受管理的游戏模式都会获得自己的经济指令,作用域限定为该游戏模式的世界,因此无论你身处何处,`/bsb balance` 都会显示你的 BSkyBlock 余额,`/ai balance` 显示你的 AcidIsland 余额。
 
 !!! tip
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
 
-=== "玩家命令"
+=== "玩家指令"
 
-    | 命令 | 描述 |
+    | 指令 | 描述 |
     |---|---|
     | `/[player_command] balance` | 显示你在此世界的金钱余额 |
     | `/[player_command] pay <玩家> <金额>` | 向另一名玩家付款 |
 
-=== "管理员命令"
+=== "管理员指令"
 
-    | 命令 | 描述 |
+    | 指令 | 描述 |
     |---|---|
     | `/[admin_command] eco give <玩家> <金额>` | 给予玩家金钱 |
     | `/[admin_command] eco take <玩家> <金额>` | 扣除玩家金钱 |
@@ -146,7 +146,7 @@ economy:
     1.18.0 按世界经济版本的后续。即插即用替换 — 无配置或本地化更改。
 
     - 🐛 **独立经济现在可以自己工作。** InvSwitcher 注册了自己的按世界 Vault 经济，但 BentoBox 在附属启用前挂接 Vault，所以当 InvSwitcher 是服务器上唯一的经济时，那个早期钩子找不到任何内容并被丢弃 — 经济依赖的附属如 **Bank** 以*"需要 Vault"*禁用自己。InvSwitcher 现在在其提供者上线后向 BentoBox 注册一个新的 Vault 钩子，所以它可以作为服务器的唯一经济工作（无需单独的经济插件如 EssentialsX）。
-    - 🐛 **离线经济交易报告的余额正确。** 管理员对离线玩家的 `eco give/set/take` 报告了过时的余额（例如给予 2,000 后显示"新余额：0.00"）。金钱总是正确地存储；确认消息在异步保存刷新之前重新读取了余额。命令现在报告由交易本身返回的权威余额，离线读写后路径得到加强，所以两个快速连续的交易不再会丢失更新。
+    - 🐛 **离线经济交易报告的余额正确。** 管理员对离线玩家的 `eco give/set/take` 报告了过时的余额（例如给予 2,000 后显示"新余额：0.00"）。金钱总是正确地存储；确认消息在异步保存刷新之前重新读取了余额。指令现在报告由交易本身返回的权威余额，离线读写后路径得到加强，所以两个快速连续的交易不再会丢失更新。
 
     [发布 v1.19.0](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.19.0)
 
@@ -171,7 +171,7 @@ economy:
 
     - 🔺⚙️🔡 **按世界金钱。** InvSwitcher 现在可以为每个游戏世界提供独立的经济,在它已经切换的物品栏、生命值、经验值和统计数据之外。启用 `options.money` 后,它会将自身注册为 Vault 经济提供者,并将每笔交易路由到正确世界的余额——即使玩家离线或身处其他世界。
     - ⚙️ **新增配置:** `options.money`、`options.islands.money` 以及一个 `economy:` 部分(起始余额、货币名称、小数位数、导入开关、委派开关、调试)。现有配置仍可正常工作;新键会以安全的默认值添加。
-    - 🔡 **新增命令和占位符:** 每个游戏模式的玩家 `balance` 和 `pay`、管理员 `eco give/take/set/balance`,以及 `<gamemode>_invswitcher_balance` 和 `<gamemode>_invswitcher_balance_formatted` 占位符,已翻译为 BentoBox 附带的所有语言。
+    - 🔡 **新增指令和占位符:** 每个游戏模式的玩家 `balance` 和 `pay`、管理员 `eco give/take/set/balance`,以及 `<gamemode>_invswitcher_balance` 和 `<gamemode>_invswitcher_balance_formatted` 占位符,已翻译为 BentoBox 附带的所有语言。
     - 🐛 进度在切换世界时不再错误地增加经验值。
     - 🐛 BentoBox 岛屿重置不再清空错误世界的物品栏——InvSwitcher 现在会改为清除正确世界的*已存储*数据。
 

@@ -1,14 +1,14 @@
-#CaveBlock 岛屿管理员命令（别名：/cb）
+#CaveBlock 岛屿管理员指令（别名：/cb）
 
 <table width="100%" align="center">
 <tr>
-<td align='left'><b>命令</b></td>
+<td align='left'><b>指令</b></td>
 <td align='left'><b>描述</b></td>
 <td align='left'><b>权限</b></td>
 </tr>
 <tr>
 <td align='left'><b>/cave</b></td>
-<td align='left'>主要的岛屿命令</td>
+<td align='left'>主要的岛屿指令</td>
 <td align='left'>caveblock.island</td> 
 </tr>
 <tr>

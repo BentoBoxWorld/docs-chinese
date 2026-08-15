@@ -1,11 +1,11 @@
-# BSkyBlock 岛屿管理员命令 (别名: /bsb)
+# BSkyBlock 岛屿管理员指令 (别名: /bsb)
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/bsbadmin` | 显示所有 BSkyBlock 命令 | `bskyblock.island` |
+| `/bsbadmin` | 显示所有 BSkyBlock 指令 | `bskyblock.island` |
 | `/bsbadmin add <owner> <player>` | 将玩家添加到所有者的团队 | `bskyblock.mod.team` |
-| `/bsbadmin biomes` | 主要生物群系插件管理员命令。为玩家打开管理员 GUI | `bskyblock.admin.biomes` |
-| `/bsbadmin challenges` | 访问 /bsbadmin 挑战管理员命令 | `bskyblock.admin.challenges` |
+| `/bsbadmin biomes` | 主要生物群系插件管理员指令。为玩家打开管理员 GUI | `bskyblock.admin.biomes` |
+| `/bsbadmin challenges` | 访问 /bsbadmin 挑战管理员指令 | `bskyblock.admin.challenges` |
 | `/bsbadmin deaths` | 编辑玩家的死亡次数 | `bskyblock.admin.deaths` |
 | `/bsbadmin delete` | 删除玩家的岛屿 | `bskyblock.admin.delete` |
 | `/bsbadmin disband <owner>` | 解散所有者的团队 | `bskyblock.mod.team` |
@@ -13,10 +13,10 @@
 | `/bsbadmin info <player>` | 获取你所在位置或玩家岛屿的信息 | `bskyblock.mod.info` |
 | `/bsbadmin kick <team player>` | 将玩家从团队中踢出 | `bskyblock.mod.team` |
 | `/bsbadmin level <player>` | 计算玩家的岛屿等级 - 需要等级插件 | `bskyblock.admin.level` |
-| `/bsbadmin range` | 管理员岛屿范围命令 | `bskyblock.admin.range` |
+| `/bsbadmin range` | 管理员岛屿范围指令 | `bskyblock.admin.range` |
 | `/bsbadmin register <player>` | 注册玩家到你所在的无主岛屿 | `bskyblock.admin.register` |
 | `/bsbadmin reload` | 重新加载插件 | `bskyblock.admin.reload` |
-| `/bsbadmin reset` | 重置命令管理员设置 | `bskyblock.admin.settingsreset` |
+| `/bsbadmin reset` | 重置指令管理员设置 | `bskyblock.admin.settingsreset` |
 | `/bsbadmin bp` | 操纵蓝图 | `bskyblock.admin.blueprint` |
 | `/bsbadmin bp copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选包括空气块 | `bskyblock.admin.blueprint` |
 | `/bsbadmin bp load <schem name>` | 将蓝图加载到剪贴板 | `bskyblock.admin.blueprint` |
@@ -37,16 +37,16 @@
 | `/bsbadmin version` | 显示 BentoBox 和插件的版本 | `bskyblock.admin.version` |
 | `/bsbadmin why <player>` | 切换控制台保护调试报告 | `bskyblock.admin.why` |
 
-# BSkyBlock 岛屿玩家命令 (别名: /is)
+# BSkyBlock 岛屿玩家指令 (别名: /is)
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/island` | 主岛屿命令 | `bskyblock.island` |
+| `/island` | 主岛屿指令 | `bskyblock.island` |
 | `/island about` | 关于此插件 | `bskyblock.island` |
 | `/island ban <player>` | 将玩家从你的岛屿中禁止 | `bskyblock.island.ban` |
 | `/island banlist` | 列出被禁止的玩家 | `bskyblock.island.ban` |
-| `/island biomes` | 主要生物群系插件命令，打开生物群系更改 GUI。需要生物群系插件。 | `bskyblock.admin.biomes` |
-| `/island challenges [Level]` | 让玩家使用 /island challenges 命令。需要挑战插件 | `bskyblock.challenges` |
+| `/island biomes` | 主要生物群系插件指令，打开生物群系更改 GUI。需要生物群系插件。 | `bskyblock.admin.biomes` |
+| `/island challenges [Level]` | 让玩家使用 /island challenges 指令。需要挑战插件 | `bskyblock.challenges` |
 | `/island create <blueprint>` | 使用可选蓝图创建岛屿。（通常不直接由玩家使用） | `bskyblock.island.create` |
 | `/island go [home name]` | 传送到你的岛屿或指定的家名称（如果启用） | `bskyblock.island.home` |
 | `/island info <player>` | 显示关于你的岛屿或玩家岛屿的信息 | `bskyblock.island.info` |
@@ -86,6 +86,6 @@
 
 | 设置 | 可启用或禁用的标记 |
 | --- | --- |
-| 保护设置 | 动物骑乘、铁砧、盔甲架、信标、床、破坏方块、繁殖动物、酿造台、桶、按钮、紫颂果、收集熔岩、收集水、投掷鸡蛋、附魔台、末地传送门、末影珍珠、经验获取、火、灭火、鱼类捞取、冰霜行者、熔炉、栅栏门、伤害动物、伤害怪物、伤害村民、掉落物品、拾取物品、唱片机使用、牵引绳使用、拉杆使用、锁定岛屿、挤奶、骑乘库存、名字标签、下界传送门、音符盒、放置方块、压力板、红石物品、剪毛、刷怪蛋、下一页（标记）、TNT 伤害、踩踏农作物、活板门、海龟蛋、使用门、村民交易、工作台、使用容器、使用发射器、使用投掷器、使用漏斗、使用物品框、投掷药水、上一页（标记） |
+| 保护设置 | 动物骑乘、铁砧、盔甲架、信标、床、破坏方块、繁殖动物、酿造台、桶、按钮、紫颂果、收集岩浆、收集水、投掷鸡蛋、附魔台、末地传送门、末影珍珠、经验获取、火、灭火、鱼类捞取、冰霜行者、熔炉、栅栏门、伤害动物、伤害怪物、伤害村民、掉落物品、拾取物品、唱片机使用、牵引绳使用、拉杆使用、锁定岛屿、挤奶、骑乘库存、名字标签、下界传送门、音符盒、放置方块、压力板、红石物品、剪毛、刷怪蛋、下一页（标记）、TNT 伤害、踩踏农作物、活板门、海龟蛋、使用门、村民交易、工作台、使用容器、使用发射器、使用投掷器、使用漏斗、使用物品框、投掷药水、上一页（标记） |
 | 通用设置 | 动物生成、末地 PVP、火焰蔓延、怪物生成、下界 PVP、主世界 PVP |
-| BSkyBlock 设置 | 箱子伤害、清洁超平坦、粗泥土耕作、爬行者伤害、爬行者破坏、末地箱子、末影人破坏、进入/退出消息、岛屿重生、离线红石、活塞推动、移除怪物、黑曜石捞取、羽落缓冲传送、命令等级、无敌访客、限制怪物到岛屿 |
+| BSkyBlock 设置 | 箱子伤害、清洁超平坦、粗泥土耕作、爬行者伤害、爬行者破坏、末地箱子、末影人破坏、进入/退出消息、岛屿重生、离线红石、活塞推动、移除怪物、黑曜石捞取、羽落缓冲传送、指令等级、无敌访客、限制怪物到岛屿 |

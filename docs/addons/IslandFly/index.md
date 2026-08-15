@@ -41,16 +41,16 @@
 
 === "allow-command-outside-protection-range"
     !!! 摘要 "描述"
-        允许玩家在岛屿保护范围外使用命令。
+        允许玩家在岛屿保护范围外使用指令。
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的命令。
+    `[player_command]` 和 `[admin_command]` 是根据你运行的游戏模式而不同的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] fly`: 切换飞行开/关。
 
 ## 权限
@@ -61,7 +61,7 @@
     类似地，如果你使用AcidIsland，前缀是`acidisland`。
 
 === "权限"
-    - `[gamemode].island.fly` - (默认: `true`) - 允许玩家使用 '/[player_command] fly' 命令。
+    - `[gamemode].island.fly` - (默认: `true`) - 允许玩家使用 '/[player_command] fly' 指令。
     - `[gamemode].island.flyspawn` - (默认: `op`) - 允许玩家在出生岛上飞行。
     - `[gamemode].island.flybypass` - (默认: `op`) - 允许玩家在其他玩家的岛屿上飞行。
 

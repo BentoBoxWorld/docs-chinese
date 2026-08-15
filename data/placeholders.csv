@@ -1,136 +1,136 @@
 source,placeholder,desc,version
-BentoBox,[gamemode]_world_friendly_name,Name of the gamemode's world,1.4.0
-BentoBox,[gamemode]_world_islands,Number of islands in this gamemode's world,1.5.0
-BentoBox,[gamemode]_island_distance,Half the distance between islands' centers of the gamemode's world,1.4.0
-BentoBox,[gamemode]_island_distance_diameter,Distance between islands of the gamemode's world,1.5.0
-BentoBox,[gamemode]_island_protection_range,Radius of the island's protection range,1.4.0
-BentoBox,[gamemode]_island_protection_range_diameter,Diameter of the island's protection range ,1.5.0
-BentoBox,[gamemode]_island_owner,Name of the island's owner,1.4.0
-BentoBox,[gamemode]_island_creation_date,Creation date of the island,1.4.0
-BentoBox,[gamemode]_island_name,Name of the island,1.4.0
-BentoBox,[gamemode]_island_name_<number>,Name of the players <number> island,2.3.0
-BentoBox,[gamemode]_island_center,Coordinates of the island's center,1.5.0
-BentoBox,[gamemode]_island_center_x,X coordinate of the island's center,1.5.0
-BentoBox,[gamemode]_island_center_y,Y coordinate of the island's center,1.5.0
-BentoBox,[gamemode]_island_center_z,Z coordinate of the island's center,1.5.0
-BentoBox,[gamemode]_island_members_max,Maximum number of members there can be on the island,1.5.0
-BentoBox,[gamemode]_island_members_count,"Number of members, subowners and owner there are on the island",1.5.0
-BentoBox,[gamemode]_island_members_list,Comma separated list of player names that are at least MEMBER on the island,1.13.0
-BentoBox,[gamemode]_island_members_list_<number>,Comma separated list of player names that are at least MEMBER on the players <number> island,2.3.0
-BentoBox,[gamemode]_island_trustees_count,Number of players trusted to the island,1.5.0
-BentoBox,[gamemode]_island_coops_count,Number of players cooped to the island,1.5.0
-BentoBox,[gamemode]_island_visitors_count,Number of players currently visiting the island,1.5.0
-BentoBox,[gamemode]_island_bans_count,Number of players banned from the island,1.5.0
-BentoBox,[gamemode]_visited_island_protection_range,Radius of the protection range of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_protection_range_diameter,Diameter of the protection range of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_owner,Name of the owner of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_creation_date,Creation date of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_name,Name of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_center,Coordinates of the center of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_center_x,X coordinate of the center of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_center_y,Y coordinate of the center of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_center_z,Z coordinate of the center of the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_members_max,Maximum number of members there can be on the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_members_count,"Number of members, subowners and owner there are on the island",1.5.2
-BentoBox,[gamemode]_visited_island_members_list,Comma separated list of player names that are at least MEMBER on the island the player is standing on,1.13.0
-BentoBox,[gamemode]_visited_island_trustees_count,Number of players trusted on the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_coops_count,Number of players cooped to the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_visitors_count,Number of players currently visiting the island the player is standing on,1.5.2
-BentoBox,[gamemode]_visited_island_bans_count,Number of players banned from the island the player is standing on,1.5.2
-BentoBox,[gamemode]_has_island,Whether the player has an island or not,1.5.0
-BentoBox,[gamemode]_owns_island,Whether the player is an owner of an island,1.14.0
-BentoBox,[gamemode]_rank,Rank the player has on his island,1.5.0
-BentoBox,[gamemode]_resets,Number of times the player has reset his island,1.5.0
-BentoBox,[gamemode]_resets_left,Number of times the player can reset his island,1.5.0
-BentoBox,[gamemode]_deaths,Number of times the player died,1.12.0
-BentoBox,[gamemode]_on_island,Whether the player is on an island he is part of or not,1.13.0
-BentoBox,[gamemode]_island_online_members_count,The number of online island members,2.0.1
-BentoBox,[gamemode]_visited_island_online_members_count,The number of online visited island members,2.0.1
-Bank,Bank_[gamemode]_island_balance,Island balance of the player's island,1.1.0
-Bank,Bank_[gamemode]_visited_island_balance,Island balance of the island the player is standing on,1.1.0
-Bank,Bank_[gamemode]_island_balance_number,Island balance of the player's island as a raw number,1.3.0
-Bank,Bank_[gamemode]_visited_island_balance_number,Island balance of the island the player is standing on as a raw number,1.3.0
-Bank,Bank_[gamemode]_island_balance_formatted,Island balance of the player's island as formatted number,1.3.0
-Bank,Bank_[gamemode]_visited_island_balance_formatted,Island balance of the island the player is standing on as formatted number,1.3.0
-Bank,Bank_[gamemode]_top_value_<number>,Island balance of the `<number>`-th island on the leader board,1.1.0
-Bank,Bank_[gamemode]_top_name_<number>,Island owner's name of the `<number>`-th island on the leader board,1.1.0
-Bank,Bank_[gamemode]_top_island_<number>,Island name of the `<number>`-th island on the leader board,1.10.0
-Bank,Bank_[gamemode]_latest_transaction,The player's most recent island bank transaction (rendered as `[Username] [TxType] $[Amount]`),1.10.0
-Challenges,[gamemode]_challenges_total_completion_count,Number of times the player completed challenges,0.8.3
-Challenges,[gamemode]_challenges_completed_count,Number of challenges the player has completed,0.8.3
-Challenges,[gamemode]_challenges_uncompleted_count,Number of challenges the player has not yet completed,0.8.3
-Challenges,[gamemode]_challenges_completed_percent,Percentage of all challenges the player has completed,1.8.0
-Challenges,[gamemode]_challenges_completed_level_count,Number of levels the player has completed,0.8.3
-Challenges,[gamemode]_challenges_uncompleted_level_count,Number of levels the player has not yet completed,0.8.3
-Challenges,[gamemode]_challenges_unlocked_level_count,Number of levels that are unlocked for the player,0.8.3
-Challenges,[gamemode]_challenges_locked_level_count,Number of levels that are locked for the player,0.8.3
-Challenges,[gamemode]_challenges_latest_level_name,Latest unlocked challenge level name,0.8.3
-Challenges,[gamemode]_challenges_latest_level_id,Latest unlocked challenge level id,0.8.3
-Challenges,[gamemode]_challenges_latest_level_completed_count,Number of challenges the player has completed in latest unlocked level,0.8.3
-Challenges,[gamemode]_challenges_latest_level_uncompleted_count,Number of challenges the player has not yet completed in latest unlocked level,0.8.3
-Challenges,[gamemode]_challenges_latest_level_completed_percent,Percentage of challenges the player has completed in latest unlocked level,1.8.0
-Level,Level_[gamemode]_island_level,Island level of the player's island,1.9.0
-Level,Level_[gamemode]_visited_island_level,Island level of the island the player is standing on,1.9.0
-Level,Level_[gamemode]_top_value_<number>,Island level of the `<number>`-th island in the Top 10,1.9.0
-Level,Level_[gamemode]_top_name_<number>,Island owner's name of the `<number>`-th island in the Top 10,1.9.0
-Level,Level_[gamemode]_top_island_name_<number>,Name of the `<number>`-th island in the Top 10,2.11.0
-Level,Level_[gamemode]_top_members_<number>,List of the members of the <number>`-th island in the Top 10,2.11.0
-Level,Level_[gamemode]_top_weighted_value_<number>,Weighted island level (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_name_<number>,Weighted island level name (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_members_<number>,Weighted island members (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_top_weighted_island_name_<number>,Weighted island name (level/number of members) of the `<number>`-th island in the Top 10,2.12.0
-Level,Level_[gamemode]_points_to_next_level,Points to the next level for player,2.3.3
-Level,Level_[gamemode]_rank_value,Displays island rank value,2.7.2
-Level,Level_[gamemode]_island_level_raw,Unformatted island level,2.8.1
-Level,Level_[gamemode]_island_total_points,Total number of points counted before applying level formula,2.10.0
-Level,Level_[gamemode]_island_level_max,Maximum level this island has ever been. Current level maybe lower.,2.10.0
-Likes,[gamemode]_likes_addon_island_likes_count,Count of likes that are set to player island,1.7.0
-Likes,[gamemode]_likes_addon_island_likes_place,Island place by likes count,1.7.0
-Likes,[gamemode]_likes_addon_island_dislikes_count,Count of dislikes that are set to player island,1.7.0
-Likes,[gamemode]_likes_addon_island_dislikes_place,Island place by dislikes count,1.7.0
-Likes,[gamemode]_likes_addon_island_rank_count,Rank number (likes - dislikes) that are set to player island,1.7.0
-Likes,[gamemode]_likes_addon_island_rank_place,Island place by rank,1.7.0
-Likes,[gamemode]_likes_addon_island_stars_value,Average stars added to player island,2.0.0
-Likes,[gamemode]_likes_addon_island_stars_place,Island place by stars,2.0.0
-Likes,[gamemode]_likes_addon_visited_island_likes_count,Count of likes that are set to island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_likes_place,Island place by likes count for island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_dislikes_count,Count of dislikes that are set to island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_dislikes_place,Island place by dislikes count for island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_rank_count,Rank number (likes - dislikes) that are set to island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_rank_place,Island place by rank for island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_stars_value,Average stars added to island at player location,2.1.0
-Likes,[gamemode]_likes_addon_visited_island_stars_place,Island place by stars for island at player location,2.1.0
-Likes,[gamemode]_likes_addon_top_likes_owner_name_<number>,Island owner name who are in place `<number>` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_likes_island_name_<number>,Island name which are in place `<number>` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_likes_count_<number>,Count of likes for island that are in place `<number>` by likes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_owner_name_<number>,Island owner name who are in place `<number>` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_island_name_<number>,Island name which are in place `<number>` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_dislikes_count_<number>,Count of dislikes for island that are in place `<number>` by dislikes,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_owner_name_<number>,Island owner name who are in place `<number>` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_island_name_<number>,Island name which are in place `<number>` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_rank_count_<number>,Rank value for island that are in place `<number>` by rank,1.7.0
-Likes,[gamemode]_likes_addon_top_stars_owner_name_<number>,Island owner name who are in place `<number>` by stars,2.0.0
-Likes,[gamemode]_likes_addon_top_stars_island_name_<number>,Island name which are in place `<number>` by stars,2.0.0
-Likes,[gamemode]_likes_addon_top_stars_count_<number>,Average stars for island that are in place `<number>` by stars,2.0.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_count,Number of currently active generators on player island,2.2.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_max_active_generator_count,Number of maximal allowed active generators on player island,2.2.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_names,List of active generator names separated with comma,2.2.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_unlocked_generator_names,List of unlocked generator names separated with comma,2.2.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_purchased_generator_names,List of purchased generator names separated with comma,2.2.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaustion_status,Exhaustion status (generated count / limit) for every active generator on the player island,2.8.0
-MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,List of the player island's generators that are currently on exhaustion cooldown separated with comma,2.8.0
-Limits,Limits_[gamemode]_island_[material]_count,Current count of material (lower cased) on the island,1.17.2
-Limits,Limits_[gamemode]_island_[material]_limit,The limit of material (lower cased) for the island,1.17.2
-Limits,Limits_[gamemode]_island_reached_limits,"Comma-separated list of every limited block, entity, and entity group that is at or over its limit across all dimensions",1.29.0
-Limits,Limits_[gamemode]_island_reached_limits_overworld,Reached limits in the overworld only,1.29.0
-Limits,Limits_[gamemode]_island_reached_limits_nether,Reached limits in the nether only,1.29.0
-Limits,Limits_[gamemode]_island_reached_limits_end,Reached limits in the end only,1.29.0
-TopBlock,aoneblock_island_player_name_top_<number>,Island owner's name at the `<number>` position, 1.0.1
-TopBlock,aoneblock_island_member_names_top_<number>,Name of island team members at the `<number>` position, 1.0.1
-TopBlock,aoneblock_island_phase_name_top_<number>,Name of the phase they have reached at the `<number>` position, 1.0.1
-TopBlock,aoneblock_island_phase_number_top_<number>,Phase number (e.g. Plains is 1; Underground is 2) at the `<number>` position, 1.0.1
-TopBlock,aoneblock_island_count_top_<number>,Block Count of magic blocks mined this round at the `<number>` position, 1.0.1
-TopBlock,aoneblock_island_lifetime_top_<number>,Lifetime count of magic blocks mined at the `<number>` position, 1.0.1
-Border,Border_color,Current border color (red/green/blue) for the player,4.8.0
-InvSwitcher,[gamemode]_invswitcher_balance,The player's money balance for this gamemode's world,1.18.0
-InvSwitcher,[gamemode]_invswitcher_balance_formatted,The player's money balance for this gamemode's world formatted with currency name,1.18.0
+BentoBox,[gamemode]_world_friendly_name,该游戏模式世界的名称,1.4.0
+BentoBox,[gamemode]_world_islands,该游戏模式世界中的岛屿数量,1.5.0
+BentoBox,[gamemode]_island_distance,该游戏模式世界中岛屿中心之间距离的一半,1.4.0
+BentoBox,[gamemode]_island_distance_diameter,该游戏模式世界中岛屿之间的距离,1.5.0
+BentoBox,[gamemode]_island_protection_range,岛屿保护范围的半径,1.4.0
+BentoBox,[gamemode]_island_protection_range_diameter,岛屿保护范围的直径,1.5.0
+BentoBox,[gamemode]_island_owner,岛屿所有者的名称,1.4.0
+BentoBox,[gamemode]_island_creation_date,岛屿的创建日期,1.4.0
+BentoBox,[gamemode]_island_name,岛屿的名称,1.4.0
+BentoBox,[gamemode]_island_name_<number>,玩家第 <number> 个岛屿的名称,2.3.0
+BentoBox,[gamemode]_island_center,岛屿中心的坐标,1.5.0
+BentoBox,[gamemode]_island_center_x,岛屿中心的 X 坐标,1.5.0
+BentoBox,[gamemode]_island_center_y,岛屿中心的 Y 坐标,1.5.0
+BentoBox,[gamemode]_island_center_z,岛屿中心的 Z 坐标,1.5.0
+BentoBox,[gamemode]_island_members_max,岛屿可拥有的最大成员数量,1.5.0
+BentoBox,[gamemode]_island_members_count,岛屿上成员、副岛主和岛主的总人数,1.5.0
+BentoBox,[gamemode]_island_members_list,岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
+BentoBox,[gamemode]_island_members_list_<number>,玩家第 <number> 个岛屿上至少为成员级别的玩家名称列表（逗号分隔）,2.3.0
+BentoBox,[gamemode]_island_trustees_count,岛屿上受信任玩家的数量,1.5.0
+BentoBox,[gamemode]_island_coops_count,岛屿上合作玩家的数量,1.5.0
+BentoBox,[gamemode]_island_visitors_count,当前正在访问该岛屿的玩家数量,1.5.0
+BentoBox,[gamemode]_island_bans_count,被该岛屿封禁的玩家数量,1.5.0
+BentoBox,[gamemode]_visited_island_protection_range,玩家当前所在岛屿的保护范围半径,1.5.2
+BentoBox,[gamemode]_visited_island_protection_range_diameter,玩家当前所在岛屿的保护范围直径,1.5.2
+BentoBox,[gamemode]_visited_island_owner,玩家当前所在岛屿的所有者名称,1.5.2
+BentoBox,[gamemode]_visited_island_creation_date,玩家当前所在岛屿的创建日期,1.5.2
+BentoBox,[gamemode]_visited_island_name,玩家当前所在岛屿的名称,1.5.2
+BentoBox,[gamemode]_visited_island_center,玩家当前所在岛屿中心的坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_x,玩家当前所在岛屿中心的 X 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_y,玩家当前所在岛屿中心的 Y 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_z,玩家当前所在岛屿中心的 Z 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_members_max,玩家当前所在岛屿可拥有的最大成员数量,1.5.2
+BentoBox,[gamemode]_visited_island_members_count,玩家当前所在岛屿上成员、副岛主和岛主的总人数,1.5.2
+BentoBox,[gamemode]_visited_island_members_list,玩家当前所在岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
+BentoBox,[gamemode]_visited_island_trustees_count,玩家当前所在岛屿上受信任玩家的数量,1.5.2
+BentoBox,[gamemode]_visited_island_coops_count,玩家当前所在岛屿上合作玩家的数量,1.5.2
+BentoBox,[gamemode]_visited_island_visitors_count,当前正在访问玩家所在岛屿的玩家数量,1.5.2
+BentoBox,[gamemode]_visited_island_bans_count,被玩家当前所在岛屿封禁的玩家数量,1.5.2
+BentoBox,[gamemode]_has_island,玩家是否拥有岛屿,1.5.0
+BentoBox,[gamemode]_owns_island,玩家是否为一个岛屿的岛主,1.14.0
+BentoBox,[gamemode]_rank,玩家在其岛屿上的权限等级,1.5.0
+BentoBox,[gamemode]_resets,玩家重置其岛屿的次数,1.5.0
+BentoBox,[gamemode]_resets_left,玩家剩余可重置岛屿的次数,1.5.0
+BentoBox,[gamemode]_deaths,玩家的死亡次数,1.12.0
+BentoBox,[gamemode]_on_island,玩家是否在其所属岛屿上,1.13.0
+BentoBox,[gamemode]_island_online_members_count,当前在线的岛屿成员数量,2.0.1
+BentoBox,[gamemode]_visited_island_online_members_count,当前所在岛屿的在线成员数量,2.0.1
+Bank,Bank_[gamemode]_island_balance,玩家所在岛屿的银行余额,1.1.0
+Bank,Bank_[gamemode]_visited_island_balance,玩家当前所在岛屿的银行余额,1.1.0
+Bank,Bank_[gamemode]_island_balance_number,玩家所在岛屿的银行余额（原始数字）,1.3.0
+Bank,Bank_[gamemode]_visited_island_balance_number,玩家当前所在岛屿的银行余额（原始数字）,1.3.0
+Bank,Bank_[gamemode]_island_balance_formatted,玩家所在岛屿的银行余额（格式化数字）,1.3.0
+Bank,Bank_[gamemode]_visited_island_balance_formatted,玩家当前所在岛屿的银行余额（格式化数字）,1.3.0
+Bank,Bank_[gamemode]_top_value_<number>,排行榜第 <number> 名岛屿的银行余额,1.1.0
+Bank,Bank_[gamemode]_top_name_<number>,排行榜第 <number> 名岛屿所有者的名称,1.1.0
+Bank,Bank_[gamemode]_top_island_<number>,排行榜第 <number> 名岛屿的名称,1.10.0
+Bank,Bank_[gamemode]_latest_transaction,玩家最近的岛屿银行交易记录（格式：[用户名] [交易类型] $[金额]）,1.10.0
+Challenges,[gamemode]_challenges_total_completion_count,玩家完成挑战的总次数,0.8.3
+Challenges,[gamemode]_challenges_completed_count,玩家已完成的挑战数量,0.8.3
+Challenges,[gamemode]_challenges_uncompleted_count,玩家尚未完成的挑战数量,0.8.3
+Challenges,[gamemode]_challenges_completed_percent,玩家已完成挑战的百分比,1.8.0
+Challenges,[gamemode]_challenges_completed_level_count,玩家已完成的等级数量,0.8.3
+Challenges,[gamemode]_challenges_uncompleted_level_count,玩家尚未完成的等级数量,0.8.3
+Challenges,[gamemode]_challenges_unlocked_level_count,玩家已解锁的等级数量,0.8.3
+Challenges,[gamemode]_challenges_locked_level_count,玩家尚未解锁的等级数量,0.8.3
+Challenges,[gamemode]_challenges_latest_level_name,最新解锁的挑战等级名称,0.8.3
+Challenges,[gamemode]_challenges_latest_level_id,最新解锁的挑战等级 ID,0.8.3
+Challenges,[gamemode]_challenges_latest_level_completed_count,最新解锁等级中玩家已完成的挑战数量,0.8.3
+Challenges,[gamemode]_challenges_latest_level_uncompleted_count,最新解锁等级中玩家尚未完成的挑战数量,0.8.3
+Challenges,[gamemode]_challenges_latest_level_completed_percent,最新解锁等级中玩家已完成挑战的百分比,1.8.0
+Level,Level_[gamemode]_island_level,玩家所在岛屿的等级,1.9.0
+Level,Level_[gamemode]_visited_island_level,玩家当前所在岛屿的等级,1.9.0
+Level,Level_[gamemode]_top_value_<number>,排行榜第 <number> 名岛屿的等级,1.9.0
+Level,Level_[gamemode]_top_name_<number>,排行榜第 <number> 名岛屿所有者的名称,1.9.0
+Level,Level_[gamemode]_top_island_name_<number>,排行榜第 <number> 名岛屿的名称,2.11.0
+Level,Level_[gamemode]_top_members_<number>,排行榜第 <number> 名岛屿的成员列表,2.11.0
+Level,Level_[gamemode]_top_weighted_value_<number>,排行榜第 <number> 名岛屿的加权等级（等级/成员数）,2.12.0
+Level,Level_[gamemode]_top_weighted_name_<number>,排行榜第 <number> 名岛屿加权等级的所有者名称,2.12.0
+Level,Level_[gamemode]_top_weighted_members_<number>,排行榜第 <number> 名岛屿加权等级的成员列表,2.12.0
+Level,Level_[gamemode]_top_weighted_island_name_<number>,排行榜第 <number> 名岛屿加权等级的名称,2.12.0
+Level,Level_[gamemode]_points_to_next_level,玩家升到下一级所需积分,2.3.3
+Level,Level_[gamemode]_rank_value,显示岛屿的排名值,2.7.2
+Level,Level_[gamemode]_island_level_raw,未格式化的岛屿等级,2.8.1
+Level,Level_[gamemode]_island_total_points,应用等级公式之前计算的总积分,2.10.0
+Level,Level_[gamemode]_island_level_max,该岛屿曾达到过的最高等级（当前等级可能更低）,2.10.0
+Likes,[gamemode]_likes_addon_island_likes_count,玩家岛屿获得的点赞数量,1.7.0
+Likes,[gamemode]_likes_addon_island_likes_place,按点赞数排名的岛屿名次,1.7.0
+Likes,[gamemode]_likes_addon_island_dislikes_count,玩家岛屿获得的点踩数量,1.7.0
+Likes,[gamemode]_likes_addon_island_dislikes_place,按点踩数排名的岛屿名次,1.7.0
+Likes,[gamemode]_likes_addon_island_rank_count,玩家岛屿的排名分数（点赞数 - 点踩数）,1.7.0
+Likes,[gamemode]_likes_addon_island_rank_place,按排名分数排名的岛屿名次,1.7.0
+Likes,[gamemode]_likes_addon_island_stars_value,玩家岛屿获得的平均星级评分,2.0.0
+Likes,[gamemode]_likes_addon_island_stars_place,按星级评分排名的岛屿名次,2.0.0
+Likes,[gamemode]_likes_addon_visited_island_likes_count,玩家所在岛屿获得的点赞数量,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_likes_place,玩家所在岛屿按点赞数排名的名次,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_dislikes_count,玩家所在岛屿获得的点踩数量,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_dislikes_place,玩家所在岛屿按点踩数排名的名次,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_rank_count,玩家所在岛屿的排名分数（点赞数 - 点踩数）,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_rank_place,玩家所在岛屿按排名分数排名的名次,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_stars_value,玩家所在岛屿获得的平均星级评分,2.1.0
+Likes,[gamemode]_likes_addon_visited_island_stars_place,玩家所在岛屿按星级评分排名的名次,2.1.0
+Likes,[gamemode]_likes_addon_top_likes_owner_name_<number>,按点赞数排名第 <number> 名的岛屿所有者名称,1.7.0
+Likes,[gamemode]_likes_addon_top_likes_island_name_<number>,按点赞数排名第 <number> 名的岛屿名称,1.7.0
+Likes,[gamemode]_likes_addon_top_likes_count_<number>,按点赞数排名第 <number> 名岛屿的点赞数量,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_owner_name_<number>,按点踩数排名第 <number> 名的岛屿所有者名称,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_island_name_<number>,按点踩数排名第 <number> 名的岛屿名称,1.7.0
+Likes,[gamemode]_likes_addon_top_dislikes_count_<number>,按点踩数排名第 <number> 名岛屿的点踩数量,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_owner_name_<number>,按排名分数排名第 <number> 名的岛屿所有者名称,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_island_name_<number>,按排名分数排名第 <number> 名的岛屿名称,1.7.0
+Likes,[gamemode]_likes_addon_top_rank_count_<number>,按排名分数排名第 <number> 名岛屿的排名分数,1.7.0
+Likes,[gamemode]_likes_addon_top_stars_owner_name_<number>,按星级评分排名第 <number> 名的岛屿所有者名称,2.0.0
+Likes,[gamemode]_likes_addon_top_stars_island_name_<number>,按星级评分排名第 <number> 名的岛屿名称,2.0.0
+Likes,[gamemode]_likes_addon_top_stars_count_<number>,按星级评分排名第 <number> 名岛屿的平均星级,2.0.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_count,玩家岛屿上当前活跃的生成器数量,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_max_active_generator_count,玩家岛屿上允许的最大活跃生成器数量,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_active_generator_names,活跃生成器名称列表（逗号分隔）,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_unlocked_generator_names,已解锁生成器名称列表（逗号分隔）,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_purchased_generator_names,已购买生成器名称列表（逗号分隔）,2.2.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaustion_status,玩家岛屿上每个活跃生成器的耗尽状态（已生成数量/上限）,2.8.0
+MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,玩家岛屿上当前处于耗尽冷却中的生成器名称列表（逗号分隔）,2.8.0
+Limits,Limits_[gamemode]_island_[material]_count,岛屿上该材料（小写）的当前数量,1.17.2
+Limits,Limits_[gamemode]_island_[material]_limit,岛屿上该材料（小写）的数量上限,1.17.2
+Limits,Limits_[gamemode]_island_reached_limits,所有维度中达到或超过上限的所有受限方块、实体和实体组列表（逗号分隔）,1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_overworld,仅主世界中达到或超过上限的列表,1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_nether,仅下界中达到或超过上限的列表,1.29.0
+Limits,Limits_[gamemode]_island_reached_limits_end,仅末地中达到或超过上限的列表,1.29.0
+TopBlock,aoneblock_island_player_name_top_<number>,排行榜第 <number> 名的岛屿所有者名称,1.0.1
+TopBlock,aoneblock_island_member_names_top_<number>,排行榜第 <number> 名的岛屿团队成员名称,1.0.1
+TopBlock,aoneblock_island_phase_name_top_<number>,排行榜第 <number> 名所达到的阶段名称,1.0.1
+TopBlock,aoneblock_island_phase_number_top_<number>,排行榜第 <number> 名的阶段编号（平原为1，地下为2）,1.0.1
+TopBlock,aoneblock_island_count_top_<number>,排行榜第 <number> 名本轮挖掘的魔法方块数量,1.0.1
+TopBlock,aoneblock_island_lifetime_top_<number>,排行榜第 <number> 名累计挖掘的魔法方块总量,1.0.1
+Border,Border_color,玩家当前的边界颜色（红/绿/蓝）,4.8.0
+InvSwitcher,[gamemode]_invswitcher_balance,玩家在该游戏模式世界中的金钱余额,1.18.0
+InvSwitcher,[gamemode]_invswitcher_balance_formatted,玩家在该游戏模式世界中的金钱余额（带货币名称的格式化显示）,1.18.0

@@ -8,7 +8,7 @@
 
 ### 通用 Minecraft 物品翻译
 
-从 BentoBox 2.0.0 开始，你可以像 give 命令一样使用 minecraft 物品翻译：
+从 BentoBox 2.0.0 开始，你可以像 give 指令一样使用 minecraft 物品翻译：
 
     - minecraft:diamond_sword{display:{Lore:["\"一把传奇武器\""]}} 
     - minecraft:stone

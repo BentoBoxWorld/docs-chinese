@@ -11,13 +11,13 @@
 
 **设置面板**是岛主可以编辑岛屿标志配置的 GUI。其他玩家，包括岛屿成员，只能查看它们。
 
-可以使用以下命令打开此 GUI：`/[player_command] settings`（需要以下权限：`[gamemode].island.settings`）。
+可以使用以下指令打开此 GUI：`/[player_command] settings`（需要以下权限：`[gamemode].island.settings`）。
 
 ![设置面板的默认视图](https://user-images.githubusercontent.com/20014332/80591492-1689c100-8a1e-11ea-9a59-c55f35ab6ad9.png)
 
 *设置面板的默认视图。*
 
-管理员可以使用管理员设置命令更改玩家岛屿的设置：`/[admin_command] settings <player_name>`
+管理员可以使用管理员设置指令更改玩家岛屿的设置：`/[admin_command] settings <player_name>`
 
 ### 保护选项卡
 
@@ -35,7 +35,7 @@
 
 *默认情况下允许访客进行交互的保护标志示例。*
 
-管理员可以使用管理员设置命令设置岛屿边界外的保护工作方式：`/[admin_command] settings`
+管理员可以使用管理员设置指令设置岛屿边界外的保护工作方式：`/[admin_command] settings`
 
 ### 设置选项卡
 
@@ -121,7 +121,7 @@ TODO.
 
 ### 管理员"切换"——作为普通玩家测试
 
-命令 `/[admin_command] switch`（权限 `[gamemode].mod.switch`）切换版主的绕过权限开关。默认情况下绕过权限**激活**（版主正在绕过保护）；运行该命令一次会关闭绕过，所以他们受到保护，如同普通玩家一样，再运行一次会打开。这影响上面的 `mod.bypassprotect` 和 `mod.bypass.*` 权限——它**不会**禁用原始操作员状态。
+指令 `/[admin_command] switch`（权限 `[gamemode].mod.switch`）切换版主的绕过权限开关。默认情况下绕过权限**激活**（版主正在绕过保护）；运行该指令一次会关闭绕过，所以他们受到保护，如同普通玩家一样，再运行一次会打开。这影响上面的 `mod.bypassprotect` 和 `mod.bypass.*` 权限——它**不会**禁用原始操作员状态。
 
 ### 锁定、禁止和驱逐
 
@@ -136,10 +136,10 @@ TODO.
 
 ### 冷却时间和延迟
 
-命令冷却时间和传送热身延迟可以跳过：
+指令冷却时间和传送热身延迟可以跳过：
 
-- `[gamemode].mod.bypasscooldowns` ——忽略命令冷却时间。
-- `[gamemode].mod.bypassdelays` ——在延迟传送命令上跳过移动热身延迟。
+- `[gamemode].mod.bypasscooldowns` ——忽略指令冷却时间。
+- `[gamemode].mod.bypassdelays` ——在延迟传送指令上跳过移动热身延迟。
 
 ### 永不受保护的
 

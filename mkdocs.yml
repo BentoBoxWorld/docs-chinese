@@ -8,7 +8,7 @@ nav:
     - "BentoBox能做什么？":
         - 岛屿管理: BentoBox/About/IslandManagement.md
         - 游戏模式: BentoBox/About/GameModes.md
-        - 插件: BentoBox/About/Addons.md
+        - 附属: BentoBox/About/Addons.md
         - 团队处理: BentoBox/About/Teams.md
         - 保护: BentoBox/About/Protections.md
         - 蓝图: BentoBox/About/BlueprintsSummary.md
@@ -26,7 +26,7 @@ nav:
         - Poseidon: gamemodes/Poseidon/index.md
         - SkyGrid: gamemodes/SkyGrid/index.md
         - Stranger Realms: gamemodes/StrangerRealms/index.md
-    - 插件:
+    - 附属:
         - 银行: addons/Bank/index.md
         - 生态群落: addons/Biomes/index.md
         - 边界: addons/Border/index.md
@@ -59,12 +59,12 @@ nav:
         - "自定义 GUI": Tutorials/generic/Customizable-GUI.md
         - "更大的创建岛屿菜单": Tutorials/generic/Bigger-Create-Island-Menu.md
     - "教程 – API":
-        - "创建一个插件": Tutorials/api/Create-an-addon.md
+        - "创建一个附属": Tutorials/api/Create-an-addon.md
         - "配置API": BentoBox/Config-API.md
         - "数据库API": BentoBox/Database-API.md
         - "元数据API": BentoBox/MetadataAPI.md
         - "模板面板API": Tutorials/api/Templated-Panel.md
-        - "从插件获取数据": BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons.md
+        - "从附属获取数据": BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons.md
 theme:
   name: material
   palette:

@@ -1,16 +1,16 @@
-# SkyGrid 命令
+# SkyGrid 指令
 
-# SkyGrid 管理员命令（别名：/sga）
+# SkyGrid 管理员指令（别名：/sga）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/sgadmin` | 显示所有 SkyGrid 管理员命令 | `skygrid.admin` |
+| `/sgadmin` | 显示所有 SkyGrid 管理员指令 | `skygrid.admin` |
 | `/sgadmin deaths` | 编辑玩家的死亡次数 | `skygrid.admin.deaths` |
 | `/sgadmin delete` | 删除玩家并再生其区域 | `skygrid.admin.delete` |
 | `/sgadmin getrank <player>` | 获取玩家在其区域上的等级 | `skygrid.admin.getrank` |
 | `/sgadmin info <player>` | 获取你所在位置或玩家区域的信息 | `skygrid.mod.info` |
 | `/sgadmin kick <player>` | 将玩家从团队中踢出 | `skygrid.mod.team` |
-| `/sgadmin range` | 管理员区域范围命令 | `skygrid.admin.setrange` |
+| `/sgadmin range` | 管理员区域范围指令 | `skygrid.admin.setrange` |
 | `/sgadmin register <player>` | 将你所在的无主区域注册给玩家 | `skygrid.admin.register` |
 | `/sgadmin reload` | 重新加载插件 | `skygrid.admin.reload` |
 | `/sgadmin resetflags` | 将所有区域重置为 config.yml 中的默认标志设置 | `skygrid.admin.settingsreset` |
@@ -32,11 +32,11 @@
 | `/sgadmin version` | 显示 BentoBox 和插件的版本 | `skygrid.admin.version` |
 | `/sgadmin why <player>` | 切换控制台保护调试报告 | `skygrid.admin.why` |
 
-# SkyGrid 玩家命令（别名：/sg）
+# SkyGrid 玩家指令（别名：/sg）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/skygrid` | 主要玩家命令 | `skygrid.island` |
+| `/skygrid` | 主要玩家指令 | `skygrid.island` |
 | `/skygrid ban <player>` | 将玩家从你的区域中禁止 | `skygrid.island.ban` |
 | `/skygrid banlist` | 列出被禁止的玩家 | `skygrid.island.ban` |
 | `/skygrid create` | 创建一个新区域 | `skygrid.island.create` |

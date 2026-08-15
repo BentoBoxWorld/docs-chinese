@@ -44,26 +44,26 @@
         environment: <ENVIRONMENT>               # Spigot世界环境类型。默认为Normal。
         name: <String>                           # 生态区的自定义名称。默认为<unique_name>。
         description: <String>                    # 图标描述中的一些额外描述。默认为空。
-        icon: <Item>                             # BentoBox ItemParser类型。写入格式可以在：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/ 中找到。默认为纸。
+        icon: <Item>                             # BentoBox ItemParser类型。写入格式可以在：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/ 中找到。默认为纸。
         order: <Integer>                         # 当前生态区的顺序。默认为-1。
         unlock:                                  # 配置生态区解锁/购买选项的部分。不是必需的。
           level: <Long>                          # 解锁生态区所需的最小岛屿等级。需要等级插件。默认为0。
           permissions: [<String>]                # 解锁生态区所需的权限集。默认为空。
           cost: <Double>                         # 购买生态区的费用（一次性）。需要Vault和经济插件。默认为0。
-          items: [<Item>]                        # 购买生态区所需的物品集（一次性）。每个物品的写入格式可以在：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/ 中找到。默认为空。
+          items: [<Item>]                        # 购买生态区所需的物品集（一次性）。每个物品的写入格式可以在：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/ 中找到。默认为空。
         change:                                  # 配置每次使用生态区的成本的部分。不是必需的。
           mode: <Mode>                           # 应用成本的模式。支持的值：STATIC - 价格永远不变，PER_BLOCK - 每个区域内的方
 
 块都应用成本，PER_USAGE - 每次使用后成本增加[increment]。默认为STATIC。
           cost: <Double>                         # 更改生态区的成本。需要Vault和经济插件。默认为0。
-          items: [<Item>]                        # 更改生态区所需的物品集。每个物品的写入格式可以在：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/ 中找到。默认为空。
+          items: [<Item>]                        # 更改生态区所需的物品集。每个物品的写入格式可以在：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/ 中找到。默认为空。
           increment: <Double>                    # 如果使用设置为PER_USAGE，则所有成本（金钱和物品）的增量。默认为0。（作为静态）
     # 这里开始捆绑包列表
     bundles:                                     # 内部数据结构。
       <unique_name>:                             # 捆绑包的唯一名称。必需！
         name: <String>                           # 捆绑包的自定义名称。默认为<unique_name>。
         description: <String>                    # 图标描述中的一些额外描述。默认为空。
-        icon: <Item>                             # BentoBox ItemParser类型。写入格式可以在：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/ 中找到。默认为纸。
+        icon: <Item>                             # BentoBox ItemParser类型。写入格式可以在：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/ 中找到。默认为纸。
         biomes: [<String>]                       # 在生态区部分中使用的<unique_names>集。默认为空。
     ```
 
@@ -208,32 +208,32 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
             tooltip: biomes.gui.tips.right-click-to-write
     ```
 
-## 命令
+## 指令
 
 !!! 小贴士
-    `[player_command]`和`[admin_command]`是根据你运行的游戏模式而变化的命令。
+    `[player_command]`和`[admin_command]`是根据你运行的游戏模式而变化的指令。
     游戏模式的`config.yml`文件包含允许你修改这些值的选项。
     例如，在BSkyBlock上，默认的`[player_command]`是`island`，默认的`[admin_command]`是`bsbadmin`。
 
 !!! 信息
-    生态区插件玩家命令是完全可配置的。你可以在生态区插件配置文件中更改它们。下面仅是这些命令的默认名称。
+    生态区插件玩家指令是完全可配置的。你可以在生态区插件配置文件中更改它们。下面仅是这些指令的默认名称。
 
-=== "玩家命令"
+=== "玩家指令"
     - `/[player_command] biomes`: 此方法打开GUI，允许在用户岛屿上更改生态区。
-    - `/[player_command] biomes help`: 显示所有命令的帮助
-    - `/[player_command] biomes set <biome> [<type>] [<size>]`: 此命令允许在不打开GUI的情况下更改岛屿上的生态区。如果参数<type>和<size>未提供，命令将使用插件配置中的默认值。
-    - `/[player_command] biomes buy <biome>`: 此命令允许在不打开GUI的情况下购买生态区。
+    - `/[player_command] biomes help`: 显示所有指令的帮助
+    - `/[player_command] biomes set <biome> [<type>] [<size>]`: 此指令允许在不打开GUI的情况下更改岛屿上的生态区。如果参数<type>和<size>未提供，指令将使用插件配置中的默认值。
+    - `/[player_command] biomes buy <biome>`: 此指令允许在不打开GUI的情况下购买生态区。
 
     !!! 信息
         - `<biome>`可能不是实际Minecraft生态区名称。它是由管理员定义的。
         - `<type>`是三种生态区更改类型之一。它提供在整个岛屿(`ISLAND`)、当前区块(`CHUNK`)或围绕玩家的距离(`RANGE`)上更改生态区。
 
 
-=== "管理员命令"
+=== "管理员指令"
     - `/[admin_command] biomes`: 打开管理员生态区GUI。
-    - `/[admin_command] biomes help`: 显示所有与生态区相关的管理员命令的帮助。
+    - `/[admin_command] biomes help`: 显示所有与生态区相关的管理员指令的帮助。
     - `/[admin_command] biomes import [<file>]`: 从`biomesTemplate.yml`配置文件或提供的文件中导入生态区。
-    - `/[admin_command] biomes set <player> <biome> [<type>] [<size>]`: 与用户生态区设置命令相同，但需要提供玩家，其岛屿生态区将被更新。
+    - `/[admin_command] biomes set <player> <biome> [<type>] [<size>]`: 与用户生态区设置指令相同，但需要提供玩家，其岛屿生态区将被更新。
     - `/[admin_command] biomes migrate`: 迁移生态区插件数据。通常用于从旧版本升级到新版本时使用。
     - `/[admin_command] biomes unlock <player> <biome_id> [true]`: 解锁（如果在最后添加`true`则购买）传递的生态区给玩家岛屿。
 
@@ -249,13 +249,13 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     如果下面的列表确实缺少了什么，请告诉我们！
 
 === "玩家权限"
-    - `[gamemode].biomes`（默认：`true`）：玩家可以使用打开GUI的生态区命令。
-    - `[gamemode].biomes.info`（默认：`true`）：玩家可以使用生态区信息命令。
-    - `[gamemode].biomes.set`（默认：`true`）：玩家可以使用生态区设置命令。
-    - `[gamemode].biomes.buy`（默认：`true`）：玩家可以使用生态区购买命令。
+    - `[gamemode].biomes`（默认：`true`）：玩家可以使用打开GUI的生态区指令。
+    - `[gamemode].biomes.info`（默认：`true`）：玩家可以使用生态区信息指令。
+    - `[gamemode].biomes.set`（默认：`true`）：玩家可以使用生态区设置指令。
+    - `[gamemode].biomes.buy`（默认：`true`）：玩家可以使用生态区购买指令。
 
 === "管理员权限"
-    - `[gamemode].admin.biomes`（默认：`op`）：玩家可以使用打开GUI的管理员生态区命令。
+    - `[gamemode].admin.biomes`（默认：`op`）：玩家可以使用打开GUI的管理员生态区指令。
 
 ## 更新日志
 
@@ -284,9 +284,9 @@ BentoBox 1.17 API引入了一个功能，允许实现可自定义的GUI。这个
     **发布于：** 2026-05-05
 
     - ⚙️ **海洋生态保留。** 新增 `change-ocean-biomes` 配置选项（默认：`false`），防止生态区变更覆盖海洋方块（`OCEAN`、`WARM_OCEAN`、`DEEP_OCEAN` 等），保持岛屿海岸线和水下区域完好。设为 `true` 可恢复以前的行为。
-    - **`COMMAND` 面板动作类型。** 面板按钮现在可以在被点击时执行命令，既可作为独立按钮类型，也可作为现有生态区按钮的动作（与 `CHANGE`/`BUY`/`ADVANCED_PANEL` 并列）。适合"返回岛屿面板"按钮或任何自定义集成。
+    - **`COMMAND` 面板动作类型。** 面板按钮现在可以在被点击时执行指令，既可作为独立按钮类型，也可作为现有生态区按钮的动作（与 `CHANGE`/`BUY`/`ADVANCED_PANEL` 并列）。适合"返回岛屿面板"按钮或任何自定义集成。
     - **重新设计的 `biomesTemplate.yml`。** 44 种生态区（之前约 29 种），重新平衡了价格，新增 9 种生态区，包括红树林沼泽、苍白花园（带苍白怪兽）和竹林。3 个起始捆绑包（Starter、Explorer、Nether & End）以及 `PER_USAGE` 价格示例。
-    - **游戏模式感知的解锁通知。** 在正确游戏模式世界中的玩家收到熟悉的可点击"立即使用"提示；在其他世界的玩家收到指明在哪个游戏模式中解锁了生态区的简单消息，避免在错误世界中执行命令的混乱。
+    - **游戏模式感知的解锁通知。** 在正确游戏模式世界中的玩家收到熟悉的可点击"立即使用"提示；在其他世界的玩家收到指明在哪个游戏模式中解锁了生态区的简单消息，避免在错误世界中执行指令的混乱。
     - **首次启动时自动导入默认生态区。** 当插件启动时发现某个游戏模式没有配置生态区，现在会自动从 `biomesTemplate.yml` 导入。新装时无需手动 `import` 步骤。
     - **岛屿删除/重置时取消生态队列。** 岛屿被删除或重置时，排队中和进行中的生态区更新任务会被取消，正在进行的任务通过 `AtomicBoolean` 标志在下一个区块边界停止。
     - 🐛 修复了管理员 GUI 工具提示中的浮点显示精度问题（如 `0.0299999999329447746` → `0.03`）。

@@ -4,7 +4,7 @@
 
 ## 创建岛屿
 
-当玩家首次加入游戏模式并运行主命令时（例如 BSkyBlock 的 `/island`、AOneBlock 的 `/oneblock`），BentoBox 自动：
+当玩家首次加入游戏模式并运行主指令时（例如 BSkyBlock 的 `/island`、AOneBlock 的 `/oneblock`），BentoBox 自动：
 
 1. 在世界中为他们找到一个空闲的地方。
 2. 从蓝图（已保存的岛屿模板）粘贴他们的**初始岛屿**。

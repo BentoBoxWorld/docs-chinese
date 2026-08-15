@@ -1,15 +1,15 @@
-# 命令
+# 指令
 
-所有的命令与其他游戏模式（如 BSkyBlock）相同。
+所有的指令与其他游戏模式（如 BSkyBlock）相同。
 
-# Boxed 管理员命令（别名：/boxadmin）
+# Boxed 管理员指令（别名：/boxadmin）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/boxadmin` | 显示所有 Boxed 命令 | `boxed.island` |
+| `/boxadmin` | 显示所有 Boxed 指令 | `boxed.island` |
 | `/boxadmin add <owner> <player>` | 将玩家添加到所有者的团队 | |
-| `/boxadmin biomes` | 主要生物群系插件管理员命令。为玩家打开管理员 GUI | |
-| `/boxadmin challenges` | 访问 /boxadmin 挑战管理员命令 | `boxed.admin.challenges` |
+| `/boxadmin biomes` | 主要生物群系插件管理员指令。为玩家打开管理员 GUI | |
+| `/boxadmin challenges` | 访问 /boxadmin 挑战管理员指令 | `boxed.admin.challenges` |
 | `/boxadmin deaths` | 编辑玩家的死亡次数 | |
 | `/boxadmin delete` | 删除玩家的岛屿 | `boxed.admin.delete` |
 | `/boxadmin disband <owner>` | 解散所有者的团队 | `boxed.mod.bypassprotect` |
@@ -17,10 +17,10 @@
 | `/boxadmin info <player>` | 获取你所在位置或玩家岛屿的信息 | `boxed.mod.info` |
 | `/boxadmin kick <team player>` | 将玩家从团队中踢出 | `boxed.mod.bypassexpel` |
 | `/boxadmin level <player>` | 计算玩家的岛屿等级 | |
-| `/boxadmin range` | 管理员岛屿范围命令 | |
+| `/boxadmin range` | 管理员岛屿范围指令 | |
 | `/boxadmin register <player>` | 注册玩家到你所在的无主岛屿 | `boxed.admin.register` |
 | `/boxadmin reload` | 重新加载插件 | `boxed.admin.reload` |
-| `/boxadmin reset` | 重置命令管理员设置 | `boxed.admin.settingsreset` |
+| `/boxadmin reset` | 重置指令管理员设置 | `boxed.admin.settingsreset` |
 | `/boxadmin bp` | 操纵蓝图 | |
 | `/boxadmin bp copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选包括空气块 | |
 | `/boxadmin bp load <bp name>` | 将蓝图加载到剪贴板 | |
@@ -39,15 +39,15 @@
 | `/boxadmin unregister <owner>` | 注销所有者的岛屿，但保留岛屿方块 | `boxed.admin.unregister` |
 | `/boxadmin why <player>` | 切换控制台保护调试报告 | |
 
-# Boxed 岛屿玩家命令（别名：/box 或 /boxed）
+# Boxed 岛屿玩家指令（别名：/box 或 /boxed）
 
-| 命令 | 描述 | 权限 |
+| 指令 | 描述 | 权限 |
 | --- | --- | --- |
-| `/box` | 主玩家命令 | `boxed.island` |
+| `/box` | 主玩家指令 | `boxed.island` |
 | `/box ban <player>` | 将玩家从你的岛屿中禁止 | `boxed.island.ban` |
 | `/box banlist` | 列出被禁止的玩家 | `boxed.island.ban` |
-| `/box biomes` | 主要生物群系插件命令，打开生物群系更改 GUI | |
-| `/box challenges [Level]` | 让玩家使用 /box challenges 命令 | `boxed.challenges` |
+| `/box biomes` | 主要生物群系插件指令，打开生物群系更改 GUI | |
+| `/box challenges [Level]` | 让玩家使用 /box challenges 指令 | `boxed.challenges` |
 | `/box create` | 创建岛屿 | `boxed.island.create` |
 | `/box go` | 传送到你的岛屿 | `boxed.island` |
 | `/box info <player>` | 显示关于你的岛屿或玩家岛屿的信息 | `boxed.island.info` |

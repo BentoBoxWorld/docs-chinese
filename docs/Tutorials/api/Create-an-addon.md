@@ -71,7 +71,7 @@ dependencies {
 **插件的主类**的工作方式与插件的主类相似。
 它最主要处理在加载、启用、重新加载和禁用插件时运行的代码。
 
-主类**扩展 `Addon`**。
+主类**继承 `Addon`**。
 
 *示例：*
 ```java
@@ -93,7 +93,7 @@ public class MyAddon extends Addon {
 
 ## 强制方法
 
-与 Bukkit 插件一样，插件必须覆盖一些方法才能被正确启用。
+与 Bukkit 插件一样，插件必须重写一些方法才能被正确启用。
 
 因此，您的主插件类应该如下所示：
 
@@ -119,7 +119,7 @@ public class MyAddon extends Addon {
 
 ## 可选方法
 
-如果需要，可以覆盖其他方法。
+如果需要，可以重写其他方法。
 
 ```java
 import world.bentobox.bentobox.api.addons.Addon;
@@ -140,7 +140,7 @@ public class MyAddon extends Addon {
 ```
 
 ### onLoad()
-onLoad() 方法中的代码在插件加载时和 onEnable() 之前运行。如果此插件是游戏模式，这是加载配置和设置命令的好地方：
+onLoad() 方法中的代码在插件加载时和 onEnable() 之前运行。如果此插件是游戏模式，这是加载配置和设置指令的好地方：
 ```
     @Override
     public void onLoad() {
@@ -148,7 +148,7 @@ onLoad() 方法中的代码在插件加载时和 onEnable() 之前运行。如�
         saveDefaultConfig();
         // 从 config.yml 加载设置。这也会检查是否有任何问题。
         loadSettings();
-        // 注册游戏模式命令
+        // 注册游戏模式指令
         playerCommand = new DefaultPlayerCommand(this)
 
         {
@@ -164,7 +164,7 @@ onLoad() 方法中的代码在插件加载时和 onEnable() 之前运行。如�
 ```
 
 ### onReload()
-此方法中的代码在管理员使用 `bbox reload` 命令重新加载插件时（如果重新加载）运行。
+此方法中的代码在管理员使用 `bbox reload` 指令重新加载插件时（如果重新加载）运行。
 
 # 创建 addon.yml
 addon.yml 是向 BentoBox 描述插件所必需的。它几乎与 Bukkit 使用的 plugin.yml 相同。以下是一个最小示例：
@@ -185,7 +185,7 @@ authors: tastybento
        <tr>
            <th>属性
            </th>
-           <th>必需
+           <th>是否必需
            </th>
            <th>描述
            </th>
@@ -227,7 +227,7 @@ authors: tastybento
                    <li>版本是任意字符串，但最常见的格式是 MajorRelease.MinorRelease.Build（例如：1.4.1）。</li>
                    <li>通常每次发布新功能或错误修复时，您都会增加此值。</li>
                    <li>
-                       在用户输入以下命令时显示
+                       在用户输入以下指令时显示
                        <code>/bbox version</code>
                    </li>
                </ul>
@@ -247,7 +247,7 @@ authors: tastybento
                <ul>
                    <li>描述可以有多行。</li>
                    <li>
-                       在用户输入以下命令时显示
+                       在用户输入以下指令时显示
                        <code>/version addonName</code>
                    </li>
                </ul>

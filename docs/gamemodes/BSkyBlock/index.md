@@ -28,9 +28,9 @@ Config.yml 与 ASkyBlock 相似，但*不相同*。请注意，岛屿间距离�
 
 权限可以在 [这里](Permissions) 找到。
 
-## 命令
+## 指令
 
-命令可以在 [这里](Commands) 找到。
+指令可以在 [这里](Commands) 找到。
 
 ## 占位符
 

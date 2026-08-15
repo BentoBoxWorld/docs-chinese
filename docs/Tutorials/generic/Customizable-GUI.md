@@ -16,7 +16,7 @@ panel_name:
   # 空位的背景物品
   background:
     # 元素的图标。
-    # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+    # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
     icon: BLACK_STAINED_GLASS_PANE
     # 元素的标题
     title: "&b&r" # 空文本
@@ -25,7 +25,7 @@ panel_name:
   # 边框位置的物品
   border:
     # 元素的图标。
-    # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+    # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
     icon: BLACK_STAINED_GLASS_PANE
     # 元素的标题
     title: "&b&r" # 空文本
@@ -48,7 +48,7 @@ panel_name:
     3:
       1:
         # 元素的图标。
-        # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+        # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
         icon: tipped_arrow[potion_contents={custom_color:11546150}]
         # 元素的标题。
         title: "Button One"
@@ -68,7 +68,7 @@ panel_name:
             tooltip: "Tooltip for a button"
       9:
         # 元素的图标。
-        # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+        # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
         icon: STONE
         # 元素的标题。
         title: "Button Twi"
@@ -99,7 +99,7 @@ panel_name:
     # 可复用项的 ID
     reusable_button_one:
       # 元素的图标。
-      # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+      # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
       icon: GLASS
       # 元素的标题。
       title: "Reusable Button One"
@@ -119,7 +119,7 @@ panel_name:
           tooltip: "Tooltip for a button"
     reusable_button_two:
       # 元素的图标。
-      # 写法格式见：https://docs.bentobox.world/en/latest/BentoBox/ItemParser/
+      # 写法格式见：https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/
       icon: DIRT
       # 元素的标题。
       title: "Reusable Button Two"

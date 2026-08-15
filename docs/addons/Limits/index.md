@@ -20,9 +20,9 @@
 
 5. 如果进行了更改,请重启服务器
 
-## 命令
+## 指令
 
-有一个用户命令和一个管理员命令,都叫"limits"。管理员可以检查特定岛主的限制。两者都会显示一个带有限制和当前数量的 GUI 面板。
+有一个用户指令和一个管理员指令,都叫"limits"。管理员可以检查特定岛主的限制。两者都会显示一个带有限制和当前数量的 GUI 面板。
 
 ## 设置 - Config.yml
 
@@ -187,7 +187,7 @@ blocklimits:
 
 ```
 GAMEMODE_NAME.limits.player.limits:
-  description: 玩家可以使用 limits 命令
+  description: 玩家可以使用 limits 指令
   default: true
 
 GAMEMODE_NAME.mod.bypass:
@@ -195,7 +195,7 @@ GAMEMODE_NAME.mod.bypass:
   default: op
 
 GAMEMODE_NAME.limits.admin.limits:
-  description: 玩家可以使用管理员 limits 命令
+  description: 玩家可以使用管理员 limits 指令
   default: op
 ```
 

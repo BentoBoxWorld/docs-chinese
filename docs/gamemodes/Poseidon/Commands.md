@@ -1,7 +1,7 @@
-<h1><b>Poseidon 管理员命令 </b>(别名: /padmin)</h1>
+<h1><b>Poseidon 管理员指令 </b>(别名: /padmin)</h1>
 <table width="100%" align="center">
    <tr>
-      <td align='left'><b>命令</b></td>
+      <td align='left'><b>指令</b></td>
       <td align='left'><b>描述</b></td>
       <td align='left'><b>权限</b></td>
    </tr>
@@ -18,7 +18,7 @@
    </tr>
    <tr>
       <td align='left'><b>/padmin challenges</b></td>
-      <td align='left'>访问 /padmin challenges 管理员命令。需要挑战插件 (Challenges Addon)。</td>
+      <td align='left'>访问 /padmin challenges 管理员指令。需要挑战插件 (Challenges Addon)。</td>
       <td align='left'>poseidon.admin.challenges</td>
    </tr>
    <tr>
@@ -84,7 +84,7 @@
    </tr>
    <tr>
       <td align='left'><b>/padmin range</b></td>
-      <td align='left'>管理员领域范围命令</td>
+      <td align='left'>管理员领域范围指令</td>
       <td align='left'>poseidon.admin.range</td>
    </tr>
    <tr>
@@ -104,7 +104,7 @@
    </tr>
    <tr>
       <td align='left'><b>/padmin reset</b></td>
-      <td align='left'>重置相关命令</td>
+      <td align='left'>重置相关指令</td>
       <td align='left'>poseidon.admin.settingsreset</td>
    </tr>
    <tr>
@@ -255,16 +255,16 @@
    </tr>
 </table>
 <h1>
-<b>Poseidon 玩家命令 </b>(别名: /po)</h2> 
+<b>Poseidon 玩家指令 </b>(别名: /po)</h2> 
 <table width="100%" align="center">
    <tr>
-      <td align='left'><b>命令</b></td>
+      <td align='left'><b>指令</b></td>
       <td align='left'><b>描述</b></td>
       <td align='left'><b>权限</b></td>
    </tr>
    <tr>
       <td align='left'><b>/poseidon</b></td>
-      <td align='left'>主要的领域命令</td>
+      <td align='left'>主要的领域指令</td>
       <td align='left'>poseidon.island</td>
    </tr>
    <tr>
@@ -289,12 +289,12 @@
    </tr>
    <tr>
       <td align='left'><b>/poseidon biomes</b></td>
-      <td align='left'>主要的生物群系插件命令，会打开生物群系更改GUI。需要生物群系插件 (Biomes addon)。</td>
+      <td align='left'>主要的生物群系插件指令，会打开生物群系更改GUI。需要生物群系插件 (Biomes addon)。</td>
       <td align='left'>poseidon.admin.biomes</td>
    </tr>
    <tr>
       <td align='left'><b>/poseidon challenges [Level]</b></td>
-      <td align='left'>允许玩家使用 /poseidon challenges 命令。需要挑战插件 (Challenges addon)。</td>
+      <td align='left'>允许玩家使用 /poseidon challenges 指令。需要挑战插件 (Challenges addon)。</td>
       <td align='left'>poseidon.challenges</td>
    </tr>
    <tr>
@@ -537,6 +537,6 @@
    </tr>
    <tr>
       <td align='left' valign='top'>BSkyBlock 设置</td>
-      <td align='left'>箱子损坏, 清洁超平坦, 耕种砂土, 苦力怕伤害, 苦力怕破坏, 末影箱, 末影人破坏, 进入/退出消息, 领域重生, 离线红石, 活塞推动, 移除怪物, 收集黑曜石, 羽落传送, 命令等级, 访客无敌, 限制生物到领域</td>
+      <td align='left'>箱子损坏, 清洁超平坦, 耕种砂土, 苦力怕伤害, 苦力怕破坏, 末影箱, 末影人破坏, 进入/退出消息, 领域重生, 离线红石, 活塞推动, 移除怪物, 收集黑曜石, 羽落传送, 指令等级, 访客无敌, 限制生物到领域</td>
    </tr>
 </table>

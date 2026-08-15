@@ -4,7 +4,7 @@
 
 ```
    [gamemode].island.warp:
-    description: 玩家可以使用 warp 或 warps 命令
+    description: 玩家可以使用 warp 或 warps 指令
     default: true
   [gamemode].island.addwarp:
     description: 玩家可以创建欢迎传送点标志

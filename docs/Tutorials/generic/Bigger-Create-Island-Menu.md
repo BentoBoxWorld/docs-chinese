@@ -164,4 +164,4 @@ island_creation_panel:
 ## 另请参阅
 
 - [可自定义的 GUI](Customizable-GUI.md) — 这些菜单建立在其上的通用系统，包括物品/图标选项的完整列表。
-- [ItemParser](https://docs.bentobox.world/en/latest/BentoBox/ItemParser/) — `icon:` 字段的语法。
+- [ItemParser](https://docs.bentobox.world/zh-cn/latest/BentoBox/ItemParser/) — `icon:` 字段的语法。

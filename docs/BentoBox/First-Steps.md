@@ -21,7 +21,7 @@
 
 ## 第 2 步 — 以玩家身份测试岛屿创建
 
-以普通玩家身份加入你的服务器（使用备用账户或请朋友帮忙），运行游戏模式的主玩家命令。以 BSkyBlock 为例：
+以普通玩家身份加入你的服务器（使用备用账户或请朋友帮忙），运行游戏模式的主玩家指令。以 BSkyBlock 为例：
 
 ```
 /island
@@ -82,7 +82,7 @@ BentoBox 使用你服务器的权限插件（如 LuckPerms）来控制玩家可�
 [gamemode].island.create       # 创建岛屿
 [gamemode].island.home         # 传送到他们的岛屿
 [gamemode].island.settings     # 打开岛屿设置 GUI
-[gamemode].island.team         # 使用团队命令
+[gamemode].island.team         # 使用团队指令
 ```
 
 用游戏模式的前缀替换 `[gamemode]`（例如 `bskyblock`、`acidisland`、`oneblock`）。
