@@ -1,4 +1,4 @@
-附属是使 BentoBox 特别的因素。然而，请注意这些**不是附属**：如果你只是将它们放在 `plugins` 文件夹中，它们**不会启动**。
+附属是使 BentoBox 特别的因素。然而，请注意这些**不是插件**：如果你只是将它们放在 `plugins` 文件夹中，它们**不会启动**。
 
 这些包括一些流行的游戏模式：
 * [**BSkyBlock**](https://github.com/BentoBoxWorld/BSkyBlock)：流行的 ASkyBlock 的继任者。
