@@ -22,7 +22,7 @@
 
 - BentoBox 核心文档
 - 游戏模式（AcidIsland、AOneBlock、BSkyBlock、CaveBlock 等）
-- 附加插件（Bank、Border、Challenges、Level、Limits、Warps 等）
+- 附属（Bank、Border、Challenges、Level、Limits、Warps 等）
 - 开发者教程
 
 翻译内容会定期与英文主文档同步。如果发现内容缺失或过时，欢迎贡献！
@@ -36,7 +36,7 @@
 ### 贡献方式
 
 1. **Fork** 本仓库到你的 GitHub 账户。
-2. **创建新分支**用于你的修改（例如 `fix/修正配置说明` 或 `feat/翻译xyz插件`）。
+2. **创建新分支**用于你的修改（例如 `fix/修正配置说明` 或 `feat/翻译xyz附属`）。
 3. **编辑** Markdown 文件。
 4. **提交并推送**你的修改到你的 fork。
 5. 从你的分支向本仓库的 `master` 分支**发起 Pull Request（PR）**。

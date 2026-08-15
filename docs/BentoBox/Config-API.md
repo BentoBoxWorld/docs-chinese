@@ -13,13 +13,13 @@
 假设我们想为新插件创建一个配置文件。也许它看起来像这样：
 
 ```yaml
-# This is my config.yml file
-# It is for my addon
+# 这是我的 config.yml 文件
+# 这是给我的附属做的
 
 world:
-  # This is the name of the world.
+  # 此世界的名称
   name: My_world_name
-  # Size - minimum is 10, max is 100
+  # 大小 - 最小为 10, 最大为 100
   size: 100
 ```
 
@@ -35,7 +35,7 @@ public class Settings implements ConfigObject {
 现在我们必须指定此配置对象的保存位置。位置相对于插件的数据文件夹。
 
 ```java
-@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+@StoreAt(filename="config.yml") // 请明确说明该名称应使用什么
 public class Settings implements ConfigObject {
 
 }
@@ -45,7 +45,7 @@ public class Settings implements ConfigObject {
 接下来，我们必须添加想要在配置中的数据字段。为此，我们使用 `@ConfigEntry` 注解：
 
 ```java
-@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+@StoreAt(filename="config.yml") // 请明确说明该名称应使用什么
 public class Settings implements ConfigObject {
     @ConfigEntry(path = "world.name")
     private String worldName = "My_world_name";
@@ -61,7 +61,7 @@ public class Settings implements ConfigObject {
 接下来，我们必须添加获取器和设置器来访问这些字段。获取器和设置器的名称以及参数名称必须符合 [JavaBeans 命名约定](https://www.oreilly.com/library/view/javaserver-pages-3rd/0596005636/ch20s01s01.html)：
 
 ```java
-@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
+@StoreAt(filename="config.yml") // 请明确说明该名称应使用什么
 public class Settings implements ConfigObject {
     @ConfigEntry(path = "world.name")
     private String worldName = "My_world_name";
@@ -88,9 +88,9 @@ public class Settings implements ConfigObject {
 接下来，我们可以使用 `ConfigComment` 注解添加注释：
 
 ```java
-@StoreAt(filename="config.yml") // Explicitly call out what name this should have.
-@ConfigComment("This is my config.yml file") // Note that the comment will automatically
-@ConfigComment("It is for my addon") // be proceeded with a # and space
+@StoreAt(filename="config.yml") // 请明确说明该名称应使用什么
+@ConfigComment("This is my config.yml file") // 注意注释
+@ConfigComment("It is for my addon") // 将自动以 # 和一个空格开头。
 public class Settings implements ConfigObject {
     @ConfigEntry(path = "world.name")
     @ConfigComment("This is the name of the world.")

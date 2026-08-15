@@ -3,7 +3,7 @@
 本 FAQ 按照问题在 [BentoBox Discord](https://discord.bentobox.world) `#support-en` 频道中的出现频率排列——最常见的问题在最上方，罕见或旧版问题归纳在底部。
 
 !!! info "诊断速查表——在寻求帮助*前*请先运行以下指令"
-    - `/bentobox version` — 显示 BentoBox 及插件版本和服务器构建信息
+    - `/bentobox version` — 显示 BentoBox 及附属版本和服务器构建信息
     - `/[admin_command] why <玩家>` — 精确说明是哪个 BentoBox 标志（如果有）阻止了玩家的操作；这是调试"我无法破坏/放置/交互"问题的最快方法
     - `/papi parse me <占位符>` — 验证某个 PlaceholderAPI 占位符是否在你的服务器上正常解析
 
@@ -16,20 +16,20 @@
 - [团队、合作与访客](#团队合作与访客)
 - [占位符](#占位符)
 - [AOneBlock](#aoneblock)
-- [Level 插件](#level-插件)
-- [Challenges 插件](#challenges-插件)
+- [Level 附属](#level-附属)
+- [Challenges 附属](#challenges-附属)
 - [数据库与存储](#数据库与存储)
 - [自定义：语言、颜色与蓝图](#自定义语言颜色与蓝图)
 - [杂项](#杂项)
-- [API 与插件开发](#api-与插件开发)
+- [API 与附属开发](#api-与附属开发)
 - [较少见/旧版问题](#较少见旧版问题)
 - [来源](#来源)
 
 ## 安装与版本
 
-### 如何安装 BentoBox、BSkyBlock 以及所有其他插件？
+### 如何安装 BentoBox、BSkyBlock 以及所有其他附属？
 
-开始的最简单方式是从 [https://download.bentobox.world](https://download.bentobox.world) 下载一套插件和 BentoBox。
+开始的最简单方式是从 [https://download.bentobox.world](https://download.bentobox.world) 下载一套附属和 BentoBox。
 你也可以查看[本教程](BentoBox/Install-Bentobox.md)来了解其他方法。
 **欢迎加入我们的社区！**
 
@@ -41,11 +41,11 @@ BentoBox 主版本号与 Minecraft 版本对应：
 - **BentoBox 2.7** — Minecraft **1.21.1**
 - **BentoBox 2.6** — Minecraft **1.20.6**
 
-升级服务器的 Minecraft 版本时，必须同时升级 BentoBox（以及对应的插件），反之亦然。使用更新的 BentoBox 配合旧版 Minecraft 将无法启动；在更新的 Minecraft 上使用旧版 BentoBox 通常会产生粒子缺失错误、"执行此指令时发生内部错误"提示，或 GUI 异常。旧版本可以在每个项目的 GitHub *Releases* 页面找到。
+升级服务器的 Minecraft 版本时，必须同时升级 BentoBox（以及对应的附属），反之亦然。使用更新的 BentoBox 配合旧版 Minecraft 将无法启动；在更新的 Minecraft 上使用旧版 BentoBox 通常会产生粒子缺失错误、"执行此指令时发生内部错误"提示，或 GUI 异常。旧版本可以在每个项目的 GitHub *Releases* 页面找到。
 
-### 我的 BentoBox 版本需要哪些插件版本？
+### 我的 BentoBox 版本需要哪些附属版本？
 
-选择发行说明针对相同 BentoBox 主版本的插件。最简单的方式是从 [https://download.bentobox.world](https://download.bentobox.world) 下载"整合包"，其中始终包含兼容的插件套装。将 BentoBox 3.x 与需要 BentoBox 2.x 的插件混用（或反之）是插件加载失败最常见的原因。
+选择发行说明针对相同 BentoBox 主版本的附属。最简单的方式是从 [https://download.bentobox.world](https://download.bentobox.world) 下载"整合包"，其中始终包含兼容的附属套装。将 BentoBox 3.x 与需要 BentoBox 2.x 的附属混用（或反之）是附属加载失败最常见的原因。
 
 ### 尝试创建岛屿时提示"执行此指令时发生内部错误"是什么原因？
 
@@ -59,7 +59,7 @@ BentoBox 主版本号与 Minecraft 版本对应：
 
 ### 我可以在同一台服务器上运行两种游戏模式（例如 BSkyBlock 和 Boxed）吗？
 
-可以——你不能在**同一个世界**中运行两种游戏模式，但每个 BentoBox 游戏模式插件都会创建并管理自己的世界，因此并排安装多个游戏模式插件只需添加多组世界即可。玩家通过对应的 `/island`（或 `/box`、`/ob` 等）指令选择要玩的模式。要移除某个游戏模式，直接删除对应的插件 jar 文件即可；删除世界文件夹是可选的。
+可以——你不能在**同一个世界**中运行两种游戏模式，但每个 BentoBox 游戏模式附属都会创建并管理自己的世界，因此并排安装多个游戏模式附属只需添加多组世界即可。玩家通过对应的 `/island`（或 `/box`、`/ob` 等）指令选择要玩的模式。要移除某个游戏模式，直接删除对应的附属 jar 文件即可；删除世界文件夹是可选的。
 
 ### 如何完全重置 BentoBox / 清除所有岛屿？
 
@@ -72,7 +72,7 @@ BentoBox 主版本号与 Minecraft 版本对应：
 ```
 # 岛屿半径（以方块为单位）。（因此岛屿间距为该值的两倍）
   # 每个维度（主世界、下界和末地）的值相同。
-  # 该值在游戏运行中无法更改，如果值不同，插件将无法启动。
+  # 该值在游戏运行中无法更改，如果值不同，附属将无法启动。
   # /!\ BentoBox 目前不支持在游戏中更改此值。如需更改，请完全重置数据库和世界。
   distance-between-islands: 400
 ```
@@ -139,7 +139,7 @@ Multiverse 通常可与大多数游戏模式配合使用，但 **Boxed 和 Posei
 
 以 `/op` 权限站在岛屿上，查看服务器控制台：
 
-1. BentoBox 会打印出哪个插件（如有）取消了生成事件。如果没有打印信息，说明 Minecraft 根本没有尝试生成——请检查 `bukkit.yml` 中的 `spawn-limits` 和 `gamerule` 设置，以及你的世界插件（Multiverse、MyWorlds 等）和 `/[admin_command]` 设置。
+1. BentoBox 会打印出哪个附属（如有）取消了生成事件。如果没有打印信息，说明 Minecraft 根本没有尝试生成——请检查 `bukkit.yml` 中的 `spawn-limits` 和 `gamerule` 设置，以及你的世界管理插件（Multiverse、MyWorlds 等）和 `/[admin_command]` 设置。
 2. 检查游戏模式 `config.yml` 的 `world.spawn-limits` 部分。
 3. 对于无法被敌对生物攻击的访客，请查看*访客保护*标志。
 
@@ -177,7 +177,7 @@ distance-between-islands ≥ 50 + (11 × 16) / 2 = 138
 
 ### 我可以出售岛屿升级/让玩家付费扩展岛屿吗？
 
-BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社区方案：(1) 将 [Upgrades 插件](addons/Upgrades/index.md)与 Vault 经济结合使用；(2) 使用任意外部 GUI/商店插件，在购买时授予 `[gamemode].island.range.<数字>` 权限。
+BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社区方案：(1) 将 [Upgrades 附属](addons/Upgrades/index.md)与 Vault 经济结合使用；(2) 使用任意外部 GUI/商店附属，在购买时授予 `[gamemode].island.range.<数字>` 权限。
 
 ### 为什么岛屿边界显示了新大小，但玩家仍然无法在那里建造？
 
@@ -229,8 +229,8 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 
 按顺序检查以下三点：
 
-1. Level 插件已安装并对该游戏模式启用。
-2. 玩家至少运行过一次 `/[player_command] level`——默认情况下，等级只有在玩家运行指令时才会计算。（你可以在 Level 插件配置中启用 `calculate-level-on-login` 以在玩家加入时计算。）
+1. Level 附属已安装并对该游戏模式启用。
+2. 玩家至少运行过一次 `/[player_command] level`——默认情况下，等级只有在玩家运行指令时才会计算。（你可以在 Level 附属配置中启用 `calculate-level-on-login` 以在玩家加入时计算。）
 3. 由该玩家运行 `/papi parse me %Level_<gamemode>_island_level%` 是否返回一个数字。如果是，问题出在你的聊天/Tab 插件，而非 BentoBox。
 
 ## AOneBlock
@@ -251,29 +251,29 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 
 这是有意为之的。AOneBlock 会清除生成实体边界框内的方块，防止玩家在魔法方块上方放置立方体来困住它（否则会立即杀死生成的生物）。可以在 AOneBlock 配置中设置 `mobs-clear-blocks: false` 来禁用此行为，但代价是允许该漏洞被利用。
 
-## Level 插件
+## Level 附属
 
 ### 为什么我的等级没有实时更新？
 
-岛屿等级只有在玩家运行 `/[player_command] level` 时才会计算，如果启用了 Level 插件配置中的 `calculate-level-on-login` 则在登录时计算。没有持续追踪——每次方块变化都重新计算整个岛屿会消耗过多资源。
+岛屿等级只有在玩家运行 `/[player_command] level` 时才会计算，如果启用了 Level 附属配置中的 `calculate-level-on-login` 则在登录时计算。没有持续追踪——每次方块变化都重新计算整个岛屿会消耗过多资源。
 
 ### 为什么我的自定义 Oraxen / ItemsAdder / 自定义方块没有被计入？
 
-Level 插件只计算其 `blockconfig.yml` 中列出的方块。来自物品添加插件的自定义方块必须在那里明确添加并指定你希望它们得分的值。如果条目缺失，该方块会回退到其底层基础方块的值（或者如果该方块也未列出，则为零）。
+Level 附属只计算其 `blockconfig.yml` 中列出的方块。来自物品添加附属的自定义方块必须在那里明确添加并指定你希望它们得分的值。如果条目缺失，该方块会回退到其底层基础方块的值（或者如果该方块也未列出，则为零）。
 
-### 我应该在 Boxed 中使用 Level 插件吗？
+### 我应该在 Boxed 中使用 Level 附属吗？
 
-通常不建议——Boxed 世界预填充了地形，所以岛屿的"等级"主要由底层区块而非玩家建造的内容决定。Level 插件应用于虚空类游戏模式（BSkyBlock、AOneBlock、AcidIsland），在那里它才真正反映玩家的努力成果。
+通常不建议——Boxed 世界预填充了地形，所以岛屿的"等级"主要由底层区块而非玩家建造的内容决定。Level 附属应用于虚空类游戏模式（BSkyBlock、AOneBlock、AcidIsland），在那里它才真正反映玩家的努力成果。
 
-## Challenges 插件
+## Challenges 附属
 
 ### 我运行了 `/[admin_command] challenges`，菜单是空的——如何获取默认挑战？
 
-打开菜单，点击*资料库*，选择一套默认挑战（例如 BSkyBlock 的"default"），然后在提示时在聊天中输入 `confirm` 确认。默认挑战已与插件捆绑，但不会自动加载——每个游戏模式需要手动导入一次。
+打开菜单，点击*资料库*，选择一套默认挑战（例如 BSkyBlock 的"default"），然后在提示时在聊天中输入 `confirm` 确认。默认挑战已与附属捆绑，但不会自动加载——每个游戏模式需要手动导入一次。
 
 ### 我可以从不同的世界/主世界运行挑战吗？
 
-不可以。挑战绑定到创建它们时所在的游戏模式世界。如果你想在主世界中实现任务类内容，需要使用单独的任务插件。
+不可以。挑战绑定到创建它们时所在的游戏模式世界。如果你想在主世界中实现任务类内容，需要使用单独的任务附属。
 
 ## 数据库与存储
 
@@ -342,15 +342,15 @@ island:
 
 ### 如何更改语言字符串/消息？
 
-语言文件位于 `plugins/BentoBox/locales/`（BentoBox 核心）和 `plugins/BentoBox/addons/<插件名>/locales/`（每个插件）下。编辑对应的 `<语言>.yml` 文件。如果只想使用一种语言，在 BentoBox 的 `config.yml` 中设置 `default-language` 并移除玩家切换语言的权限。
+语言文件位于 `plugins/BentoBox/locales/`（BentoBox 核心）和 `plugins/BentoBox/addons/<附属名>/locales/`（每个附属）下。编辑对应的 `<语言>.yml` 文件。如果只想使用一种语言，在 BentoBox 的 `config.yml` 中设置 `default-language` 并移除玩家切换语言的权限。
 
 ### 如何更改 `[BentoBox]` 聊天前缀？
 
-在 `plugins/BentoBox/locales/en-US.yml`（或你使用的语言文件）中找到 `prefixes:` 下的条目。每个插件也可能在其语言文件中有自己的前缀。
+在 `plugins/BentoBox/locales/en-US.yml`（或你使用的语言文件）中找到 `prefixes:` 下的条目。每个附属也可能在其语言文件中有自己的前缀。
 
 ### 如何在消息中使用十六进制（RGB）颜色？
 
-使用 `&#RRGGBB`，例如 `&#ff8800Hello` 显示橙色。这在 BentoBox 接受颜色代码的任何地方均有效。注意，某些外部聊天格式化插件可能需要它们自己的十六进制语法——BentoBox 无法控制这一点。
+使用 `&#RRGGBB`，例如 `&#ff8800Hello` 显示橙色。这在 BentoBox 接受颜色代码的任何地方均有效。注意，某些外部聊天格式化附属可能需要它们自己的十六进制语法——BentoBox 无法控制这一点。
 
 ### 我在哪里可以帮助将 BentoBox 翻译成我的语言？
 
@@ -366,14 +366,14 @@ island:
 
 没有内置的预生成器，但你可以编写 `/[admin_command] register <虚拟玩家>` 脚本来提前创建岛屿。对于区块预生成，可以使用 Chunky 等服务器端工具。
 
-## API 与插件开发
+## API 与附属开发
 
-### 如何开始为 BentoBox 编写插件？有 API 吗？
+### 如何开始为 BentoBox 编写附属？有 API 吗？
 
 是的，绝对有 API。
-编写插件与编写普通插件非常相似，只是有更多 API 可用，涵盖团队、保护、指令、面板和粘贴等功能。
+编写附属与编写普通附属非常相似，只是有更多 API 可用，涵盖团队、保护、指令、面板和粘贴等功能。
 
-按照[本教程](Tutorials/api/Create-an-addon.md)来创建你的第一个插件！
+按照[本教程](Tutorials/api/Create-an-addon.md)来创建你的第一个附属！
 
 ## 较少见/旧版问题
 
@@ -399,25 +399,25 @@ island:
 
 #### 原因
 
-##### BentoBox 或游戏模式插件不再运行
+##### BentoBox 或游戏模式附属不再运行
 
 **为什么？**
 
-BentoBox 或游戏模式插件未在服务器上启用。
-这可能发生在你将 BentoBox 或游戏模式插件更新到与你的服务器或某个插件不兼容的版本时。
+BentoBox 或游戏模式附属未在服务器上启用。
+这可能发生在你将 BentoBox 或游戏模式附属更新到与你的服务器或某个附属不兼容的版本时。
 
 **解决方案**
 
-调查为什么 BentoBox 或游戏模式插件不再启用。
+调查为什么 BentoBox 或游戏模式附属不再启用。
 阅读日志以找到启动时的错误。
-尝试每次添加一个插件来启动服务器，找出哪个插件导致了问题。
+尝试每次添加一个附属来启动服务器，找出哪个附属导致了问题。
 
 ##### `bukkit.yml` 中没有为此世界设置生成器
 
 **为什么？**
 
 这通常是问题所在。
-在将服务器的默认世界设置为游戏模式插件的世界时，忘记在 `bukkit.yml` 文件中为该世界指定正确的生成器。
+在将服务器的默认世界设置为游戏模式附属的世界时，忘记在 `bukkit.yml` 文件中为该世界指定正确的生成器。
 
 **解决方案**
 
@@ -429,12 +429,12 @@ BentoBox 或游戏模式插件未在服务器上启用。
 
 这是一个常见错误。
 
-用户往往误解此选项，以为它可以激活"魔法"鹅卵石生成器（但[那是一个插件](addons/MagicCobblestoneGenerator/index.md)！）。
+用户往往误解此选项，以为它可以激活"魔法"鹅卵石生成器（但[那是一个附属](addons/MagicCobblestoneGenerator/index.md)！）。
 这不是该选项的设计目的，配置文件中关于此选项的注释已清楚说明：
 
 ```yaml
 # 使用你自己的世界生成器。
-# 在这种情况下，插件不会生成任何东西。
+# 在这种情况下，附属不会生成任何东西。
 # 如果使用，你必须在 bukkit.yml 文件中指定世界名称和生成器。
 # 参见 https://bukkit.gamepedia.com/Bukkit.yml
 use-own-generator: false
@@ -462,7 +462,7 @@ use-own-generator: false
 首先调查与世界交互的世界管理插件或自定义插件。
 向其开发者报告问题，或修复涉及的配置文件。
 
-##### BentoBox 或游戏模式插件中存在 bug
+##### BentoBox 或游戏模式附属中存在 bug
 
 **为什么？**
 
@@ -472,9 +472,9 @@ use-own-generator: false
 
 **解决方案**
 
-确认这确实是 BentoBox 相关的 bug：从服务器逐一移除所有插件，直到只剩 BentoBox。
+确认这确实是 BentoBox 相关的 bug：从服务器逐一移除所有附属，直到只剩 BentoBox。
 
-如果问题不再出现，说明是另一个插件导致的。
+如果问题不再出现，说明是另一个附属导致的。
 在这种情况下，请参阅[本节](https://bentobox-world.readthedocs.io/en/latest/FAQ/#another-plugin-is-trying-to-control-the-generator-of-this-world)。
 
 如果问题仍然存在，说明这是一个 BentoBox bug。
@@ -515,7 +515,7 @@ paste-speed: 64
 如果你在运行 timings，`BlueprintPaster` 任务理想状态是耗时较长但占用每 tick 时间的百分比较低。
 
 如果服务器在粘贴岛屿时仍然挣扎，则说明它在生成区块时遇到困难。
-作为插件我们对此几乎无能为力，但以下是一些缓解措施：
+作为附属我们对此几乎无能为力，但以下是一些缓解措施：
 
 * 尝试减少游戏模式配置文件中的"岛屿间距离"设置。
 较低的值意味着需要生成更少的区块。
@@ -532,7 +532,7 @@ Paper 支持异步区块生成。
 
 如果没有向玩家显示任何无法放置树苗的消息，则说明 BentoBox **不是**此问题的原因。
 
-如果你在服务器上使用 **GriefPrevention**，该插件有一个[配置选项](https://github.com/TechFortress/GriefPrevention/wiki/Setup-and-Configuration#preventing-tree-grief)可防止玩家放置所谓的"天空树"。
+如果你在服务器上使用 **GriefPrevention**，该附属有一个[配置选项](https://github.com/TechFortress/GriefPrevention/wiki/Setup-and-Configuration#preventing-tree-grief)可防止玩家放置所谓的"天空树"。
 
 ## 来源
 
@@ -546,13 +546,13 @@ Paper 支持异步区块生成。
 - 岛屿大小与保护 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1471174102957031506)
 - 团队与合作 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1467986323137757357)
 - 占位符 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1465642012341698713)
-- Level 插件 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1459181292175360162)
+- Level 附属 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1459181292175360162)
 - AOneBlock — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1466486743287988346)
 - Challenges — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1426655803473133795)
 - 数据库与存储 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1461304120668323910)
 - 本地化 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1482135823947272203)
-- Border 插件 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1462044129448951872)
-- Bank 插件 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1440031441995169833)
+- Border 附属 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1462044129448951872)
+- Bank 附属 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1440031441995169833)
 - BSkyBlock — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1486436566032318474)
 - Boxed — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1415368394374647948)
 - 错误与崩溃 — [discord 讨论帖](https://discord.com/channels/272499714048524288/310623455462686720/1441184039175327757)

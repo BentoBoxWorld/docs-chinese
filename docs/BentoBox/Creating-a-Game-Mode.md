@@ -29,7 +29,7 @@
 
 [source,java]
 ----
-@StoreAt(filename="config.yml", path="addons/BSkyBlock") // 明确指定应具有的名称。
+@StoreAt(filename="config.yml", path="addons/BSkyBlock") // 请明确说明该名称应使用什么
 @ConfigComment("BSkyBlock 配置 [版本]")
 @ConfigComment("此配置文件是动态的，并在服务器关闭时保存。")
 @ConfigComment("在服务器运行时无法编辑它，因为更改将")

@@ -194,7 +194,7 @@ def define_env(env):
     def translations(repo: str, branch: str = "develop"):
         intro = (
             '!!! note "帮助我们保持翻译准确"\n'
-            "    现在 BentoBox 及其插件的大多数翻译已借助 AI 完成——大部分工作已经做好，\n"
+            "    现在 BentoBox 及其附属的大多数翻译已借助 AI 完成——大部分工作已经做好，\n"
             "    但 **AI 并不完美**。我们真正需要社区提供的是**错误报告和纠正**。\n"
             "\n"
             "    * 发现错误或措辞不当？请在 [bentobox.world](https://bentobox.world)\n"

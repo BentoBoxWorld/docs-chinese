@@ -15,6 +15,7 @@ BentoBox蓝图格式的目标是让我们能够将Minecraft世界的区域序列
 | 版本 | 日期 | BentoBox 版本 | 描述
 |---|---|---|---|
 | 1 | 2019-06-09 | [1.5.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/1.5.0) | 初始版本，源自 BentoBox Schem 格式
+| 1.1 | 2026 | 2.x | 存储格式从压缩二进制文件转为扁平json；`.blueprint`现在是主要扩展名；旧版本`.blu`(压缩过的)为了向上兼容保持可加载 |
 
 ## 定义
 
@@ -26,13 +27,16 @@ BentoBox蓝图格式的目标是让我们能够将Minecraft世界的区域序列
 
 ### 格式
 
-由本规范指定的结构使用[JavaScript 对象表示法](https://json.org)（JSON）格式持久化到用户选择的存储方法。数据必须使用...数据压缩算法进行压缩。
+本规范所指定的结构，将使用 [JavaScript Object Notation](https://json.org/)（JSON）格式持久化存储到用户所选的存储方式中。自 BentoBox 2.x 起，蓝图文件以**扁平（未压缩）JSON**格式存储，文件扩展名为 .blueprint。
 
-使用此规范的文件必须使用以下文件扩展名之一：
-* `.blueprint` ;
-* `.blu`
+旧版蓝图文件使用压缩后的二进制格式，扩展名为 .blu。为保持向后兼容性，BentoBox 将继续支持加载 .blu 文件，但所有新保存的蓝图将使用 .blueprint 纯 JSON 格式。
 
-规范中的所有字段名称都**区分大小写**。
+使用本规范的文件必须使用以下文件扩展名之一：
+
+* `.blueprint` — 纯 JSON（当前推荐）
+* `.blu` — 压缩 JSON（旧版）
+
+本规范中的所有字段名均**区分大小写**。
 
 ### 模式
 
