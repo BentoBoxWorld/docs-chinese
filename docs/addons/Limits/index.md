@@ -59,6 +59,8 @@ config.yml 有以下部分:
 
 此部分列出了每种方块材料允许的最大方块数。不要使用非方块材料,因为它们无效。限制会独立应用于每个维度(主世界、下界、末地)。
 
+生长和损坏变种会被规范化为其规范方块 —— `BAMBOO_SAPLING` 计为 `BAMBOO`，自 **1.30.0** 起 `KELP_PLANT` 计为 `KELP` —— 所以用作限制键的变种名称(例如 `KELP_PLANT` 或 `CHIPPED_ANVIL`)配置规范方块的限制。
+
 ### blocklimits-nether / blocklimits-end
 
 可选部分,分别用于覆盖下界或末地的 `blocklimits` 默认值。它们在默认配置中是注释掉的;取消注释并添加条目即可设置特定维度的方块限制。
@@ -159,7 +161,7 @@ blocklimits:
 
 === "stacked-plants-count-as-one"
     !!! summary "说明"
-        (**1.29.0+**) 设为 `true` 时,无论一根 `SUGAR_CANE`(甘蔗)或 `BAMBOO`(竹子)长多高,都只算作一株植物 —— 只计算基座段。更改此选项后请运行重新计数。
+        (**1.29.0+**) 设为 `true` 时,无论一根 `SUGAR_CANE`(甘蔗)、`BAMBOO`(竹子)或 `KELP`(海带，自 **1.30.0** 起)长多高,都只算作一株植物 —— 只计算基座段。更改此选项后请运行重新计数。
 
         默认值：`false`
 
@@ -206,6 +208,18 @@ GAMEMODE_NAME.limits.admin.limits:
 {{ placeholders_source(source="Limits") }}
 
 ## 更新日志
+
+??? warning "v1.30.0 新内容 —— 建议重新计数海带"
+    **发布于：** 2026-08-15
+
+    两个计数准确度修复。兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.2 · Java 21。无配置或本地化更改。
+
+    - 🐛 **蜜蜂可以始终离开它们的蜂巢。** 蜜蜂退出蜂巢不是新蜜蜂 —— 它的计数在进入时已减少 —— 但退出仍然会被限制检查。在岛屿达到其蜜蜂限制时，释放被取消，服务器每几个刻重试，附近玩家被垃圾邮件轰炸"蜜蜂产生受限为…"，存储的蜜蜂永远被困。蜂巢退出现在在检查中被豁免，同时仍被计数，所以进入/退出循环保持净零。放置一个携带从未计数蜜蜂的蜂巢物品可以让岛屿略微超过其限制；这只是阻止进一步的产生和繁殖，直到种群下降。
+    - 🔺 🐛 **海带列数计数正确。** 海带生长将 `KELP` 顶端转换为 `KELP_PLANT` 茎段，无 Bukkit 事件，所以旧方块从未被递减，海带计数仅增加，最终在幻影总数中阻止放置。`KELP_PLANT` 现在被规范化为 `KELP`（如 `BAMBOO_SAPLING`/`BAMBOO`）：生长是计数中立的，破坏列的基座递减每一段，`KELP` 参与 `stacked-plants-count-as-one`，变种名称如 `KELP_PLANT` 或 `CHIPPED_ANVIL` 用作限制键配置规范限制。
+
+    🔺 **如果你限制海带，请重新计数。** 存储的海带计数在以前的版本下可能向上漂移。在受影响的岛屿上运行 `/[admin_command] limits calc <player>` —— 或让玩家运行 `/[player_command] limits recount` —— 使计数与现实相匹配。
+
+    [发布 v1.30.0](https://github.com/BentoBoxWorld/Limits/releases/tag/1.30.0)
 
 ??? note "v1.29.1 新内容"
     **发布于：** 2026-07-23

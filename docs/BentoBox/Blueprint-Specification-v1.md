@@ -2,6 +2,9 @@
 
 **第1版**
 
+!!! warning "已被取代"
+    本页面仅供历史参考。当前完整的规范——包括蓝图、方块、实体和包的每个字段，加上用于验证的已发布 JSON 模式——是[蓝图文件格式](Blueprint-Format.md)页面。
+
 本文档中的关键词"MUST"、"MUST NOT"、"REQUIRED"、"SHALL"、"SHALL NOT"、"SHOULD"、"SHOULD NOT"、"RECOMMENDED"、"MAY"和"OPTIONAL"应按照[RFC 2119](http://www.ietf.org/rfc/rfc2119.txt)中的描述进行解释。
 
 ## 简介

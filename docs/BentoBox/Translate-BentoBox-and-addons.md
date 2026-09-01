@@ -64,9 +64,11 @@ island-go: "[sound:entity_experience_orb_pickup:1:1][title]正在传送...[subti
 - [Boxed](../gamemodes/Boxed/index.md#翻译)
 - [BSkyBlock](../gamemodes/BSkyBlock/index.md#翻译)
 - [CaveBlock](../gamemodes/CaveBlock/index.md#翻译)
+- [ChunkBlock](../gamemodes/ChunkBlock/index.md#翻译)
 - [Poseidon](../gamemodes/Poseidon/index.md#翻译)
 - [SkyGrid](../gamemodes/SkyGrid/index.md#翻译)
 - [Stranger Realms](../gamemodes/StrangerRealms/index.md#翻译)
+- [TradeWinds](../gamemodes/TradeWinds/index.md#翻译)
 
 ## 插件
 

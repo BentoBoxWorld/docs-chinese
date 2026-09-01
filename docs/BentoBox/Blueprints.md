@@ -82,6 +82,8 @@
 !!! note "旧版`.blu`文件"
     蓝图文件此前使用压缩二进制的`.blu`格式。为了向后兼容，BentoBox 会自动加载旧版`.blu`文件，但所有新蓝图都会保存为`.blueprint`（纯文本 JSON）。你可以像平常一样对`.blueprint`文件进行版本控制和差异比较。请不要手动创建或编辑`.blu`文件。
 
+如果你直接编辑或生成这些文件，完整的字段级参考是[蓝图文件格式](Blueprint-Format.md)页面，而 BentoBox 发布了 [JSON 模式](https://github.com/BentoBoxWorld/BentoBox/tree/develop/schemas)你可以验证。
+
 ## 不完整的包
 包必须始终有一个Overworld/Normal world蓝图。如果没有，则将使用默认岛屿蓝图，并在控制台记录错误。
 

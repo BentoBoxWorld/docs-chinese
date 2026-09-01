@@ -14,7 +14,7 @@
 * 经验值
 * 生命值
 * 游戏模式(创造、生存等)
-* 金钱(按世界经济,1.18.0 新增)
+* 金钱(按世界经济,1.18.0 新增 —— **自 1.19.3 起默认关闭**，通过 `options.money: true` 启用)
 
 ## 如何使用
 
@@ -32,11 +32,23 @@ InvSwitcher 有一个 `config.yml`,包含两个主要部分。
 
 ```yml
 worlds:
-- bskyblock_world
 - acidisland_world
 - oneblock_world
-# ... 等等
+- boxed_world
+- bskyblock_world
+- skyblock-world
+- caveblock-world
+- poseidon_world
+- stranger_world
+- skygrid-world     # 在 1.19.2 添加到默认配置
+- raft_world        # 在 1.19.2 新增
+- brix_world        # 在 1.19.2 新增
+- parkour_world     # 在 1.19.2 新增
+- tradewinds_world
 ```
+
+!!! warning "现有配置不被重写"
+    新的默认世界只出现在全新安装上。如果你的 `config.yml` 早于 1.19.2 并且你运行 SkyGrid、Raft、Brix、Parkour 或 TradeWinds，手动将这些条目添加到 `worlds:` 列表并重启。未列出的世界会被静默地不管理 —— InvSwitcher 在启动时记录它挂接的世界，所以检查该列表以确认。
 
 ### 选项
 
@@ -52,7 +64,7 @@ options:
   experience: true
   ender-chest: true
   statistics: true
-  money: true          # 按世界金钱(1.18.0 新增)。需要 Vault。
+  money: false         # 按世界金钱(1.18.0 新增)。自 1.19.3 起默认关闭。需要 Vault。
   # 每个岛屿的物品栏切换(1.17.0 新增)
   # 世界级选项也必须为 true,岛屿选项才能生效。
   islands:
@@ -72,7 +84,7 @@ options:
 
 ### 经济
 
-1.18.0 新增。启用 `options.money` 后,InvSwitcher 会将自身注册为 Vault 经济提供者,并为**每个切换的世界保留独立的余额**。交易(商店买卖、`/pay`、jobs 等)会被路由到其所属世界的余额——即使目标玩家离线或身处其他世界。InvSwitcher 不管理的世界会传递给你现有的经济插件(如 EssentialsX);如果不存在其他经济插件,InvSwitcher 会自己处理所有世界。
+1.18.0 新增。**自 1.19.3 起默认关闭** —— InvSwitcher 不再将自身注册为 Vault 经济，除非你选择加入 `options.money: true`。启用后，InvSwitcher 会将自身注册为 Vault 经济提供者，并为**每个切换的世界保留独立的余额**。交易(商店买卖、`/pay`、jobs 等)会被路由到其所属世界的余额——即使目标玩家离线或身处其他世界。InvSwitcher 不管理的世界会传递给你现有的经济插件(如 EssentialsX);如果不存在其他经济插件,InvSwitcher 会自己处理所有世界。
 
 !!! warning "需要 Vault"
     按世界金钱需要 [Vault](https://www.spigotmc.org/resources/vault.34315/) 插件。单独的经济插件是可选的——InvSwitcher 可以作为唯一的经济系统。如果你使用 **Bank** 插件,岛屿钱包也会变为按世界。
@@ -113,6 +125,27 @@ economy:
     | `/[admin_command] eco set <玩家> <金额>` | 设置玩家余额 |
     | `/[admin_command] eco balance <玩家>` | 显示玩家余额 |
 
+## 权限
+
+!!! tip
+    `[gamemode]` 是一个根据你运行的游戏模式不同的前缀 —— 例如 `bskyblock.invswitcher.balance`。
+
+经济指令仅在启用 `options.money` 和安装 Vault 时注册，所以这些权限仅在运行按世界经济的服务器上重要。*(自 1.19.2 起在 `addon.yml` 中声明 —— 在此之前这些节点未注册，所以指令被拒绝给除 ops 外的所有人。)*
+
+=== "玩家权限"
+    - `[gamemode].invswitcher.balance` - (默认：`true`) - 玩家可以使用 `balance` 指令。
+    - `[gamemode].invswitcher.pay` - (默认：`true`) - 玩家可以使用 `pay` 指令。
+
+=== "管理员权限"
+    - `[gamemode].invswitcher.admin.eco` - (默认：`op`) - 玩家可以使用管理员 `eco` 指令。
+    - `[gamemode].invswitcher.admin.eco.balance` - (默认：`op`) - 玩家可以使用管理员 `eco balance` 指令。
+    - `[gamemode].invswitcher.admin.eco.give` - (默认：`op`) - 玩家可以使用管理员 `eco give` 指令。
+    - `[gamemode].invswitcher.admin.eco.take` - (默认：`op`) - 玩家可以使用管理员 `eco take` 指令。
+    - `[gamemode].invswitcher.admin.eco.set` - (默认：`op`) - 玩家可以使用管理员 `eco set` 指令。
+
+!!! note
+    玩家节点默认为 `true`，所以大多数服务器无需做任何事情。如果你的权限插件拒绝未列出的节点，将它们授予你的默认组。
+
 ## 它的作用
 
 这个插件将为玩家在每个已安装的游戏模式及其对应的世界中提供独立的物品栏、生命值、饥饿度、进度和经验值。它使玩家能够独立地玩每个游戏模式。
@@ -130,6 +163,27 @@ economy:
 - 它不仅限于 BentoBox 世界。它适用于服务器上的所有世界(目前)。
 
 ## 更新日志
+
+??? note "v1.19.3 新内容"
+    **发布于：** 2026-08-04
+
+    - ⚙️ **按世界金钱现在默认关闭。** InvSwitcher 不再将自身注册为 Vault 经济，除非你在 `config.yml` 中选择加入 `options.money: true`。除此之外，该功能没有任何改变。
+
+    ⚙️ **现有配置不被重写** —— 新的默认值仅适用于全新安装。如果你的 `config.yml` 已经包含 `options.money: true` 并且你不希望 InvSwitcher 管理金钱，设置为 `false` 并重启。
+
+    [发布 v1.19.3](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.19.3)
+
+??? warning "v1.19.2 新内容 —— 回档修复、新权限和默认世界"
+    **发布于：** 2026-08-04
+
+    兼容性：BentoBox 3.17.0 · Paper Minecraft 1.21.5 – 26.1.2 · Java 21。
+
+    - 🐛 **关机时在线的玩家物品栏不再回档。** BentoBox 在附属禁用后立即关闭其数据库，所以异步关闭保存丢失了竞速，被无声地丢弃 —— 玩家自上次世界更改以来所做的一切都被丢失，然后陈旧的快照在下次登录时被写回到其真实物品栏。关闭保存现在是同步的；常规游戏中的保存保持异步。在停止前注销的玩家从未受到影响，已经丢失的数据无法恢复。
+    - 🔺 **经济指令对普通玩家有效。** 每个非 op 的 `/[player_command] balance` 和 `pay` 都因权限错误失败，因为 `addon.yml` 没有声明权限。这些节点现已注册 —— `[gamemode].invswitcher.balance` 和 `.pay` 默认为 `true`，管理员 `eco` 节点默认为 `op`。见上面的权限部分。如果你的权限插件拒绝未列出的节点，将玩家节点授予你的默认组。
+    - ⚙️ **缺失的游戏模式世界添加到默认配置。** `skygrid-world`、`raft_world`、`brix_world` 和 `parkour_world` 不在已发货的 `worlds:` 列表中，所以全新安装无声地不管理它们。**现有配置不被重写** —— 如果你运行这些游戏模式，手动添加这些条目。
+    - 📄 关于不运行第二个物品栏管理器（Multiverse-Inventories、PerWorldInventory、MultiInv）的新部分 —— 见[与其他物品栏插件的兼容性](#compatibility-with-other-inventory-plugins)。
+
+    [发布 v1.19.2](https://github.com/BentoBoxWorld/InvSwitcher/releases/tag/1.19.2)
 
 ??? note "v1.19.1 新内容"
     **发布于：** 2026-07-02
