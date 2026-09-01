@@ -11,7 +11,7 @@ hide:
 <div class="bb-hero">
   <p class="bb-hero__eyebrow">docs.bentobox.world</p>
   <h1>您的玩家将会有一段美好的时光。</h1>
-  <p>BSkyBlock、AOneBlock、AcidIsland、CaveBlock、SkyGrid、Boxed、Poseidon、StrangerRealms——全部在您的 Paper 服务器上并行运行，各有独立的世界、规则和进度系统。一个插件，按需添加游戏模式。</p>
+  <p>BSkyBlock、AOneBlock、ChunkBlock、AcidIsland、CaveBlock、SkyGrid、Boxed、Poseidon、StrangerRealms、TradeWinds——全部在您的 Paper 服务器上并行运行，各有独立的世界、规则和进度系统。一个插件，按需添加游戏模式。</p>
 
   <div class="bb-cta-row">
     <a href="BentoBox/First-Steps" class="bb-btn bb-btn-primary">前 30 分钟入门 &rarr;</a>
@@ -29,7 +29,7 @@ hide:
       <div class="bb-stat__l">附加功能</div>
     </div>
     <div class="bb-stat">
-      <div class="bb-stat__n">8</div>
+      <div class="bb-stat__n">10</div>
       <div class="bb-stat__l">游戏模式</div>
     </div>
     <div class="bb-stat">
@@ -61,7 +61,7 @@ hide:
         <span class="bb-step-time">5 分钟</span>
       </div>
       <p class="bb-step-title">选择游戏模式</p>
-      <p class="bb-step-body">BSkyBlock、AOneBlock、AcidIsland、CaveBlock、Boxed、Poseidon——从一个开始。</p>
+      <p class="bb-step-body">BSkyBlock、AOneBlock、ChunkBlock、AcidIsland、CaveBlock、Boxed、Poseidon、TradeWinds——从一个开始。</p>
       <a href="gamemodes/Comparison" class="bb-step-link">对比游戏模式 &rarr;</a>
     </div>
     <div class="bb-step-card">
@@ -95,6 +95,10 @@ hide:
       <span class="bb-mode-swatch" style="background:#e8d49e"></span>
       <span><span class="bb-mode-name">AOneBlock</span><span class="bb-mode-sub">单方块</span></span>
     </a>
+    <a href="gamemodes/ChunkBlock/" class="bb-mode-card">
+      <span class="bb-mode-swatch" style="background:#d99a6c"></span>
+      <span><span class="bb-mode-name">ChunkBlock</span><span class="bb-mode-sub">单方块 · 围墙</span></span>
+    </a>
     <a href="gamemodes/CaveBlock/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#a09689"></span>
       <span><span class="bb-mode-name">CaveBlock</span><span class="bb-mode-sub">洞穴生存</span></span>
@@ -114,6 +118,10 @@ hide:
     <a href="gamemodes/StrangerRealms/" class="bb-mode-card">
       <span class="bb-mode-swatch" style="background:#cf6e72"></span>
       <span><span class="bb-mode-name">StrangerRealms</span><span class="bb-mode-sub">异界生存</span></span>
+    </a>
+    <a href="gamemodes/TradeWinds/" class="bb-mode-card">
+      <span class="bb-mode-swatch" style="background:#8fcabe"></span>
+      <span><span class="bb-mode-name">TradeWinds</span><span class="bb-mode-sub">海上贸易</span></span>
     </a>
   </div>
 </div>

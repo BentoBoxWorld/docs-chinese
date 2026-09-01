@@ -1,6 +1,8 @@
 # TopBlock
 
-为 BentoBox 专门计算 AOneBlock 岛屿等级的插件。排名由挖掘了多少魔法方块决定 - 计数。
+为 BentoBox 生成魔法方块游戏模式前十排名的插件。排名由挖掘了多少魔法方块决定 - 计数。
+
+TopBlock 支持 [**AOneBlock**](../../gamemodes/AOneBlock/index.md) 和 [**ChunkBlock**](../../gamemodes/ChunkBlock/index.md)。你可以安装其中任何一个或两个 —— 当两个都存在时，每个游戏模式都获得自己完全独立的前十、自己的 `topblock` 指令和自己的占位符集。玩家在 AOneBlock 中的排名对其在 ChunkBlock 中的排名没有影响。
 
 由 [tastybento](https://github.com/tastybento) 创建和维护。
 
@@ -13,6 +15,9 @@
 3. 插件将创建一个数据文件夹,里面有一个 config.yml
 4. 根据需要编辑 config.yml。
 5. 如果进行了更改,请重启服务器
+
+!!! note "TopBlock 不是独立的"
+    TopBlock 需要在其旁边安装至少一个 [AOneBlock](../../gamemodes/AOneBlock/index.md) 或 [ChunkBlock](../../gamemodes/ChunkBlock/index.md)。如果未找到任何一个，TopBlock 会记录错误并禁用自己。它在启动时挂接找到的任何一个，所以在稍后安装或删除游戏模式只有在重启后才会生效。
 
 ## 配置
 
@@ -27,11 +32,11 @@ TopBlock 插件有 2 个通用配置项:
 
 最新的 config.yml 可以在[这里](https://github.com/BentoBoxWorld/TopBlock/blob/develop/src/main/resources/config.yml)找到。
 
-本节定义了插件的许多整体设置。
+本节定义了插件的许多整体设置。这些设置是全局的 —— 它们适用于 TopBlock 已挂接的每个游戏模式。没有每个游戏模式的配置。
 
 ??? note "refresh-time"
     前十名应该以分钟为单位刷新的频率。最小值为 1 分钟,默认值为 5 分钟。
-    每次刷新都需要从数据库读取每个岛屿,因此不应过于频繁。
+    每次刷新都需要从数据库读取每个已挂接游戏模式的岛屿，因此不应过于频繁（自 2.1.1 起该读取在非主线程上运行，因此不再造成卡顿尖峰）。如果你同时运行 AOneBlock 和 ChunkBlock，每次刷新会读取两套岛屿，所以考虑保留为默认值或提高它。
 
     默认值: `5`
 
@@ -116,19 +121,35 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     例如,在 BSkyBlock 中,默认的 `[player_command]` 是 `island`,默认的 `[admin_command]` 是 `bsbadmin`。
 
 === "玩家指令"
-    - `/[player_command] topblock`: 访问排行榜面板。需要 `aoneblock.island.topblock` 权限。
+    - `/[player_command] topblock`: 访问排行榜面板。需要该游戏模式的 `island.topblock` 权限（`aoneblock.island.topblock` 或 `chunkblock.island.topblock`）。
+
+TopBlock 在它挂接的**每个**游戏模式上注册 `topblock` 子指令，所以在安装了两个的情况下，你会得到 AOneBlock 的 `/ob topblock` 和 ChunkBlock 的等效指令。每个都打开运行它的世界所属游戏模式的面板 —— 两个排行榜完全独立。
 
 ## 权限
 
 === "玩家权限"
-    - `aoneblock.island.topblock` - (默认: `true`) - 允许玩家使用 `/[player_command] top` 指令。
-    - `aoneblock.intopten` - (默认: `true`) - 控制该玩家的岛屿是否出现在前十名中。从管理员或测试人员处移除此权限可将其排除在排行榜之外。
+    - `aoneblock.island.topblock` - (默认: `true`) - 允许玩家在 AOneBlock 中使用 `/[player_command] topblock` 指令。
+    - `aoneblock.intopten` - (默认: `true`) - 控制该玩家的岛屿是否出现在 AOneBlock 前十名中。从管理员或测试人员处移除此权限可将其排除在排行榜之外。
+    - `chunkblock.island.topblock` - (默认: `true`) - 允许玩家在 ChunkBlock 中使用 `/[player_command] topblock` 指令。
+    - `chunkblock.intopten` - (默认: `true`) - 控制该玩家的岛屿是否出现在 ChunkBlock 前十名中。
 
-??? question "有缺失的内容吗?"
+??? question "我如何从排行榜中隐藏一个玩家？"
+    移除（或否定）该玩家想隐藏的游戏模式的 `intopten` 权限 —— `aoneblock.intopten` 或 `chunkblock.intopten`。由于前缀是按游戏模式的，你可以将某人从一个排行榜中隐藏，同时在另一个中保持可见。
+
+    需要注意两点：
+
+    - 权限仅在岛屿**所有者在线**时检查。离线所有者始终包含，因为 Bukkit 无法为未登录的玩家可靠地评估权限。所以从实际登录的账户移除权限，而不是从小号。
+    - 仅检查**岛屿所有者的**权限。队伍成员的权限没有影响。
+
+    更改在下一次刷新时生效，所以允许最多 `refresh-time` 分钟让岛屿从列表中掉下来。
+
+??? question "有缺失的内容吗？"
     你可以在此插件的 [addon.yml](https://github.com/BentoBoxWorld/TopBlock/blob/develop/src/main/resources/addon.yml) 文件中找到完整的权限列表。
     如果下面的列表中确实缺少了什么,请告诉我们!
 
 ## 占位符
+
+占位符是为 TopBlock 已挂接的每个游戏模式分别注册的，使用该游戏模式自己的前缀。`chunkblock_` 集仅在 ChunkBlock 已安装时存在，并报告 ChunkBlock 自己的排名 —— 两者从不混合。
 
 {{ placeholders_source(source="TopBlock") }}
 
@@ -138,6 +159,31 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     请将其添加到[这里](https://github.com/BentoBoxWorld/TopBlock/issues)的列表中。
 
 ## 更新日志
+
+??? note "v2.1.1 新内容"
+    **发布于：** 2026-08-27
+
+    补丁版本 —— 无配置、地区或数据格式更改；即插即用替换 2.1.0。
+
+    - 🐛 **前十刷新不再拖累主线程。** 刷新任务（每 `refresh-time` 分钟，默认 5）在主线程上同步读取游戏模式的整个岛屿数据库 —— 在有许多岛屿的服务器上每个周期最多 ~1 秒，在挂接了 AOneBlock 和 ChunkBlock 时两倍 —— 造成周期性卡顿尖峰。数据库读取现在异步运行；只有便宜的岛屿和权限查找保持在主线程上。
+
+    [发布 v2.1.1](https://github.com/BentoBoxWorld/TopBlock/releases/tag/2.1.1)
+
+??? note "v2.1.0 新内容 — ChunkBlock 支持"
+    **发布于：** 2026-08-21
+
+    TopBlock 不再仅限 AOneBlock。它现在支持 **ChunkBlock**，并且可以安装任何一个游戏模式 —— 或同时两个。兼容性：BentoBox API 3.14.0+ · AOneBlock 1.18.0+ 和/或 ChunkBlock 1.0.1+ · Paper Minecraft 1.21.x · Java 21。
+
+    - ✨ **ChunkBlock 支持。** TopBlock 在启动时挂接找到的 AOneBlock 和 ChunkBlock。在安装了两个时，每个保持完全独立的前十、`topblock` 指令和占位符集。
+    - ✨ **新占位符** —— 完整的 `%chunkblock_island_*_top_<number>%` 集，镜像现有的 `aoneblock_` 并报告 ChunkBlock 自己的排名。
+    - ✨ **新权限** —— `chunkblock.island.topblock` 和 `chunkblock.intopten`，两者默认 `true`，镜像 AOneBlock 等效项。由于前缀是按游戏模式的，你可以将一个玩家从一个排行榜中隐藏，同时在另一个中保持可见。
+    - 🔺 **AOneBlock 现在是软依赖。** TopBlock 之前拒绝在没有 AOneBlock 的情况下加载；它现在仅在*没有*受支持的游戏模式存在时禁用自己。现有仅 AOneBlock 的设置不受影响，无需任何更改。
+    - 🐛 **每个前十仅显示其自己的游戏模式的岛屿。** AOneBlock 和 ChunkBlock 都在 `database/OneBlockIslands/` 下存储岛屿，所以 ChunkBlock 刷新加载了 AOneBlock 的记录，错误的玩家出现。岛屿现在按游戏模式的世界过滤。
+    - 🐛 **前十面板中的 Steve 头部已修复。** 如果 `top_panel.yml` 有 `icon: PLAYER_HEAD` 取消注释，皮肤解析从未被触发，每个头部都渲染为 Steve。面板现在落回到基于名称的头部路径。
+
+    ℹ️ 这是 AOneBlock 服务器的即插即用更新 —— 无需配置、面板或地区更改。
+
+    [发布 v2.1.0](https://github.com/BentoBoxWorld/TopBlock/releases/tag/2.1.0)
 
 ??? warning "v2.0.0 新内容 — 需要平台升级"
     **发布于：** 2026-04-26

@@ -265,6 +265,31 @@ code, pre, kbd,
   background-color: #040e18;
 }
 
+.md-footer-policies {
+  background-color: #0a1d33;
+  border-top: 1px solid rgba(207, 231, 242, 0.12);
+}
+
+.md-footer-policies__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.6rem;
+  padding: 0.6rem 0.8rem;
+}
+
+.md-footer-policies__link {
+  color: var(--md-footer-fg-color--light);
+  font-size: 0.7rem;
+  text-decoration: none;
+}
+
+.md-footer-policies__link:hover,
+.md-footer-policies__link:focus {
+  color: var(--md-footer-fg-color);
+  text-decoration: underline;
+}
+
 /* ── Tabs (top nav on some pages) ─────────────────────────────── */
 .md-tabs {
   background-color: #0e2742;

@@ -33,6 +33,11 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 插件成功安装后，它将创建 config.yml 文件。这个文件中的每个选项都附带了关于它们的注释。请检查文件以获取更多信息。
 您可以在此处找到最新的配置文件：[config.yml](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/resources/config.yml)
 
+!!! new "自 AOneBlock 1.27.0 起 —— `island.save-every`"
+    岛屿进度写入数据库的频率，以破坏的方块数计。进度也会在每次阶段变化、玩家登出时和关闭时保存，所以这只决定了如果服务器崩溃*而不进行*干净关闭（崩溃、`kill -9`、托管面板强制重启），可能会丢失多少。低数值更安全但写入更频繁；最小值为 `1`。
+
+    默认值：`10`（替代旧的硬编码 50）。现有配置会自动获取默认值。
+
 ### 阶段索引 —— `phases_index.yml`
 
 !!! new "AOneBlock 1.26.0 新增"
@@ -70,6 +75,9 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
     格式错误的索引会回退到旧的直接加载文件方式，因此一次错误的编辑不会让插件卡死。
 
 ### 阶段配置文件
+
+!!! abstract "完整指南：[自定义阶段](Phases.md)"
+    阶段文件的完整演练 —— 每个数字是什么意思、加权方块/怪物池如何工作的工作示例、宝箱、自定义方块、版本门控，以及如何从零开始构建一个阶段。
 
 阶段的配置文件位于 `phases` 文件夹中。
 
@@ -218,11 +226,17 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 
 === "blocks"
     !!! summary "描述"
-        blocks 部分列出 Bukkit 材料及其相对概率。
-    
+        blocks 部分列出 Bukkit 材料，后跟一个**权重**。
+
+        权重不是该方块会出现多少次，也不是百分比 —— 它是该条目在彩票中的份额。每次破坏魔法方块时，阶段中的所有权重都会相加，一个条目会被随机选中，其概率与其权重成正比：
+
+        `条目机会 = 其权重 ÷ 阶段中所有权重的总和`
+
+        由于只有比率重要，`STONE: 1000, DIRT: 200` 的行为完全与 `STONE: 10, DIRT: 2` 相同。已发货文件使用大数字，以便可以以小权重添加稀有条目而无需重新调整其他一切。
+
         您可以在这里找到可用的值：[Materials](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)
-    
-        整个阶段的所有概率值都会加起来，方块放置的机会是相对概率除以所有概率的总和。
+
+        见[自定义阶段](Phases.md#weights-the-blocks-and-mobs-sections)了解工作示例和调整建议。
 
     !!! example "示例"
         ```yaml
@@ -233,10 +247,16 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
         
         此示例显示草方块生成的机会为 40%，而生成石头的机会为 60%。 (2 / (2+3)) 和 (3 / (2+3))
 
+    !!! tip "`CHEST` 是特殊的"
+        当 `CHEST` 被抽中时，它从该阶段的 `_chests.yml` 文件中填充。其权重是得到*一个*宝箱的机会；稀有度随后是第二个单独的掷骰 —— COMMON 62%、UNCOMMON 25%、RARE 9%、EPIC 4%。这些稀有度机会在代码中是固定的。
+
 === "mobs"
     !!! summary "描述"
-        mobs 部分列出可以生成的怪物及其相对概率以及方块。
+        mobs 部分列出可以生成的怪物及其权重。
         您只能在此列表中列出可以存活并且可以生成的实体。[EntityTypes](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html)
+
+    !!! warning "怪物与方块共享同一个池"
+        `mobs:` 不是一个单独的掷骰。怪物权重被添加到与 `blocks:` 和 `custom-blocks:` 权重相同的总数中，所以 `CHICKEN: 200` 的可能性与权重 200 的方块完全相同 —— 添加怪物会使每个方块稍微更稀有。
 
     !!! example "示例"
         ```yaml
@@ -245,6 +265,8 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
               SPIDER: 75
         ```
 
+        在已发货的平原阶段中，方块权重总计 11450，怪物权重再加 665，阶段总计 12115。所以 `COW: 150` 是 150 / 12115 = 1.2% 的破坏方块。
+
 === "Custom Blocks"
     !!! summary "描述"
         从版本 1.11 开始，您现在可以指定自定义方块（感谢 [@HSGamer](https://github.com/HSGamer)）。
@@ -252,6 +274,11 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
         
         要在 `blocks` 部分定义自定义方块，您需要在每个元素前添加 `-`。
         此外，必须使用类型、数据和概率值定义方块。
+
+        `probability` 字段是一个**权重**，完全像 `blocks:` 和 `mobs:` 中的数字一样，并加入同一池 —— `probability: 10` 与权重 10 的方块一样可能。
+
+        您还可以保持地图形式的 `blocks:` 部分不变，并将自定义条目放在兄弟 `custom-blocks:` 列表中。它接受相同的条目并提供同一个池。
+
         支持的类型有：
         
           - `block-data` - 使用 `/setblock` 指令将方块放置在世界中。需要 `data` 字段
@@ -496,6 +523,37 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 ??? question "我的魔法方块是液体！我怎样才能开采它？"
     使用桶。
 
+??? question "我如何阻止访客挖掘其他玩家的魔法方块？"
+    这个选项已经存在 —— 你不需要新的配置设置。如果访客在挖掘别人的方块，那个岛屿的所有者已经将 `Break Blocks` 和 `Magic Block` 保护设置设为允许它。解决方案是重置整个世界的那些设置，然后隐藏图标，使所有者无法再打开它们。
+
+    按**这个顺序**做这些步骤，否则第 3 步会撤销第 1 步。
+
+    **1. 为新岛屿设置默认值**
+
+    运行 `/oba settings` 并打开**岛屿默认**标签页（裂纹石砖图标）。左键点击 `Break Blocks` 和 `Magic Block` 直到两者都显示**成员**。这会自动保存到 AOneBlock `config.yml`。
+
+    **2. 重新加载**
+
+    运行 `/bbox reload`，或重启服务器。
+
+    **3. 将这些默认值应用到所有现有岛屿**
+
+    ```
+    /oba resetflags BREAK_BLOCKS
+    /oba resetflags MAGIC_BLOCK
+    ```
+
+    确认每一个。这会用你在第 1 步中设置的默认值覆盖每个岛屿当前拥有的内容，所以它必须在第 1 步之后进行。
+
+    **4. 隐藏设置以便所有者无法改回**
+
+    作为 Op，站在一个岛屿上，运行 `/ob settings`，并 SHIFT-LEFT-CLICK `Break Blocks` 和 `Magic Block`。每一个都会获得诅咒凋零的光辉，意味着它现在是隐藏的。Op 仍能看到它；其他人的面板中根本没有该图标。
+
+    每个岛屿现在都会拒绝任何等级低于成员的人破坏方块，包括魔法方块，玩家无法改变它。
+
+    !!! tip
+        SHIFT-LEFT-CLICK 以这种方式隐藏*任何*保护设置，按世界，隐藏列表被保存到游戏模式的配置。SHIFT-LEFT-CLICK 一个隐藏的设置再次将它带回。
+
 ??? question "哪些怪物可以生成？"
     每个阶段都有一组不同的怪物可以生成。小心，因为它们可能会推你下去！如果你仔细听，你可能会听到敌对怪物来临。
 
@@ -523,6 +581,8 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
     您需要安装这个插件才能使用全息图部分！
     
     但是，自 1.13 版本和 Minecraft 1.19.4 以来，您不再需要任何额外插件就可以显示全息图。它们将使用 Minecraft 文本实体显示。
+
+    全息图文本接受旧版 `&` 颜色代码、`&#RRGGBB` 十六进制颜色和 MiniMessage 标签（包括渐变）—— 十六进制和 MiniMessage 形式自 1.27.0 起。见[自定义阶段](Phases.md#holograms)。
 
 ??? question "我应该使用 Levels 插件吗？"
     这取决于你，但如果你这样做，请注意因为玩家有一个无限方块，等级可能会变得
@@ -655,6 +715,33 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
     兼容性：BentoBox API 3.15.0+，Minecraft 1.21.5 或更高版本（Sulfur Caves 阶段本身需要 Minecraft 26.2+ 才会启用），Java 21。
 
     [发布 v1.26.3](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.26.3)
+
+!!! warning "v1.27.0 新内容 —— 需要 BentoBox 3.22.0 和 Java 25"
+    **发布于：** 2026-08-08
+
+    修复重启时岛屿进度的无声重复丢失，并为阶段文本添加 MiniMessage 和十六进制颜色。兼容性：BentoBox API 3.22.0+ · Minecraft 26.x 或 1.21.5+（Sulfur Caves 阶段在 26.2+ 上激活）· **Java 25 服务器**。
+
+    - 🔺 🐛 **重启时岛屿进度不再丢失。** 如果玩家在服务器重启时在线，他们的方块计数会回档到最后一个检查点 —— 最多 49 个采矿被撤销，每次重启。AOneBlock 是一个 Pladdon，所以服务器在 BentoBox *之前*禁用它，关闭保存进入一个队列，BentoBox 3.22.0 之前的每个版本都会默认丢弃。关闭保存现在是一个直接写入，独立于核心。
+    - ⚙️ **新的 `island.save-every` 选项** —— 岛屿进度写入数据库的频率，以破坏的方块数计。默认为 **10**，替代旧的硬编码 50，所以最多 9 个方块可能丢失到崩溃，而不是 49。进度也会在阶段变化、登出和关闭时保存。添加到现有配置。见上面的配置部分。
+    - 🎨 **阶段文本中的 MiniMessage 和十六进制颜色。** 全息图只理解十六进制 `&` 代码，动作栏使用不同的序列化器；两者现在都接受旧版代码、`&#RRGGBB` 十六进制、MiniMessage 标签和渐变，混合自由使用 —— 同样适用于地区字符串。也修复了 `§` 代码作为文字文本出现在起始全息图和动作栏中。现有 `&` 代码保持工作；无需更改任何东西。
+    - 📄 `0_plains.yml` 现在解释数字的含义 —— `blocks:`/`mobs:`/`custom-blocks:` 中的权重，`fixedBlocks:`/`holograms:` 中的位置 —— 并记录接受的颜色语法。
+
+    🔺 **先更新 BentoBox 到 3.22.0 或更新版本。** `api-version` 已被提高，所以在旧版核心上 BentoBox 拒绝加载插件(*"无法加载 AOneBlock，因为它需要 BentoBox 版本 3.22.0 或更高"*)。BentoBox 3.22.0 反过来需要一个 **Java 25** 服务器 —— 如果你仍在 Java 21 上，在升级任何一个 jar 之前升级 JVM。
+
+    [发布 v1.27.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.27.0)
+
+??? note "v1.27.1 新内容"
+    **发布于：** 2026-08-29
+
+    Bug 修复版本 —— 无配置或阶段文件更改，现有地区自定义保持工作。兼容性：BentoBox API 3.22.0+ · Minecraft 26.x 或 1.21.5+ · Java 25。
+
+    - 🐛 **`my_island_*` 占位符再次对队伍成员有效。** 自 1.26.0 起，`%aoneblock_my_island_count%`、`%aoneblock_my_island_percent_done%`、`%aoneblock_my_island_phase%` 以及其余部分仅对岛屿**所有者**有效；队伍成员得到空默认值（`0`、`0%`、`Unknown`）。查询现在是偏好顺序：玩家拥有的岛屿获胜，不拥有任何岛屿的玩家回退到他们所属的队伍岛屿。
+    - 🐛 **Boss 栏在 minion/NPC 插件下不再中断。** 当 JetsMinions（或任何通过盔甲架实体破坏方块的插件）挖掘魔法方块时，`MagicBlockEvent` 没有玩家 UUID，而 boss 栏监听器在每次破坏时都抛出 `IllegalArgumentException`。它现在在没有人看到栏的情况下提前返回。
+    - 🐛 **发光地衣和藤蔓在被放置后存活。** 多面植物（`GLOW_LICHEN`、`VINE`、`SCULK_VEIN`、`RESIN_CLUMP`）不附着任何面生成，所以第一次相邻方块更新删除了它们，骨粉无法传播它们。它们现在附着到任何存在的坚实邻居；如果没有，魔法方块变成一个支撑方块（苔藓，或凝聚方块对凝聚静脉），带有生长在其上的植物。
+    - 🔡 **所有 18 个捆绑的地区文件转换为 MiniMessage。** 旧版 `&` 代码仍然解析，所以`locales/` 中的自定义文件不变地保持工作。
+    - 🔡 **繁体中文（`zh-TW`）已完成** 通过 @qwe664 —— 自 1.27.0 起缺失的 26 个键已添加，术语已修订。
+
+    [发布 v1.27.1](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.27.1)
 
 ## Translations
 

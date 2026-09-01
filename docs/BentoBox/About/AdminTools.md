@@ -105,7 +105,34 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! note "v3.22.0 新内容 —— Brigadier 指令"
+!!! note "v3.22.3 新内容 —— bStats 退出选项与 Paper 26.2"
+    **发布于：** 2026-08-22
+
+    主要是一个 bug 修复和 API 版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
+
+    - ⚙️ **bStats 指标退出选项。** `config.yml` 中新增 `general.metrics` 选项（默认为 **`true`**）允许你禁用 BentoBox 的匿名、汇总使用统计，而无需触及 `plugins/bStats/config.yml` 中的全局开关。设置为 `false` 并**重启** —— 收集器在启动时注册，所以 `/bbox reload` 是不够的。从不发送个人数据；见[隐私与数据收集](../Privacy.md)。
+    - 🔺 **针对 Paper 26.2 和 Adventure 5 构建。** 附属作者：Adventure 5 封闭了 `Component`（Mockito 不再能模拟它）并将 `ClickEvent.value()` 替换为 `payload()`。已部署在 26.2 服务器上的附属可能会在运行时受到影响；针对 BentoBox 3.22.3 重新编译会在编译时显示任何问题 —— 见 [PR #3067](https://github.com/BentoBoxWorld/BentoBox/pull/3067) 了解完整的删除清单。服务器管理员无需做任何事情。
+    - 🔲 **附属开发者的对话框网格布局。** `DialogBuilder#columns(int)` 将多操作对话框的按钮排列成网格而不是默认的两列列表，`DialogButton` 获得宽度（1–1024）加上 `withWidth(int)`。现有调用者不受影响。
+    - 🐛 **玩家头部 429 垃圾邮件已修复。** 打开带有玩家头部的面板（例如前十列表）可能会用来自 `sessionserver.mojang.com` 的 HTTP 429 错误填充控制台，因为没有纹理数据的头部在每次打开时都会重新解析。没有纹理的头部现在退化为普通头部，失败的获取不再驱逐已经工作的缓存头部。
+    - 🐛 **YAML 数字加载到声明的字段类型中。** 像 `20` 这样的配置值如果不带小数点写入，现在可以正确加载到 `double`、`float` 和 `long` 字段中，而不是抛出 `ClassCastException`。
+    - 🐛 **面板中的文字颜色名称。** 管理面板在颜色重构后显示像 `whiteChallenges` 这样的附属名称；已修复。
+    - 📄 为 `.blueprint` 和蓝图包文件格式发布了 JSON 模式（2020-12 草案）。
+
+    [发布 v3.22.3](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.22.3)
+
+??? note "v3.22.2 新内容"
+    **发布于：** 2026-08-10
+
+    3.22.0 的 bug 修复补丁 —— 没有新功能、配置键或地区变化；即插即用替换。不存在 3.22.1 版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
+
+    - 🔺 🐛 **玩家名称查询解析到正确的账户。** `/[player_command] team trust <name>` 和 `/[player_command] info <name>` 可能会无声地为一个几个月前就没有持有该名称的 UUID 应答：数据库中的被替换名称记录从未删除，查询取第一个匹配。名称现在会被忽略大小写进行匹配，陈旧记录会被删除，在线玩家会被优先检查。**在更新前进行备份** —— 现有数据库在玩家登录时自我修复（清除每次重命名运行一次，不是每次加入运行一次），不需要手动迁移。
+    - 🐛 **基岩玩家再次可以使用面板。** Geyser 会将一次轻敲扩展为同一刻内的多个 Java 点击数据包，而 `panel.click-cooldown-ms` 检查在 3.22.0 中引入，它吞噬了重要的那个 —— 每次轻敲都得到 `slow-down`，什么也不会发生。同一刻的点击现在被视为一个手势；垃圾邮件防护在每刻一个有行为的点击时保持不变。
+    - 🐛 **被禁用的附属不再留下损坏的指令。** 由于缺少依赖而被丢弃的游戏模式（例如没有 Level 的 ChunkBlock）保留其注册的指令，每个子指令都抛出 NPE。指令、标志和监听器现在在附属启用失败时都被撤回。
+    - 🐛 **从标准下界返回时落地在你自己的岛屿上。** 在共享的下界和 `create-and-link-portals: false`（AOneBlock 的默认值）的情况下，通过传送门回来的玩家被倾倒在坐标 0,0 附近的岛屿上。目的地现在回退到岛屿的家园位置。
+
+    [发布 v3.22.2](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.22.2)
+
+??? note "v3.22.0 新内容 —— Brigadier 指令"
     **发布于：** 2026-08-01
 
     一个围绕指令与可见性的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。

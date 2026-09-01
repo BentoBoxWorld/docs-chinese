@@ -16,16 +16,35 @@ nav:
         - 管理工具: BentoBox/About/AdminTools.md
     - 术语表: Glossary.md
     - 常见问题解答: FAQ.md
+    - 隐私政策: BentoBox/Privacy.md
+    - AI 政策: BentoBox/AI-Policy.md
+    - 行为准则: BentoBox/CodeOfConduct.md
+    - 贡献指南: BentoBox/Contributing.md
     - 游戏模式:
         - 选择游戏模式: gamemodes/Comparison.md
         - AcidIsland: gamemodes/AcidIsland/index.md
-        - AOneBlock: gamemodes/AOneBlock/index.md
+        - AOneBlock:
+            - 概览: gamemodes/AOneBlock/index.md
+            - 自定义阶段: gamemodes/AOneBlock/Phases.md
         - BSkyBlock: gamemodes/BSkyBlock/index.md
         - Boxed: gamemodes/Boxed/index.md
         - CaveBlock: gamemodes/CaveBlock/index.md
+        - ChunkBlock:
+            - 概览: gamemodes/ChunkBlock/index.md
+            - 认领区块: gamemodes/ChunkBlock/Chunks.md
+            - 阶段: gamemodes/ChunkBlock/Phases.md
+            - 命令: gamemodes/ChunkBlock/Commands.md
+            - 权限: gamemodes/ChunkBlock/Permissions.md
+            - 占位符: gamemodes/ChunkBlock/Placeholders.md
         - Poseidon: gamemodes/Poseidon/index.md
         - SkyGrid: gamemodes/SkyGrid/index.md
         - Stranger Realms: gamemodes/StrangerRealms/index.md
+        - TradeWinds:
+            - 概览: gamemodes/TradeWinds/index.md
+            - 水手手册: gamemodes/TradeWinds/Gameplay.md
+            - 命令: gamemodes/TradeWinds/Commands.md
+            - 权限: gamemodes/TradeWinds/Permissions.md
+            - 占位符: gamemodes/TradeWinds/Placeholders.md
     - 附属:
         - 银行: addons/Bank/index.md
         - 生态群落: addons/Biomes/index.md
@@ -35,6 +54,7 @@ nav:
         - 聊天: addons/Chat/index.md
         - 查看我: addons/CheckMeOut/index.md
         - 控制面板: addons/ControlPanel/index.md
+        - 死亡箱: addons/DeathChest/index.md
         - 维度树: addons/DimensionalTrees/index.md
         - 额外怪物: addons/ExtraMobs/index.md
         - 农民之舞: addons/FarmersDance/index.md
@@ -64,9 +84,11 @@ nav:
         - "数据库API": BentoBox/Database-API.md
         - "元数据API": BentoBox/MetadataAPI.md
         - "模板面板API": Tutorials/api/Templated-Panel.md
+        - "蓝图文件格式": BentoBox/Blueprint-Format.md
         - "从附属获取数据": BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons.md
 theme:
   name: material
+  custom_dir: overrides
   palette:
     scheme: slate
     primary: deep orange

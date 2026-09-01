@@ -7,7 +7,7 @@
 {{ addon_description("Upgrades", true) }}
 
 !!! warning "1.0.0 版本是完全重写"
-    Upgrades 1.0.0 用完全**数据库驱动的架构**取代了旧的基于配置文件的系统。升级定义、层级、价格和奖励现在存储在 BentoBox 的数据库中,完全通过游戏内界面管理。**旧的 `config.yml` 不再使用** — 如果从 0.x 版本升级,请在安装 1.0.0 之前删除它。
+    Upgrades 1.0.0 用完全**数据库驱动的架构**取代了旧的基于配置文件的系统。升级定义、层级、价格和奖励现在存储在 BentoBox 的数据库中,完全通过游戏内界面管理。**旧的 `config.yml` 不再定义升级** — 如果从 0.x 版本升级,请在安装 1.0.0 之前删除它。1.0.x 生成的文件只保留少数几个设置；见[`config.yml` 仍然做什么](#configyml-仍然做什么)。
 
 ## 安装
 
@@ -22,11 +22,23 @@
 
 首次安装时,播种器会创建 8 个示例升级。一旦删除示例升级,下次重启时不会重新播种。要重新触发播种,从插件数据文件夹中删除 `.seeded-gamemodes` 标记文件。
 
+### `config.yml` 仍然做什么
+
+!!! info "自 1.0.4 起"
+    `config.yml` 现在明确声明升级**不**在其中定义，旧配置驱动系统中的 inert `range-upgrade`、`command-upgrade`、`entity-icon`、`entity-group-icon` 和 `command-icon` 部分已被删除。最新的文件在[这里](https://github.com/BentoBoxWorld/Upgrades/blob/develop/src/main/resources/config.yml)。
+
+    仍然读取三个部分 —— `block-limits-upgrade`、`entity-limits-upgrade` 和 `entity-group-limits-upgrade` —— 但它们**不**创建升级。它们告诉 Upgrades 它拥有哪些限制，所以 [Limits](../Limits/index.md) 附属自己的基于权限的限制被抑制，两者不会为同一限制争夺。**只有键名重要** (`HOPPER`、`CHICKEN`、`group1`…)；它们下面的层级值被忽略，仅保持以便旧文件仍能加载。一个 `gamemodes:` 块可以按游戏模式覆盖该集。
+
+    `disabled-gamemodes`（Upgrades 不活跃的游戏模式）和 `chat-input-escape`（取消聊天提示的字符串，在管理员面板中，默认 `END`）也仍然适用。旧文件中的其他一切都是 inert，可以删除；现有文件在升级时不被重写。
+
+    🔺 在 1.0.4 之前，`entity-limits-upgrade` 条目仅在同一实体也出现在现已删除的 `entity-icon` 部分时才生效。实体条目现在独立生效 —— 如果你有一个没有匹配图标的实体被列出，其限制权限现在被抑制，而以前则否。
+
 ## 层级与等级
 
 每个升级由一个或多个**层级**组成。每个层级覆盖一定的等级范围——例如,一个层级可能覆盖等级 0 到 4,意味着升级等级在该范围内的玩家将受到该层级奖励的影响。
 
 - 玩家每次购买升级,其等级增加 1。
+- 购买面板在项目的物品描述中显示每个升级的进度，例如 `Level: 2 / 5` —— 岛屿的当前等级和其层级允许的最高等级。该行由 `upgrades.ui.upgradepanel.currentlevel` 地区键设置样式；置空该键以隐藏它。*(自 1.0.5 起。)*
 - 始终应用包含玩家当前等级的层级的奖励。进入新层级的范围后立即切换到该层级的奖励。
 - 一个层级可以要求**多种价格**(必须全部支付)并授予**多种奖励**(全部应用)。
 - 价格和奖励公式可以使用变量(参见[公式变量](#公式变量))根据等级、岛屿等级或队伍人数自动调整。
@@ -87,6 +99,8 @@
 | **Type(类型)** | 点击以在 `BLOCK`、`ENTITY` 和 `ENTITY_GROUP` 之间循环切换。选择 `BLOCK` 来限制漏斗等方块。 |
 | **Target(目标)** | 被限制的对象。在聊天框中输入。`BLOCK` 使用 Bukkit [Material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) 名称(例如 `HOPPER`、`CHEST`);`ENTITY` 使用 [EntityType](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html) 名称(例如 `CHICKEN`);`ENTITY_GROUP` 使用一个**与 Limits 插件中定义的组相匹配**的组名。 |
 | **Amount(数量)** | 每个等级提高的限制量。接受纯数字或使用[公式变量](#公式变量)的公式(例如 `1`,或 `[level] * 2`)。 |
+
+4. 在 `config.yml` 的匹配部分(`block-limits-upgrade`、`entity-limits-upgrade` 或 `entity-group-limits-upgrade`)下列出相同的 Target，以便 Limits 插件自己的基于权限的限制被抑制 —— 见[`config.yml` 仍然做什么](#configyml-仍然做什么)。
 
 奖励编辑器中的绿色面板表示配置有效;红色面板表示某个必填字段(通常是 Target)仍然缺失。
 
@@ -155,6 +169,23 @@
 `UpgradeAPI` 类公开给其他插件,用于以编程方式查询和修改升级数据。
 
 ## 更新日志
+
+??? note "v1.0.5 新内容"
+    **发布于：** 2026-08-03
+
+    - 🔡 **升级物品描述中的当前/最大等级。** 购买面板中的每个升级物品现在在其物品描述前面加上 `Level: current / max` 一行，包括升级到最高等级的升级，所以玩家可以一目了然地看到他们的进度。由新的 `upgrades.ui.upgradepanel.currentlevel` 地区键驱动（在所有五个捆绑地区中翻译）—— 重新设置或置空它以自定义或隐藏该行。
+    - **API：** `UpgradeAPI` 获得一个可覆盖的 `getMaxLevel(Island)` 钩子（默认 `-1` = 未知，忽略该行），所以自定义升级可以选择加入。
+
+    [发布 v1.0.5](https://github.com/BentoBoxWorld/Upgrades/releases/tag/1.0.5)
+
+??? note "v1.0.4 新内容"
+    **发布于：** 2026-08-02
+
+    - 🔺 **限制升级再次工作。** 购买方块/实体/实体组升级对当前限制插件版本失败，并出现 `NoSuchMethodError`。Upgrades 现在使用限制每环境 API —— **更新限制到 1.28.2 或更新版本**。
+    - ⚙️ **`config.yml` 已清理。** 该文件现在明确说明升级是数据库驱动的；旧配置驱动系统中的 inert 部分已被删除。`block/entity/entity-group-limits-upgrade` 键名仍被读取以抑制 Limits 插件自己的基于权限的限制。
+    - 九个潜在 bug 修复（公式路径中的潜在 NPE）以及未使用类的内部清理。
+
+    [发布 v1.0.4](https://github.com/BentoBoxWorld/Upgrades/releases/tag/1.0.4)
 
 ??? note "v1.0.3 新内容"
     **发布于:** 2026-06-16

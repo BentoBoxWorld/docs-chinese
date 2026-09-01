@@ -37,7 +37,9 @@
         # GUI中使用的图标。数字在末尾允许指定项目的堆叠大小。
         # 默认值: Paper.
         icon: "PAPER:1"
-        # 生成器类型: COBBLESTONE, STONE 或 BASALT。自解释。
+        # 生成器类型: which vanilla lava mechanic this tier replaces.
+        # COBBLESTONE, STONE, BASALT, COBBLESTONE_OR_STONE, BASALT_OR_COBBLESTONE,
+        # BASALT_OR_STONE or ANY. See the "Generator types" section below.
         # 默认值: COBBLESTONE
         type: COBBLESTONE
         # 指示生成器是否为默认生成器。默认生成器忽略要求部分。
@@ -115,6 +117,25 @@
           - generator_id_1
           - generator_id_2
     ```
+
+### 生成器类型（方块流产生的熔岩机制）
+
+Minecraft 通过四种不同的方式从熔岩中创建方块，生成器层级只针对其**类型**覆盖的那些触发。这是控制*生成器可以使用的位置*的主要设置：
+
+| 原版机制 | 原版生成的方块 | 生成器类型 |
+|---|---|---|
+| 一个熔岩**源**接触水 | 黑曜石 | *插件不处理* |
+| **流动的熔岩**在同一水平面接触水 | 圆石 | `COBBLESTONE` |
+| **流动的熔岩**流入水中 | 石头 | `STONE` |
+| **流动的熔岩**流入灵魂土壤旁的蓝冰 | 玄武岩 | `BASALT` |
+
+类型是按生成器层级设置的，可以在管理员 GUI — `/[admin] generator` → 选择一个层级 → **类型**按钮，打开列出每个类型及其后面机制提示的选择器 — 或使用模板文件中的 `type:` 键。组合类型 `COBBLESTONE_OR_STONE`、`BASALT_OR_COBBLESTONE`、`BASALT_OR_STONE` 和 `ANY` 使层级针对多个机制触发。
+
+!!! warning "`STONE` 生成器在任何水体上工作"
+    一个 `STONE` 生成器在玩家可以倒岩浆到水中的地方触发 — 包括岛屿保护范围内的开放海洋。在水量丰富的游戏模式上，如**酸岛**，一个熔岩桶因此可以将大量海洋转换为生成器方块，并随之提升岛屿等级。两种方法来防止这种情况：
+
+    - **不给玩家 `STONE` 层级。** 仅使用 `COBBLESTONE` 和/或 `BASALT` 类型，所以生成方块需要一个适当构建的生成器。
+    - **限制高度范围。** 给 `STONE` 层级一个最小和最大 Y，排除海平面，所以它们在洞穴或高于水面的地方工作但不在海洋表面。参见[每方块高度范围](#按方块高度范围)。
 
 ### 生成器耗尽（速率限制）
 
@@ -258,7 +279,10 @@
     最有可能是由于”部署”状态。为了避免在管理员添加它们时玩家开始激活生成器的问题，生成器是未部署的，没有人可以使用它们。您可以通过编辑Admin GUI中的生成器并点击编辑生成器GUI中的开关来激活它们。
     ![deployed](resources/deployed.png){: loading=lazy }
 
-??? question "什么是宝藏？"
+??? question “玩家在海洋上使用熔岩桶来生成方块。我怎样才能阻止这种情况？”
+    这是一个 `STONE` 生成器按设计工作：原版把水变成石头，无论何时熔岩流入到它，所以一个 `STONE` 层级在玩家可以到达的任何水处触发，开放海洋也包括在内。要么停止发放 `STONE` 层级，改用 `COBBLESTONE` 和/或 `BASALT` 类型，要么给你的 `STONE` 层级一个排除海平面的高度范围。参见[生成器类型](#生成器类型方块流产生的熔岩机制)。
+
+??? question “什么是宝藏？”
     宝藏是在生成方块时掉落的东西。它允许为每个生成器提供额外的自定义。
 
 ??? question "什么是套餐？"

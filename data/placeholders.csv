@@ -134,3 +134,13 @@ TopBlock,aoneblock_island_lifetime_top_<number>,排行榜第 <number> 名累计�
 Border,Border_color,玩家当前的边界颜色（红/绿/蓝）,4.8.0
 InvSwitcher,[gamemode]_invswitcher_balance,玩家在该游戏模式世界中的金钱余额,1.18.0
 InvSwitcher,[gamemode]_invswitcher_balance_formatted,玩家在该游戏模式世界中的金钱余额（带货币名称的格式化显示）,1.18.0
+TopBlock,chunkblock_island_player_name_top_<number>,排行榜第 <number> 名的岛屿所有者名称,2.1.0
+TopBlock,chunkblock_island_member_names_top_<number>,排行榜第 <number> 名的岛屿团队成员名称,2.1.0
+TopBlock,chunkblock_island_phase_name_top_<number>,排行榜第 <number> 名所达到的阶段名称,2.1.0
+TopBlock,chunkblock_island_phase_number_top_<number>,排行榜第 <number> 名的阶段编号（平原为1，地下为2）,2.1.0
+TopBlock,chunkblock_island_count_top_<number>,排行榜第 <number> 名本轮挖掘的魔法方块数量,2.1.0
+TopBlock,chunkblock_island_lifetime_top_<number>,排行榜第 <number> 名累计挖掘的魔法方块总量,2.1.0
+TradeWinds,tradewinds_rank,玩家的水手等级名称（Deck Hand … Mythic Mariner）,0.1.0
+TradeWinds,tradewinds_charted,玩家已探明的岛屿数量（含管理员调整）,0.1.0
+TradeWinds,tradewinds_top_name_<1-10>,探明岛屿排行榜第 <1-10> 名的水手名称,0.1.0
+TradeWinds,tradewinds_top_charted_<1-10>,探明岛屿排行榜第 <1-10> 名水手的探明岛屿数量,0.1.0
