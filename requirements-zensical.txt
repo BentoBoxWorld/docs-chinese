@@ -1,0 +1,13 @@
+# Production build with Zensical (https://zensical.org), the successor to
+# Material for MkDocs from the same team. Reads the same mkdocs.yml and runs
+# the macros in main.py natively, so no MkDocs packages are needed.
+#
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements-zensical.txt
+#   .venv/bin/zensical build      # or: zensical serve
+#
+# Requires Python 3.10+. Zensical is pre-1.0, so the version is pinned exactly.
+# Read the Docs installs this file (see .readthedocs.yml). requirements.txt is
+# kept as the MkDocs fallback.
+zensical==0.0.59
+PyYAML>=6.0
+requests>=2.31

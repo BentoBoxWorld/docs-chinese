@@ -1,4 +1,6 @@
 site_name: BentoBox World
+# Zensical cannot read READTHEDOCS_CANONICAL_URL, so the canonical URL is set explicitly.
+site_url: https://docs.bentobox.world/zh-cn/latest/
 copyright: "© Copyright 2017-2026 tastybento and the BentoBoxWorld community (CC-BY 4.0)."
 repo_url: https://github.com/BentoBoxWorld/BentoBox
 repo_name: BentoBoxWorld/BentoBox
@@ -89,6 +91,8 @@ nav:
 theme:
   name: material
   custom_dir: overrides
+  # Zensical-only: keep the Material for MkDocs look. MkDocs passes unknown theme keys through.
+  variant: classic
   palette:
     scheme: slate
     primary: deep orange

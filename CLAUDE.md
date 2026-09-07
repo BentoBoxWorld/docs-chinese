@@ -4,17 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Chinese translation of the BentoBoxWorld documentation site. It is an MkDocs (Material theme) project that publishes the user-facing docs for BentoBox, its game modes, and its addons. The English source lives at https://github.com/BentoBoxWorld/docs — this repo mirrors that structure with content translated into Chinese. The current working branch is typically `update/sync-with-english`, which is used to pull new English content over and translate it.
+Chinese translation of the BentoBoxWorld documentation site. It is a [Zensical](https://zensical.org) project (the successor to Material for MkDocs; it reads the MkDocs-style `mkdocs.yml`) that publishes the user-facing docs for BentoBox, its game modes, and its addons. The English source lives at https://github.com/BentoBoxWorld/docs — this repo mirrors that structure with content translated into Chinese. The current working branch is typically `update/sync-with-english`, which is used to pull new English content over and translate it.
 
 ## Common commands
 
 ```bash
-pip install -r requirements.txt    # install MkDocs + plugins (pinned old versions, see note below)
-mkdocs serve                       # local preview at http://127.0.0.1:8000
-mkdocs build                       # build static site into ./site
+pip install -r requirements-zensical.txt    # Python 3.10+; installs Zensical (no MkDocs packages needed)
+zensical serve                       # local preview at http://localhost:8000
+zensical build                       # build static site into ./site
 ```
 
-Note: `requirements.txt` pins fairly old versions (mkdocs 1.3.0, mkdocs-material 8.2.15, macros 0.6.0). If installing fresh, use a venv to avoid conflicts with system packages.
+Note: `requirements.txt` is the MkDocs fallback (`pip install -r requirements.txt && mkdocs build`); Zensical reads the same `mkdocs.yml`. Read the Docs runs `zensical build` on Python 3.12 (see `.readthedocs.yml`), and `.github/workflows/zensical.yml` runs the same build on every push and PR. Zensical does not support the `git-revision-date-localized` plugin, so the "last updated" line is not shown.
 
 ## Architecture
 
