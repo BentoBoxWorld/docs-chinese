@@ -6,8 +6,8 @@
 # Material for MkDocs. It reads mkdocs.yml directly. Setup follows the official
 # guide: https://docs.readthedocs.com/platform/stable/intro/zensical.html
 #
-# To fall back to MkDocs, restore the `mkdocs:` section and point
-# python.install at requirements.txt.
+# To fall back to MkDocs, restore the `mkdocs:` section, drop build.jobs and
+# use python.install with requirements.txt.
 
 version: 2
 
@@ -16,6 +16,9 @@ build:
   tools:
     python: "3.12"
   jobs:
+    # python.install only runs for sphinx/mkdocs builds, so install here.
+    install:
+      - pip install -r requirements-zensical.txt
     build:
       html:
         - zensical build
@@ -23,7 +26,3 @@ build:
       # Copy the built site into the directory Read the Docs publishes.
       - mkdir -p $READTHEDOCS_OUTPUT/html/
       - cp --recursive site/* $READTHEDOCS_OUTPUT/html/
-
-python:
-  install:
-    - requirements: requirements-zensical.txt
