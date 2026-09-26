@@ -207,3 +207,34 @@ panel_name:
     请注意，并非所有选项都可由玩家使用。
 
     `action` 支持工具提示生成。工具提示将始终添加到按钮描述的末尾，并按操作的顺序排列。
+
+??? question "按钮的 `fallback` 是什么？"
+    按钮可以带有 `fallback`：另一个按钮定义（或 `reusable` 的名称），在按钮本身无法显示时显示，例如在当前情况下不适用的选项卡，或已没有内容可显示的分页格子。fallback 是一个完整的按钮，因此可以有自己的 `data` 和 `actions`，甚至有自己的 `fallback`。设置面板利用这一点，把在岛屿外显示的选项卡与在岛屿上显示的选项卡放在同一个格子中。
+    ```yaml
+    2:
+      icon: SHIELD
+      title: protection.panel.PROTECTION.title
+      data:
+        type: TAB
+        tab: PROTECTION
+      fallback:
+        icon: STONE_BRICKS
+        title: protection.panel.WORLD_DEFAULTS.title
+        data:
+          type: TAB
+          tab: WORLD_PROTECTION
+    ```
+    fallback 从 BentoBox 3.23.0 开始生效；更早的版本会跳过 fallback，转而显示它自己的 fallback。
+
+??? question "哪些 BentoBox 面板可以自定义？"
+    BentoBox 首次启动时会将以下模板写入 `plugins/BentoBox/panels/`。游戏模式附属可以在自己的 `panels` 文件夹中提供其中任意一个的副本，该游戏模式将改用这个副本。
+
+    | 文件 | 面板 |
+    | --- | --- |
+    | `island_creation_panel.yml` | 创建岛屿时的蓝图包选择 |
+    | `island_homes_panel.yml` | `/[player_command] homes` |
+    | `language_panel.yml` | `/[player_command] language` |
+    | `team_panel.yml` 和 `team_invite_panel.yml` | `/[player_command] team` 及其邀请界面 |
+    | `settings_panel.yml` | `/[player_command] settings`，参见[自定义设置面板](/en/latest/BentoBox/Island-Protection,-Flags-&-Ranks/#customizing-the-settings-panel) |
+    | `admin_settings_panel.yml` | `/[admin_command] settings` |
+    | `placeholder_panel.yml` 和 `placeholder_list_panel.yml` | 占位符浏览器 |

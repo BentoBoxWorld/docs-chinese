@@ -69,6 +69,27 @@
 
 *玩家查看允许显示的所有基本标志。*
 
+### 自定义设置面板 { #customizing-the-settings-panel }
+
+!!! new "BentoBox 3.23.0 新增"
+    设置面板由模板文件布局，与其他[可自定义 GUI](/en/latest/Tutorials/generic/Customizable-GUI/) 相同。
+
+设置面板的布局来自 `plugins/BentoBox/panels/settings_panel.yml`，BentoBox 首次启动时会生成该文件。游戏模式附属可以在自己的 `panels` 文件夹中提供自己的副本（例如 `plugins/BentoBox/addons/BSkyBlock/panels/settings_panel.yml`），该游戏模式将改用这个副本。默认文件完全还原了之前的面板外观，因此在你编辑它之前不会有任何变化。如果文件无法读取，BentoBox 会记录错误并显示内置面板。
+
+每个按钮都通过 `data.type` 放置：
+
+| 类型 | 显示内容 |
+| --- | --- |
+| `TAB` | 选项卡按钮。`data.tab` 为 `PROTECTION`、`SETTING` 或 `WORLD_PROTECTION`（玩家不在岛屿上时看到的只读视图）。不适用的选项卡不会显示，而是改用按钮的 `fallback`。 |
+| `FLAG` | 分页标志列表中的一个格子。每页想显示多少个标志就放置多少个。使用 `data.flag: <FLAG_ID>` 时，该格子始终显示该标志，并且该标志会从分页列表中移出；锁定图标和更改设置图标就是这样放置的。 |
+| `MODE` | 显示模式切换。可以在 `data` 中用 `basic-icon`、`advanced-icon` 和 `expert-icon` 为每种模式设置图标。 |
+| `RESET` | 将所有标志重置为默认值。只有岛主能看到。 |
+| `NEXT`、`PREVIOUS` | 翻页。仅在有可跳转的页面时显示。 |
+
+**标题和选项卡名称是分开的。** 面板标题是模板的 `title`，默认为语言条目 `panels.settings.title`，翻译时会替换 `[tab]`（当前显示的选项卡名称）和 `[world_name]`。默认值只有 `[tab]`。每个选项卡按钮都有自己的 `title` 和 `description`，默认为 `protection.panel.PROTECTION.title` 等条目。因此，无论在模板还是语言文件中，都可以为标题和选项卡按钮设置不同的样式。
+
+**描述（lore）布局。** 标志的描述由语言文件中的 `protection.panel.flag-item.description-layout`（保护标志）、`setting-layout`（设置）或 `menu-layout`（打开子面板的标志）构建。从 3.23.0 开始，这些布局可以包含 `[ranks]`（插入保护标志等级列表的位置）和 `[tooltips]`（插入模板中标志按钮 `actions` 工具提示的位置）。没有 `[ranks]` 时，等级列表会像以前一样追加在布局之后；没有 `[tooltips]` 时，工具提示会在一个空行之后追加。要将点击提示移到等级列表下方，请从布局中删除这些提示，把 `[ranks]` 和 `[tooltips]` 放在你想要的位置，并在模板的 `flag_button` 中将提示声明为工具提示。模板中标志按钮自身的 `title` 和 `description` 可以指定另一个语言条目，仅在该面板中用作名称和描述布局。
+
 ![消失诅咒](https://user-images.githubusercontent.com/20014332/80591692-6799b500-8a1e-11ea-9ab8-e076f47d2220.png)
 
 *将"消失诅咒"应用于其中一个标志。*
@@ -150,6 +171,9 @@ TODO.
 ## 管理员设置面板
 
 **管理员设置面板**通过 `/[admin_command] settings`（不带任何参数）访问。它包含三个选项卡：
+
+!!! new "BentoBox 3.23.0 新增"
+    管理员设置面板由 `plugins/BentoBox/panels/admin_settings_panel.yml` 布局，方式与[玩家的设置面板](#customizing-the-settings-panel)相同。其选项卡类型为 `WORLD_SETTING`、`WORLD_DEFAULTS` 和 `ISLAND_DEFAULTS`；后两者需要 `[gamemode].admin.set-world-defaults` 权限，没有该权限时会被隐藏。同一个文件也用于布局 `/[admin_command] settings <player_name>`：每个世界选项卡都将一个岛屿选项卡（`PROTECTION`、`SETTING`）指定为其 `fallback`，当存在岛屿时显示该选项卡。
 
 ### 世界设置
 
