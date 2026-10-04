@@ -25,7 +25,7 @@ BentoBox 为服务器管理员提供了一系列工具来管理游戏、调查�
 | `/bentobox perms` | 显示 BentoBox 和所有插件的有效权限 |
 | `/bentobox rank` | 列出、添加或移除自定义等级 |
 
-## 每个游戏模式的管理员指令
+## 每个游戏模式的管理员指令 { #per-game-mode-admin-commands }
 
 每个游戏模式都有自己的管理员指令。对于 BSkyBlock 是 `/bsb`，对于 AcidIsland 是 `/acid admin` 等。这些为你提供特定于该游戏模式的控制：
 
@@ -36,6 +36,7 @@ BentoBox 为服务器管理员提供了一系列工具来管理游戏、调查�
 | `/[admin] delete` | *(3.19.0)* 不带玩家参数时，在确认后软删除你**当前所站**的岛屿（如果该岛屿仍有队伍则会被拒绝） |
 | `/[admin] undelete` | *(3.19.0)* 在区域文件被清除之前，清除你**当前所站**岛屿的待删除状态，使其变为无主 |
 | `/[admin] register <player>` | 将无主岛屿注册给玩家。对于待删除的岛屿，现在会显示确认提示并取消删除，而不是拒绝操作 |
+| `/[admin] setrank <player> <rank> [island owner | x,y,z]` | *(3.23.0)* 设置队伍成员的等级；可在控制台使用。等级可以是关键词（`member`、`sub-owner`、`trusted`、`coop` 或任何不含 `ranks.` 前缀的附属等级）、翻译后的等级名称或其编号，不区分大小写；未知的等级会列出有效的选项。如果没有岛屿参数，它作用于玩家**所在**的岛屿（而不是他们拥有的岛屿），因此无法降级所有者。为了选择一个特定的岛屿，请说出该岛屿的所有者，或其中心坐标 `x,y,z`。拒绝设置 `owner`、`mod` 和 `admin` 等级 — 使用 `team setowner` 来转移所有权 |
 | `/[admin] setrange <player> <range>` | 更改玩家的岛屿保护范围 |
 | `/[admin] range removebonus <player> [id]` | 从单个岛屿移除所有奖励保护范围，或仅移除给定 id 的范围 |
 | `/[admin] range purgebonus <id>` | 从世界中的**每个**岛屿移除奖励范围 id — 理想情况下在卸载提供奖励范围的附属之后。扫描以异步运行，不会冻结大型服务器 |
@@ -105,7 +106,52 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! note "v3.22.3 新内容 —— bStats 退出选项与 Paper 26.2"
+!!! note "v3.23.3 新内容 —— 黑曜石挖取复制修复与命令等级面板"
+    **发布于：** 2026-10-03
+
+    一个 bug 修复和面板版本。没有 `config.yml` 或地区变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🐛 **黑曜石挖取复制已修复。** 使用 OBSIDIAN_SCOOPING 时，熔岩在点击后一个刻度后被发出，没有重新检查，所以在那个刻度内挖掉黑曜石就会同时获得黑曜石和熔岩，而且将桶移出手可能会不消耗桶而获得熔岩。现在都会重新检查。**建议每个启用了 OBSIDIAN_SCOOPING 的服务器都进行更新。**
+    - ⚙️ **可自定义的命令等级面板。** 由新的 `panels/command_ranks_panel.yml` 布局（首次启动时写入；游戏模式自己的副本优先），带有 `COMMAND`、`NEXT` 和 `PREVIOUS` 按钮。现在在 45 个命令时分页 — 老面板会悄悄丢掉第 49 个命令之后的每个命令。见[自定义命令等级面板](../Island-Protection,-Flags-&-Ranks.md)。
+    - ✨ **设置面板改进。** `/island settings` 在玩家最后选择的基础/高级/专家模式下打开，保护和设置标签页共享一种模式（管理面板仍然在专家模式下打开）。命令等级隐藏玩家没有权限的子指令（op 仍然看到一切）。破坏生成器图标不再显示原版的生成蛋工具提示。
+    - 🐛 **Multiverse `auto-load` 被尊重。** 从 3.22.0 开始，Multiverse 钩子在每次启动时重置 BentoBox 世界的 `auto-load: false`。现在它仅在 BentoBox 首次导入一个世界时设置；现有的 Multiverse 条目保持配置的样子。
+    - 🧩 **附属 API：** 管理员 `deaths set|add|remove|reset` 指令触发 `PlayerDeathsChangedEvent`（世界、玩家、操作、数量、旧值和新值计数），所以 Level 可以跟踪管理员的改动。不为自然死亡触发。
+
+    [发布 v3.23.3](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.3)
+
+??? note "v3.23.1 新内容 —— Minecraft 26.3 与模板驱动的设置面板"
+    **发布于：** 2026-09-25
+
+    兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🎮 **Minecraft 26.3"荒野束缚"支持。** 新的垫子由现有旗标保护 — 放置需要 PLACE_BLOCKS，击中或射击需要 BREAK_BLOCKS，坐下需要 RIDING — 而草床由 BED 保护，所以访客无法再睡在（和用掉）岛屿的草床。没有新旗标。发布时，Paper 26.3 仅作为 alpha 构建提供（在构建 41 上测试）。
+    - ⚙️🔡 **可自定义的设置面板。** `/island settings` 和 `/admin settings` 由 `panels/settings_panel.yml` 和 `panels/admin_settings_panel.yml` 构建，首次启动时写入。标签页布局、固定旗标、面板标题和旗标的 lore 顺序可以自定义；默认值看起来完全像老面板。见[自定义设置面板](../Island-Protection,-Flags-&-Ranks.md#customizing-the-settings-panel)。
+    - 🐛 **已删除的岛屿不再计入玩家。** 在重置或 `/[admin] delete` 后，岛屿在重启前停留在每个玩家的索引中，这阻止了转移（"玩家已经拥有 N 个岛屿"）并混淆了 `/[admin] delete`。
+    - 🐛 模板按钮的 `fallback:` 记录现在正确呈现。
+
+    🔡 **地区注意。** 一个新键 `panels.settings.title` 单独从标签页名称设置设置面板标题。没有它的自定义地区文件会回退到捆绑的文本。旗标 lore 布局（`protection.panel.flag-item.description-layout`）现在可以使用 `[ranks]` 和 `[tooltips]` 占位符，但除非你选择加入，否则不变。
+
+    [发布 v3.23.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.1)
+
+??? note "v3.23.0 新内容 —— 控制台就绪的 setrank"
+    **发布于：** 2026-09-19
+
+    兼容性：Paper Minecraft 1.21.x – 26.2，Java 25+。
+
+    - 🔡 **`/[admin] setrank` 可在控制台使用。** 新语法 `/[admin] setrank <player> <rank> [island owner | x,y,z]`，向后兼容。等级可以由关键词、翻译后的名称或编号给出；当玩家拥有一个岛屿并是另一个的成员时，会选择正确的岛屿；岛屿可以由其中心命名。制表符补全偏移了一个，现在已修复。受影响的玩家会被告知他们的等级改变了 — 见上面的[指令表](#per-game-mode-admin-commands)。
+    - 💡 **行为改变：** 没有岛屿参数时，`setrank` 现在作用于玩家**所在**的岛屿而不是他们自己的岛屿，所以它不能再意外地降级所有者。拒绝设置 `owner`，并指向 `setowner`。
+    - 🐛 **元数据控制台垃圾邮件已修复。** 玩家和岛屿元数据映射现在是线程安全的。损坏的映射以前在每次玩家移动时抛出 `NoSuchElementException`（通过 Border 看到），直到重启。
+
+    🔡 **地区注意。** `commands.admin.setrank` 获得 `cannot-set-owner`、`already-rank` 和 `admin-changed-rank`；`unknown-rank` 现在接受 `[rank]` 和 `[ranks]`。所有 24 个捆绑地区都已更新；将新键添加到任何自定义地区文件。
+
+    [发布 v3.23.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.0)
+
+??? note "v3.22.4 新内容"
+    **发布于：** 2026-09-06
+
+    一个 bug 修复和性能版本。兼容性：Paper Minecraft 1.21.x – 26.2，Java 25+。
+
+??? note "v3.22.3 新内容 —— bStats 退出选项与 Paper 26.2"
     **发布于：** 2026-08-22
 
     主要是一个 bug 修复和 API 版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。

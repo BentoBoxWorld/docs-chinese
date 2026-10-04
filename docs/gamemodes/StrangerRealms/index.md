@@ -90,6 +90,15 @@
 
     **兼容性：** BentoBox API 3.9.0+，Minecraft 1.21.10+，Java 21。
 
+??? note "v1.0.6 新功能 — Paper 26.3 修复"
+    **发布日期：** 2026-09-26
+
+    完整发布说明请参阅：[Release 1.0.6](https://github.com/BentoBoxWorld/StrangerRealms/releases/tag/1.0.6)
+
+    - 🐛 **在 Paper 26.3 上创建颠倒世界时不再出现 sculk sensor 警告。** 原版洞穴雕刻器在 StrangerRealms 放置 sculk sensor 之后运行，并用熔岩替换了一些，Paper 为每个记录了 `ServerInternalException`（*"试图设置方块实体 SculkSensorBlockEntity ..."*）。Sensor 现在由方块填充器在雕刻和装饰之后放置。密度不变，已生成的区块不变。
+
+    **兼容性：** BentoBox API 3.9.0+，Minecraft 1.21.10+（包括 26.1.x、26.2 和 26.3），Java 21。
+
 ## 翻译
 
 {{ translations("StrangerRealms") }}

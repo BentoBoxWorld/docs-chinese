@@ -29,8 +29,9 @@
 | `/boxadmin bp pos1` | 设置立方体剪贴板的第一个角落 | |
 | `/boxadmin bp pos2` | 设置立方体剪贴板的第二个角落 | |
 | `/boxadmin bp save <bp name>` | 保存复制的剪贴板 | |
+| `/boxadmin place <structure> [x y z] [rotation] [mirror] [NO_MOBS]` | 从种子世界放置一个结构到当前盒子；使用 ~ 表示当前坐标。NO_MOBS（3.4.1+）抑制结构内置的怪物。/boxadmin place undo 移除最后放置 | `boxed.commands.boxadmin.place` |
 | `/boxadmin setowner <player> [island owner]` | 将岛屿所有权转移给玩家；指定当前所有者即可从控制台运行 | `boxed.admin.register` |
-| `/boxadmin setrank <player> <rank>` | 设置玩家在其岛屿上的等级 | |
+| `/boxadmin setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其岛屿上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的岛屿 | |
 | `/boxadmin setspawn` | 设置生成点 | `boxed.admin.setspawn` |
 | `/boxadmin top` | 显示前十名列表 | |
 | `/boxadmin tp <player>` | 传送到玩家的岛屿 | `boxed.mod.tp` |

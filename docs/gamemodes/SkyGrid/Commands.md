@@ -23,7 +23,7 @@
 | `/sgadmin bp pos2` | 设置立方体剪贴板的第二个角落 | `skygrid.admin.blueprint` |
 | `/sgadmin bp save <bp name>` | 保存复制的剪贴板 | `skygrid.admin.blueprint` |
 | `/sgadmin setowner <player> [area owner]` | 将区域所有权转移给该玩家；指定当前所有者即可从控制台运行 | `skygrid.mod.team` |
-| `/sgadmin setrank <player> <rank>` | 设置玩家在其区域上的等级 | `skygrid.admin.setrank` |
+| `/sgadmin setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其区域上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的区域 | `skygrid.admin.setrank` |
 | `/sgadmin setspawn` | 将某个区域设置为此游戏模式的出生点 | `skygrid.admin.setspawn` |
 | `/sgadmin tp <player>` | 传送到玩家的区域 | `skygrid.mod.tp` |
 | `/sgadmin tpend <player>` | 传送到玩家的末地区域 | `skygrid.mod.tp` |
