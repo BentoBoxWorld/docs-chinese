@@ -33,7 +33,7 @@ hide:
       <div class="bb-stat__l">游戏模式</div>
     </div>
     <div class="bb-stat">
-      <div class="bb-stat__n">MC 1.15 &rarr; 26.2.x</div>
+      <div class="bb-stat__n">MC 1.15 &rarr; 26.3.x</div>
       <div class="bb-stat__l">支持版本</div>
     </div>
   </div>

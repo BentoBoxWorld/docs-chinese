@@ -183,9 +183,10 @@
             /padmin setrank 
             <player>
             <rank>
+            [island owner | x,y,z]
          </b>
       </td>
-      <td align='left'>设置玩家在其领域上的等级</td>
+      <td align='left'>设置玩家在其领域上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的领域</td>
       <td align='left'>poseidon.admin.setrank</td>
    </tr>
    <tr>

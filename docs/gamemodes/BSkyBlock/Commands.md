@@ -27,7 +27,7 @@
 | `/bsbadmin bp save <blueprint name>` | 保存复制的剪贴板 | `bskyblock.admin.blueprint` |
 | `/bsbadmin bp rename <blueprint name>` | 重命名蓝图 | `bskyblock.admin.blueprint` |
 | `/bsbadmin setowner <player> [island owner]` | 将岛屿所有权转移给玩家；指定当前所有者即可从控制台运行 | `bskyblock.mod.team` |
-| `/bsbadmin setrank <player> <rank>` | 设置玩家在其岛屿上的等级 | `bskyblock.admin.setrank` |
+| `/bsbadmin setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其岛屿上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的岛屿 | `bskyblock.admin.setrank` |
 | `/bsbadmin setspawn` | 将世界生成位置设置为此位置 | `bskyblock.admin.setspawn` |
 | `/bsbadmin top` | 显示前十名列表 - 需要等级插件 | `bskyblock.admin.top` |
 | `/bsbadmin tp <player>` | 传送到玩家的岛屿 | `bskyblock.mod.tp` |

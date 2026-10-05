@@ -59,7 +59,7 @@
 | `/stranger bp save <blueprint name>` | 保存复制的剪贴板 | `strangerrealms.admin.blueprint` |
 | `/stranger bp rename <blueprint name>` | 重命名蓝图 | `strangerrealms.admin.blueprint` |
 | `/stranger setowner <player> [claim owner]` | 将声称所有权转让给玩家；命名当前所有者以从控制台运行 | `strangerrealms.mod.team` |
-| `/stranger setrank <player> <rank>` | 设置玩家在其声称上的等级 | `strangerrealms.admin.setrank` |
+| `/stranger setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其声称上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的声称 | `strangerrealms.admin.setrank` |
 | `/stranger setspawn` | 将世界出生点位置设置到此位置 | `strangerrealms.admin.setspawn` |
 | `/stranger tp <player> [claim]` | 传送到玩家的声称 | `strangerrealms.mod.tp` |
 | `/stranger tpend <player> [claim]` | 传送到玩家的末地声称 | `strangerrealms.mod.tp` |

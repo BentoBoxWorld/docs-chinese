@@ -178,6 +178,18 @@ loot:
 
 ## 更新日志
 
+??? note "v2.1.2 新内容 — Minecraft 26.3 上的硫磺喷口"
+    **发布于：** 2026-09-25
+
+    为 Minecraft 26.3 的 bug 修复版本。无配置或地区更改。兼容性：BentoBox API 3.14.0 · Minecraft 1.21.5 – 26.3（硫磺海和喷口需要 26.2+）· Java 21。
+
+    - 🐛 **硫磺喷口在 26.3 上完整生成。** 原版生物群系装饰在 AcidIsland 构建海洋之后运行，并覆盖了每个喷口帽，留下没有冒泡、气体或喷口的普通硫磺，加上每个喷口一个 `ServerInternalException ... PotentSulfurBlockEntity` 警告。喷口现在在装饰之后放置。
+    - ⚙️ `config.yml` 中 `deaths` 的注释现在解释哪些设置影响[等级](../../addons/Level/index.md) 2.29.0 下的岛屿等级。无设置或默认值更改。
+
+    🔺 **仅新生成的区块被修复。** 已在 26.3 上生成的区块中的喷口保持其普通帽。因为喷口现在放置得更晚，给定的种子在 2.1.1 中将喷口放置在不同的位置。
+
+    [发布 v2.1.2](https://github.com/BentoBoxWorld/AcidIsland/releases/tag/2.1.2)
+
 !!! warning "v2.1.1 新内容 — 喷口从赌博改为交易（请删除 `geyser-loot.yml`）"
     **发布于:** 2026-07-26
 

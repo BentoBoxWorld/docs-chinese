@@ -135,6 +135,19 @@ advancements:
 
 ## 更新日志
 
+??? note "v3.4.1 新内容"
+    **发布于：** 2026-09-25
+
+    一个维护版本。需要 BentoBox **3.17.0** 或更新版本。兼容性：Paper 1.21.x – 26.x · Java 21。
+
+    - 🐛 **启用时不再出现 `contloc out of spec` 崩溃。** 在首次启动时，从战利品箱中掷出的探险家地图可能会搜索远超种子区域之外，其中陆地性下降到 -1.2 以下，而 BentoBox 跳过了 Boxed。范围外的值现在落入最外层带。
+    - 🐛 **`/boxadmin place ... NO_MOBS` 有效。** 第 7 个参数被拒绝，无法被读取；现在它被接受，不再继续进入后续放置。
+    - 🐛 缺少的一对括号在一些侵蚀等级 5 种子区域中选择了错误的生物群系。仅升级后生成的种子世界受影响。
+    - ⚙️ `config.yml` 中更清晰的 `area.deaths` 注释，解释哪些死亡设置影响[等级](../../addons/Level/index.md) 2.29.0 下的岛屿等级，哪些仅影响 BentoBox 的死亡计数器和 `%boxed_deaths%`。仅注释更改。
+    - 现在还将发布到 CurseForge 和 Hangar。
+
+    [发布 v3.4.1](https://github.com/BentoBoxWorld/Boxed/releases/tag/3.4.1)
+
 ??? note "v3.4.0 新内容"
     **发布于：** 2026-05-30
 

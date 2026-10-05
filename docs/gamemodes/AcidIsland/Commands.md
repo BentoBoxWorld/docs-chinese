@@ -28,7 +28,7 @@
 | `/acid blueprint pos1` | 设置立方体剪贴板的第一个角落 | |
 | `/acid blueprint pos2` | 设置立方体剪贴板的第二个角落 | |
 | `/acid blueprint save <blueprint name>` | 保存复制的剪贴板 | |
-| `/acid setrank <player> <rank>` | 设置玩家在其岛屿上的等级 | |
+| `/acid setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其岛屿上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的岛屿 | |
 | `/acid tp <player>` | 传送到玩家的岛屿 | `acidisland.mod.tp` |
 | `/acid tpnether <player>` | 传送到玩家的下界岛屿 | `acidisland.mod.tp` |
 | `/acid tpend <player>` | 传送到玩家的末地岛屿 | `acidisland.mod.tp` |
