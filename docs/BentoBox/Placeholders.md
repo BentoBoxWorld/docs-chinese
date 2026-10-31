@@ -78,7 +78,7 @@ BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholde
 | %[gamemode]_rank% | 玩家在其岛屿上的等级 | 1.5.0 |
 | %[gamemode]_resets% | 玩家重置岛屿的次数 | 1.5.0 | 
 | %[gamemode]_resets_left% | 玩家可以重置岛屿的次数 | 1.5.0 |
-| %[gamemode]_deaths% | 玩家死亡的次数 | 1.12.0 |
+| %[gamemode]_deaths% | 玩家在此游戏模式中死亡的次数，由 BentoBox 计数（上限由游戏模式的 `deaths.max` 限制）。这不是自 Level 2.29.0 以来 Level 附属使用的每岛屿死亡计数。 | 1.12.0 |
 | %[gamemode]_on_island% | 玩家是否在其所属的岛屿上 | 1.13.0 |
 
 ### 标志占位符
@@ -112,6 +112,7 @@ BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholde
 - 附加组件
     - [Bank](../../addons/Bank/#placeholders)
     - [Challenges](../../addons/Challenges/#placeholders)
+    - [IslandStats](../../addons/IslandStats/#placeholders)
     - [Level](../../addons/Level/#placeholders) 
     - [Likes](../../addons/Likes/#placeholders)
     - [Limits](../../addons/Limits/#placeholders)

@@ -237,4 +237,5 @@ panel_name:
     | `team_panel.yml` 和 `team_invite_panel.yml` | `/[player_command] team` 及其邀请界面 |
     | `settings_panel.yml` | `/[player_command] settings`，参见[自定义设置面板](/en/latest/BentoBox/Island-Protection,-Flags-&-Ranks/#customizing-the-settings-panel) |
     | `admin_settings_panel.yml` | `/[admin_command] settings` |
+    | `command_ranks_panel.yml` | 从设置面板打开的命令等级面板（3.23.3+），参见[自定义命令等级面板](/en/latest/BentoBox/Island-Protection,-Flags-&-Ranks/#customizing-the-command-ranks-panel) |
     | `placeholder_panel.yml` 和 `placeholder_list_panel.yml` | 占位符浏览器 |

@@ -52,6 +52,7 @@
 * 我可以建造一个下界温室吗？试试看...(实际上，你可能需要权限)
 * 我可以在下界建造温室吗？可以。你可以用它们在下界建立殖民地。
 * 哪种生物会在生物区中生成？这是你所期待的，冷亚带针叶林中有狼，在平原上有马等等。
+* 管理员如何更新下界温室使其有机会生成凋零骷髅？在 `biomes.yml` 中的 `NETHER` 配方中添加该生物——详见下文的[自定义生物生成](#自定义生物生成示例凋零骷髅)。
 
 ## 需要的插件
 
@@ -113,6 +114,37 @@
 !!! tip "重叠的温室"
     如果两个已持久化的温室互相重叠，启动时会跳过其中一个，并在日志中列出它和与之重叠的记录。用 `/bsbadmin greenhouses list` 查看被跳过的记录及其原因，再用 `/bsbadmin greenhouses delete <id>` 删除你不想保留的那个。无需编辑数据库，也无需重启。
 
+## 自定义生物生成（示例：凋零骷髅） { #自定义生物生成示例凋零骷髅 }
+
+温室能生成的每种生物都在 `plugins/BentoBox/addons/Greenhouses/biomes.yml` 中按配方定义，所以添加一种新生物就只是编辑配置。配方的 `mobs:` 部分中的每个条目有这样的格式：
+
+```
+ENTITY_TYPE: chance:BLOCK_TO_SPAWN_ON
+```
+
+例如，要给下界温室添加凋零骷髅生成机会，找到 `NETHER:` 配方并在其 `mobs:` 部分添加一行：
+
+```yaml
+NETHER:
+  # ...
+  mobs:
+    ZOMBIFIED_PIGLIN: 10:NETHERRACK
+    PIGLIN: 10:NETHERRACK
+    STRIDER: 10:LAVA
+    ENDERMAN: 5:NETHERRACK
+    WITHER_SKELETON: 5:NETHERRACK
+```
+
+这给了凋零骷髅 5% 的概率在每次生成尝试中出现在温室内的地狱岩上。生成所在的方块可以是温室内的任何方块——为了更像堡垒的氛围你可以改用 `WITHER_SKELETON: 10:NETHER_BRICKS`，但这样玩家就需要在温室内放置下界砖才能触发。
+
+使用 **/bsbadmin greenhouses reload**（或你的游戏模式等效指令，如 **/acid greenhouses reload**）或重启服务器来应用改动。现有温室无需重建即可获得新的生物生成。
+
+需要记住的事项：
+
+* **一个配方中所有的生成概率加起来必须是 100 或更少。** 如果新条目使总数超过 100，该生物会被跳过且会在加载时记录错误（`Mob chances add up to > 100% in NETHER biome recipe! Skipping ...`）。
+* 生成还受限于配方的 `moblimit` 和 `maxmobs` 值，以及 `config.yml` 中的生物 tick 间隔——所以一个低的百分比在实际操作中可能感觉很罕见。
+* `ENTITY_TYPE` 必须是有效的 [Bukkit EntityType](https://jd.papermc.io/paper/1.21.5/org/bukkit/entity/EntityType.html) 名称；未知的名称会被跳过并记录警告。
+
 ## 权限 { #permissions }
 
 权限的完整列表在[这里](Permissions)。
@@ -145,7 +177,29 @@
 
 {{ translations("Greenhouses") }}
 
-!!! note "v1.10.0 新内容 — 管理员指令"
+!!! warning "v1.10.2 新内容 — 修复 Paper 26.2 上的崩溃"
+    **发布于：** 2026-09-06
+
+    兼容性：BentoBox API 2.7.1 · Minecraft 1.21.5+ · Java 21。无配置或本地化改动。
+
+    - 🐛 **植物生长不再在漏斗骨粉耗尽时崩溃。** 当屋顶漏斗只剩一个骨粉且至少一株植物生长时，Greenhouses 会将剩余部分写回为零数量物品。较旧的服务器会无声地容忍这一点；Paper 26.2 在每个植物 tick 时从 `EcoSystemManager.setBoneMeal` 抛出 `IllegalArgumentException: amount must be greater than 0` 异常并中止该温室的生长过程。最后一个骨粉现在只是被简单移除。
+
+    🔺 **如果你在使用 Paper 26.2 或更新版本，强烈建议更新此版本。** 每个漏斗耗尽的温室否则会在每个 tick 记录此错误并停止植物生长，直到再次添加骨粉。
+
+    [发布 v1.10.2](https://github.com/BentoBoxWorld/Greenhouses/releases/tag/1.10.2)
+
+??? warning "v1.10.1 新内容 — 如果运行 Limits 请重新计算"
+    **发布于：** 2026-09-01
+
+    兼容性：BentoBox API 2.7.1 · Minecraft 1.21.5+ · Java 21。无配置或本地化改动。
+
+    - 🐛 **Greenhouses 不再让生物绕过 Limits 附属。** 当 Limits 在达到实体限制时取消了一次生成，Greenhouses 会继续处理这个从未生成的实体，运行其"这个生物是否能适应玻璃内？"检查，当它不适应时（幽灵有 4×4×4，常常不适应），调用其 `remove()`。Paper 会为这个操作触发 `EntityRemoveEvent`，尽管该生物从未进入世界，而 Limits 会把它算作真实移除，所以其计数器向下倒数，下一次生成被允许——报告的案例是幽灵在 4/3。已取消的生成现在会被完全忽略。Limits 1.30.1 包含了对应的加强。
+
+    🔺 **如果你看到了这个，** 受影响岛屿的 Limits 计数器仍然是错误的，直到它被重建。在更新后让玩家运行一次 `/[player_command] limits recount`（或运行管理员命令 `/[admin_command] limits calc <玩家>`）。
+
+    [发布 v1.10.1](https://github.com/BentoBoxWorld/Greenhouses/releases/tag/1.10.1)
+
+??? note "v1.10.0 新内容 — 管理员指令"
     **发布于：** 2026-07-26
 
     Greenhouses 终于有了管理员指令树。兼容性：BentoBox API 2.7.1 · Minecraft 1.21.5+ · Java 21。

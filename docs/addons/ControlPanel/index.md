@@ -69,7 +69,7 @@ ControlPanel 使用两个文件：
 
 ### config.yml
 
-主配置文件有一个设置：
+主配置文件有两个设置：
 
 ??? note "disabled-gamemodes"
     ControlPanel 不应操作的游戏模式插件名称列表。ControlPanel 不会挂接到这些游戏模式。
@@ -83,9 +83,17 @@ ControlPanel 使用两个文件：
       - AcidIsland
     ```
 
+??? note "template-file"
+    (**1.16.1+**) 导入控制面板时使用的模板文件。该文件在第一次创建面板时被读取，并在每次执行 `/{admin} bentobox reload` 时重新读取，这样编辑文件并重新加载就可以应用你的更改。该文件必须存在于附属文件夹（`plugins/BentoBox/addons/ControlPanel/`）中。重新加载、管理员 `import` 指令和初始创建都会遵守该设置，让你可以指向自己的文件。
+
+    默认值：`controlPanelTemplate.yml`
+
 ### controlPanelTemplate.yml
 
-此文件定义所有控制面板及其按钮。编辑后，运行 `/{admin} cp import` 来加载更改。
+此文件定义所有控制面板及其按钮。编辑后，运行 `/{admin} bentobox reload`（**1.16.1+** 会重新导入模板）或 `/{admin} cp import` 来加载更改。
+
+!!! warning "重新加载会替换存储的面板（1.16.1+）"
+    面板存储在 BentoBox 的数据库中，而在 1.16.1 之前，模板仅用于初始创建：编辑文件并运行 `bbox reload` 是无效的，除非你还运行了 `cp import`。从 **1.16.1** 开始，每次重新加载都会清空每个活跃游戏模式的存储面板，并从模板文件中重新导入它们。你从模板中*删除*的面板也会消失，任何仅存在于数据库中的内容都会丢失——将所有更改保存在模板文件中。
 
 #### 面板结构
 
@@ -315,7 +323,7 @@ panel-list:
     ```
 
 ??? tip "重新加载更改后"
-    编辑 `controlPanelTemplate.yml` 后，运行 `/{admin} cp import` 来重新加载。如果你进行了 `config.yml` 的更改，请使用 BentoBox 重新加载指令：`/{admin} bentobox reload`。
+    编辑 `controlPanelTemplate.yml` 后，运行 `/{admin} bentobox reload`（自 **1.16.1** 开始会重新导入模板）或 `/{admin} cp import`。如果你进行了 `config.yml` 的更改，也需要使用 `/{admin} bentobox reload`。
 
 ## 常见问题
 
@@ -336,6 +344,22 @@ panel-list:
 
 ??? question "你能添加功能 X 吗？"
     请在[这里](https://github.com/BentoBoxWorld/ControlPanel/issues)添加。
+
+## 更新日志
+
+!!! warning "v1.16.1 新内容——重新加载现在覆盖存储的面板"
+    **发布于：** 2026-09-02
+
+    兼容性：BentoBox 2.7.1 及更高版本（在 3.7.4 和 Minecraft 1.21.4 上验证）· Minecraft 1.21.4 – 26.2 · Java 21。
+
+    - 🔺 ⚙️ **`bbox reload` 重新导入模板。** 编辑 `controlPanelTemplate.yml` 然后重新加载曾经无效，因为面板存储在数据库中，而模板仅用于初始创建。重新加载现在会清空每个活跃游戏模式的存储面板并从模板中重新导入它们，因此无需 `cp import` 就可让模板编辑生效——从模板中删除的面板也会消失而不是继续存在。
+    - ⚙️ **新增 `template-file` 配置选项**（默认值 `controlPanelTemplate.yml`）。重新加载、初始创建和管理员 `import` 指令都会遵守该设置，让你可以指向自己的文件。
+    - 🔺 **BentoBox 最低版本降低至 2.7.1。** 1.16.0 声明了 `api-version` 3.10.0，但代码中不需要，导致 BentoBox 在无法运行 BentoBox 3.10+ 的服务器上拒绝加载（`INCOMPATIBLE`）——尤其是 Minecraft 1.21.4，最高只支持到 BentoBox 3.7.4。这些服务器现在可以再次使用当前的 ControlPanel 了。
+    - 🔡 更新了繁体中文（`zh-TW`）翻译。
+
+    🔺 **重新加载现在覆盖存储的面板。** 如果你一直依赖仅存于数据库的面板更改（任何不在 `controlPanelTemplate.yml` 中的内容），请在更新前将其放入模板中，否则在下次重新加载时会丢失。新的 `template-file` 键会自动添加到 `config.yml`；现有安装无需任何更改即可继续工作。
+
+    [发布 v1.16.1](https://github.com/BentoBoxWorld/ControlPanel/releases/tag/1.16.1)
 
 ## 翻译
 

@@ -59,6 +59,9 @@
 
 ![专家保护标志](https://user-images.githubusercontent.com/20014332/80592793-4df96d00-8a20-11ea-891e-8833578642e4.png)
 
+!!! new "BentoBox 3.23.3 更改"
+    设置面板会记住每位玩家最后选择的显示模式，并在下次打开时显示该模式。保护和设置选项卡共享一个模式。如果选定模式下某个选项卡没有标志可显示，它会显示下一个模式而不改变玩家的选择。管理员设置面板总是以 `EXPERT` 模式打开。
+
 ### 隐藏标志
 
 从 [BentoBox 1.4.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/1.4.0) 开始，管理员可以通过打开设置面板并在要隐藏的标志图标上++shift+左键++来隐藏 GUI 中的标志。
@@ -69,10 +72,18 @@
 
 *玩家查看允许显示的所有基本标志。*
 
+![消失诅咒](https://user-images.githubusercontent.com/20014332/80591692-6799b500-8a1e-11ea-9ab8-e076f47d2220.png)
+
+*将"消失诅咒"应用于其中一个标志。*
+
+![一堆隐藏的标志](https://user-images.githubusercontent.com/20014332/80591757-839d5680-8a1e-11ea-8864-83b09252a7b9.png)
+
+*玩家查看基本标志，"活板门"标志被隐藏。*
+
 ### 自定义设置面板 { #customizing-the-settings-panel }
 
 !!! new "BentoBox 3.23.0 新增"
-    设置面板由模板文件布局，与其他[可自定义 GUI](/en/latest/Tutorials/generic/Customizable-GUI/) 相同。
+    设置面板由模板文件布局，与其他[可自定义 GUI](/en/latest/Tutorials/generic/Customizable-GUI/)相同。
 
 设置面板的布局来自 `plugins/BentoBox/panels/settings_panel.yml`，BentoBox 首次启动时会生成该文件。游戏模式附属可以在自己的 `panels` 文件夹中提供自己的副本（例如 `plugins/BentoBox/addons/BSkyBlock/panels/settings_panel.yml`），该游戏模式将改用这个副本。默认文件完全还原了之前的面板外观，因此在你编辑它之前不会有任何变化。如果文件无法读取，BentoBox 会记录错误并显示内置面板。
 
@@ -90,13 +101,53 @@
 
 **描述（lore）布局。** 标志的描述由语言文件中的 `protection.panel.flag-item.description-layout`（保护标志）、`setting-layout`（设置）或 `menu-layout`（打开子面板的标志）构建。从 3.23.0 开始，这些布局可以包含 `[ranks]`（插入保护标志等级列表的位置）和 `[tooltips]`（插入模板中标志按钮 `actions` 工具提示的位置）。没有 `[ranks]` 时，等级列表会像以前一样追加在布局之后；没有 `[tooltips]` 时，工具提示会在一个空行之后追加。要将点击提示移到等级列表下方，请从布局中删除这些提示，把 `[ranks]` 和 `[tooltips]` 放在你想要的位置，并在模板的 `flag_button` 中将提示声明为工具提示。模板中标志按钮自身的 `title` 和 `description` 可以指定另一个语言条目，仅在该面板中用作名称和描述布局。
 
-![消失诅咒](https://user-images.githubusercontent.com/20014332/80591692-6799b500-8a1e-11ea-9ab8-e076f47d2220.png)
+### 命令等级 { #command-ranks }
 
-*将"消失诅咒"应用于其中一个标志。*
+**命令等级**图标位于设置选项卡上，打开的面板中岛主可以选择可使用各个队伍指令的最低[等级](#ranks)，例如谁可以邀请、踢出或设置岛屿名称。**左键**和**右键**单击指令可在等级之间循环，就像保护标志一样。操作员可以像[隐藏标志](#hide-flags)那样用++shift+左键++从玩家隐藏指令。
 
-![一堆隐藏的标志](https://user-images.githubusercontent.com/20014332/80591757-839d5680-8a1e-11ea-8864-83b09252a7b9.png)
+自 BentoBox 3.23.3 起，玩家只会看到他们有权使用的指令。如果你在服务器上拒绝指令的权限，例如 `[gamemode].island.border`，它也不再出现在此面板中。之前只检查了顶级指令，因此玩家无法运行的子指令仍然被列出。
 
-*玩家查看基本标志，"活板门"标志被隐藏。*
+#### 自定义命令等级面板 { #customizing-the-command-ranks-panel }
+
+!!! new "BentoBox 3.23.3 新增"
+    命令等级面板由模板文件布局，就像[设置面板](#customizing-the-settings-panel)一样。
+
+布局来自 `plugins/BentoBox/panels/command_ranks_panel.yml`，BentoBox 首次启动时会生成该文件。游戏模式附属可以在自己的 `panels` 文件夹中提供自己的副本，该游戏模式将改用这个副本。默认文件保持面板看起来与以前一样：每个指令一个地图，没有填充物，仅占用指令需要的行数。如果文件无法读取，BentoBox 会显示内置面板。
+
+每个按钮都通过 `data.type` 放置：
+
+| 类型 | 显示内容 |
+| --- | --- |
+| `COMMAND` | 分页指令列表中的一个格子。每页放置的指令数量取决于你的需要；默认值为 45。 |
+| `NEXT`、`PREVIOUS` | 翻页。仅在有可跳转的页面时显示。 |
+
+内置面板停止在 49 个指令，因此超过该数量的任何指令都从不显示。模板页面改用此功能。
+
+可以在模板的 `reusable` 部分中的 `command_button` 上更改指令的绘制方式：
+
+- `icon` 替换默认的 `MAP`。
+- `title` 是用作名称布局的语言条目（或文本），而不是 `protection.panel.flag-item.name-layout`。`[name]` 是指令，例如 `/island sethome`。
+- `description` 是用作描述布局的语言条目（或文本），而不是 `protection.panel.flag-item.description-layout`。`[description]` 是来自 `protection.panel.flag-item.command-instructions` 的指令文本。等级列表添加在其后。
+- `actions` 仅添加工具提示，这些工具提示添加在等级列表后。点击本身始终按上述方式工作。默认布局已包含点击提示。
+
+例如，要将每个指令显示为纸张并填充空格子：
+
+```yaml
+command_ranks_panel:
+  title: protection.flags.COMMAND_RANKS.name
+  type: INVENTORY
+  background:
+    icon: LIGHT_BLUE_STAINED_GLASS_PANE
+    title: "&b&r"
+  force-shown: 6
+  content:
+    # ... 指令按钮的行数，以及默认文件中的分页按钮
+  reusable:
+    command_button:
+      icon: PAPER
+      data:
+        type: COMMAND
+```
 
 ## 等级
 

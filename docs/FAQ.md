@@ -119,6 +119,8 @@ BentoBox 1.16 中实现了传送门正确链接的选项。但该选项仅在 se
 
 找到 `create-obsidian-platform` 选项并设置为 `true` 以启用正确的末地黑曜石平台（与原版末地相同）。
 
+如果 `create-obsidian-platform` 为 `false`，BentoBox（3.23.4 及更高版本）会检查玩家到达末地的位置。如果没有地面，它会将玩家发送到最近的安全位置，然后发送到最高的方块，如果两者都不存在，就会建造一个小平台，这样玩家就不会掉进虚空。
+
 注意，启用这些选项会开放与原版 Minecraft 相同的无限黑曜石生成漏洞。
 
 ### 如何在 Boxed 中禁用结构生成？
@@ -128,6 +130,25 @@ BentoBox 1.16 中实现了传送门正确链接的选项。但该选项仅在 se
 ### 我可以将 Multiverse 与 BentoBox 一起使用吗？
 
 Multiverse 通常可与大多数游戏模式配合使用，但 **Boxed 和 Poseidon 例外**，这两者需要在 `bukkit.yml` 中设置自己的世界生成器。若对这两者使用 Multiverse，世界将无法正确生成。MyWorlds 是一个常用的替代方案。
+
+### 为什么其他插件在启动时找不到我的 BentoBox 世界？
+
+BentoBox 创建和加载自己的游戏模式世界。当它向 Multiverse 注册这些世界时，会设置 `auto-load: false`，这样 Multiverse 就不会首先加载它们。问题在于时序：BentoBox 在第一个服务器计时刻加载其世界，**在**每个插件完成启用**之后**。某个期望 Multiverse 启用后所有世界都存在的插件（全息投影、NPC、传送点、任何在启动时加载已保存位置的内容）将找不到 BentoBox 世界，可能无法在其中加载数据。
+
+如果遇到这种情况，让 Multiverse 通过为每个 BentoBox 世界（包括下界和末地）打开 auto-load 来提前加载世界：
+
+```
+/mv modify bskyblock_world set auto-load true
+/mv modify bskyblock_world_nether set auto-load true
+/mv modify bskyblock_world_the_end set auto-load true
+```
+
+使用你自己的世界名称。这些名称列在 `plugins/Multiverse-Core/worlds.yml` 中。
+
+BentoBox 仅在第一次注册世界时设置 `auto-load: false`，因此你的设置会跨重新启动保持。这需要 BentoBox 3.23.3 或更高版本。版本 3.22.0 到 3.23.1 会在每次启动时重置为 `false`。
+
+!!! warning "Boxed 除外"
+    仅对世界生成器在 Multiverse 启用前准备好的游戏模式（如 BSkyBlock、AcidIsland、CaveBlock 和 AOneBlock）执行此操作。**不要**对 Boxed 执行此操作：其生成器依赖于 BentoBox 必须首先创建的种子世界，因此 Multiverse 提前加载的 Boxed 世界将无法正确生成。
 
 ## 生物、刷怪与实体
 
