@@ -106,13 +106,24 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! note "v3.23.3 新内容 —— 黑曜石挖取复制修复与命令等级面板"
+!!! note "v3.23.4 新内容 —— 安全的末地到达与面板中的物品栏使用"
+    **发布于：** 2026-10-17
+
+    一个 bug 修复版本。没有 `config.yml`、地区或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🐛 **末地传送门不再把玩家掉进虚空。** 使用 `create-obsidian-platform: false` 时，无论是否有地面，玩家都被直接发送到门户目标。不安全的末地到达现在去最近的安全位置，然后最高的方块，然后是一个小平台。当玩家站在门户内时，重复的门户事件被取消，所以他们不会被发送到原版末地重生点。已经安全的到达仍然会立即传送，启用平台时没有任何变化。安全位置的小平台现在将玩家放在方块的中心。
+    - ✨ **当面板打开时使用自己的物品栏。** 玩家可以在 BentoBox 面板（如 `/island settings`）打开时在自己的物品栏中拾起、放置、交换和丢弃物品（Q / Ctrl+Q）并使用包裹。Shift 点击、双击收集和触及面板槽的拖动保持被阻止，所以物品无法进入面板。
+    - 🧩 **附属 API：** `PanelListener` 有一个新的默认方法 `allowsPlayerInventoryClicks()`，返回 `false`，所以带有监听器的面板（如 Challenges 和 Biomes 中的图标选择器）表现如前。返回 `true` 来选择加入。见[模板化面板](../../Tutorials/api/Templated-Panel.md#listener-method)。`Addon.getConfig()` 现在在附属没有 `config.yml` 时返回空配置而不是 `null`，所以 `saveConfig()` 不再抛出异常。
+
+    [发布 v3.23.4](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.4)
+
+??? note "v3.23.3 新内容 —— 黑曜石挖取复制修复与命令等级面板"
     **发布于：** 2026-10-03
 
     一个 bug 修复和面板版本。没有 `config.yml` 或地区变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
 
     - 🐛 **黑曜石挖取复制已修复。** 使用 OBSIDIAN_SCOOPING 时，熔岩在点击后一个刻度后被发出，没有重新检查，所以在那个刻度内挖掉黑曜石就会同时获得黑曜石和熔岩，而且将桶移出手可能会不消耗桶而获得熔岩。现在都会重新检查。**建议每个启用了 OBSIDIAN_SCOOPING 的服务器都进行更新。**
-    - ⚙️ **可自定义的命令等级面板。** 由新的 `panels/command_ranks_panel.yml` 布局（首次启动时写入；游戏模式自己的副本优先），带有 `COMMAND`、`NEXT` 和 `PREVIOUS` 按钮。现在在 45 个命令时分页 — 老面板会悄悄丢掉第 49 个命令之后的每个命令。见[自定义命令等级面板](../Island-Protection,-Flags-&-Ranks.md)。
+    - ⚙️ **可自定义的命令等级面板。** 由新的 `panels/command_ranks_panel.yml` 布局（首次启动时写入；游戏模式自己的副本优先），带有 `COMMAND`、`NEXT` 和 `PREVIOUS` 按钮。现在在 45 个命令时分页 — 老面板会悄悄丢掉第 49 个命令之后的每个命令。见[自定义命令等级面板](../Island-Protection,-Flags-&-Ranks.md#customizing-the-command-ranks-panel)。
     - ✨ **设置面板改进。** `/island settings` 在玩家最后选择的基础/高级/专家模式下打开，保护和设置标签页共享一种模式（管理面板仍然在专家模式下打开）。命令等级隐藏玩家没有权限的子指令（op 仍然看到一切）。破坏生成器图标不再显示原版的生成蛋工具提示。
     - 🐛 **Multiverse `auto-load` 被尊重。** 从 3.22.0 开始，Multiverse 钩子在每次启动时重置 BentoBox 世界的 `auto-load: false`。现在它仅在 BentoBox 首次导入一个世界时设置；现有的 Multiverse 条目保持配置的样子。
     - 🧩 **附属 API：** 管理员 `deaths set|add|remove|reset` 指令触发 `PlayerDeathsChangedEvent`（世界、玩家、操作、数量、旧值和新值计数），所以 Level 可以跟踪管理员的改动。不为自然死亡触发。

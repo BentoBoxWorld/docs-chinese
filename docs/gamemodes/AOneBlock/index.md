@@ -208,6 +208,29 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
             - '[SUDO]say 刚刚完成了 [phase]'
         ```
 
+=== "end-commands-first-time"
+    !!! summary "描述"
+        `end-commands-first-time` 部分允许定义**仅在玩家第一次**完成此阶段时触发的指令。之后再次完成此阶段时不会运行。
+    
+        指令作为控制台运行，除非指令前缀为 `[SUDO]`，那么指令将作为触发指令的玩家运行。
+    
+        这些占位符将在指令字符串中被替换为相应的值：
+    
+        - `[island]` - 岛屿名称
+        - `[owner]` - 岛屿所有者的名称
+        - `[player]` - 破坏方块触发指令的玩家名称
+        - `[phase]` - 此阶段的名称
+        - `[blocks]` - 破坏的方块数量
+        - `[level]` - 你的岛屿等级（需要 Levels 插件）
+        - `[bank-balance]` - 你的岛屿银行余额（需要 Bank 插件）
+        - `[eco-balance]` - 玩家的经济余额（需要 Vault 和经济插件）
+
+    !!! example "示例"
+        ```yaml
+            end-commands-first-time:
+            - 'broadcast &c&l[!] &b[player] &fhas completed the &d&n[phase]&f phase for the first time.'
+        ```
+
 === "requirements"
     !!! summary "描述"
         `requirements` 部分允许限制访问下一阶段，直到满足特定要求。
@@ -589,10 +612,168 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
     全息图文本接受旧版 `&` 颜色代码、`&#RRGGBB` 十六进制颜色和 MiniMessage 标签（包括渐变）—— 十六进制和 MiniMessage 形式自 1.27.0 起。见[自定义阶段](Phases.md#holograms)。
 
 ??? question "我应该使用 Levels 插件吗？"
-    这取决于你，但如果你这样做，请注意因为玩家有一个无限方块，等级可能会变得
-
-很高。
+    这取决于你，但如果你这样做，请注意因为玩家有一个无限方块，等级可能会变得很高。
     我建议不使用它，而是使用 Likes 插件。
+
+## Translations
+
+{{ translations("AOneBlock") }}
+
+## API
+
+Since BentoBox 1.17 API implemented a feature that solved an issue with classloaders. Plugins that wants to use access to the code directly, now can do it.
+
+You just need to add AOneBlock to your project as dependency. You can use Maven for that:
+
+```xml
+<dependency>
+    <groupId>world.bentobox</groupId>
+    <artifactId>aoneblock</artifactId>
+    <version>1.10.0</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+AOneBlock addon stores data in a separate database table.
+
+=== "OneBlockIslands"
+    !!! summary "Description"
+        OneBlockIslands stores all information about island progress through phases.
+
+        Link to the source code: [OneBlockIslands](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/dataobjects/OneBlockIslands.java)
+
+    !!! question "Variables"
+        - "uniqueId": the island unique ID. It is equal to the Island uniqueId.
+        - "blockNumber": the current broken block number.
+        - "lifetime": the overall number of broken blocks.
+        - "phaseName": the current phase name.
+        - "hologram": the hologram text that is shown.
+
+    !!! example "Code example"
+        To access this data, you need to access to AOneBlock addon. It can be several ways, but example bellow shows
+        a generic way that is accessible from everywhere.
+        
+        ```java
+        public void accessToAOneBlockData(@NonNull Island island) {
+           BentoBox.getInstance().getAddonsManager().<AOneBlock>getAddonByName("AOneBlock").ifPresent(aOneBlock -> {
+                OneBlockIslands oneBlockData = aOneBlock.getOneBlocksIsland(island);           
+                        
+                String islandUniqueId = oneBlockData.getUniqueId();
+                int brokenBlocks = oneBlockData.getBlockNumber();
+                long lifetimeBlocks = oneBlockData.getLifetime();
+                String phase = oneBlockData.getPhaseName();
+                String hologram = oneBlockData.getHologram();
+           });
+        }
+        ```
+
+### Events
+
+AOneBlock has some custom events that are called only in AOneBlock. But BentoBox GameMode events are still triggered in AOneBlock.
+
+=== "BlockClearEvent"
+    !!! summary "Description"
+        This event is triggered before entity is spawned. It contains a list of blocks that will be cleared or replaced with water.
+
+        Can be cancelled.
+
+        Link to the class: [BlockClearEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/BlockClearEvent.java)
+
+    !!! question "Variables"
+        - `Entity entity` - entity that is spawned.
+        - `List<Block> airBlocks` - the list of blocks that will be replaced with air.
+        - `List<Block> waterBlocks` - the list of blocks that will be replaced with water.
+        - `boolean cancelled` - the boolean that indicates if event is cancelled.
+ 
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onBlockClear(BlockClearEvent event) {
+            Entity entity = event.getEntity();
+            List<Block> airBlocks = event.getAirBlocks();
+            List<Block> waterBlocks = event.getWaterBlocks();
+
+            boolean cancelled = event.isCancelled();
+        }
+        ```
+
+=== "MagicBlockEntityEvent"
+    !!! summary "Description"
+        This event is triggered after entity is spawned. It just contains basic information about spawned entity.
+
+        Link to the class: [MagicBlockEntityEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockEntityEvent.java)
+
+    !!! question "Variables"
+        - `EntityType entityType` - entityType that is spawned.
+        - `@NonNull Island island` - the island where entity is summoned
+        - `@Nullable UUID playerUUID` - the user id who triggered entity spawning. Can be Null.
+        - `@NonNull Block block` - the magic block location.
+ 
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onMagicBlockEntity(MagicBlockEntityEvent event) {
+            EntityType entityType = event.getEntityType();
+
+            Island island = event.getIsland();
+            UUID playerUUID = event.getPlayerUUID();
+            Block block = event.getBlock();
+        }
+        ```
+
+=== "MagicBlockEvent"
+    !!! summary "Description"
+        This event is triggered after magic block is broken.
+
+        Link to the class: [MagicBlockEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockEvent.java)
+
+    !!! question "Variables"
+        - `@Nullable ItemStack tool` - the tool that broke magic block.
+        - `@NotNull Material nextBlockMaterial` - the next magic block material.
+        - `@NonNull Island island` - the island where block is summoned.
+        - `@Nullable UUID playerUUID` - the user id who broke magic block. Can be Null.
+        - `@NonNull Block block` - the magic block location.
+ 
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onMagicBlock(MagicBlockEvent event) {
+            ItemStack tool = event.getTool();
+            Material nextBlockMaterial = event.getNextBlockMaterial();
+
+            Island island = event.getIsland();
+            UUID playerUUID = event.getPlayerUUID();
+            Block block = event.getBlock();
+        }
+        ```
+
+=== "MagicBlockPhaseEvent"
+    !!! summary "Description"
+        This event is triggered after a new phase has started.
+
+        Link to the class: [MagicBlockPhaseEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockPhaseEvent.java)
+
+    !!! question "Variables"
+        - `String phase` - the name of the new phase.
+        - `String oldPhase` - the name of previous phase.
+        - `int blockNumber` - the block number when new phase starts.
+        - `@NonNull Island island` - the island where block is summoned.
+        - `@Nullable UUID playerUUID` - the user id who broke magic block. Can be Null.
+        - `@NonNull Block block` - the magic block location.
+ 
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onMagicBlockPhase(MagicBlockPhaseEvent event) {
+            String phase = event.getPhase();
+            String oldPhase = event.getOldPhase();
+            int blockNumber = event.getBlockNumber();
+
+            Island island = event.getIsland();
+            UUID playerUUID = event.getPlayerUUID();
+            Block block = event.getBlock();
+        }
+        ```
 
 ## 更新日志
 
@@ -760,163 +941,3 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
     🔺 **杂色森林在首次启动时被添加到你的阶段顺序**（日志：`Phase index: added new phase Dappled Forest`），其文件被复制到 `phases/`。你现有的顺序、长度和启用标志不会改变。如果你不想要它，在 `/[admin_command] phases` 中禁用它。
 
     [发布 v1.28.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.28.0)
-
-## Translations
-
-{{ translations("AOneBlock") }}
-
-## API
-
-Since BentoBox 1.17 API implemented a feature that solved an issue with classloaders. Plugins that wants to use access to the code directly, now can do it.
-
-You just need to add AOneBlock to your project as dependency. You can use Maven for that:
-
-```xml
-<dependency>
-    <groupId>world.bentobox</groupId>
-    <artifactId>aoneblock</artifactId>
-    <version>1.10.0</version>
-    <scope>provided</scope>
-</dependency>
-```
-
-AOneBlock addon stores data in a separate database table.
-
-=== "OneBlockIslands"
-    !!! summary "Description"
-        OneBlockIslands stores all information about island progress through phases.
-
-        Link to the source code: [OneBlockIslands](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/dataobjects/OneBlockIslands.java)
-
-    !!! question "Variables"
-        - "uniqueId": the island unique ID. It is equal to the Island uniqueId.
-        - "blockNumber": the current broken block number.
-        - "lifetime": the overall number of broken blocks.
-        - "phaseName": the current phase name.
-        - "hologram": the hologram text that is shown.
-
-    !!! example "Code example"
-        To access this data, you need to access to AOneBlock addon. It can be several ways, but example bellow shows
-        a generic way that is accessible from everywhere.
-        
-        ```java
-        public void accessToAOneBlockData(@NonNull Island island) {
-           BentoBox.getInstance().getAddonsManager().<AOneBlock>getAddonByName("AOneBlock").ifPresent(aOneBlock -> {
-                OneBlockIslands oneBlockData = aOneBlock.getOneBlocksIsland(island);           
-                        
-                String islandUniqueId = oneBlockData.getUniqueId();
-                int brokenBlocks = oneBlockData.getBlockNumber();
-                long lifetimeBlocks = oneBlockData.getLifetime();
-                String phase = oneBlockData.getPhaseName();
-                String hologram = oneBlockData.getHologram();
-           });
-        }
-        ```
-
-### Events
-
-AOneBlock has some custom events that are called only in AOneBlock. But BentoBox GameMode events are still triggered in AOneBlock.
-
-=== "BlockClearEvent"
-    !!! summary "Description"
-        This event is triggered before entity is spawned. It contains a list of blocks that will be cleared or replaced with water.
-
-        Can be cancelled.
-
-        Link to the class: [BlockClearEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/BlockClearEvent.java)
-
-    !!! question "Variables"
-        - `Entity entity` - entity that is spawned.
-        - `List<Block> airBlocks` - the list of blocks that will be replaced with air.
-        - `List<Block> waterBlocks` - the list of blocks that will be replaced with water.
-        - `boolean cancelled` - the boolean that indicates if event is cancelled.
- 
-    !!! example "Code example"
-        ```java
-        @EventHandler(priority = EventPriority.MONITOR)
-        public void onBlockClear(BlockClearEvent event) {
-            Entity entity = event.getEntity();
-            List<Block> airBlocks = event.getAirBlocks();
-            List<Block> waterBlocks = event.getWaterBlocks();
-
-            boolean cancelled = event.isCancelled();
-        }
-        ```
-
-=== "MagicBlockEntityEvent"
-    !!! summary "Description"
-        This event is triggered after entity is spawned. It just contains basic information about spawned entity.
-
-        Link to the class: [MagicBlockEntityEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockEntityEvent.java)
-
-    !!! question "Variables"
-        - `EntityType entityType` - entityType that is spawned.
-        - `@NonNull Island island` - the island where entity is summoned
-        - `@Nullable UUID playerUUID` - the user id who triggered entity spawning. Can be Null.
-        - `@NonNull Block block` - the magic block location.
- 
-    !!! example "Code example"
-        ```java
-        @EventHandler(priority = EventPriority.MONITOR)
-        public void onMagicBlockEntity(MagicBlockEntityEvent event) {
-            EntityType entityType = event.getEntityType();
-
-            Island island = event.getIsland();
-            UUID playerUUID = event.getPlayerUUID();
-            Block block = event.getBlock();
-        }
-        ```
-
-=== "MagicBlockEvent"
-    !!! summary "Description"
-        This event is triggered after magic block is broken.
-
-        Link to the class: [MagicBlockEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockEvent.java)
-
-    !!! question "Variables"
-        - `@Nullable ItemStack tool` - the tool that broke magic block.
-        - `@NotNull Material nextBlockMaterial` - the next magic block material.
-        - `@NonNull Island island` - the island where block is summoned.
-        - `@Nullable UUID playerUUID` - the user id who broke magic block. Can be Null.
-        - `@NonNull Block block` - the magic block location.
- 
-    !!! example "Code example"
-        ```java
-        @EventHandler(priority = EventPriority.MONITOR)
-        public void onMagicBlock(MagicBlockEvent event) {
-            ItemStack tool = event.getTool();
-            Material nextBlockMaterial = event.getNextBlockMaterial();
-
-            Island island = event.getIsland();
-            UUID playerUUID = event.getPlayerUUID();
-            Block block = event.getBlock();
-        }
-        ```
-
-=== "MagicBlockPhaseEvent"
-    !!! summary "Description"
-        This event is triggered after a new phase has started.
-
-        Link to the class: [MagicBlockPhaseEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/MagicBlockPhaseEvent.java)
-
-    !!! question "Variables"
-        - `String phase` - the name of the new phase.
-        - `String oldPhase` - the name of previous phase.
-        - `int blockNumber` - the block number when new phase starts.
-        - `@NonNull Island island` - the island where block is summoned.
-        - `@Nullable UUID playerUUID` - the user id who broke magic block. Can be Null.
-        - `@NonNull Block block` - the magic block location.
- 
-    !!! example "Code example"
-        ```java
-        @EventHandler(priority = EventPriority.MONITOR)
-        public void onMagicBlockPhase(MagicBlockPhaseEvent event) {
-            String phase = event.getPhase();
-            String oldPhase = event.getOldPhase();
-            int blockNumber = event.getBlockNumber();
-
-            Island island = event.getIsland();
-            UUID playerUUID = event.getPlayerUUID();
-            Block block = event.getBlock();
-        }
-        ```

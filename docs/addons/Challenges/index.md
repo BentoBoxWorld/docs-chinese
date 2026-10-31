@@ -260,9 +260,79 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
 
 {{ placeholders_source(source="Challenges") }}
 
+## 常见问题
+
+??? question "你能添加 X 功能吗?"
+    请将其添加到[这里](https://github.com/BentoBoxWorld/Challenges/issues)的列表中。
+
+??? question "我如何添加新挑战?"
+    官方的方式是通过管理员 GUI 或模板文件添加挑战。
+    请注意,模板文件仅在使用管理员 GUI 中的正确图标("导入模板")后才会导入。GUI 将允许选择要导入到游戏模式中的模板。
+    
+    但是,也可以选择编辑导出的数据库文件。可以通过以下方式完成：`/[admin_command] challenges` 并单击"导出数据库"按钮。
+
+??? question "我可以按岛屿启用挑战吗?这样所有岛屿成员都有相同的挑战?"
+    是的,你可以通过插件配置文件来实现：`store-island-data: true`
+
+??? question "我可以按玩家启用挑战吗?"
+    是的,你可以通过插件配置文件来实现：`store-island-data: false`
+
+??? question "奖励指令不起作用。为什么?"
+    最可能的原因是奖励指令定义不正确。指令不需要在其前面加上 `/` 符号。
+    
+    如果你想从玩家的角度调用指令，你需要在指令调用前添加 `[SELF]`，例如 `[SELF] kill` 将导致玩家调用 `/kill` 指令。
+
+    也可能是由权限导致的。`[gamemode].command.challengeexempt` 将防止玩家执行指令。检查玩家是否没有此权限。
+
+??? question "如何在奖励指令中添加占位符?"
+    目前，插件不支持在奖励指令中使用占位符。如果有必要，你可以在 GitHub 上请求。
+    
+    当前在奖励指令中唯一支持的占位符是 `[player]` 它返回完成挑战的玩家的名字。
+
+??? question "我不喜欢挑战描述中元素的顺序。我可以改变它吗?"
+    是的,元素的顺序是在插件语言文件中定义的。
+
+    [挑战描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L852-L994)
+    [等级描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L995-L1042)
+
+    切换或删除说明的某些部分将改变其中显示元素的顺序。
+
+    ```yaml
+        lore: |-
+            [description]
+            [status]
+            [cooldown]
+            [requirements]
+            [rewards]
+    ```
+
+    这些部分中的每一个都由下面的标签生成，你也可以改变它们。例如 [status] 部分是由以下内容生成的：
+
+    ```yaml
+    status:
+        # 已完成不可重复挑战的状态消息
+        completed: "&2&l Completed"
+        # 包含无限可重复挑战完成次数的状态消息
+        completed-times: "&2 Completed &7&l [number] &r&2 time(-s)"
+        # 包含可重复挑战最大可用完成次数的状态消息
+        completed-times-of: "&2 Completed &7&l [number] &r&2 out of &7&l [max] &r&2 times"
+        # 表示达到可重复挑战最大完成次数的状态消息
+        completed-times-reached: "&2&l Completed all &7 [max] &2 times"
+    ```
+
 ## 更新日志
 
-!!! warning "v1.8.0 新内容 —— 可切换的未部署挑战需要更新面板文件"
+!!! note "v1.8.1 新内容"
+    **发布于：** 2026-09-05
+
+    一个bug修复和翻译版本。兼容性：BentoBox 3.14.0 · Minecraft 1.21.x · Java 21。没有添加或重命名配置键。
+
+    - 🐛 **铁砧制作的附魔书现在计入物品栏挑战。** 经过铁砧的物品（例如两本附魔书合并成更高等级）带有 `repair_cost` 组件，严格的物品比较会将其视为不同的物品，因此只有"忽略元数据"才能完成此类挑战——然后会接受*任何*附魔书。现在比较必需物品时会忽略修复成本；附魔、等级、名称、lore 和所有其他物品数据仍会被比较。
+    - 🔡 **繁体中文（`zh-TW`）** 翻译得到改进，1.8.0 字符串的覆盖范围也变为完整。如果你运行的是自定义的 `zh-TW.yml`，请删除它（或手动合并）以获取改进。其他语言不受影响。
+
+    [发布 v1.8.1](https://github.com/BentoBoxWorld/Challenges/releases/tag/1.8.1)
+
+??? warning "v1.8.0 新内容 —— 可切换的未部署挑战需要更新面板文件"
     **发布于：** 2026-07-26
 
     兼容性：BentoBox 3.14.0 · Minecraft 1.21.x · Java 21。
@@ -323,66 +393,6 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。挑战
     直接替换——无需更改配置或语言文件。
 
     [发布 v1.6.1](https://github.com/BentoBoxWorld/Challenges/releases/tag/1.6.1)
-
-## 常见问题
-
-??? question "你能添加 X 功能吗?"
-    请将其添加到[这里](https://github.com/BentoBoxWorld/Challenges/issues)的列表中。
-
-??? question "我如何添加新挑战?"
-    官方的方式是通过管理员 GUI 或模板文件添加挑战。
-    请注意,模板文件仅在使用管理员 GUI 中的正确图标("导入模板")后才会导入。GUI 将允许选择要导入到游戏模式中的模板。
-    
-    但是,也可以选择编辑导出的数据库文件。可以通过以下方式完成：`/[admin_command] challenges` 并单击"导出数据库"按钮。
-
-??? question "我可以按岛屿启用挑战吗?这样所有岛屿成员都有相同的挑战?"
-    是的,你可以通过插件配置文件来实现：`store-island-data: true`
-
-??? question "我可以按玩家启用挑战吗?"
-    是的,你可以通过插件配置文件来实现：`store-island-data: false`
-
-??? question "奖励指令不起作用。为什么?"
-    最可能的原因是奖励指令定义不正确。指令不需要在其前面加上 `/` 符号。
-    
-    如果你想从玩家的角度调用指令，你需要在指令调用前添加 `[SELF]`，例如 `[SELF] kill` 将导致玩家调用 `/kill` 指令。
-
-    也可能是由权限导致的。`[gamemode].command.challengeexempt` 将防止玩家执行指令。检查玩家是否没有此权限。
-
-??? question "如何在奖励指令中添加占位符?"
-    目前，插件不支持在奖励指令中使用占位符。如果有必要，你可以在 GitHub 上请求。
-    
-    当前在奖励指令中唯一支持的占位符是 `[player]` 它返回完成挑战的玩家的名字。
-
-??? question "我不喜欢挑战描述中元素的顺序。我可以改变它吗?"
-    是的,元素的顺序是在插件语言文件中定义的。
-
-    [挑战描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L852-L994)
-    [等级描述](https://github.com/BentoBoxWorld/Challenges/blob/develop/src/main/resources/locales/en-US.yml#L995-L1042)
-
-    切换或删除说明的某些部分将改变其中显示元素的顺序。
-
-    ```yaml
-        lore: |-
-            [description]
-            [status]
-            [cooldown]
-            [requirements]
-            [rewards]
-    ```
-
-    这些部分中的每一个都由下面的标签生成，你也可以改变它们。例如 [status] 部分是由以下内容生成的：
-
-    ```yaml
-    status:
-        # 已完成不可重复挑战的状态消息
-        completed: "&2&l Completed"
-        # 包含无限可重复挑战完成次数的状态消息
-        completed-times: "&2 Completed &7&l [number] &r&2 time(-s)"
-        # 包含可重复挑战最大可用完成次数的状态消息
-        completed-times-of: "&2 Completed &7&l [number] &r&2 out of &7&l [max] &r&2 times"
-        # 表示达到可重复挑战最大完成次数的状态消息
-        completed-times-reached: "&2&l Completed all &7 [max] &2 times"
-    ```
 
 ## 翻译
 

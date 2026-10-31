@@ -14,7 +14,7 @@ BentoBox,[gamemode]_island_center_x,岛屿中心的 X 坐标,1.5.0
 BentoBox,[gamemode]_island_center_y,岛屿中心的 Y 坐标,1.5.0
 BentoBox,[gamemode]_island_center_z,岛屿中心的 Z 坐标,1.5.0
 BentoBox,[gamemode]_island_members_max,岛屿可拥有的最大成员数量,1.5.0
-BentoBox,[gamemode]_island_members_count,岛屿上成员、副岛主和岛主的总人数,1.5.0
+BentoBox,[gamemode]_island_members_count,"岛屿上成员、副岛主和岛主的总人数",1.5.0
 BentoBox,[gamemode]_island_members_list,岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
 BentoBox,[gamemode]_island_members_list_<number>,玩家第 <number> 个岛屿上至少为成员级别的玩家名称列表（逗号分隔）,2.3.0
 BentoBox,[gamemode]_island_trustees_count,岛屿上受信任玩家的数量,1.5.0
@@ -31,7 +31,7 @@ BentoBox,[gamemode]_visited_island_center_x,玩家当前所在岛屿中心的 X 
 BentoBox,[gamemode]_visited_island_center_y,玩家当前所在岛屿中心的 Y 坐标,1.5.2
 BentoBox,[gamemode]_visited_island_center_z,玩家当前所在岛屿中心的 Z 坐标,1.5.2
 BentoBox,[gamemode]_visited_island_members_max,玩家当前所在岛屿可拥有的最大成员数量,1.5.2
-BentoBox,[gamemode]_visited_island_members_count,玩家当前所在岛屿上成员、副岛主和岛主的总人数,1.5.2
+BentoBox,[gamemode]_visited_island_members_count,"玩家当前所在岛屿上成员、副岛主和岛主的总人数",1.5.2
 BentoBox,[gamemode]_visited_island_members_list,玩家当前所在岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
 BentoBox,[gamemode]_visited_island_trustees_count,玩家当前所在岛屿上受信任玩家的数量,1.5.2
 BentoBox,[gamemode]_visited_island_coops_count,玩家当前所在岛屿上合作玩家的数量,1.5.2
@@ -42,7 +42,7 @@ BentoBox,[gamemode]_owns_island,玩家是否为一个岛屿的岛主,1.14.0
 BentoBox,[gamemode]_rank,玩家在其岛屿上的权限等级,1.5.0
 BentoBox,[gamemode]_resets,玩家重置其岛屿的次数,1.5.0
 BentoBox,[gamemode]_resets_left,玩家剩余可重置岛屿的次数,1.5.0
-BentoBox,[gamemode]_deaths,玩家的死亡次数,1.12.0
+BentoBox,[gamemode]_deaths,"玩家在该游戏模式中的死亡次数，由 BentoBox 计数（不是 Level 2.29.0+ 使用的单岛屿计数）",1.12.0
 BentoBox,[gamemode]_on_island,玩家是否在其所属岛屿上,1.13.0
 BentoBox,[gamemode]_island_online_members_count,当前在线的岛屿成员数量,2.0.1
 BentoBox,[gamemode]_visited_island_online_members_count,当前所在岛屿的在线成员数量,2.0.1
@@ -121,6 +121,10 @@ MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_generator_exhaust
 MagicCobblestoneGenerator,[gamemode]_magiccobblestonegenerator_exhausted_generator_names,玩家岛屿上当前处于耗尽冷却中的生成器名称列表（逗号分隔）,2.8.0
 Limits,Limits_[gamemode]_island_[material]_count,岛屿上该材料（小写）的当前数量,1.17.2
 Limits,Limits_[gamemode]_island_[material]_limit,岛屿上该材料（小写）的数量上限,1.17.2
+Limits,Limits_[gamemode]_island_[material]_base_limit,权限增加前该材料（小写）岛屿的基础上限,1.19.1
+Limits,Limits_[gamemode]_island_[material]_[overworld|nether|end]_count,仅该维度中该材料的当前数量（无后缀占位符是所有维度的总数）,1.28.2
+Limits,Limits_[gamemode]_island_[material]_[overworld|nether|end]_limit,该维度中该材料的上限,1.28.2
+Limits,Limits_[gamemode]_island_[material]_[overworld|nether|end]_base_limit,该维度中该材料的基础上限,1.28.2
 Limits,Limits_[gamemode]_island_reached_limits,所有维度中达到或超过上限的所有受限方块、实体和实体组列表（逗号分隔）,1.29.0
 Limits,Limits_[gamemode]_island_reached_limits_overworld,仅主世界中达到或超过上限的列表,1.29.0
 Limits,Limits_[gamemode]_island_reached_limits_nether,仅下界中达到或超过上限的列表,1.29.0
@@ -131,16 +135,22 @@ TopBlock,aoneblock_island_phase_name_top_<number>,排行榜第 <number> 名所�
 TopBlock,aoneblock_island_phase_number_top_<number>,排行榜第 <number> 名的阶段编号（平原为1，地下为2）,1.0.1
 TopBlock,aoneblock_island_count_top_<number>,排行榜第 <number> 名本轮挖掘的魔法方块数量,1.0.1
 TopBlock,aoneblock_island_lifetime_top_<number>,排行榜第 <number> 名累计挖掘的魔法方块总量,1.0.1
-Border,Border_color,玩家当前的边界颜色（红/绿/蓝）,4.8.0
-InvSwitcher,[gamemode]_invswitcher_balance,玩家在该游戏模式世界中的金钱余额,1.18.0
-InvSwitcher,[gamemode]_invswitcher_balance_formatted,玩家在该游戏模式世界中的金钱余额（带货币名称的格式化显示）,1.18.0
 TopBlock,chunkblock_island_player_name_top_<number>,排行榜第 <number> 名的岛屿所有者名称,2.1.0
 TopBlock,chunkblock_island_member_names_top_<number>,排行榜第 <number> 名的岛屿团队成员名称,2.1.0
 TopBlock,chunkblock_island_phase_name_top_<number>,排行榜第 <number> 名所达到的阶段名称,2.1.0
 TopBlock,chunkblock_island_phase_number_top_<number>,排行榜第 <number> 名的阶段编号（平原为1，地下为2）,2.1.0
 TopBlock,chunkblock_island_count_top_<number>,排行榜第 <number> 名本轮挖掘的魔法方块数量,2.1.0
 TopBlock,chunkblock_island_lifetime_top_<number>,排行榜第 <number> 名累计挖掘的魔法方块总量,2.1.0
+Border,Border_color,玩家当前的边界颜色（红/绿/蓝）,4.8.0
+InvSwitcher,[gamemode]_invswitcher_balance,玩家在该游戏模式世界中的金钱余额,1.18.0
+InvSwitcher,[gamemode]_invswitcher_balance_formatted,玩家在该游戏模式世界中的金钱余额（带货币名称的格式化显示）,1.18.0
 TradeWinds,tradewinds_rank,玩家的水手等级名称（Deck Hand … Mythic Mariner）,0.1.0
 TradeWinds,tradewinds_charted,玩家已探明的岛屿数量（含管理员调整）,0.1.0
 TradeWinds,tradewinds_top_name_<1-10>,探明岛屿排行榜第 <1-10> 名的水手名称,0.1.0
 TradeWinds,tradewinds_top_charted_<1-10>,探明岛屿排行榜第 <1-10> 名水手的探明岛屿数量,0.1.0
+IslandStats,[gamemode]_island_kill_entity_total,玩家岛屿上玩家击杀的怪物总数,1.0.0
+IslandStats,[gamemode]_island_kill_entity_<entity>,玩家岛屿上特定怪物类型的击杀计数,1.0.0
+IslandStats,[gamemode]_visited_island_kill_entity_total,玩家所在岛屿上玩家击杀的怪物总数,1.0.0
+IslandStats,[gamemode]_island_entity_death_total,玩家岛屿上所有怪物死亡的总数,1.0.0
+IslandStats,[gamemode]_island_entity_death_<entity>,玩家岛屿上特定怪物类型的死亡计数,1.0.0
+IslandStats,[gamemode]_visited_island_entity_death_total,玩家所在岛屿上所有怪物死亡的总数,1.0.0

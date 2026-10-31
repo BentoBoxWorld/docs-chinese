@@ -22,6 +22,44 @@
 2. 重启服务器
 3. 完成!
 
+## 与其他物品栏插件的兼容性
+
+!!! warning "不要运行两个物品栏管理器"
+    InvSwitcher 必须是唯一管理按世界物品栏的插件。与 Multiverse-Inventories、PerWorldInventory、MultiInv 或类似的插件一起运行会导致两个插件在每次世界切换时都保存和恢复玩家，相互覆盖数据。
+
+通常的症状是物品消失：在你的岛屿上捡起一个物品，去到大厅，回来后，岛屿物品栏是空的。控制台中没有任何错误输出，因为两个插件都没有失败——它们各自忠实地保存了另一个插件已经重写过的玩家状态。在测试中，岛屿物品栏最终被保存在了*大厅的*存储键下，而一个空物品栏被保存在了岛屿的键下。
+
+InvSwitcher 的版本没有区别。如果你看到这种情况，首先检查是否存在第二个物品栏插件。
+
+### Multiverse-Inventories
+
+这里有两件事容易误导管理员：
+
+- **将 BentoBox 的世界排除在所有物品栏组之外无法解决。** 组控制的是哪些世界*共享*一个物品栏，而不是 Multiverse-Inventories 管理哪些世界。它仍然会为任何不在任何组中的世界写入一个按世界的配置文件。
+- **`/mv remove <world>` 也无法解决。** Multiverse-Core 在创建 BentoBox 世界时会重新注册它们，所以移除会在下一次重启时被无声地撤销。设置 `auto-import-3rd-party-worlds: false` 也无法帮助——它只会抑制 Multiverse-Core 启动时运行的导入扫描，而那时 BentoBox 还没有创建它的世界。
+
+Multiverse-Inventories 没有配置选项来忽略一个世界，但它有一个绕过权限。首先在 Multiverse-Inventories 的 `config.yml` 中启用它（默认为 `false`）：
+
+```yml
+share-handling:
+  enable-bypass-permissions: true
+```
+
+然后为每个 BentoBox 世界——包括它的下界和末地——授予 `mvinv.bypass.world.<world>` 权限给每个玩家。使用 [LuckPerms](https://luckperms.net/)：
+
+```
+lp group default permission set mvinv.bypass.world.bskyblock_world true
+lp group default permission set mvinv.bypass.world.bskyblock_world_nether true
+lp group default permission set mvinv.bypass.world.bskyblock_world_the_end true
+```
+
+在每个玩家继承的组（如 `default`）上设置权限节点会自动覆盖新玩家。为你运行的每个游戏模式世界重复操作。
+
+!!! tip "OP 玩家不会自动获得此权限"
+    授予 op 还不够——权限节点必须显式给予。以 op 身份测试但没有该权限看起来完全像修复没有起作用。
+
+每个世界使用一个权限节点。避免使用 `mvinv.bypass.world.*`，它会关闭 Multiverse-Inventories 对所有世界的管理，包括你仍想让它管理的那些。
+
 ## Config.yml
 
 InvSwitcher 有一个 `config.yml`,包含两个主要部分。

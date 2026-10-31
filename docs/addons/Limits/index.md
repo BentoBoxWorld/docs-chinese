@@ -171,6 +171,47 @@ blocklimits:
 
         默认值：`false`
 
+### 自动实体重新计数 { #automatic-entity-recounts }
+
+!!! info "自 1.30.2 起"
+    实体计数以增量方式维护，所以任何遗漏的事件（嗅探蛋孵化、生物跨越传送门、崩溃前批量保存中丢失的增量）都可能导致计数偏离现实，除了手动重新计数外别无他法。这些选项在后台自动协调计数。它们**默认关闭**，因为重新计数会加载岛屿保护区域的所有区块：成本随保护范围的平方增长（范围 50 时每个世界 64 个区块，范围 400 时 2601 个）。重新计数是异步的，限流到一次一个岛屿，去重和按岛屿节流，仅重写**实体**计数——方块计数保持不变。重新计数*替换*计数而不是合并，所以仅当岛屿的区块被加载时才准确。
+
+=== "recount-on-join"
+    !!! summary "说明"
+        当岛屿拥有者登录时，运行岛屿的仅限实体的后台重新计数。
+
+        默认值：`false`
+
+=== "recount-on-join-cooldown"
+    !!! summary "说明"
+        同一岛屿自动重新计数之间的最小秒数（与定期扫描共享）。
+
+        默认值：`300`
+
+=== "recount-periodic"
+    !!! summary "说明"
+        定期扫描在线岛屿以协调其实体计数，即使所有者保持登录状态。成本和注意事项与 `recount-on-join` 相同。
+
+        默认值：`false`
+
+=== "recount-periodic-interval"
+    !!! summary "说明"
+        定期扫描周期之间的秒数。
+
+        默认值：`300`
+
+=== "recount-periodic-batch"
+    !!! summary "说明"
+        每个扫描周期要协调的岛屿数。在高人口服务器上保持较小。
+
+        默认值：`2`
+
+=== "recount-max-chunks"
+    !!! summary "说明"
+        保护区域覆盖超过此数量区块/世界的岛屿永远不会自动重新计数；每个岛屿记录一次警告。1000 个区块对应约 240 的保护范围。通过 `recount` 和 `calc` 命令的手动重新计数不受影响。
+
+        默认值：`1000`
+
 ## 权限
 
 岛主可以拥有覆盖默认设置或世界设置的独占权限。支持两种格式:
@@ -207,7 +248,94 @@ GAMEMODE_NAME.limits.admin.limits:
 
 {{ placeholders_source(source="Limits") }}
 
+!!! note "方块占位符名称"
+    `[material]` 是不含 `minecraft:` 命名空间的小写 Minecraft 键，如 `%Limits_bskyblock_island_spawner_limit%`。来自 ItemsAdder 或 Oraxen 的自定义方块使用 `namespace_key`（例如 `itemsadder_ruby_block`），因为冒号在占位符名称中无效。在 1.28.0 到 1.30.0 版本之间，方块的 `_count`、`_limit` 和 `_base_limit` 占位符被错误地注册为带有内嵌的命名空间，无法解析；已在 **1.30.1** 中修复。
+
+
+## 翻译
+
+{{ translations("Limits") }}
+
+## 无法限制的物品
+
+有些物品（目前）无法限制。原因通常是因为有太多方法可以在不被跟踪的情况下移除物品。如果你是程序员并且可以找出如何解决这些问题，请提交 PR！
+
+* 点燃的 TNT
+* 唤魔者尖牙
+* 羊驼唾沫
+* 龙火球
+* 区域效果云
+* 末影信号
+* 小火球
+* 火球
+* 扔出的经验瓶
+* 潜影贝导弹
+* 凋灵头颅
+* 三叉戟
+* 箭
+* 光灵箭
+* 雪球
+* 鸡蛋
+* 拴绳
+* 末影水晶
+* 末影珍珠
+* 末影龙
+
+!!! tip "物品展示框和画现在可以被限制 (1.29.0)"
+    物品展示框、荧光物品展示框和画此前也在此列表中。自 **1.29.0** 起,实体计数是持久化且事件驱动的,因此这三者现在都可以像其他任何实体一样在 `entitylimits` 下配置。
+
+
+## 对于开发者：豁免实体
+
+!!! info "即将在 1.30.2 之后的下一个版本中推出"
+
+另一个插件或附属可以生成 Limits 完全忽略的实体。这对于临时生物（如事件波或小游戏 NPC）很有用，这些不应消耗岛屿的实体限制。在 **spawn 消费者中**使用持久数据键 `limits:exempt`（任何值）标记实体，以便在 `CreatureSpawnEvent` 触发时标签已存在：
+
+```java
+NamespacedKey limitsExempt = NamespacedKey.fromString("limits:exempt");
+world.spawn(location, Zombie.class, zombie ->
+        zombie.getPersistentDataContainer().set(limitsExempt, PersistentDataType.BYTE, (byte) 1));
+```
+
+标记的实体：
+
+- 永远不会被实体或组限制阻止
+- 永远不会被计数，所以它不会使用岛屿的限制
+- 当它死亡、被移除或通过传送门时不会改变任何计数
+- 被跳过重新计数，包括 `calc` 命令和[自动实体重新计数](#automatic-entity-recounts)
+
+同一岛屿上未标记的实体会照常受到限制。标签与实体一起保存，所以豁免在区块卸载和服务器重启后仍然有效。你不需要 Limits 作为依赖；如果你对其进行编译，`Limits.EXEMPT_KEY` 是相同的键。
+
+!!! warning "仅在生成时添加标签"
+    在实体生成时添加标签，之后永远不要添加或移除它。稍后标记的实体已被计数，移除时不会递减，之后移除标签会导致相反的问题。无论哪种情况，岛屿的计数都是错误的，直到下一次重新计数。
+
+
 ## 更新日志
+
+??? note "v1.30.2 新内容 —— 自动实体重新计数"
+    **发布于：** 2026-09-06
+
+    一个活塞计数修复加上一个新的可选功能。兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.2 · Java 21。
+
+    - ⚙️ **自动实体重新计数（可选启用）。** 新的 `recount-on-join` 和 `recount-periodic` 选项在后台协调漂移的实体计数——见上文[自动实体重新计数](#automatic-entity-recounts)。六个新键（`recount-on-join`、`recount-on-join-cooldown`、`recount-periodic`、`recount-periodic-interval`、`recount-periodic-batch`、`recount-max-chunks`）自动添加到 `config.yml` 且使用安全的默认值，所以除非你启用它们，否则没有任何改变。在开启前读取配置注释。感谢 @daniel-skopek。
+    - 🐛 **扩展活塞不再计数两次。** 管理员重新计数（`calc`）对每个扩展活塞计数其基座和头部，所以所有活塞都扩展的红石建造会翻倍计数（16 个粘性活塞显示为 32/30），每次重新计数都会放回错误的数字。重新计数现在仅计数基座，破坏两部分的爆炸递减一次。
+    - 🐛 **穿越传送门的实体正确递减。** 实体穿越传送门，同时在岛屿保护范围外时，其源维度计数从未被递减。
+
+    **活塞注意：** 活塞计数膨胀的岛屿在此版本进行一次重新计数（`/[admin_command] limits calc <player>`）后显示正确的数字。
+
+    [发布 v1.30.2](https://github.com/BentoBoxWorld/Limits/releases/tag/1.30.2)
+
+??? warning "v1.30.1 新内容 —— 如果你运行 Greenhouses 请重新计数"
+    **发布于：** 2026-09-04
+
+    两个准确性修复。兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.2 · Java 21。无配置或区域设置更改。
+
+    - 🐛 **方块计数和限制占位符再次有效。** 自 1.28.0 以来，每个方块占位符都注册为命名空间内嵌在其名称中，所以 `%Limits_bskyblock_island_spawner_limit%` 实际上是 `%Limits_bskyblock_island_minecraft:spawner_limit%`，PlaceholderAPI 返回其未解析。所有方块 `_count`、`_limit` 和 `_base_limit` 占位符，包括 `_overworld`、`_nether` 和 `_end` 变种，现在都注册在文档化的名称下。实体占位符从未受影响。
+    - 🔺 🐛 **取消的生成被移除时实体计数不再漂移。** 当 Limits 在限制处取消生成，生成插件随后对该从不添加的实体调用 `remove()`（Greenhouses 做了这个），Paper 仍然触发 `EntityRemoveEvent`，Limits 为从不计数的生物递减计数，所以下一次生成溜过去（例如 4/3 的恶灵）。从不进入世界的实体移除现在被忽略。
+
+    🔺 **重新计数注意：** 如果你运行 Greenhouses（或任何移除其无法生成的实体的插件），受影响岛屿的实体计数可能在旧版本下漂移降低。在受影响的岛屿上运行 `/[admin_command] limits calc <player>`，或让玩家运行 `/[player_command] limits recount`，使计数与现实相匹配。
+
+    [发布 v1.30.1](https://github.com/BentoBoxWorld/Limits/releases/tag/1.30.1)
 
 ??? warning "v1.30.0 新内容 —— 建议重新计数海带"
     **发布于：** 2026-08-15
@@ -306,54 +434,3 @@ GAMEMODE_NAME.limits.admin.limits:
     兼容性: BentoBox API 2.7.1 · Minecraft 1.21.5 – 26.1.2 · Java 21。
 
     [Release v1.28.2](https://github.com/BentoBoxWorld/Limits/releases/tag/1.28.2)
-
-## 翻译
-
-{{ translations("Limits") }}
-
-## 无法限制的物品
-
-有些物品(目前)无法限制。原因通常是因为有太多方法可以在不被跟踪的情况下移除物品。如果你是程序员并且可以找出如何解决这些问题,请提交 PR!
-
-* 点燃的 TNT
-
-* 唤魔者尖牙
-
-* 羊驼唾沫
-
-* 龙火球
-
-* 区域效果云
-
-* 末影信号
-
-* 小火球
-
-* 火球
-
-* 扔出的经验瓶
-
-* 潜影贝导弹
-
-* 凋灵头颅
-
-* 三叉戟
-
-* 箭
-
-* 光灵箭
-
-* 雪球
-
-* 鸡蛋
-
-* 拴绳
-
-* 末影水晶
-
-* 末影珍珠
-
-* 末影龙
-
-!!! tip "物品展示框和画现在可以被限制 (1.29.0)"
-    物品展示框、荧光物品展示框和画此前也在此列表中。自 **1.29.0** 起,实体计数是持久化且事件驱动的,因此这三者现在都可以像其他任何实体一样在 `entitylimits` 下配置。

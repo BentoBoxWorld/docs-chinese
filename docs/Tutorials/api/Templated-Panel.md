@@ -91,11 +91,12 @@ TemplatedPanel 系统为 BentoBox 开发者提供了一种流畅而灵活的方�
 - `parameters(@NonNull String... parameters)`：为面板标题设置参数。返回 `TemplatedPanelBuilder` 实例以进行链式调用。自 1.20.0 版本可用。
 - 示例：`panelBuilder.parameters("[name]", this.user.getName());` 将用户名称放入面板标题中。
 
-### 监听器方法
+### 监听器方法 { #listener-method }
 
 - `listener(PanelListener listener)`：为面板添加 `PanelListener` 以处理用户交互。返回 `TemplatedPanelBuilder` 实例以进行链式调用。
 - 监听器不是必需的，因为切换到另一个标签页或对点击做出反应的功能已在 API 中处理。
 - 只有在需要自定义功能时才可能需要监听器。
+- 默认情况下，带有监听器的面板会取消玩家自己物品栏中的每次点击并将其传递给 `onInventoryClick`，这让面板可以对这些点击做出反应，例如选择图标。自 BentoBox 3.23.4 起，覆盖 `allowsPlayerInventoryClicks()` 以返回 `true` 来让玩家在面板打开时在自己的物品栏中拾起、放置、交换、丢弃物品并使用包裹。这些点击随后被留给原版，不会传递给 `onInventoryClick`。Shift 点击、双击收集和拖动到面板槽上总是被阻止的。没有监听器的面板总是允许物品栏使用。
 
 ### 类型构建器注册
 

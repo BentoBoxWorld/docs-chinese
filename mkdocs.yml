@@ -63,6 +63,7 @@ nav:
         - 温室: addons/Greenhouses/index.md
         - 物品转换器: addons/InvSwitcher/index.md
         - 岛屿飞行: addons/IslandFly/index.md
+        - 岛屿统计: addons/IslandStats/index.md
         - 等级: addons/Level/index.md
         - 点赞: addons/Likes/index.md
         - 限制: addons/Limits/index.md
