@@ -154,4 +154,4 @@ BentoBox 提供了一个管理员工具来解释为什么某事可以或不能�
 由玩家直接造成的生成，例如繁殖、生成蛋或搭建傀儡，永远不受上述任何规则限制。
 
 !!! note "允许列表的存储位置"
-    与其他世界设置不同，允许列表不在游戏模式的 `config.yml` 中。BentoBox 自行将其存储在数据库中，每个游戏模式一条记录：使用默认的平面文件数据库时，位于 `plugins/BentoBox/database/WorldSettings/<GameMode>.yml`。首次识别该游戏模式时会以 `IRON_GOLEM` 作为初始值；此后只有管理员在面板中的修改生效。清除该记录即可恢复初始值。
+    与其他世界设置不同，允许列表不在游戏模式的 `config.yml` 中。BentoBox 自行将其存储在数据库中，每个游戏模式一条记录：使用默认的平面文件数据库时，位于 `plugins/BentoBox/database/CoreWorldSettings/<GameMode>.json`。首次识别该游戏模式时会以 `IRON_GOLEM` 作为初始值；此后只有管理员在面板中的修改生效。清除该记录即可恢复初始值。
