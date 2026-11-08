@@ -9,3 +9,5 @@
 # database
 
 这是平面文件数据库的存储位置（YAML 文件）。这是附加组件数据的存储位置。
+
+BentoBox 自己的表也存放在这里，例如 `Islands`、`Players`、`Names` 和 `WorldSettings`。`WorldSettings` 表为每个游戏模式保存一个文件，存放由 BentoBox 自行保存、而非保存在游戏模式 `config.yml` 中的世界设置，目前即始终允许的实体类型列表。

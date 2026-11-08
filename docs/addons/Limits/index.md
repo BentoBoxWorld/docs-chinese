@@ -20,9 +20,24 @@
 
 5. 如果进行了更改,请重启服务器
 
-## 指令
+## 指令 { #commands }
 
 有一个用户指令和一个管理员指令,都叫"limits"。管理员可以检查特定岛主的限制。两者都会显示一个带有限制和当前数量的 GUI 面板。
+
+可以根据岛屿上实际存在的内容重建计数：
+
+| 指令 | 描述 |
+|---|---|
+| `/[player_command] limits recount` | 重新计数玩家自己的岛屿。 |
+| `/[admin_command] limits calc <player>` | 重新计数某玩家的岛屿（方块和实体）。 |
+| `/[admin_command] limits calc <player> entities` | （**1.32.0+**）只重新计数某玩家岛屿的实体；方块计数保持不变。 |
+| `/[admin_command] limits calc all` | （**1.32.0+**）将世界中每个有主岛屿加入重新计数队列。 |
+| `/[admin_command] limits calc all entities` | （**1.32.0+**）只重新计数每个有主岛屿的实体。开销小得多，是修复被清零的生物计数的最快方法。 |
+
+重新计数在后台严格逐个岛屿进行，玩家的 `recount` 指令和管理员的 `calc` 指令共用同一个队列。对已在队列中的岛屿再次请求重新计数时，会提示重新计数正在进行中。使用 `calc all` 时，管理员会先收到已加入队列的岛屿数量，之后收到完成数量和超时数量。
+
+!!! tip "修复被清零的实体计数"
+    运行一次 `/[admin_command] limits calc all entities`（例如 `/bsbadmin limits calc all entities`），即可重建某个游戏模式中每个岛屿的实体计数。之后若要保持计数准确，请开启[自动重新计数](#automatic-entity-recounts)。
 
 ## 设置 - Config.yml
 
@@ -48,12 +63,30 @@ config.yml 有以下部分:
 
 * entitygrouplimits
 
-此外还有以下顶级开关(除注明外均在 **1.29.0** 中新增)：`apply-member-limit-perms`、`show-limit-messages`、`stacked-plants-count-as-one` 和 `log-limits-on-join`。
+此外还有以下顶级开关(除注明外均在 **1.29.0** 中新增)：`shared-dimension-limits`（**1.33.0**）、`apply-member-limit-perms`、`show-limit-messages`、`stacked-plants-count-as-one` 和 `log-limits-on-join`。
 
 !!! info "按维度限制 (1.28.2+)"
-    自 **1.28.2** 起,方块数量、实体数量、限制和偏移量现在会**针对主世界、下界和末地分别独立追踪**。在 `blocklimits` 或 `entitylimits` 中定义的单个限制会分别应用于每个维度。例如 `HOPPER: 10` 允许主世界 10 个、下界 10 个、末地 10 个(整个岛屿共 30 个)漏斗。如需仅覆盖某个维度,请使用可选的 `-nether` / `-end` 部分。
+    自 **1.28.2** 起,方块数量、实体数量、限制和偏移量现在会**针对主世界、下界和末地分别独立追踪**。除非开启了 [`shared-dimension-limits`](#shared-dimension-limits)，否则在 `blocklimits` 或 `entitylimits` 中定义的单个限制会分别应用于每个维度。例如 `HOPPER: 10` 允许主世界 10 个、下界 10 个、末地 10 个(整个岛屿共 30 个)漏斗。如需仅覆盖某个维度,请使用可选的 `-nether` / `-end` 部分。
 
     升级后首次加载时,你现有的单维度数据会自动迁移到**主世界**槽位。磁盘上的格式会发生变化,因此升级前请先备份,并注意升级后不支持降级。
+
+### shared-dimension-limits
+
+!!! info "自 1.33.0 起"
+    为 `true` 时，每个方块、实体和分组限制覆盖**整个岛屿**——主世界、下界和末地合计——而不是在每个维度分别应用。此时 `HOPPER: 10` 表示无论放在哪里，总共 10 个漏斗。限制面板会显示单个"所有维度"选项卡，展示整个岛屿的总数。
+
+计数在后台仍按维度保存，因此可以随时开启或关闭此设置，无需重新计数，也不会改变数据。
+
+共享限制时，岛屿的主世界限制作用于整个岛屿：
+
+- **生效的：** `blocklimits`、`entitylimits`、实体和方块分组限制、`worlds:` 下的主世界条目、全维度和主世界权限（`<gamemode>.island.limit.<KEY>.<NUMBER>` 和 `<gamemode>.island.limit.overworld.<KEY>.<NUMBER>`），以及偏移量。
+- **被忽略的：** `-nether` 和 `-end` 配置部分、`worlds:` 下的下界和末地条目，以及仅限下界或仅限末地的权限。每个被忽略的配置部分都会在启动时记录一条警告。
+- **占位符：** `_limit`、`_base_limit` 和 `reached_limits` 占位符报告共享限制和整个岛屿的总数。带维度后缀的 `_count` 占位符仍显示各维度自己的计数。
+
+默认值：新安装为 `true`。1.33.0 之前的 `config.yml` 中没有这一行，因此在你添加 `shared-dimension-limits: true` 之前，仍按维度分别限制。
+
+!!! warning "开启前请检查你的限制"
+    如果玩家原本使用全部三个维度，共享限制实际上只相当于同一数字以前所允许数量的三分之一。已经超出共享限制的岛屿会保留现有的一切，但在回到限制以下之前无法再放置或生成更多。开启时你可能需要提高某些限制。另请注意，删除 `config.yml` 以重新生成会**开启**共享限制；如要保持分别限制，请将其设为 `false`。
 
 ### blocklimits
 
@@ -72,6 +105,9 @@ config.yml 有以下部分:
 ### entitylimits
 
 此部分列出了玩家岛屿空间(保护区域和岛屿限制)内的默认实体限制。限制为 5 将允许最多 5 个实体。影响所有类型的生物生成。还包括矿车等实体。自 **1.28.2** 起,实体限制会独立应用于每个维度,因此下界和末地现在会被正确计数和限制(修复了区块卸载时下界/末地计数重置为零的长期问题)。
+
+!!! tip "坐垫（1.31.0，Minecraft 26.3+）"
+    坐垫可以像其他实体一样被限制，例如 `CUSHION: 10`。也可以通过权限（`<gamemode>.island.limit.CUSHION.<number>`）进行限制，并用于实体分组。1.31.0 之前放置的坐垫从未被计数，因此请对已有坐垫的岛屿运行 `/[admin_command] limits calc <player>`。
 
 ### entitylimits-nether / entitylimits-end
 
@@ -285,9 +321,9 @@ GAMEMODE_NAME.limits.admin.limits:
     物品展示框、荧光物品展示框和画此前也在此列表中。自 **1.29.0** 起,实体计数是持久化且事件驱动的,因此这三者现在都可以像其他任何实体一样在 `entitylimits` 下配置。
 
 
-## 对于开发者：豁免实体
+## 对于开发者：豁免实体 { #for-developers-exempting-entities }
 
-!!! info "即将在 1.30.2 之后的下一个版本中推出"
+!!! info "自 1.31.0 起"
 
 另一个插件或附属可以生成 Limits 完全忽略的实体。这对于临时生物（如事件波或小游戏 NPC）很有用，这些不应消耗岛屿的实体限制。在 **spawn 消费者中**使用持久数据键 `limits:exempt`（任何值）标记实体，以便在 `CreatureSpawnEvent` 触发时标签已存在：
 
@@ -311,6 +347,45 @@ world.spawn(location, Zombie.class, zombie ->
 
 
 ## 更新日志
+
+??? note "v1.33.0 新内容 —— 跨维度共享限制"
+    **发布于：** 2026-11-07
+
+    兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.3 · Java 21。
+
+    - ⚙️🔡 **跨岛屿维度共享限制。** 新的 [`shared-dimension-limits`](#shared-dimension-limits) 设置让每个方块、实体和分组限制同时覆盖主世界、下界和末地。新安装默认开启；现有服务器在管理员向 `config.yml` 添加 `shared-dimension-limits: true` 之前保持分别限制。修复 [#310](https://github.com/BentoBoxWorld/Limits/issues/310)。
+    - 🔡 **修复其他语言的面板标题。** 除英语外的所有语言在限制面板标题中都会显示字面的 `[sort]`。现在会显示维度名称。无需重新生成语言文件。
+    - 🔡 **`calc all` 消息已翻译**为所有语言；重启后自动生效。
+
+    🔺 如果玩家使用全部三个维度，共享限制实际上只相当于同一数字以前所允许数量的三分之一——开启前请检查你的限制。重新生成 `config.yml` 会开启此功能。
+
+    [发布 v1.33.0](https://github.com/BentoBoxWorld/Limits/releases/tag/1.33.0)
+
+??? note "v1.32.0 新内容 —— 准确的重新计数与 calc all"
+    **发布于：** 2026-11-02
+
+    兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.3 · Java 21。没有配置变化。
+
+    - 🐛 **重新计数不再遗漏未加载区块中的生物。** 为重新计数而加载的区块可能在计数完成前卸载，导致其中的生物被计为零，岛屿计数随之下降。这主要影响对离线玩家岛屿执行的 `calc`，以及岛主在岛屿以外的地方登录时的 `recount-on-join`。现在重新计数会让每个区块保持加载（不进行 tick），直到其实体计数完成，每个世界每次处理 100 个区块。
+    - 🔡 **`calc all` 和 `entities`。** `/[admin_command] limits calc all` 会将每个有主岛屿加入重新计数队列；加上 `entities` 则只重建实体计数。`entities` 也可用于单个玩家：`calc <player> entities`。参见[指令](#commands)。
+    - **重新计数指令修复：** `recount` 和 `calc` 不再留下永远运行的后台任务，并且现在共用一个队列；对已在队列中的岛屿请求重新计数会提示正在进行中；因服务器停止而中断的部分重新计数会被丢弃而不是保存；超时消息现在能正常显示；未知玩家消息会显示输入的名称。
+
+    🔡 语言文件中新增了 `calc` 帮助文本和两条新消息（`admin.limits.calc.all-queued`、`admin.limits.calc.all-finished`）。缺失的消息会回退为英语。
+
+    [发布 v1.32.0](https://github.com/BentoBoxWorld/Limits/releases/tag/1.32.0)
+
+??? note "v1.31.0 新内容 —— 坐垫限制与豁免实体"
+    **发布于：** 2026-10-31
+
+    兼容性：BentoBox API 2.7.1 · Paper Minecraft 1.21.11 – 26.3 · Java 21。没有配置或语言文件变化。
+
+    - 🐛 **坐垫限制现已生效。** `entitylimits` 中的 `CUSHION` 条目会被加载，但从未被执行。现在放置坐垫时会检查限制（带有常规消息和 `mod.bypass` 处理）并计数，计数在区块加载和 `calc` 重新计数中保持正确。限制面板会显示坐垫图标。修复 [#307](https://github.com/BentoBoxWorld/Limits/issues/307)。
+    - ✨ **插件可以豁免自己的实体。** 带有持久数据键 `limits:exempt` 标签的实体永远不会被阻止或计数。参见[对于开发者：豁免实体](#for-developers-exempting-entities)。修复 [#304](https://github.com/BentoBoxWorld/Limits/issues/304)。
+    - 基于 Paper 26.3 和 BentoBox 3.23.1 构建。jar 仍以 Java 21 为目标，并可在早于 26.3 的服务器上加载。
+
+    **已有坐垫：** 此更新之前放置的坐垫从未被计数。请对已有坐垫的岛屿运行 `/[admin_command] limits calc <player>`，否则它们可能会超出限制相应的数量。
+
+    [发布 v1.31.0](https://github.com/BentoBoxWorld/Limits/releases/tag/1.31.0)
 
 ??? note "v1.30.2 新内容 —— 自动实体重新计数"
     **发布于：** 2026-09-06

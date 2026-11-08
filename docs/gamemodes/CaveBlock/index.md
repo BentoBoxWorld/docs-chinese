@@ -160,6 +160,23 @@
 
 ## 更新日志
 
+??? note "v1.23.2 新内容"
+    **发布于：** 2026-10-19
+
+    一个维护版本。兼容性：BentoBox API 3.14+、Minecraft 1.21.x、Java 21。
+
+    - 🐛 **`/[admin_command] reload` 现在会确认已生效。** 重载一直都会重新加载 `config.yml`，只是没有任何提示。现在它会发送一条消息，同时说明更改只作用于新生成的区块，而世界名称、维度和指令别名需要重启服务器。
+    - 🐛 **`world.world-depth` 的更改在重载时生效。** 玩家不再会在重启前被挡在旧的洞穴顶部；高度限制会立即跟随重载后的设置。
+    - 🔡 **更精简的语言文件。** `en-US.yml` 现在使用 `prefixes` 部分（island → cave 等），由 BentoBox 代入其默认字符串，取代了约 125 条复制的覆盖项。CaveBlock 现在显示 BentoBox 当前的措辞。印尼语（`id`）和罗马尼亚语（`ro`）现已完整翻译，并向其他几种语言添加了 `cave-limit-reached`。
+    - **更简单的 `lush` 初始洞穴。** `lush` 蓝图经过重做，因为原来太难生存。
+    - ⚙️ **更清晰的 `deaths` 注释**，位于 `config.yml` 中，说明每个设置如何与 [Level 2.29.0 的按洞穴死亡追踪](../../addons/Level/index.md#faq)相互作用。没有键或值发生变化。
+
+    🔡 **语言文件注意：** 如要切换到更精简的文件，请先备份所有自定义内容，删除 `plugins/BentoBox/locales/CaveBlock/` 后重启。
+
+    🔺 **Lush 蓝图注意：** 只有在蓝图文件夹不存在时才会从 jar 中复制蓝图，因此现有服务器仍保留旧的 `lush` 洞穴。如要使用新版，请将 jar 中的 `blueprints/lush.blueprint` 复制到 `plugins/BentoBox/addons/CaveBlock/blueprints/` 并重启。现有洞穴不会改变。
+
+    [发布 v1.23.2](https://github.com/BentoBoxWorld/CaveBlock/releases/tag/1.23.2)
+
 ??? note "v1.23.1 新内容"
     **发布于：** 2026-07-09
 

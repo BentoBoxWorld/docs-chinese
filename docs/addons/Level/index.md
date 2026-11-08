@@ -409,7 +409,13 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     | `team-join-reset` | 无。仅影响 BentoBox 自己的计数器和 `%[gamemode]_deaths%` 占位符。 |
     | `reset-on-new-island` | 无。Level 在岛屿重置或删除时清除自己的记录。 |
 
-    BentoBox 的 `/[admin_command] deaths set|add|reset` 指令改变的是 BentoBox 的计数器，不是 Level 的按岛屿记录，所以它们现在也不再影响等级。
+    **管理员死亡指令。** 自 v2.30.0 起（需要 BentoBox 3.23.3 或更高版本），游戏模式的 `/[admin_command] deaths set|add|remove|reset <player>` 指令也会修改该玩家在此游戏模式中**所属的每个岛屿**上的死亡次数。玩家仅为信任或合作身份的岛屿不会被修改。
+
+    - **add** 增加玩家在岛屿上的计数，最多到 `deaths.max`。
+    - **remove** 先从玩家自己的计数中扣除，再从岛屿的匿名死亡（前成员或迁移而来的）中扣除。总数永远不会低于 0。
+    - **set** 和 **reset** 设置玩家的计数，并且**清除岛屿的匿名死亡**。其他现有成员的计数不变。如只想修改一名玩家的计数，请使用 `add` 或 `remove`。
+
+    在 v2.29.0 上，或在早于 3.23.3 的 BentoBox 上，这些指令只会修改 BentoBox 自己的计数器，不会影响等级。
 
     **从较早版本升级。** 现有的死亡计数在首次计算、成员在其上死亡或成员离开时，对每个岛屿迁移一次。迁移的值复现旧公式在那个时刻会计算出的内容（使用 `sumteamdeaths`），所以升级时岛屿等级不会改变。
 
@@ -555,6 +561,19 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - 🆕 新增繁体中文（`zh-TW`）本地化。感谢 @qwe664！
 
     [发布 v2.29.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.29.0)
+
+??? warning "v2.30.0 新内容 —— 管理员死亡指令会修改岛屿死亡次数"
+    **发布于：** 2026-10-31
+
+    兼容性：BentoBox API 3.16.0（死亡指令需要 3.23.3+）、Minecraft 1.21.x 和 26.1.x – 26.3、Java 21。
+
+    - 🔺 **`/[admin_command] deaths` 指令重新作用于岛屿等级。** 在 2.29.0 中它们只修改 BentoBox 的计数器，因此管理员把玩家设为 0 次死亡后，`/[player_command] level` 仍显示旧数字。现在 `set`、`add`、`remove` 和 `reset` 会作用于该玩家所属的每个岛屿。参见[死亡惩罚如何工作？](#faq)。
+    - 🔺 **`set` 和 `reset` 会清除前成员的死亡。** 对团队岛屿的任何成员执行其中之一，也会清除前成员留下的死亡以及从 2.29.0 之前迁移来的死亡。
+    - 🔺 **需要 BentoBox 3.23.3 或更高版本。** 在较旧的 BentoBox 上，Level 会在启动时记录一条提示，并保持 2.29.0 的行为。
+    - ⚙️ `config.yml` 中 `deathpenalty` 的注释对此进行了说明。设置本身没有改变。
+    - 基于 Paper 26.3 构建和测试；Minecraft 26.2 和 26.3 列为受支持版本。
+
+    [发布 v2.30.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.30.0)
 
 ## 翻译
 
