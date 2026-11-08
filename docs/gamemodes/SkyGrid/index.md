@@ -31,6 +31,22 @@
 
 占位符可以在[这里](Placeholders)找到。
 
+## 更新日志
+
+??? warning "v2.2.4 新内容 —— 世界生成修复"
+    **发布于：** 2026-11-05
+
+    兼容性：BentoBox API 3.3.1 · Minecraft 1.21.x（在 Paper 26.3 上测试）· Java 21。
+
+    - 🔺 **网格不再充满石头和草。** 原版地形会在网格下方生成，原版地表生成也会把方块替换为草。现在网格位置只会放置你配置中的方块。[PR #88](https://github.com/BentoBoxWorld/SkyGrid/pull/88)
+    - 🔺 **区块不再重复。** 每个区块都从相同的随机序列开始，因此同样的图案每 16 格重复一次。现在每个区块都有自己的随机序列。[PR #88](https://github.com/BentoBoxWorld/SkyGrid/pull/88)
+    - **甘蔗现在有水了。** 它位于一个小型砂岩水池中，水不会流走。在寒冷的生物群系中水池里的水可能会结冰。[PR #89](https://github.com/BentoBoxWorld/SkyGrid/pull/89)
+    - **仙人掌和枯萎的灌木不再悬空。** 它们现在立在砂岩上方的沙子上。[PR #89](https://github.com/BentoBoxWorld/SkyGrid/pull/89)
+
+    🔺 **现有世界：** 已生成的区块不会改变，因此新旧区块交界处会出现明显的不一致。如需一致的网格，请删除你的 SkyGrid 世界并让其重新生成——**这会移除这些世界中的所有岛屿**，请事先与玩家沟通并做好备份。
+
+    [发布 v2.2.4](https://github.com/BentoBoxWorld/SkyGrid/releases/tag/2.2.4)
+
 ## 翻译
 
 {{ translations("SkyGrid") }}

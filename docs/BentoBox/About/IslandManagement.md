@@ -25,12 +25,12 @@
 [gamemode].island.home.maxhomes.<number>
 ```
 
-### 找到正确的家园
+### 找到正确的家园 { #finding-the-right-home }
 
 自 BentoBox 3.21.0 起，`/island go <name>` 不再需要区分大小写的精确匹配。输入的名称会按置信度从高到低依次解析：
 
 1. 与岛屿名或家园名精确匹配。
-2. 忽略大小写、颜色代码和多余空白后的匹配——因此 `myisland` 能找到 `MyIsland`，多打的一个空格也会被容忍。
+2. 忽略大小写、颜色代码和多余空白后的匹配——因此 `myisland` 能找到 `MyIsland`，多打的一个空格也会被容忍。自 3.23.5 起，下划线也视为空格，因此 `happy_place` 能找到 `Happy Place`。
 3. 唯一的、不区分大小写的前缀——`hom` 能找到 `Home`。
 
 如果仍然存在歧义，BentoBox 不会去猜，而是回退到常规的目的地列表；传送时使用解析出的规范名称，因此命名家园始终准确。

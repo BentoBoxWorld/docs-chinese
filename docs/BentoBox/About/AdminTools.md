@@ -106,7 +106,37 @@ BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
 
 ## 更新日志
 
-!!! note "v3.23.4 新内容 —— 安全的末地到达与面板中的物品栏使用"
+!!! note "v3.23.6 新内容 —— 始终允许的实体类型与蓝图加载修复"
+    **发布于：** 2026-11-07
+
+    没有 `config.yml` 变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🔡 **始终允许的实体类型（`ALLOW_MOBS`）。** 每个游戏模式的管理员设置面板中新增一个世界设置（铁锭图标），列出即使关闭了动物或怪物生成也仍会生成的实体类型，在世界和岛屿层面均适用。铁傀儡默认在列表中，因此村庄刷铁机可以继续工作。如果某个类型同时出现在两个列表中，**限制实体类型生成**阻止列表仍然优先。权限：`[gamemode].admin.settings.ALLOW_MOBS`。参见[生物生成优先级](Protections.md#mob-spawning-precedence)。
+    - 🔺 **"所有蓝图已加载"可能不会触发。** 当多个游戏模式同时加载蓝图时，BentoBox 可能漏掉一次完成通知，从而永远无法进入就绪状态，导致附属的 `allLoaded()` 钩子、需等待就绪的指令以及 `BentoBoxReadyEvent` 都不会运行。此问题已修复，另外还修复了四个相关的主线程/异步竞争问题。
+    - 📊 **bStats：** 失败的指令现在会把玩家看到的语言键作为原因上报，并按服务器计数；新的 `worldSize` 图表以区间形式报告岛屿世界在磁盘上的大小。
+    - 修复了新的核心世界设置存储在首次运行时误报的 `File not found` 日志。
+
+    🔺 **刷铁机：** 如果之前为了阻止铁傀儡而关闭了动物生成，铁傀儡现在会重新生成。要恢复旧行为，请从"始终允许的实体类型"中移除铁傀儡。
+
+    🔺 **新的数据存储：** 允许列表由 BentoBox 按游戏模式保存，而不是保存在游戏模式的 `config.yml` 中——平面文件数据库为 `plugins/BentoBox/database/CoreWorldSettings/<GameMode>.json`，SQL/Mongo 为 `WorldSettings` 表。
+
+    🔡 **语言文件注意：** 新增了 `protection.flags.ALLOW_MOBS` 下的键（`name`、`description`、`always`、`flags`）。缺少这些键的自定义语言文件会直接显示键名。
+
+    [发布 v3.23.6](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.6)
+
+??? note "v3.23.5 新内容 —— 硫磺立方 TNT 保护与 `/island go` 下划线"
+    **发布于：** 2026-10-31
+
+    一个 bug 修复版本。没有 `config.yml`、地区或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🔺 **硫磺立方的爆炸现在遵循 TNT 标志。** 吸收了 TNT 的硫磺立方会以自身而非点燃的 TNT 爆炸，因此不会经过 `TNT_DAMAGE` 检查，可能在关闭了 TNT 伤害的岛屿上摧毁建筑。现在其爆炸在岛屿上遵循 `TNT_DAMAGE`，在岛屿外遵循 `WORLD_TNT_DAMAGE`，对方块伤害和实体伤害均适用。玩家用打火石或火焰弹点燃硫磺立方时，会像 TNT 方块一样检查 `TNT_PRIMING`。由红石、发射器或其他爆炸引发的点燃没有对应玩家，因此 `TNT_PRIMING` 无法适用，但爆炸仍遵循 `TNT_DAMAGE`。Minecraft 26.2 之前的服务器没有硫磺立方，因此不受影响。
+    - 🐛 **`/island go` 将下划线视为空格。** `/island go happy_place` 现在能找到名为 `Happy Place` 的家园。精确匹配仍然优先，匹配到多个目的地的名称会被拒绝而不是猜测。参见[找到正确的家园](IslandManagement.md#finding-the-right-home)。
+
+    **AOneBlock 注意：** AOneBlock 默认设置为 `TNT_DAMAGE: true`，因此除非你将其设为 `false`，否则那里的硫磺立方爆炸仍会造成伤害。
+
+    [发布 v3.23.5](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.5)
+
+??? note "v3.23.4 新内容 —— 安全的末地到达与面板中的物品栏使用"
     **发布于：** 2026-10-17
 
     一个 bug 修复版本。没有 `config.yml`、地区或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
