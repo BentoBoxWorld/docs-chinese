@@ -31,7 +31,7 @@ BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。�
     /lp group default permission set bskyblock.island.renamehome true
     ```
 
-## 带有数字的特权
+## 带有数字的特权 { #perks-with-a-number }
 
 这些权限以一个数字结尾。该数字替换游戏模式的 `config.yml` 中该玩家的值。
 
