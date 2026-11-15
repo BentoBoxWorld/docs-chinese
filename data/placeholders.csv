@@ -1,51 +1,82 @@
 source,placeholder,desc,version
-BentoBox,[gamemode]_world_friendly_name,该游戏模式世界的名称,1.4.0
-BentoBox,[gamemode]_world_islands,该游戏模式世界中的岛屿数量,1.5.0
-BentoBox,[gamemode]_island_distance,该游戏模式世界中岛屿中心之间距离的一半,1.4.0
-BentoBox,[gamemode]_island_distance_diameter,该游戏模式世界中岛屿之间的距离,1.5.0
-BentoBox,[gamemode]_island_protection_range,岛屿保护范围的半径,1.4.0
-BentoBox,[gamemode]_island_protection_range_diameter,岛屿保护范围的直径,1.5.0
-BentoBox,[gamemode]_island_owner,岛屿所有者的名称,1.4.0
-BentoBox,[gamemode]_island_creation_date,岛屿的创建日期,1.4.0
-BentoBox,[gamemode]_island_name,岛屿的名称,1.4.0
-BentoBox,[gamemode]_island_name_<number>,玩家第 <number> 个岛屿的名称,2.3.0
+BentoBox,[gamemode]_deaths,玩家在该游戏模式中的死亡次数，由 BentoBox 计数（不是 Level 2.29.0+ 使用的单岛屿计数）,1.12.0
+BentoBox,[gamemode]_has_island,玩家是否拥有岛屿,1.5.0
+BentoBox,[gamemode]_island_bans_count,被该岛屿封禁的玩家数量,1.5.0
 BentoBox,[gamemode]_island_center,岛屿中心的坐标,1.5.0
 BentoBox,[gamemode]_island_center_x,岛屿中心的 X 坐标,1.5.0
 BentoBox,[gamemode]_island_center_y,岛屿中心的 Y 坐标,1.5.0
 BentoBox,[gamemode]_island_center_z,岛屿中心的 Z 坐标,1.5.0
-BentoBox,[gamemode]_island_members_max,岛屿可拥有的最大成员数量,1.5.0
-BentoBox,[gamemode]_island_members_count,"岛屿上成员、副岛主和岛主的总人数",1.5.0
-BentoBox,[gamemode]_island_members_list,岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
-BentoBox,[gamemode]_island_members_list_<number>,玩家第 <number> 个岛屿上至少为成员级别的玩家名称列表（逗号分隔）,2.3.0
-BentoBox,[gamemode]_island_trustees_count,岛屿上受信任玩家的数量,1.5.0
+BentoBox,[gamemode]_island_coop_list,至少为合作级别的玩家名称列表（逗号分隔）,2.4.2
 BentoBox,[gamemode]_island_coops_count,岛屿上合作玩家的数量,1.5.0
+BentoBox,[gamemode]_island_creation_date,岛屿的创建日期,3.2.0
+BentoBox,[gamemode]_island_creation_time,岛屿创建时间,3.2.0
+BentoBox,[gamemode]_island_distance,该游戏模式世界中岛屿中心之间距离的一半,1.4.0
+BentoBox,[gamemode]_island_distance_diameter,该游戏模式世界中岛屿之间的距离,1.5.0
+BentoBox,[gamemode]_island_historical_members_count,曾经是或现在是该岛屿成员的玩家总数,3.0.0
+BentoBox,[gamemode]_island_location,岛屿的位置坐标，可能与中心不同,1.16.0
+BentoBox,[gamemode]_island_location_x,岛屿位置的 X 坐标,1.16.0
+BentoBox,[gamemode]_island_location_y,岛屿位置的 Y 坐标,1.16.0
+BentoBox,[gamemode]_island_location_z,岛屿位置的 Z 坐标,1.16.0
+BentoBox,[gamemode]_island_max_homes,该岛屿的最大家园数量,2.6.0
+BentoBox,[gamemode]_island_members_count,岛屿上成员、副岛主和岛主的总人数,1.5.0
+BentoBox,[gamemode]_island_members_list,岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
+BentoBox,[gamemode]_island_members_max,岛屿可拥有的最大成员数量,1.5.0
+BentoBox,[gamemode]_island_coop_max,岛屿可拥有的最大合作玩家数量,2.6.0
+BentoBox,[gamemode]_island_trust_max,岛屿可拥有的最大被信任玩家数量,2.6.0
+BentoBox,[gamemode]_island_name,岛屿的名称,1.4.0
+BentoBox,[gamemode]_island_owner,岛屿所有者的名称,1.4.0
+BentoBox,[gamemode]_island_protection_range,岛屿保护范围的半径,1.4.0
+BentoBox,[gamemode]_island_protection_range_diameter,岛屿保护范围的直径,1.5.0
+BentoBox,[gamemode]_island_rank,用户在其岛屿上的权限等级,
+BentoBox,[gamemode]_island_trusted_list,至少为被信任级别的玩家名称列表（逗号分隔）,2.4.2
+BentoBox,[gamemode]_island_trustees_count,岛屿上受信任玩家的数量,1.5.0
+BentoBox,[gamemode]_island_uuid,岛屿唯一 ID,1.15.4
 BentoBox,[gamemode]_island_visitors_count,当前正在访问该岛屿的玩家数量,1.5.0
-BentoBox,[gamemode]_island_bans_count,被该岛屿封禁的玩家数量,1.5.0
-BentoBox,[gamemode]_visited_island_protection_range,玩家当前所在岛屿的保护范围半径,1.5.2
-BentoBox,[gamemode]_visited_island_protection_range_diameter,玩家当前所在岛屿的保护范围直径,1.5.2
-BentoBox,[gamemode]_visited_island_owner,玩家当前所在岛屿的所有者名称,1.5.2
-BentoBox,[gamemode]_visited_island_creation_date,玩家当前所在岛屿的创建日期,1.5.2
-BentoBox,[gamemode]_visited_island_name,玩家当前所在岛屿的名称,1.5.2
-BentoBox,[gamemode]_visited_island_center,玩家当前所在岛屿中心的坐标,1.5.2
-BentoBox,[gamemode]_visited_island_center_x,玩家当前所在岛屿中心的 X 坐标,1.5.2
-BentoBox,[gamemode]_visited_island_center_y,玩家当前所在岛屿中心的 Y 坐标,1.5.2
-BentoBox,[gamemode]_visited_island_center_z,玩家当前所在岛屿中心的 Z 坐标,1.5.2
-BentoBox,[gamemode]_visited_island_members_max,玩家当前所在岛屿可拥有的最大成员数量,1.5.2
-BentoBox,[gamemode]_visited_island_members_count,"玩家当前所在岛屿上成员、副岛主和岛主的总人数",1.5.2
-BentoBox,[gamemode]_visited_island_members_list,玩家当前所在岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
-BentoBox,[gamemode]_visited_island_trustees_count,玩家当前所在岛屿上受信任玩家的数量,1.5.2
-BentoBox,[gamemode]_visited_island_coops_count,玩家当前所在岛屿上合作玩家的数量,1.5.2
-BentoBox,[gamemode]_visited_island_visitors_count,当前正在访问玩家所在岛屿的玩家数量,1.5.2
-BentoBox,[gamemode]_visited_island_bans_count,被玩家当前所在岛屿封禁的玩家数量,1.5.2
-BentoBox,[gamemode]_has_island,玩家是否拥有岛屿,1.5.0
+BentoBox,[gamemode]_on_island,玩家是否在其所属岛屿上,1.13.0
 BentoBox,[gamemode]_owns_island,玩家是否为一个岛屿的岛主,1.14.0
 BentoBox,[gamemode]_rank,玩家在其岛屿上的权限等级,1.5.0
 BentoBox,[gamemode]_resets,玩家重置其岛屿的次数,1.5.0
 BentoBox,[gamemode]_resets_left,玩家剩余可重置岛屿的次数,1.5.0
-BentoBox,[gamemode]_deaths,"玩家在该游戏模式中的死亡次数，由 BentoBox 计数（不是 Level 2.29.0+ 使用的单岛屿计数）",1.12.0
-BentoBox,[gamemode]_on_island,玩家是否在其所属岛屿上,1.13.0
-BentoBox,[gamemode]_island_online_members_count,当前在线的岛屿成员数量,2.0.1
-BentoBox,[gamemode]_visited_island_online_members_count,当前所在岛屿的在线成员数量,2.0.1
+BentoBox,[gamemode]_visited_island_bans_count,被玩家当前所在岛屿封禁的玩家数量,1.5.2
+BentoBox,[gamemode]_visited_island_center,玩家当前所在岛屿中心的坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_x,玩家当前所在岛屿中心的 X 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_y,玩家当前所在岛屿中心的 Y 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_center_z,玩家当前所在岛屿中心的 Z 坐标,1.5.2
+BentoBox,[gamemode]_visited_island_coop_list,玩家当前所在岛屿上至少为合作级别的玩家名称列表（逗号分隔）,2.4.2
+BentoBox,[gamemode]_visited_island_coops_count,玩家当前所在岛屿上合作玩家的数量,1.5.2
+BentoBox,[gamemode]_visited_island_creation_date,玩家当前所在岛屿的创建日期,1.5.2
+BentoBox,[gamemode]_visited_island_location,玩家当前所在岛屿的位置坐标,1.16.0
+BentoBox,[gamemode]_visited_island_location_x,玩家当前所在岛屿位置的 X 坐标,1.16.0
+BentoBox,[gamemode]_visited_island_location_y,玩家当前所在岛屿位置的 Y 坐标,1.16.0
+BentoBox,[gamemode]_visited_island_location_z,玩家当前所在岛屿位置的 Z 坐标,1.16.0
+BentoBox,[gamemode]_visited_island_max_homes,玩家当前所在岛屿的最大家园数量,2.6.0
+BentoBox,[gamemode]_visited_island_members_count,玩家当前所在岛屿上成员、副岛主和岛主的总人数,1.5.2
+BentoBox,[gamemode]_visited_island_members_list,玩家当前所在岛屿上至少为成员级别的玩家名称列表（逗号分隔）,1.13.0
+BentoBox,[gamemode]_visited_island_members_max,玩家当前所在岛屿可拥有的最大成员数量,1.5.2
+BentoBox,[gamemode]_visited_island_coop_max,玩家当前所在岛屿可拥有的最大合作玩家数量,2.6.0
+BentoBox,[gamemode]_visited_island_trust_max,玩家当前所在岛屿可拥有的最大被信任玩家数量,2.6.0
+BentoBox,[gamemode]_visited_island_name,玩家当前所在岛屿的名称,1.5.2
+BentoBox,[gamemode]_visited_island_owner,玩家当前所在岛屿的所有者名称,1.5.2
+BentoBox,[gamemode]_visited_island_protection_range,玩家当前所在岛屿的保护范围半径,1.5.2
+BentoBox,[gamemode]_visited_island_protection_range_diameter,玩家当前所在岛屿的保护范围直径,1.5.2
+BentoBox,[gamemode]_visited_island_rank,玩家在此岛屿上的权限等级,2.4.0
+BentoBox,[gamemode]_visited_island_trusted_list,玩家当前所在岛屿上至少为被信任级别的玩家名称列表（逗号分隔）,2.4.2
+BentoBox,[gamemode]_visited_island_trustees_count,玩家当前所在岛屿上受信任玩家的数量,1.5.2
+BentoBox,[gamemode]_visited_island_uuid,访问岛屿唯一 ID,1.15.4
+BentoBox,[gamemode]_visited_island_visitors_count,当前正在访问玩家所在岛屿的玩家数量,1.5.2
+BentoBox,[gamemode]_world_friendly_name,该游戏模式世界的名称,1.4.0
+BentoBox,[gamemode]_world_islands,该游戏模式世界中的岛屿数量,1.5.0
+BentoBox,[gamemode]_island_online_members_count,当前在线的岛屿成员数量,2.1.0
+BentoBox,[gamemode]_visited_island_online_members_count,当前所在岛屿的在线成员数量,2.1.0
+BentoBox,[gamemode]_island_name_<n>,"Name of the player's island number N, when players can own more than one island (one placeholder per allowed island)",2.3.0
+BentoBox,[gamemode]_island_memberlist_<n>,玩家第 <n> 个岛屿的逗号分隔成员列表,2.3.0
+BentoBox,[gamemode]_island_member_name_<n>,岛屿成员编号 <n> 的名称（成员等级或以上），n 从 1 到 50,2.0.0
+BentoBox,[gamemode]_island_member_rank_<n>,岛屿成员编号 <n> 的权限等级，n 从 1 到 50,2.0.0
+BentoBox,[gamemode]_island_banned_name_<n>,被禁止的玩家编号 <n> 的名称，n 从 1 到 50,2.0.0
+BentoBox,[gamemode]_visited_island_member_name_<n>,玩家所在岛屿成员编号 <n> 的名称,2.0.0
+BentoBox,[gamemode]_visited_island_member_rank_<n>,玩家所在岛屿成员编号 <n> 的权限等级,2.0.0
+BentoBox,[gamemode]_visited_island_banned_name_<n>,玩家所在岛屿被禁止的玩家编号 <n> 的名称,2.0.0
+BentoBox,[gamemode]_flag_<flag_id>,一个旗帜的值，使用其小写 ID：玩家岛屿保护旗帜的最低等级，岛屿设置或世界设置为真/假,3.14.0
 Bank,Bank_[gamemode]_island_balance,玩家所在岛屿的银行余额,1.1.0
 Bank,Bank_[gamemode]_visited_island_balance,玩家当前所在岛屿的银行余额,1.1.0
 Bank,Bank_[gamemode]_island_balance_number,玩家所在岛屿的银行余额（原始数字）,1.3.0
