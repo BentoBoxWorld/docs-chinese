@@ -1,243 +1,39 @@
 # CaveBlock 权限
 
-<table align='center'>
-<tr>
-<td align='left'><b>权限</b></td>
-<td align='left'><b>启用给</b></td>  
-<td align='left'><b>描述</b></td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.clearresetall</td>
-<td align='left'>op</td>
-<td align='left'>允许清除所有玩家的洞穴重置限制</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.delete</td>
-<td align='left'>op</td>
-<td align='left'>让玩家完全删除一个玩家（包括洞穴）</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.deleteisland</td>
-<td align='left'>op</td>
-<td align='left'>让玩家完全移除他所在的洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.noban</td>
-<td align='left'>op</td>
-<td align='left'>玩家不能被洞穴封禁</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.purge</td>
-<td align='left'>op</td>
-<td align='left'>让玩家清除旧的洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.register</td>
-<td align='left'>op</td>
-<td align='left'>让玩家将最近的洞穴注册给另一个玩家</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.reload</td>
-<td align='left'>op</td>
-<td align='left'>重新加载 config.yml</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.reserve</td>
-<td align='left'>op</td>
-<td align='left'>为玩家的下一个洞穴保留一个空位</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.setlanguage</td>
-<td align='left'>op</td> 
-<td align='left'>重置所有玩家语言并设置默认语言</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.setspawn</td>
-<td align='left'>op</td>
-<td align='left'>允许使用出生点工具</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.setrange</td>
-<td align='left'>op</td>
-<td align='left'>允许设置洞穴保护范围</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.settingsreset</td>
-<td align='left'>op</td>
-<td align='left'>将所有洞穴重置为默认保护设置</td>
-</tr>
-<tr>
-<td align='left'>caveblock.admin.unregister</td>
-<td align='left'>op</td> 
-<td align='left'>在不删除洞穴方块的情况下从洞穴中删除玩家</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.bypasscooldowns</td>
-<td align='left'>op</td>
-<td align='left'>允许管理员绕过冷却时间</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.bypassexpel</td>
-<td align='left'>op</td>
-<td align='left'>允许管理员绕过洞穴驱逐</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.bypasslock</td>
-<td align='left'>op</td>  
-<td align='left'>绕过洞穴锁定</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.bypassprotect</td>
-<td align='left'>op</td>
-<td align='left'>允许管理员绕过洞穴保护</td> 
-</tr>
-<tr>
-<td align='left'>caveblock.mod.clearreset</td>
-<td align='left'>false</td>
-<td align='left'>允许清除洞穴重置限制</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.info</td>
-<td align='left'>op</td>
-<td align='left'>让管理员查看玩家的信息</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.lock</td>
-<td align='left'>op</td>
-<td align='left'>锁定或解锁洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.name</td>
-<td align='left'>false</td>
-<td align='left'>允许为玩家的洞穴命名</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.resethome</td>
-<td align='left'>op</td>
-<td align='left'>允许设置或重置玩家的家的位置</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.resetname</td>
-<td align='left'>false</td>
-<td align='left'>允许重置玩家的洞穴名称</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.team</td>
-<td align='left'>false</td> 
-<td align='left'>允许通过踢出和添加指令修改团队</td>
-</tr>
-<tr>
-<td align='left'>caveblock.mod.tp</td>
-<td align='left'>op</td>
-<td align='left'>允许传送到洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.skywalker</td>
-<td align='left'>op</td>
-<td align='left'>允许玩家在高度限制之上行走</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island</td>
-<td align='left'>true</td>
-<td align='left'>允许使用 <b>/cave</b> 指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.ban</td>
-<td align='left'>true</td>
-<td align='left'>允许封禁访客</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.create</td>
-<td align='left'>true</td>
-<td align='left'>允许创建洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.expel</td>
-<td align='left'>true</td>
-<td align='left'>允许驱逐访客</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.home</td>
-<td align='left'>true</td>
-<td align='left'>允许传送到玩家的洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.info</td>
-<td align='left'>true</td>
-<td align='left'>让玩家使用岛屿信息指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.language</td>
-<td align='left'>true</td>
-<td align='left'>玩家可以选择语言</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.lock</td>
-<td align='left'>false</td>
-<td align='left'>允许锁定洞穴</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.name</td>
-<td align='left'>true</td>
-<td align='left'>玩家可以设置洞穴的名称</td>
-</tr>
-<td align='left'>caveblock.island.number</td>
-<td align='left'>false</td>
-<td align='left'>x 设置玩家可以创建的洞穴数量。</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.reset</td>
-<td align='left'>true</td>
-<td align='left'>玩家可以使用洞穴重置或重启指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.sethome</td>
-<td align='left'>true</td>
-<td align='left'>让玩家设置他们的洞穴传送点</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.settings</td>
-<td align='left'>true</td>
-<td align='left'>玩家可以查看服务器设置</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.spawn</td>
-<td align='left'>true</td>
-<td align='left'>如果出生点存在，玩家可以使用洞穴出生点指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.team</td>
-<td align='left'>true</td>
-<td align='left'>让玩家使用团队指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.team.coop</td>
-<td align='left'>true</td>
-<td align='left'>让玩家使用团队合作指令</td> 
-</tr>
-<tr>
-<td align='left'>caveblock.island.team.trust</td>
-<td align='left'>true</td>
-<td align='left'>让玩家使用团队信任指令</td>
-</tr>
-<tr>
-<td align='left'>caveblock.settings.*</td>
-<td align='left'>true</td>
-<td align='left'>允许在洞穴上使用设置</td>
-</tr>
-<tr>
-<td align='left'>caveblock.team.maxsize.[NUMBER]</td>
-<td align='left'>false</td>
-<td align='left'>让玩家获得比默认值更大的团队规模。</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.maxhomes.[NUMBER]</td>
-<td align='left'>false</td>
-<td align='left'>让玩家获得比默认值更多的家。</td>
-</tr>
-<tr>
-<td align='left'>caveblock.island.range.[NUMBER]</td>
-<td align='left'>false</td> 
-<td align='left'>让玩家获得比默认值更大的保护范围。</td>
-</tr>
-</table>
+CaveBlock 权限以 `caveblock.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `caveblock`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
+
+## 玩家命令：默认谁拥有它们
+
+这些默认值来自 CaveBlock 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
+
+| 权限 | 命令 | 默认 |
+|---|---|---|
+| `caveblock.island` | 玩家命令本身 | 所有人 |
+| `caveblock.island.create` | `create` | 所有人 |
+| `caveblock.island.home` | `go` | 所有人 |
+| `caveblock.island.homes` | `homes` | 所有人 |
+| `caveblock.island.sethome` | `sethome` | 所有人 |
+| `caveblock.island.deletehome` | `deletehome` | 所有人 |
+| `caveblock.island.renamehome` | `renamehome` | 所有人 |
+| `caveblock.island.spawn` | `spawn` | 所有人 |
+| `caveblock.island.info` | `info` | 所有人 |
+| `caveblock.island.near` | `near` | 所有人 |
+| `caveblock.island.reset` | `reset` | 所有人 |
+| `caveblock.island.name` | `setname`, `resetname` | 所有人 |
+| `caveblock.island.language` | `language` | 所有人 |
+| `caveblock.island.settings` | `settings` | 所有人 |
+| `caveblock.island.lock` | `lock` | 所有人 |
+| `caveblock.island.ban` | `ban`, `unban`, `banlist` | 所有人 |
+| `caveblock.island.expel` | `expel` | 所有人 |
+| `caveblock.island.team` | `team` | 所有人 |
+| `caveblock.island.team.invite` | `team invite` | 所有人 |
+| `caveblock.island.team.accept` | `team accept` | 所有人 |
+| `caveblock.island.team.reject` | `team reject` | 所有人 |
+| `caveblock.island.team.leave` | `team leave` | 所有人 |
+| `caveblock.island.team.kick` | `team kick` | 所有人 |
+| `caveblock.island.team.promote` | `team promote`, `team demote` | 所有人 |
+| `caveblock.island.team.setowner` | `team setowner` | 所有人 |
+| `caveblock.island.team.trust` | `team trust`, `team untrust` | 所有人 |
+| `caveblock.island.team.coop` | `team coop`, `team uncoop` | 所有人 |
+
+管理员和版主权限（`caveblock.admin.*`、`caveblock.mod.*`） 默认为操作员。请参见[工作人员权限](../../BentoBox/Permissions-Guide.md#staff-permissions).

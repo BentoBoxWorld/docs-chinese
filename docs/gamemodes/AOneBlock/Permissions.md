@@ -1,63 +1,54 @@
 # AOneBlock 权限
 
-**注意** 这个列表还没有完成。
+AOneBlock 权限以 `aoneblock.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `aoneblock`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
 
-| 权限                                | 启用对象 | 描述                                       |
-|-----------------------------------|------|------------------------------------------|
-| aoneblock.count                   | true | 允许使用 aoneblock count 指令                  |
-| aoneblock.phases                  | false| 允许使用 phases 指令                        |
-| aoneblock.mod.info                | op   | 允许管理员查看玩家信息                            |
-| aoneblock.mod.clearreset          | false| 允许清除岛屿重置限制                            |
-| aoneblock.mod.bypasscooldowns     | op   | 允许管理员绕过冷却时间                           |
-| aoneblock.mod.bypassdelays        | op   | 允许管理员绕过延迟                             |
-| aoneblock.mod.bypassprotect       | op   | 允许管理员绕过岛屿保护                           |
-| aoneblock.mod.bypassexpel         | op   | 允许管理员绕过岛屿驱逐                           |
-| aoneblock.mod.switch              | op   | 允许管理员切换绕过保护                           |
-| aoneblock.mod.lock                | op   | 锁定或解锁一个岛屿                             |
-| aoneblock.mod.bypasslock          | op   | 绕过岛屿锁定                                 |
-| aoneblock.mod.bypassban           | op   | 绕过岛屿禁止                                 |
-| aoneblock.mod.team                | false| 通过踢出和添加指令修改团队                        |
-| aoneblock.admin.tp                | op   | 允许传送到岛屿                                |
-| aoneblock.admin.clearresetall     | op   | 允许清除所有玩家的岛屿重置限制                      |
-| aoneblock.admin.reload            | op   | 重新加载 config.yml 文件                    |
-| aoneblock.admin.delete            | op   | 允许玩家完全移除一个玩家（包括岛屿）                  |
-| aoneblock.admin.register          | op   | 允许玩家为另一个玩家注册最近的岛屿                    |
-| aoneblock.admin.unregister        | op   | 移除一个玩家出岛屿但不删除岛屿方块                    |
-| aoneblock.admin.setspawn          | op   | 允许使用出生点工具                             |
-| aoneblock.admin.setrange          | op   | 允许设置岛屿保护范围                           |
-| aoneblock.admin.settingsreset     | op   | 重置所有岛屿为默认保护设置                        |
-| aoneblock.admin.noban             | op   | 玩家不能被禁止进入岛屿                          |
-| aoneblock.admin.noexpel           | op   | 玩家不能被驱逐出岛屿                          |
-| aoneblock.admin.setlanguage       | op   | 重置所有玩家语言并设置默认语言                      |
-| aoneblock.admin.getrank           | op   | 获取玩家排名                                 |
-| aoneblock.admin.setrank           | op   | 设置玩家排名                                 |
-| aoneblock.admin.setchest          | op   | 将看到的箱子放入具有给定稀有度的阶段                 |
-| aoneblock.count                   | true | 允许使用 aoneblock count 指令                  |
-| aoneblock.island                  | true | 允许岛屿指令的使用                             |
-| aoneblock.island.create           | true | 允许创建岛屿                                 |
-| aoneblock.island.home             | true | 允许传送到玩家岛屿                             |
-| aoneblock.island.number.x         | false| x 设置玩家可以制作的岛屿数量。                     |
-| aoneblock.island.sethome          | true | 允许玩家使用 sethome 指令                      |
-| aoneblock.island.info             | true | 允许玩家使用 info 指令                         |
-| aoneblock.island.lock             | true | 允许
+## 玩家命令：默认谁拥有它们
 
-锁定岛屿                                 |
-| aoneblock.island.near             | true | 玩家可以看到附近岛屿的名称                         |
-| aoneblock.island.expel            | true | 允许驱逐访客                                 |
-| aoneblock.island.ban              | true | 允许禁止访客                                 |
-| aoneblock.island.settings         | true | 玩家可以查看服务器设置                           |
-| aoneblock.island.language         | true | 玩家可以选择语言                               |
-| aoneblock.island.name             | true | 玩家可以设置他们岛屿的名称                        |
-| aoneblock.island.spawn            | true | 如果存在出生点，玩家可以使用岛屿出生指令              |
-| aoneblock.island.reset            | true | 玩家可以使用岛屿重置或重启指令                     |
-| aoneblock.island.team             | true | 允许玩家使用团队指令                             |
-| aoneblock.island.team.setowner    | true | 允许玩家更改团队所有者                           |
-| aoneblock.island.team.invite      | true | 允许玩家邀请他人                               |
-| aoneblock.island.team.reject      | true | 允许玩家拒绝邀请                               |
-| aoneblock.island.team.leave       | true | 允许玩家离开团队                               |
-| aoneblock.island.team.kick        | true | 允许玩家踢出团队成员                             |
-| aoneblock.island.team.accept      | true | 允许玩家接受邀请                               |
-| aoneblock.island.team.trust       | true | 允许玩家使用团队信任指令                          |
-| aoneblock.island.team.coop        | true | 允许玩家使用团队合作指令                          |
-| aoneblock.island.team.promote     | true | 允许玩家使用提升指令                             |
-| aoneblock.settings.*              | true | 允许在岛屿上使用设置                             |
+这些默认值来自 AOneBlock 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
+
+| 权限 | 命令 | 默认 |
+|---|---|---|
+| `aoneblock.island` | 玩家命令本身 | 所有人 |
+| `aoneblock.island.create` | `create` | 所有人 |
+| `aoneblock.island.home` | `go` | 所有人 |
+| `aoneblock.island.homes` | `homes` | 所有人 |
+| `aoneblock.island.sethome` | `sethome` | 所有人 |
+| `aoneblock.island.deletehome` | `deletehome` | 所有人 |
+| `aoneblock.island.renamehome` | `renamehome` | 所有人 |
+| `aoneblock.island.spawn` | `spawn` | 所有人 |
+| `aoneblock.island.info` | `info` | 所有人 |
+| `aoneblock.island.near` | `near` | 所有人 |
+| `aoneblock.island.reset` | `reset` | 所有人 |
+| `aoneblock.island.name` | `setname`, `resetname` | 所有人 |
+| `aoneblock.island.language` | `language` | 所有人 |
+| `aoneblock.island.settings` | `settings` | 所有人 |
+| `aoneblock.island.lock` | `lock` | 所有人 |
+| `aoneblock.island.ban` | `ban`, `unban`, `banlist` | 所有人 |
+| `aoneblock.island.expel` | `expel` | 所有人 |
+| `aoneblock.island.team` | `team` | 所有人 |
+| `aoneblock.island.team.invite` | `team invite` | 所有人 |
+| `aoneblock.island.team.accept` | `team accept` | 所有人 |
+| `aoneblock.island.team.reject` | `team reject` | 所有人 |
+| `aoneblock.island.team.leave` | `team leave` | 所有人 |
+| `aoneblock.island.team.kick` | `team kick` | 所有人 |
+| `aoneblock.island.team.promote` | `team promote`, `team demote` | 所有人 |
+| `aoneblock.island.team.setowner` | `team setowner` | 所有人 |
+| `aoneblock.island.team.trust` | `team trust`, `team untrust` | 所有人 |
+| `aoneblock.island.team.coop` | `team coop`, `team uncoop` | 所有人 |
+
+## Permissions only in AOneBlock
+
+| Permission | Allows | Default |
+|---|---|---|
+| `aoneblock.count` | `/ob count` | 所有人 |
+| `aoneblock.phases` | `/ob phases` | 操作员 |
+| `aoneblock.island.setcount` | `/ob setCount` | 操作员 |
+| `aoneblock.respawn-block` | `/ob respawnBlock` | 所有人 |
+| `aoneblock.island.bossbar` | `/ob bossbar` | 所有人 |
+| `aoneblock.island.actionbar` | `/ob actionbar` | 所有人 |
+| `aoneblock.admin.setcount` | `/obadmin setcount` | 操作员 |
+| `aoneblock.admin.setchest` | `/obadmin setchest` | 操作员 |
+| `aoneblock.admin.sanity` | `/obadmin sanity` | 操作员 |
+| `aoneblock.admin.phases` | `/obadmin phases` | 操作员 |
+
+管理员和版主权限（`aoneblock.admin.*`、`aoneblock.mod.*`） 默认为操作员。请参见[工作人员权限](../../BentoBox/Permissions-Guide.md#staff-permissions).

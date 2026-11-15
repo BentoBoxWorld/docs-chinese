@@ -1,83 +1,32 @@
-# 指令
+# Boxed 命令
 
-所有的指令与其他游戏模式（如 BSkyBlock）相同。
+| | 命令 | 权限前缀 |
+|---|---|---|
+| 玩家 | `/boxed` （也是 `/bx`, `/box`）| `boxed.` |
+| 管理员 | `/boxadmin` | `boxed.` |
 
-# Boxed 管理员指令（别名：/boxadmin）
+可以在游戏模式的 `config.yml` 中重命名两条命令。
 
-| 指令 | 描述 | 权限 |
-| --- | --- | --- |
-| `/boxadmin` | 显示所有 Boxed 指令 | `boxed.island` |
-| `/boxadmin add <owner> <player>` | 将玩家添加到所有者的团队 | |
-| `/boxadmin biomes` | 主要生物群系插件管理员指令。为玩家打开管理员 GUI | |
-| `/boxadmin challenges` | 访问 /boxadmin 挑战管理员指令 | `boxed.admin.challenges` |
-| `/boxadmin deaths` | 编辑玩家的死亡次数 | |
-| `/boxadmin delete` | 删除玩家的岛屿 | `boxed.admin.delete` |
-| `/boxadmin disband <owner>` | 解散所有者的团队 | `boxed.mod.bypassprotect` |
-| `/boxadmin getrank <player>` | 获取玩家在其岛屿上的等级 | |
-| `/boxadmin info <player>` | 获取你所在位置或玩家岛屿的信息 | `boxed.mod.info` |
-| `/boxadmin kick <team player>` | 将玩家从团队中踢出 | `boxed.mod.bypassexpel` |
-| `/boxadmin level <player>` | 计算玩家的岛屿等级 | |
-| `/boxadmin range` | 管理员岛屿范围指令 | |
-| `/boxadmin register <player>` | 注册玩家到你所在的无主岛屿 | `boxed.admin.register` |
-| `/boxadmin reload` | 重新加载插件 | `boxed.admin.reload` |
-| `/boxadmin reset` | 重置指令管理员设置 | `boxed.admin.settingsreset` |
-| `/boxadmin bp` | 操纵蓝图 | |
-| `/boxadmin bp copy [air]` | 复制由 pos1 和 pos2 设置的剪贴板，可选包括空气块 | |
-| `/boxadmin bp load <bp name>` | 将蓝图加载到剪贴板 | |
-| `/boxadmin bp origin` | 将蓝图的原点设置为你的位置 | |
-| `/boxadmin bp paste` | 将剪贴板粘贴到你的位置 | |
-| `/boxadmin bp pos1` | 设置立方体剪贴板的第一个角落 | |
-| `/boxadmin bp pos2` | 设置立方体剪贴板的第二个角落 | |
-| `/boxadmin bp save <bp name>` | 保存复制的剪贴板 | |
-| `/boxadmin place <structure> [x y z] [rotation] [mirror] [NO_MOBS]` | 从种子世界放置一个结构到当前盒子；使用 ~ 表示当前坐标。NO_MOBS（3.4.1+）抑制结构内置的怪物。/boxadmin place undo 移除最后放置 | `boxed.commands.boxadmin.place` |
-| `/boxadmin setowner <player> [island owner]` | 将岛屿所有权转移给玩家；指定当前所有者即可从控制台运行 | `boxed.admin.register` |
-| `/boxadmin setrank <player> <rank> [island owner | x,y,z]` | 设置玩家在其岛屿上的等级 - 可在控制台使用；等级可以是关键词（member、sub-owner、trusted、coop）、名称或编号。指定所有者或中心坐标 x,y,z 来选择特定的岛屿 | |
-| `/boxadmin setspawn` | 设置生成点 | `boxed.admin.setspawn` |
-| `/boxadmin top` | 显示前十名列表 | |
-| `/boxadmin tp <player>` | 传送到玩家的岛屿 | `boxed.mod.tp` |
-| `/boxadmin tpend <player>` | 传送到玩家的岛屿 | `boxed.mod.tp` |
-| `/boxadmin tpnether <player>` | 传送到玩家的岛屿 | `boxed.mod.tp` |
-| `/boxadmin unregister <owner>` | 注销所有者的岛屿，但保留岛屿方块 | `boxed.admin.unregister` |
-| `/boxadmin why <player>` | 切换控制台保护调试报告 | |
+## 标准命令
 
-# Boxed 岛屿玩家指令（别名：/box 或 /boxed）
+Boxed 使用 BentoBox 的标准玩家和管理员命令。所有命令及其权限都列在[命令参考](../../BentoBox/Commands.md)中：将 `/[player_command]` 替换为 `/boxed`、`/[admin_command]` 替换为 `/boxadmin` 且 `[gamemode]` 替换为 `boxed`。例如：
 
-| 指令 | 描述 | 权限 |
-| --- | --- | --- |
-| `/box` | 主玩家指令 | `boxed.island` |
-| `/box ban <player>` | 将玩家从你的岛屿中禁止 | `boxed.island.ban` |
-| `/box banlist` | 列出被禁止的玩家 | `boxed.island.ban` |
-| `/box biomes` | 主要生物群系插件指令，打开生物群系更改 GUI | |
-| `/box challenges [Level]` | 让玩家使用 /box challenges 指令 | `boxed.challenges` |
-| `/box create` | 创建岛屿 | `boxed.island.create` |
-| `/box go` | 传送到你的岛屿 | `boxed.island` |
-| `/box info <player>` | 显示关于你的岛屿或玩家岛屿的信息 | `boxed.island.info` |
-| `/box language` | 选择语言 | `boxed.island.language` |
-| `/box level [player]` | 计算你的岛屿等级或显示 [player] 的等级 | |
-| `/box reset` | 重新开始你的岛屿并删除旧岛屿 | `boxed.island.reset` |
-| `/box sethome` | 设置你的家传送点 | `boxed.island.sethome` |
-| `/box setname <name>` | 为你的岛屿设置名称 | `boxed.island.name` |
-| `/box settings` | 显示岛屿设置 | `boxed.island.settings` |
-| `/box spawn` | 传送到生成点 | `boxed.island.home` |
-| `/box resetname` | 重置你的岛屿名称 | `boxed.mod.resetname` |
-| `/box unban <player>` | 从你的岛屿中解除玩家的禁止 | `boxed.island.ban` |
-| `/box team` | 管理你的团队 | `boxed.island.team` |
-| `/box team accept` | 接受邀请 | `boxed.island.team` |
-| `/box team coop <player>` | 让玩家获得你岛屿上的合作等级 | `boxed.island.team.coop` |
-| `/box team demote <player>` | 将岛屿上的玩家降级 | `boxed.island.team` |
-| `/box team leave` | 离开你的岛屿 | `boxed.island.team` |
-| `/box team invite` | 邀请玩家加入你的岛屿 | `boxed.island.team` |
-| `/box team kick <player>` | 从你的岛屿中删除成员 | `boxed.island.expel` |
-| `/box team promote <player>` | 将岛屿上的玩家升级 | `boxed.island.team` |
-| `/box team reject` | 拒绝邀请 | `boxed.island.team` |
-| `/box team setowner <player>` | 将你的岛屿所有权转移给成员 | `boxed.island.team` |
-| `/box team trust <player>` | 给玩家你岛屿上的信任等级 | `boxed.island.team.trust` |
-| `/box top` | 显示前十名 | |
-| `/box team uncoop <player>` | 从玩家中移除合作等级 | `boxed.island.team.coop` |
-| `/box team untrust <player>` | 从玩家中移除信任等级 | `boxed.island.team.trust` |
-| `/box warp <name>` | 传送到玩家的传送点标记 | |
-| `/box warps` | 打开传送点面板 | |
+```
+/boxed              go to your box, or create one
+/boxed team invite <player>
+/boxed settings
+/boxadmin info <player>
+/boxadmin why <player>
+```
 
-## 岛屿设置 (/box settings)
+有关其功能，请参见[玩家指南](../../BentoBox/Player-Guide.md)和管理指南，如[团队和等级](../../BentoBox/About/Teams.md)和[岛屿](../../BentoBox/About/IslandManagement.md)。
 
-Boxed 的独特设置是确定谁可以通过投掷末影珍珠来移动该方块。默认情况下，只有所有者。图标是堆肥桶。
+## 仅在 Boxed 中的命令
+
+| 命令 | 功能 | 权限 | 默认 |
+|---|---|---|---|
+| `/boxadmin place <x> <y> <z> <rotation> <mirror> <no mobs>` | Place a structure at a location | `boxed.admin.place` | 操作员 |
+
+## 附属命令
+
+附属为 `/boxed` 和 `/boxadmin`，例如 `/boxed level` 来自[Level](../../addons/Level/index.md)或 `/boxed challenges` 来自[Challenges](../../addons/Challenges/index.md). 请参见每个附属页面。
