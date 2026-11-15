@@ -1,152 +1,230 @@
-# 岛屿管理
+# 岛屿
 
-每个 BentoBox 游戏模式的核心是**岛屿** — 世界的一个受保护区域，属于玩家或团队。BentoBox 处理岛屿的完整生命周期，因此你不必手动管理任何内容。
+每个 BentoBox 游戏模式都建立在**岛屿**之上：属于一个玩家或团队的世界的受保护区域。（在 CaveBlock 或 Boxed 等游戏模式中，"岛屿"是一个洞穴或盒子，但工作方式相同。）这个页面涵盖了如何创建、调整大小、重置和删除岛屿、家点如何工作，以及如何清理旧岛屿。
 
-## 创建岛屿
+!!! info "这个页面中的命令"
+    命令以 BSkyBlock（`/island`、`/bsbadmin`）显示。其他游戏模式使用他们自己的命令名称，例如 AOneBlock 中的 `/ob`。权限以游戏模式的前缀开头，例如 `bskyblock.` 或 `aoneblock.`。对于玩家看到的内容，请将他们发送到[玩家指南](../Player-Guide.md)。
 
-当玩家首次加入游戏模式并运行主指令时（例如 BSkyBlock 的 `/island`、AOneBlock 的 `/oneblock`），BentoBox 自动：
+## 打开前：规划世界
 
-1. 在世界中为他们找到一个空闲的地方。
-2. 从蓝图（已保存的岛屿模板）粘贴他们的**初始岛屿**。
-3. 将他们传送到他们新岛屿的生成点。
-4. 在数据库中将岛屿注册为他们的。
-
-玩家在每个游戏模式中获得一个岛屿。如果你的服务器运行多个游戏模式（例如 BSkyBlock 和 AcidIsland），每个玩家在每个世界中都会获得一个独立的岛屿。
-
-## 岛屿名称
-
-玩家可以使用 `/island setname <name>` 给他们的岛屿起一个自定义名称。名称显示在各个地方 — 排行榜、Warps 插件和由其他插件显示的占位符。管理员可以通过游戏模式的 `config.yml` 限制允许的名称。
-
-## 家园位置 { #home-locations }
-
-玩家可以使用 `/island sethome` 在岛屿上设置多个家园位置。当他们使用 `/island go` 或 `/island home` 时，他们传送到家园点。多个命名家园可以通过权限解锁：
-
-```
-[gamemode].island.home.maxhomes.<number>
-```
-
-### 找到正确的家园 { #finding-the-right-home }
-
-自 BentoBox 3.21.0 起，`/island go <name>` 不再需要区分大小写的精确匹配。输入的名称会按置信度从高到低依次解析：
-
-1. 与岛屿名或家园名精确匹配。
-2. 忽略大小写、颜色代码和多余空白后的匹配——因此 `myisland` 能找到 `MyIsland`，多打的一个空格也会被容忍。自 3.23.5 起，下划线也视为空格，因此 `happy_place` 能找到 `Happy Place`。
-3. 唯一的、不区分大小写的前缀——`hom` 能找到 `Home`。
-
-如果仍然存在歧义，BentoBox 不会去猜，而是回退到常规的目的地列表；传送时使用解析出的规范名称，因此命名家园始终准确。
-
-如果玩家不带名称直接运行 `/island go`，而且有多个岛屿或家园可选，BentoBox 可以显示一个**目的地选择器**——一个模态对话框，每个目的地对应一个按钮。该功能需要 Minecraft 26+ 的服务端，由 BentoBox `config.yml` 中的 `island.dialogs.go-picker` 控制（默认 `true`）。在更旧的服务端上，或该开关关闭时，仍会显示经典的可点击聊天列表。
-
-## 重置岛屿
-
-玩家可以使用 `/island reset` 重置岛屿来重新开始。这会**删除当前岛屿**并创建一个全新的岛屿。管理员可以：
-
-- 限制玩家可以重置的次数（在 `config.yml` 中设置）。
-- 通过权限 `[gamemode].island.reset.maxresets.<number>` 授予额外重置。
-- 将重置设置为无限制，值为 `-1`。
-
-!!! warning
-    岛屿重置是永久的。旧岛屿和在其上构建的一切都会被删除。建议玩家在重置前备份任何重要内容。
-
-## 岛屿删除（管理员）
-
-管理员可以使用以下方式删除玩家的岛屿：
-```
-/[admin_command] delete <player>
-```
-
-这将从数据库中移除岛屿并标记该区域以进行清理。玩家之后可以立即创建新岛屿。
-
-自 BentoBox 3.16.1 起，实际的区域文件会在下一次例行清理时被回收（默认：24 小时），而不是立即回收。如果该岛屿与其他在用岛屿共享区域文件，被删除的区域将保留在原地，直到该区域不再包含其他岛屿。要强制立即清理，请在删除后运行 `/bbox admin purge deleted` — 仅当区域文件不再包含任何在用岛屿时才会删除方块。对于共享区域中的精确方块删除，请使用 WorldEdit 或手动移除方块。
-
-### 删除和恢复你当前所站的岛屿
-
-自 BentoBox 3.19.0 起，只要你站在岛屿上，就可以在不指定玩家的情况下触发删除 —— 并将其撤销。由于区域文件只会在下一次例行清理时被回收，软删除的岛屿在该清理运行之前都可以被拯救：
-
-- `/[admin_command] delete`（不带玩家参数）会在确认提示后软删除你当前所站的岛屿。如果该岛屿仍有队伍，则会被拒绝。
-- `/[admin_command] undelete` 清除你当前所站岛屿的待删除状态，使其变为无主。
-- 对于待删除的岛屿，`/[admin_command] register <player>` 现在会显示确认提示；确认后会将该岛屿注册给该玩家并取消其删除。
-
-## 非活跃岛屿清理
-
-如果玩家放弃服务器，他们的岛屿保留在世界中。BentoBox 不会自动删除非活跃岛屿，但**删除标志**和外部工具可以用来管理它。许多服务器管理员通过设置重置限制并定期审查非活跃玩家来处理这个问题。
-
-## 玩家离开团队时会发生什么
-
-如果玩家是成员（不是所有者）并离开团队或被踢出，他们失去对该岛屿的访问。之后他们可以创建自己的岛屿，受任何重置限制的约束。如果玩家*是*所有者，他们必须在离开前转让所有权 — 他们不能简单地离开他们拥有的岛屿。
-
-## 多个岛屿（并发岛屿）
-
-默认情况下，每个玩家在每个游戏模式中拥有一个岛屿。BentoBox 可选地支持**并发岛屿** — 允许单个玩家同时拥有多个岛屿。这是在游戏模式的 `config.yml` 中配置并由权限控制的高级功能。
-
-### 配置示例
-
-有两个位置可以配置并发岛屿：
-
-**1. BentoBox `config.yml`** — 为所有游戏模式设置全局默认值：
-
-```yaml
-island:
-  # 玩家可能拥有的并发岛屿的默认数量。
-  # 这可能会被各个游戏模式配置设置覆盖。
-  concurrent-islands: 1
-```
-
-**2. 游戏模式 `config.yml`**（例如 BSkyBlock） — 覆盖该游戏模式的全局默认值：
+游戏模式的 `config.yml` 中的两个设置**在岛屿存在后无法改变**。稍后改变它们意味着擦除世界和数据库，所以在玩家加入前决定：
 
 ```yaml
 world:
-  # 玩家在世界中可以拥有的并发岛屿的数量。
-  # 值为 0 将使用 BentoBox config.yml 默认值。
-  concurrent-islands: 1
-  # 如果玩家在团队中，则禁止他们拥有其他岛屿。
+  # Radius of each island's space, in blocks.
+  # Island centres are twice this apart, so 400 puts centres 800 blocks apart.
+  distance-between-islands: 400
+  # How much of that space the owner protects to start with (a radius).
+  # Can be raised later per island, up to distance-between-islands.
+  protection-range: 50
+```
+
+- `distance-between-islands` 是岛屿能够成长的**最大**值。将其设置为你可能想给 VIP 或作为升级出售的最大大小。
+- `protection-range` 是岛屿**开始**的地方。它是玩家可以建造和保护的区域。
+
+你可能想查看的其他设置：`island-height`（起始岛屿的 Y 水平）、`max-islands`（限制世界中的岛屿数量，`0` = 无限制）和 `start-x`/`start-z`（也无法稍后改变）。
+
+## 创建岛屿
+
+新玩家输入 `/island`。BentoBox：
+
+1. 如果有多个初始岛屿可供选择，显示**创建岛屿**菜单（否则跳过）。
+2. 查找下一个空闲位置，粘贴初始岛屿，并将玩家传送到那里。
+
+你可以改变发生的事情：
+
+| 设置（游戏模式 `config.yml`） | 默认值 | 作用 |
+|---|---|---|
+| `new-player-action` | `create` | 没有岛屿的玩家 `/island` 做什么 |
+| `default-action` | `go` | 有岛屿的玩家 `/island` 做什么 |
+| `create-island-on-first-login.enable` | `false` | 新玩家加入时自动创建岛屿 |
+| `teleport-player-to-island-when-created` | `true` | 玩家的岛屿准备好时传送玩家 |
+
+**初始岛屿的选择。** 创建岛屿菜单中的每个选择都是一个蓝图包。要使其仅对某些玩家可用（例如 VIP 岛屿），在 `/bsbadmin blueprint` 中将其设置为需要权限，然后给予 `bskyblock.island.create.<bundle-name>`。参见[初始岛屿（蓝图）](../Blueprints.md)。
+
+## 岛屿大小（保护范围）{ #island-size-protection-range }
+
+保护范围是所有者控制的岛屿中心周围的半径。玩家用 `/island info` 可以看到它；管理员可以用 `/bsbadmin range display` 在游戏中显示它。
+
+给一些玩家更大的岛屿：
+
+| 如何 | 命令或权限 |
+|---|---|
+| 按等级或 VIP，自动 | 给所有者 `bskyblock.island.range.<number>`。在岛屿创建时和所有者登入时检查 |
+| 一个岛屿，手动 | `/bsbadmin range set <player> <range>`，或 `range add` / `range remove` 按数量改变 |
+| 回到默认值 | `/bsbadmin range reset <player>` |
+
+范围不能超过 `distance-between-islands`。像[升级](../../addons/Upgrades/index.md)这样的附属也可以将范围作为奖励添加；用 `/bsbadmin range removebonus <player>` 移除附属奖励。
+
+## 家点 { #homes }
+
+玩家用 `/island` 或 `/island go` 传送到他们的岛屿，并用 `/island sethome` 移动他们的家点。
+
+默认情况下，每个岛屿有一个家点。要允许更多命名的家点：
+
+```yaml
+island:
+  max-homes: 1    # game mode config.yml
+```
+
+或给所有者 `bskyblock.island.maxhomes.<number>`。玩家然后使用 `/island sethome <name>`、`/island go <name>` 和 `/island homes`。管理员可以用 `/bsbadmin maxhomes <player> <number>` 改变一个岛屿。
+
+`/island go <name>` 即使玩家弄错大写字母或只输入名称的开始也能找到家点。在 Minecraft 26 及更高版本上，输入 `/island go` 的有多个家点的玩家会得到一个弹出窗口来选择一个（BentoBox 的 `config.yml` 中的 `island.dialogs.go-picker`）。
+
+**地狱和末地中的家点**（当游戏模式有岛屿地狱和末地世界时）由 `island.sethome.nether.allow` 和 `island.sethome.the-end.allow` 控制。
+
+| 管理任务 | 命令 |
+|---|---|
+| 将玩家的家点放回默认位置 | `/bsbadmin resethome <player>` |
+| 删除玩家的所有命名家点 | `/bsbadmin deletehomes <player>` |
+| 去玩家的岛屿 | `/bsbadmin tp <player>` |
+
+## 岛屿名称 { #island-names }
+
+玩家用 `/island setname <name>` 命名他们的岛屿，用 `/island resetname` 移除名称。名称显示在排行榜、传送点和占位符中。
+
+在 **BentoBox 的** `config.yml` 中设置规则：
+
+```yaml
+island:
+  name:
+    min-length: 4
+    max-length: 20
+    uniqueness: false   # true = no two islands in a game mode can share a name
+```
+
+玩家需要 `bskyblock.island.name.format` 在名称中使用颜色。管理员可以通过站在岛屿上并运行 `/bsbadmin resetname` 来清除冒犯性的名称。
+
+## 重置岛屿 { #resetting-islands }
+
+`/island reset` 给玩家一个新岛屿。**旧岛屿被删除。** 只有所有者可以重置；任何团队成员都会从岛屿中移除。
+
+在游戏模式的 `config.yml` 中控制它：
+
+```yaml
+island:
+  reset:
+    reset-limit: -1   # -1 = unlimited, 0 = no resets, 2 = two resets (three islands in total)
+```
+
+并在 BentoBox 的 `config.yml` 中：
+
+```yaml
+island:
+  cooldown:
+    time:
+      reset: 300        # seconds a player must wait between resets
+  confirmation:
+    commands:
+      reset: true       # players must confirm before resetting
+```
+
+从玩家身上清除什么（物品栏、末地箱、金钱、XP）在新岛屿上由[团队和等级](Teams.md#what-happens-to-items-and-money-when-players-join-or-leave)中描述的 `on-join` 选项设置。
+
+给玩家更多重置，改变他们的重置计数：
+
+| 命令 | 效果 |
+|---|---|
+| `/bsbadmin resets reset <player>` | 回到 0 次重置使用 |
+| `/bsbadmin resets set <player> <number>` | 设置他们使用了多少次重置 |
+| `/bsbadmin resets add <player> <number>` | 计算更多重置为已使用 |
+| `/bsbadmin resets remove <player> <number>` | 给予重置回 |
+
+没有额外重置的权限；使用这些命令，例如从排名或商店插件。
+
+## 删除岛屿 { #deleting-islands }
+
+| 我想要… | 命令 |
+|---|---|
+| 删除玩家的岛屿 | `/bsbadmin delete <player>` |
+| 删除我站着的岛屿 | `/bsbadmin delete`（仍有团队时被拒绝） |
+| 在清理运行前撤销删除 | 站在其上并运行 `/bsbadmin undelete` |
+| 给已删除或无主的岛屿一个玩家 | 站在其上并运行 `/bsbadmin register <player>` |
+| 移除所有者但保留方块 | `/bsbadmin unregister <owner>` |
+
+删除岛屿会立即移除所有者，所以玩家可以创建新的。**方块**稍后被移除，当区域文件被清理时（见下方）。直到那时，`undelete` 或 `register` 可以恢复岛屿。
+
+## 清理旧岛屿
+
+已删除和重置的岛屿，以及从未回来的玩家的岛屿占用磁盘空间。BentoBox 通过删除世界的**区域文件**（每个涵盖 512×512 块区域）来移除它们，一旦没有活跃岛屿在其中。
+
+**自动清理**在 BentoBox 的 `config.yml` 中设置：
+
+```yaml
+island:
+  deletion:
+    housekeeping:
+      deleted-sweep:
+        enabled: true         # clean up deleted and reset islands
+        interval-hours: 24
+      age-sweep:
+        enabled: false        # also clean up islands nobody has visited
+        interval-days: 30
+        min-age-days: 60
+  purge-level: 10             # never purge islands above this level (needs Level)
+```
+
+已删除岛屿的扫描是安全的并且默认打开。年龄扫描默认关闭，因为它移除了从未删除的被遗弃岛屿。
+
+**手动清理：**
+
+| 命令 | 作用 |
+|---|---|
+| `/bsbadmin purge <days>` | 删除没有人接触了那么多天的区域文件中的岛屿 |
+| `/bsbadmin purge deleted` | 现在清理已删除的岛屿，而不是等待扫描 |
+| `/bsbadmin purge unowned` | 标记没有所有者的岛屿为可删除 |
+| `/bsbadmin purge protect` | 站在岛屿上并运行此来保护它不被所有清理 |
+
+清理会跳过有在线玩家的岛屿、生成岛屿、受保护的岛屿和 `purge-level` 之上的岛屿。
+
+!!! warning "先备份"
+    清理会从磁盘删除区域文件且无法撤销。在你的第一次清理前备份世界文件夹。与活跃岛屿共享区域文件的岛屿保持直到该区域清晰。
+
+## 每个玩家多个岛屿
+
+如果允许的话，玩家可以在游戏模式中拥有多个岛屿：
+
+```yaml
+island:
+  concurrent-islands: 1          # BentoBox config.yml: default for all game modes
+
+world:
+  concurrent-islands: 1          # game mode config.yml: 0 = use BentoBox's value
   disallow-team-member-islands: true
 ```
 
-例如，要让 BSkyBlock 中的每个玩家最多拥有 **3** 个岛屿，请在 BSkyBlock `config.yml` 中设置 `concurrent-islands: 3`。如果你还想让团队成员能够创建自己的岛屿，请设置 `disallow-team-member-islands: false`。
+或给玩家 `bskyblock.island.number.<number>`。参见[多个岛屿](../ConcurrentIslands.md)了解玩家如何创建和在岛屿之间切换。
 
-### 权限
+## 找出有关岛屿的信息
 
-可以使用权限节点覆盖每个玩家的最大值：
-
-```
-[gamemode].island.number.<number>
-```
-
-用游戏模式前缀替换 `[gamemode]`，用允许的最大岛屿数替换 `<number>`。例如：
-
-| 权限 | 效果 |
+| 命令 | 显示 |
 |---|---|
-| `bskyblock.island.number.5` | 允许玩家在 BSkyBlock 中拥有最多 5 个岛屿 |
-| `acidisland.island.number.3` | 允许玩家在 AcidIsland 中拥有最多 3 个岛屿 |
-| `caveblock.island.number.2` | 允许玩家在 CaveBlock 中拥有最多 2 个岛屿 |
+| `/island info` | 你所在岛屿的所有者、团队、大小和位置 |
+| `/bsbadmin info [player]` | 完整详细信息：所有者、成员、范围、家点、重置、死亡等。没有名字时是你所在的岛屿 |
+| `/bsbadmin why <player>` | 记录为什么玩家可以或不能做某事。参见[管理工具](AdminTools.md) |
 
-权限值会覆盖该玩家的 `concurrent-islands` 配置值。如果玩家没有该权限，则使用配置值作为默认值。
+## 故障排除
 
-!!! tip
-    有关完整指南（包括玩家如何创建、导航和管理多个岛屿），请参阅[并发岛屿](../../BentoBox/ConcurrentIslands.md)页面。
+**改变 `distance-between-islands` 后服务器不会启动。**
+在岛屿存在后无法改变。放回旧值。
 
-## 岛屿范围和间距
+**VIP 权限获得更大岛屿或更多家点没有应用。**
+权限对岛屿**所有者**进行检查，当他们登入时（对于范围，在岛屿创建时）。让所有者登出并重新登入。
 
-岛屿放在网格中。岛屿中心之间的间距在 `config.yml`（`distance-between-islands`）中设置一次，**世界创建后无法更改**。在玩家开始加入前选择此值。较大的值提供岛屿之间更多的构建空间；较小的值使世界更加紧凑。
+**玩家没有重置了。**
+`/bsbadmin resets reset <player>`。
 
-玩家的**保护范围** — 他们实际拥有并可以保护的区域 — 总是小于或等于岛屿间距的一半。它可以由管理员或玩家权限扩大到该最大值。
+**已删除的岛屿仍在那里。**
+其方块在区域文件被清理时消失，在下一个已删除岛屿扫描时（默认 24 小时），或运行 `/bsbadmin purge deleted`。如果另一个活跃岛屿共享区域文件，方块保持。
 
-## 查看岛屿信息
+**磁盘使用量继续增长。**
+确保启用了 `deleted-sweep`，并考虑 `/bsbadmin purge <days>` 或被遗弃岛屿的年龄扫描。
 
-玩家可以使用 `/island info` 检查自己的岛屿信息。管理员可以使用以下方式检查任何岛屿：
-```
-/[admin_command] info <player>
-```
-这显示岛屿的位置、所有者、团队成员和当前保护范围。
+## 另请参见
 
-??? note "v3.16.1 新功能"
-    **发布日期：** 2026-05-17
-
-    针对 `/bbox admin delete` 的针对性补丁。完整发布说明请参阅：[Release 3.16.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.1)
-
-    - 🔺 `/bbox admin delete` 现在真的会删除岛屿。回收会在下一次例行清理时进行（默认：24 小时），而不是立即；如果区域文件仍然包含其他在用岛屿，被删除的岛屿将保持已删除状态，直到该区域被清空。如果你需要立即清理共享区域，请使用 WorldEdit 或手动移除方块。
-    - 🔺 不再创建种子世界（`<world>/bentobox`）。种子世界相关代码（`createSeedWorlds`、`removeSeedWorlds`、内存副本、磁盘文件夹）已被移除。如果存在早期版本残留的 `<world>/bentobox` 文件夹，可以安全地手动删除。
-    - 🔺 API：`GameModeAddon#isUsesNewChunkGeneration()` 已被弃用并将被移除。现有的覆盖实现仍然可以工作（该值被忽略）但会发出弃用警告——请在方便时移除该覆盖。
-
-    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。
+- [玩家指南](../Player-Guide.md)：你的玩家使用的命令
+- [团队和等级](Teams.md)
+- [保护、标志和等级](../Island-Protection,-Flags-&-Ranks.md)
+- [初始岛屿（蓝图）](../Blueprints.md)
+- [多个岛屿](../ConcurrentIslands.md)
+- [管理工具](AdminTools.md)
