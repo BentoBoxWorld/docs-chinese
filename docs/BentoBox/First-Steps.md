@@ -117,7 +117,7 @@ BentoBox 使用你服务器的权限插件（如 LuckPerms）来控制玩家可�
 3. 执行 `/[admin_command] blueprint copy`，然后 `save myisland`
 4. 用 `/[admin_command] blueprint` 管理蓝图包
 
-有关完整演示，请参阅[蓝图](About/BlueprintsSummary.md)。
+有关完整演示，请参阅[初始岛屿（蓝图）](Blueprints.md)。
 
 ---
 

@@ -462,7 +462,7 @@ BentoBox 1.17 API 引入了一个功能，允许实现可定制的 GUI。此插�
     - `aoneblock.count` - 允许
 
 玩家使用 '/[player_command] count' 指令。默认启用。
-    - `aoneblock.phases` - 允许玩家使用 '/[player_command] phases' 指令。默认禁用。
+    - `aoneblock.phases` - 允许玩家使用 '/[player_command] phases' 指令。默认 OP。
     - `aoneblock.island.setcount` - 允许玩家使用 '/[player_command] setcount' 指令。默认禁用。
     - `aoneblock.respawn-block` - 允许玩家使用 '/[player_command] check' 指令。默认启用。
 

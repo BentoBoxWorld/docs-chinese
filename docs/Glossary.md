@@ -11,7 +11,7 @@
 每个游戏模式都有一个仅管理员指令来管理岛屿、设置和玩家。对于 BSkyBlock 是 `/bsb`，对于 AcidIsland 是 `/acid admin` 等。确切的指令列在每个游戏模式的文档中。
 
 ## 蓝图（Blueprint）
-创建新岛屿时使用的已保存建造岛屿模板。BentoBox 配备了默认蓝图，但管理员可以在游戏中创建自己的。蓝图存储在 `plugins/BentoBox/blueprints/` 中。见[蓝图](BentoBox/About/BlueprintsSummary.md)。
+创建新岛屿时使用的已保存建造岛屿模板。BentoBox 配备了默认蓝图，但管理员可以在游戏中创建自己的。每个游戏模式将其蓝图保存在 `plugins/BentoBox/addons/<GameMode>/blueprints/` 中。见[初始岛屿（蓝图）](BentoBox/Blueprints.md)。
 
 ## 蓝图束（Blueprint Bundle）
 分组在一起的一组命名蓝图（主世界、下界和末地各一个）。当玩家创建新岛屿时，他们可能会看到束的选择。每个束可以有自己的图标、描述和权限要求。
@@ -23,7 +23,7 @@
 在游戏模式之上添加额外功能（挑战、飞行、传送点等）的附属。功能附属是可选的。见[附属](BentoBox/About/Addons.md)。
 
 ## 标志（Flag）
-单个保护或设置开关，控制岛屿上或游戏世界中是否允许某事。标志通过游戏内设置 GUI 管理。示例：访客是否可以破坏方块、苦力怕是否可以爆炸、叶方块是否腐烂。见[保护](BentoBox/About/Protections.md)。
+单个保护或设置开关，控制岛屿上或游戏世界中是否允许某事。标志通过游戏内设置 GUI 管理。示例：访客是否可以破坏方块、苦力怕是否可以爆炸、叶方块是否腐烂。见[保护](BentoBox/Island-Protection,-Flags-&-Ranks.md)。
 
 ## 游戏模式（Game Mode）
 定义玩家游戏的游戏世界类型的附属 — 世界类型、岛屿如何生成以及总体挑战。示例：BSkyBlock、AcidIsland、AOneBlock。你必须至少安装一个游戏模式才能让 BentoBox 做任何事情。见[游戏模式](BentoBox/About/GameModes.md)。
@@ -53,7 +53,7 @@
 分配给与特定岛屿相关的玩家的信任级别。从最低到最高：**被禁止**、**访客**、**合作**、**被信任**、**成员**、**副所有者**、**所有者**。等级控制玩家在岛屿上可以采取的操作。见[团队](BentoBox/About/Teams.md)。
 
 ## 重置（Reset）
-当玩家删除自己的岛屿并用新岛屿重新开始时。玩家可以重置的次数是可配置的。见[岛屿管理](BentoBox/About/IslandManagement.md#resetting-an-island)。
+当玩家删除自己的岛屿并用新岛屿重新开始时。玩家可以重置的次数是可配置的。见[岛屿管理](BentoBox/About/IslandManagement.md#resetting-islands)。
 
 ## 副岛主（Sub-Owner）
 低于岛主但高于成员的岛屿等级。副所有者拥有几乎所有与所有者相同的权限。一个岛屿上可以存在多个副岛主。
@@ -65,4 +65,4 @@
 任何在他们不拥有或不属于的岛屿上的玩家的默认等级。访客可以做什么由岛屿所有者通过设置 GUI 控制。
 
 ## 世界设置（World Settings）
-适用于整个游戏模式世界的保护和行为设置，而不仅仅是单个岛屿。只有管理员可以更改这些。通过 `/[admin_command] settings` 访问。见[保护](BentoBox/About/Protections.md)。
+适用于整个游戏模式世界的保护和行为设置，而不仅仅是单个岛屿。只有管理员可以更改这些。通过 `/[admin_command] settings` 访问。见[保护](BentoBox/Island-Protection,-Flags-&-Ranks.md)。

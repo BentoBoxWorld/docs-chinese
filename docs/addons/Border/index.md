@@ -203,7 +203,7 @@ barrier-offset: 0
     - 管理员可以用管理员范围指令为特定岛屿设置范围，例如 `/bsbadmin range set <player> <number>`。
     - 范围永远不能大于**岛屿间距的一半**，而该间距在世界创建时设置一次，之后无法更改。
 
-    完整细节请参阅[岛屿范围和间距](../../BentoBox/About/IslandManagement.md#岛屿范围和间距)。
+    完整细节请参阅[岛屿范围和间距](../../BentoBox/About/IslandManagement.md#island-size-protection-range)。
 
 ??? question "我可以让边界比岛屿的范围稍大一些吗？"
     可以！使用 `config.yml` 中的 `barrier-offset` 设置。它会将边界向外推移你所选择的方块数，因此玩家可以在撞到墙之前走出他们的受保护区域一小段距离。
