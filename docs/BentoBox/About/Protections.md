@@ -1,4 +1,4 @@
-# 保护
+# 保护 { #protection }
 
 此页面已移动。保护、旗帜、排名、世界设置和管理员设置面板都在**[保护、旗帜与排名](../Island-Protection,-Flags-&-Ranks.md)**上介绍。
 

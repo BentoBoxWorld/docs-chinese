@@ -1,8 +1,8 @@
-# 命令
+# 命令 { #commands }
 
 BentoBox 及其游戏模式中的每个命令，从 BentoBox 源生成。关于如何使用它们，请参见[管理员指南](About/Teams.md)和[玩家指南](Player-Guide.md)。
 
-## 游戏模式命令如何命名
+## 游戏模式命令如何命名 { #how-game-mode-commands-are-named }
 
 每个游戏模式都有自己的玩家和管理员命令。下面的表格将它们写为 `/[player_command]` 和 `/[admin_command]`。权限以游戏模式的前缀开头，写作 `[gamemode].`：
 
@@ -19,7 +19,7 @@ BentoBox 及其游戏模式中的每个命令，从 BentoBox 源生成。关于�
 
 附属添加他们自己的子命令到这些，例如 `/island level` 或 `/island challenges`。参见每个[附属的页面](../addons/Bank/index.md)。
 
-## BentoBox 命令
+## BentoBox 命令 { #bentobox-commands }
 
 `/bentobox` 命令（别名 `/bbox`）管理 BentoBox 本身。
 
@@ -38,7 +38,7 @@ BentoBox 及其游戏模式中的每个命令，从 BentoBox 源生成。关于�
 | `/bentobox placeholders` | 打开占位符浏览器 | `bentobox.admin.placeholders` |
 | `/bentobox dump-placeholders` | 将每个已注册占位符写入 markdown 文件 | `bentobox.admin.dump-placeholders` |
 
-## 玩家命令
+## 玩家命令 { #player-commands }
 
 | 命令 | 描述 | 权限 |
 |---|---|---|
@@ -75,7 +75,7 @@ BentoBox 及其游戏模式中的每个命令，从 BentoBox 源生成。关于�
 | `/[player_command] team untrust <player>` | 从玩家移除信任等级 | `[gamemode].island.team.trust` |
 | `/[player_command] unban <player>` | 从你的岛屿解除玩家禁止 | `[gamemode].island.ban` |
 
-## 管理员命令
+## 管理员命令 { #admin-commands }
 
 管理员命令默认为操作员。带有 `mod.` 权限的命令用于不是完整管理员的版主；参见[权限和 VIP 特权](Permissions-Guide.md#staff-permissions)。
 

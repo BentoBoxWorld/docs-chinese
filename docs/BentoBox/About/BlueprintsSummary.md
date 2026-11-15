@@ -1,3 +1,3 @@
-# 蓝图（自定义初始岛屿）
+# 蓝图（自定义初始岛屿） { #blueprints-custom-starter-islands }
 
 此页面已移动。初始岛屿、蓝图和束现在已在一个页面上介绍：**[初始岛屿（蓝图）](../Blueprints.md)**。

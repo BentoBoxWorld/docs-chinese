@@ -7,7 +7,7 @@
 
     没有 `config.yml` 变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
 
-    - 🔡 **始终允许的实体类型（`ALLOW_MOBS`）。** 每个游戏模式的管理员设置面板中新增一个世界设置（铁锭图标），列出即使关闭了动物或怪物生成也仍会生成的实体类型，在世界和岛屿层面均适用。铁傀儡默认在列表中，因此村庄刷铁机可以继续工作。如果某个类型同时出现在两个列表中，**限制实体类型生成**阻止列表仍然优先。权限：`[gamemode].admin.settings.ALLOW_MOBS`。参见[生物生成优先级](About/Protections.md#mob-spawning-precedence)。
+    - 🔡 **始终允许的实体类型（`ALLOW_MOBS`）。** 每个游戏模式的管理员设置面板中新增一个世界设置（铁锭图标），列出即使关闭了动物或怪物生成也仍会生成的实体类型，在世界和岛屿层面均适用。铁傀儡默认在列表中，因此村庄刷铁机可以继续工作。如果某个类型同时出现在两个列表中，**限制实体类型生成**阻止列表仍然优先。权限：`[gamemode].admin.settings.ALLOW_MOBS`。参见[生物生成优先级](Island-Protection,-Flags-&-Ranks.md#mob-spawning-precedence)。
     - 🔺 **"所有蓝图已加载"可能不会触发。** 当多个游戏模式同时加载蓝图时，BentoBox 可能漏掉一次完成通知，从而永远无法进入就绪状态，导致附属的 `allLoaded()` 钩子、需等待就绪的指令以及 `BentoBoxReadyEvent` 都不会运行。此问题已修复，另外还修复了四个相关的主线程/异步竞争问题。
     - 📊 **bStats：** 失败的指令现在会把玩家看到的语言键作为原因上报，并按服务器计数；新的 `worldSize` 图表以区间形式报告岛屿世界在磁盘上的大小。
     - 修复了新的核心世界设置存储在首次运行时误报的 `File not found` 日志。
@@ -133,7 +133,7 @@
 
     - ⚙️ 🔺 **命令使用 Paper 的 Brigadier API 注册。** 玩家现在看到 BentoBox 子命令和完成**当他们输入时**——`/island t…` 在聊天栏中提供 `team`——而不是客户端直到输入或 TAB 才知道什么。子命令树被广告到 4 的深度；更深的子命令仍然工作，他们只是不被预先广告。别名和 `plugin:label` 形式作为重定向而不是重复树发送。`config.yml` 中的一个新 `general.brigadier-commands` 选项默认**打开**；将其设为 `false` 并 `/bbox reload` 如果另一个插件冲突回落到旧命令映射。如果它不能钩住注册器，BentoBox 也会自动回落。
     - 🔺 **结构搜索在生成没有结构的世界中自动被压制。** 绘图师卷制图师-地图贸易——或末影眼、海豚或宝藏地图——过去运行同步结构搜索永远无法在虚无世界成功，扫描到半径上限并吹过 60 秒监视狗。BentoBox 现在问世界的生成器是否根本放置结构并跳过搜索如果它没有，**无需配置**。AOneBlock 和 BSkyBlock 自动获得这个；SkyGrid、Boxed、CaveBlock 和 AcidIsland 不受影响因为他们确实生成结构。世界级 `structures` 条目 `true` 仍强制启用结构作为转换包含预先存在的世界的逃生舱口。这补充了 3.20.0 中添加的选择加入 `world.disabled-structures` 列表。
-    - **`/island settings` 现在打开在世界中。** 远离任何岛屿的玩家，或在他们永远不拥有岛屿的游戏模式中，过去得到"你没有岛屿！"。面板现在使用一个只读的**世界保护**选项卡打开，显示哪些保护标志对世界活跃——这正是什么控制他们他们站立的位置。参见[保护](About/Protections.md#viewing-the-world-rules-off-island)。
+    - **`/island settings` 现在打开在世界中。** 远离任何岛屿的玩家，或在他们永远不拥有岛屿的游戏模式中，过去得到"你没有岛屿！"。面板现在使用一个只读的**世界保护**选项卡打开，显示哪些保护标志对世界活跃——这正是什么控制他们他们站立的位置。参见[保护](Island-Protection,-Flags-&-Ranks.md#world-protection-view)。
     - 🐛 **在关闭期间排队的附属数据不再被丢弃。** 任何附属从 `onDisable()` 保存的东西被排队到已经停止排水的数据库管道，所以它默默地、间歇性地在每次重启时丢失。九个捆绑附属保存禁用——Boxed、AOneBlock、Raft、Challenges、Limits、DragonFights、CheckMeOut、ControlPanel 和 InvSwitcher——且 InvSwitcher 陈旧存储的物品栏然后在加入时重新应用，使其成为回滚而不是只是丢失的写入。关闭写入现在在数据库关闭前排水。
     - 🐛 **BentoBox 命令从 NPC、标志和 GUI 插件再次工作。** Brigadier 注册已经从其他插件调度的 Bukkit 命令映射中取出 BentoBox 命令，所以 NPC 运行 `/oneblock go` 回答服务器的无权限消息和运行什么都没有。命令现在也用命令映射注册。这仅曾经影响 3.22.0 开发版本。
     - 🐛 **`Island.setFlag` 不再丢弃写入。** 设置一个保护等级在从未有过该标志条目的岛屿上——这是每个新创建岛屿——默默地什么都没做。`SETTING` 和 `WORLD_SETTING` 标志不受影响。

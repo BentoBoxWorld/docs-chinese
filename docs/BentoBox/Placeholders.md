@@ -1,8 +1,8 @@
-# 占位符
+# 占位符 { #placeholders }
 
 占位符让其他插件显示 BentoBox 信息：玩家的岛屿名称或计分板上的等级、聊天中的等级、全息中的岛屿数量等。
 
-## 设置
+## 设置 { #setting-up }
 
 1. 安装 [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)。
 2. 重启服务器。
@@ -11,7 +11,7 @@
 
 然后在支持 PlaceholderAPI 的任何插件中使用占位符（计分板、标签列表、聊天、全息等）。
 
-## 占位符如何命名
+## 占位符如何命名 { #how-placeholders-are-named }
 
 每个游戏模式注册自己的每个占位符的副本，以游戏模式的名称开头（小写）：
 
@@ -28,7 +28,7 @@
 - `[gamemode]_island_...` 关于**玩家自己的岛屿**在那个游戏模式中。
 - `[gamemode]_visited_island_...` 关于**玩家站在上面的岛屿**，可能是某人别人的。
 
-## 在游戏中查找占位符
+## 在游戏中查找占位符 { #finding-a-placeholder-in-game }
 
 | 命令 | 作用 |
 |---|---|
@@ -36,20 +36,20 @@
 | `/bentobox dump-placeholders` | 将每个已注册占位符写入 `plugins/BentoBox/placeholder-dump.md` |
 | `/papi parse me %bskyblock_island_name%` | 显示占位符为你返回什么（PlaceholderAPI 命令） |
 
-## BentoBox 占位符
+## BentoBox 占位符 { #bentobox-placeholders }
 
 这些对每个游戏模式都被注册。
 
 {{ placeholders_source("BentoBox") }}
 
-### 编号占位符
+### 编号占位符 { #numbered-placeholders }
 
 以 `_<n>` 结尾的占位符为每个数字注册一次：
 
 - `island_member_name_<n>`、`island_member_rank_<n>` 和 `island_banned_name_<n>`（及其 `visited_island_` 版本）从 1 到 50，用于逐行列出团队或禁止列表，例如 `%bskyblock_island_member_name_1%`。
 - `island_name_<n>` 和 `island_memberlist_<n>` 从 1 到玩家可以拥有的岛屿数量（`concurrent-islands`）。参见[多个岛屿](ConcurrentIslands.md)。
 
-### 标志占位符
+### 标志占位符 { #flag-placeholders }
 
 每个保护标志、岛屿设置和世界设置都有一个占位符：`flag_` 后跟标志的 ID（小写）。
 
@@ -66,13 +66,13 @@
 
 标志 ID 列在[标志](Flags.md)中。由附属添加的标志会自动获得占位符。
 
-## 游戏模式页面
+## 游戏模式页面 { #game-mode-pages }
 
 每个游戏模式的页面列出这些占位符及其自己的前缀已填充，连同游戏模式自己的占位符：
 
 [AcidIsland](../gamemodes/AcidIsland/Placeholders.md) · [AOneBlock](../gamemodes/AOneBlock/Placeholders.md) · [Boxed](../gamemodes/Boxed/Placeholders.md) · [BSkyBlock](../gamemodes/BSkyBlock/Placeholders.md) · [CaveBlock](../gamemodes/CaveBlock/Placeholders.md) · [ChunkBlock](../gamemodes/ChunkBlock/Placeholders.md) · [Poseidon](../gamemodes/Poseidon/Placeholders.md) · [SkyGrid](../gamemodes/SkyGrid/Placeholders.md) · [TradeWinds](../gamemodes/TradeWinds/Placeholders.md)
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **占位符显示为文本（`%bskyblock_island_name%`）而不是值。**
 检查 PlaceholderAPI 已安装，显示它的插件支持 PlaceholderAPI，以及占位符没有在 `/bentobox placeholders` 中关闭。某些聊天插件需要额外设置或插件来在聊天消息中解析占位符。用 `/papi parse me <placeholder>` 测试。

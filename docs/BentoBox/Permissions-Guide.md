@@ -1,11 +1,11 @@
-# 权限和 VIP 特权
+# 权限和 VIP 特权 { #permissions-vip-perks }
 
 BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。这个页面解释了 BentoBox 的权限如何命名、玩家默认拥有哪些权限，以及如何给予等级或 VIP 更大的团队、更大的岛屿、更多家点和其他特权。
 
 !!! info "这个页面中的例子"
     例子使用 BSkyBlock，其权限以 `bskyblock.` 开头，以及 LuckPerms 命令。每个游戏模式都有其自己的前缀，例如 `aoneblock.`、`acidisland.` 或 `caveblock.`，所以必须为每个游戏模式分别给予一次特权。
 
-## 权限如何命名
+## 权限如何命名 { #how-the-permissions-are-named }
 
 | 权限以什么开头 | 用于 | 谁默认拥有 |
 |---|---|---|
@@ -18,7 +18,7 @@ BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。�
 
 附属添加他们自己的权限。它们列在每个[附属的页面](../addons/Bank/index.md)上。
 
-### 检查玩家默认拥有什么
+### 检查玩家默认拥有什么 { #check-what-players-have-by-default }
 
 在控制台中运行 **`/bentobox perms`**。它打印每个 BentoBox 和游戏模式命令权限及其默认值（`TRUE` 表示所有人，`OP` 表示操作员，`FALSE` 表示无人），格式为你可以粘贴到权限插件中的。
 
@@ -53,7 +53,7 @@ BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。�
 - **岛屿特权跟随所有者。** 团队大小、范围和家点来自岛屿**所有者**的权限，而不是每个成员的。它们在所有者登录时更新，范围也在岛屿创建时设置。
 - **岛屿大小被限制**在 `distance-between-islands`；要求更多没有效果。参见[岛屿](About/IslandManagement.md#island-size-protection-range)。
 
-## 其他特权
+## 其他特权 { #other-perks }
 
 | 特权 | 权限 |
 |---|---|
@@ -66,7 +66,7 @@ BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。�
 
 **不是**权限的东西：额外的岛屿重置（使用 `/bsbadmin resets`，参见[岛屿](About/IslandManagement.md#resetting-islands)），以及在别人的岛屿上邀请、踢出或禁止的权利（岛屿所有者通过等级控制，参见[团队与等级](About/Teams.md#letting-members-manage-the-team)）。
 
-## 例子：VIP 等级
+## 例子：VIP 等级 { #example-a-vip-rank }
 
 BSkyBlock 中的一个 VIP 组，拥有 8 人团队、更大的岛屿、三个家点和一个 VIP 初始岛屿：
 
@@ -97,7 +97,7 @@ BSkyBlock 中的一个 VIP 组，拥有 8 人团队、更大的岛屿、三个�
 
 所有的保护绕过权限在[保护、标志与等级](Island-Protection,-Flags-&-Ranks.md#bypass-the-protection)中解释。
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **特权不适用。**
 岛屿特权来自岛屿所有者并在他们登入时更新。让所有者登出再登入。对于范围，检查 `distance-between-islands` 不低于这个数字。
@@ -111,7 +111,7 @@ BSkyBlock 中的一个 VIP 组，拥有 8 人团队、更大的岛屿、三个�
 **特权在一个游戏模式中有效，但在另一个中无效。**
 每个游戏模式都有其自己的前缀。为 `aoneblock.`、`acidisland.` 等再次给予权限。
 
-## 另请参见
+## 另请参见 { #see-also }
 
 - [权限参考](Permissions.md)：每个 BentoBox 和游戏模式权限
 - [命令参考](Commands.md)

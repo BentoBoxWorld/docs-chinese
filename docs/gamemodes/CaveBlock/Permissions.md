@@ -1,8 +1,8 @@
-# CaveBlock 权限
+# CaveBlock 权限 { #caveblock-permissions }
 
 CaveBlock 权限以 `caveblock.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `caveblock`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
 
-## 玩家命令：默认谁拥有它们
+## 玩家命令：默认谁拥有它们 { #player-commands-who-has-them-by-default }
 
 这些默认值来自 CaveBlock 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
 

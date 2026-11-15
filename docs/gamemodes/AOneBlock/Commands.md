@@ -1,4 +1,4 @@
-# AOneBlock 命令
+# AOneBlock 命令 { #aoneblock-commands }
 
 | | 命令 | 权限前缀 |
 |---|---|---|
@@ -7,7 +7,7 @@
 
 可以在游戏模式的 `config.yml` 中重命名两条命令。
 
-## 标准命令
+## 标准命令 { #standard-commands }
 
 AOneBlock 使用 BentoBox 的标准玩家和管理员命令。所有命令及其权限都列在[命令参考](../../BentoBox/Commands.md)中：将 `/[player_command]` 替换为 `/ob`、`/[admin_command]` 替换为 `/obadmin` 且 `[gamemode]` 替换为 `aoneblock`。例如：
 
@@ -21,7 +21,7 @@ AOneBlock 使用 BentoBox 的标准玩家和管理员命令。所有命令及其
 
 有关其功能，请参见[玩家指南](../../BentoBox/Player-Guide.md)和管理指南，如[团队和等级](../../BentoBox/About/Teams.md)和[岛屿](../../BentoBox/About/IslandManagement.md)。
 
-## 仅在 AOneBlock 中的命令
+## 仅在 AOneBlock 中的命令 { #commands-only-in-aoneblock }
 
 | 命令 | 功能 | 权限 | 默认 |
 |---|---|---|---|
@@ -38,6 +38,6 @@ AOneBlock 使用 BentoBox 的标准玩家和管理员命令。所有命令及其
 
 AOneBlock 玩家命令标签（`count`、`phases`、`setCount`、`respawnBlock`、`bossbar`、`actionbar`）可以在 `config.yml` 的 `aoneblock.command` 下重命名。Boss 栏和操作栏命令只在启用这些功能时存在。
 
-## 附属命令
+## 附属命令 { #addon-commands }
 
 附属为 `/ob` 和 `/obadmin`，例如 `/ob level` 来自[Level](../../addons/Level/index.md)或 `/ob challenges` 来自[Challenges](../../addons/Challenges/index.md). 请参见每个附属页面。

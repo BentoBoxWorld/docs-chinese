@@ -1,11 +1,11 @@
-# 管理工具
+# 管理工具 { #admin-tools }
 
 BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻止，以及管理服务器，所以你很少需要手动编辑数据文件。这个页面涵盖你将最经常使用的工具；每个命令都在[命令参考](../Commands.md)中。
 
 !!! info "这个页面中的命令"
     游戏模式管理员命令显示为 `/bsbadmin`（BSkyBlock）。改用你的游戏模式的管理员命令，例如 `/oba`（AOneBlock）、`/acid`（AcidIsland）或 `/cbadmin`（CaveBlock）。他们默认为仅操作员；参见[权限和 VIP 特权](../Permissions-Guide.md#staff-permissions)了解如何给予员工。
 
-## 查询一个岛屿
+## 查询一个岛屿 { #look-up-an-island }
 
 | 我想要… | 命令 |
 |---|---|
@@ -17,7 +17,7 @@ BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻�
 | 查看玩家在岛屿上的等级 | `/bsbadmin getrank <player>` |
 | 在游戏中显示岛屿的受保护区域 | `/bsbadmin range display` |
 
-## 找出为什么某东西被阻止
+## 找出为什么某东西被阻止 { #find-out-why-something-is-blocked }
 
 当玩家说他们不能做某事（或能做他们不应该做的），打开 **why** 工具：
 
@@ -29,11 +29,11 @@ BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻�
 
 大多数问题原来是一个标志为不同的等级而不是预期，或玩家在别人的岛屿上。参见[保护、标志与等级](../Island-Protection,-Flags-&-Ranks.md)。
 
-## 作为普通玩家行动
+## 作为普通玩家行动 { #act-as-a-normal-player }
 
 具有绕过权限的操作员和版主忽略岛屿保护，这使测试混淆。**`/bsbadmin switch`** 关闭你的绕过，所以你像普通玩家一样受保护；再次运行以打开它。操作员状态本身不受影响。参见[绕过保护](../Island-Protection,-Flags-&-Ranks.md#bypass-the-protection)。
 
-## 修复一个岛屿
+## 修复一个岛屿 { #fix-an-island }
 
 | 我想要… | 命令 | 更多 |
 |---|---|---|
@@ -49,11 +49,11 @@ BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻�
 | 重置每个岛屿的设置到配置默认值 | `/bsbadmin resetflags` | |
 | 使岛屿成为游戏模式的生成点 | 站在其上，`/bsbadmin setspawn` | |
 
-## 世界设置
+## 世界设置 { #world-settings }
 
 **`/bsbadmin settings`** 打开游戏模式的世界的管理员设置菜单：世界设置（如爬行者伤害或访客保留物品栏）、岛屿外的保护规则、新岛屿的默认值，以及玩家可以看到的岛屿设置。参见[管理员设置面板](../Island-Protection,-Flags-&-Ranks.md#admin-settings-panel)。
 
-## 管理 BentoBox
+## 管理 BentoBox { #managing-bentobox }
 
 | 命令 | 作用 |
 |---|---|
@@ -68,13 +68,13 @@ BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻�
 
 一些设置，如世界生成和 `distance-between-islands`，仅在完全重启后生效。
 
-## 数据库
+## 数据库 { #database }
 
 BentoBox 在 BentoBox 的 `config.yml` 中设置的数据库中存储岛屿和玩家。默认是 BentoBox 文件夹中的 **JSON** 文件，不需要设置。对于较大的服务器，或多个共享数据的服务器，你可以使用 **MySQL**（5.7+）、**MariaDB**（10.2.3+）、**PostgreSQL**（9.4+）、**SQLite**（3.28+）或 **MongoDB**（3.6+）。
 
 要改变数据库类型而不丢失数据，参见[改变数据库](../Database-transition.md)。始终先备份。
 
-## 另请参见
+## 另请参见 { #see-also }
 
 - [命令参考](../Commands.md)
 - [权限和 VIP 特权](../Permissions-Guide.md)

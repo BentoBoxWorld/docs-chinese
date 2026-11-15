@@ -1,12 +1,12 @@
-# 翻译 BentoBox
+# 翻译 BentoBox { #translating-bentobox }
 
 帮助翻译 BentoBox、其游戏模式和附属。要改变你自己的服务器上的消息，请参阅[语言和消息](About/Multilingual.md)。
 
-## 可用的区域
+## 可用的区域 { #available-locales }
 
 {{ translations("BentoBox") }}
 
-## 如何帮助
+## 如何帮助 { #how-to-help }
 
 翻译由 AI 帮助完成，所以大部分工作已完成，但 AI 会犯错。你能做的最有用的事情是纠正它们。
 
@@ -23,7 +23,7 @@
 - **如果可以的话在服务器上测试它**，以检查文本在菜单和标题中是否适配。
 - **没有广告、谩骂或侮辱。** 我们在接受前检查每个文件。
 
-## 游戏模式
+## 游戏模式 { #game-modes }
 
 - [AcidIsland](../gamemodes/AcidIsland/index.md#translations)
 - [AOneBlock](../gamemodes/AOneBlock/index.md#translations)
@@ -36,7 +36,7 @@
 - [Stranger Realms](../gamemodes/StrangerRealms/index.md#translations)
 - [TradeWinds](../gamemodes/TradeWinds/index.md#translations)
 
-## 附属
+## 附属 { #addons }
 
 - [Bank](../addons/Bank/index.md#translations)
 - [Biomes](../addons/Biomes/index.md#translations)

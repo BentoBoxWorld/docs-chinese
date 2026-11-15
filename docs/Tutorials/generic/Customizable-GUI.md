@@ -1,10 +1,10 @@
-# 自定义菜单
+# 自定义菜单 { #customizing-menus }
 
 BentoBox 中大多数玩家看到的菜单（团队菜单、岛屿设置、创建岛屿菜单、家点、语言等）都是从**面板模板**构建的：你可以编辑的 YAML 文件。你可以改变菜单的标题、大小、背景、每个按钮使用的图标、其文本和位置。
 
 你不能创建新的按钮类型。每个菜单只能理解其代码提供的按钮类型。如果你想要自己的菜单且按钮可以运行命令，请使用 [ControlPanel](../../addons/ControlPanel/index.md) 附属。
 
-## 菜单文件的位置
+## 菜单文件的位置 { #where-the-menu-files-are }
 
 | 菜单来自 | 文件夹 |
 |---|---|
@@ -14,7 +14,7 @@ BentoBox 中大多数玩家看到的菜单（团队菜单、岛屿设置、创�
 
 BentoBox 在第一次使用每个菜单时将其模板写入 `plugins/BentoBox/panels/`。附属将它们写入自己的文件夹。
 
-### BentoBox 的菜单
+### BentoBox 的菜单 { #bentoboxs-menus }
 
 | 文件 | 菜单 | 游戏模式可以有自己的副本吗？ |
 |---|---|---|
@@ -30,11 +30,11 @@ BentoBox 在第一次使用每个菜单时将其模板写入 `plugins/BentoBox/p
 
 **不同游戏模式的不同菜单：**从 `plugins/BentoBox/panels/` 复制文件到游戏模式的 `panels` 文件夹（如果需要可创建）并编辑副本。例如，`plugins/BentoBox/addons/AOneBlock/panels/island_creation_panel.yml` 只改变 AOneBlock 的创建岛屿菜单。其他游戏模式继续使用 BentoBox 版本。
 
-### 附属菜单
+### 附属菜单 { #addon-menus }
 
 使用模板的附属包括 Level（`top_panel`、`value_panel`、`detail_panel`、`donation_panel`）、Challenges、Biomes、Warps、Upgrades、Likes、Visit、TopBlock、CheckMeOut、MagicCobblestoneGenerator、AOneBlock（`phases_panel`）和 CauldronWitchery。查看每个附属的 `panels` 文件夹。它们使用与下面相同的格式。
 
-## 进行更改
+## 进行更改 { #making-a-change }
 
 1. 阻止玩家打开菜单，或在测试服务器上先进行此操作。
 2. 编辑 `.yml` 文件。保留原始文件的副本。
@@ -43,7 +43,7 @@ BentoBox 在第一次使用每个菜单时将其模板写入 `plugins/BentoBox/p
 
 如果菜单停止打开或显示空白，YAML 可能无效。检查服务器控制台是否有错误，并将文件粘贴到 YAML 检查器中。**要恢复默认值**，删除该文件。BentoBox 会在下次菜单打开时复制其默认版本。对于附属的文件，重启服务器。
 
-## 常见更改
+## 常见更改 { #common-changes }
 
 ### 更改标题或按钮文字 { #change-the-title-or-button-text }
 
@@ -57,7 +57,7 @@ team_panel:
 - **更改每种语言的文本：**在区域文件中编辑该键（`plugins/BentoBox/locales/` 或附属的 `locales` 文件夹）。参见[语言和消息](../../BentoBox/About/Multilingual.md)。
 - **为所有人使用相同的文本：**将键替换为你自己的文本，例如 `title: "&6My Team"`。
 
-### 更改背景或边框
+### 更改背景或边框 { #change-the-background-or-border }
 
 ```yaml
   background:
@@ -70,7 +70,7 @@ team_panel:
 
 删除 `background` 或 `border` 部分以留下这些位置空白。`"&b&r"` 是显示没有名称的物品的通常方式；Minecraft 总是显示工具提示，所以不能完全隐藏。
 
-### 更改按钮的图标
+### 更改按钮的图标 { #change-a-buttons-icon }
 
 在按钮上设置 `icon`。任何物品都可以工作，包括带有数据、药水颜色和玩家头颅的物品。请参见[物品格式](../../BentoBox/ItemParser.md)。
 
@@ -81,7 +81,7 @@ team_panel:
 
 如果你省略 `icon`，某些按钮会选择自己的图标。例如，团队菜单显示玩家的头颅，创建岛屿菜单显示岛屿的图标。
 
-### 移动按钮
+### 移动按钮 { #move-a-button }
 
 按钮由 `content` 下的**行**（1–6）和**列**（1–9）放置。要移动一个，改变其行或列号：
 
@@ -93,7 +93,7 @@ team_panel:
           type: STATUS
 ```
 
-### 使菜单更高
+### 使菜单更高 { #make-a-menu-taller }
 
 菜单缩小以适应有按钮的行。要在它们为空时保留行，请使用 `force-shown`：
 
@@ -104,11 +104,11 @@ team_panel:
 
 这只添加空行。要显示**每页更多物品**（更多岛屿、更多家点），还要添加更多重复按钮。[更大的创建岛屿菜单](Bigger-Create-Island-Menu.md) 页面提供了完整的工作示例。
 
-### 移除按钮
+### 移除按钮 { #remove-a-button }
 
 从 `content` 删除按钮。该槽位然后显示背景。某些按钮是菜单工作所必需的：在可能有多页的菜单中保留 `NEXT`/`PREVIOUS` 按钮。
 
-## 模板如何布局
+## 模板如何布局 { #how-a-template-is-laid-out }
 
 每个模板都有相同的部分。这个简化的示例基于创建岛屿菜单：
 
@@ -150,7 +150,7 @@ island_creation_panel:          # 必须与文件名相同
           tooltip: panels.tips.click-to-choose
 ```
 
-### 按钮设置
+### 按钮设置 { #button-settings }
 
 | 设置 | 作用 |
 |---|---|
@@ -161,11 +161,11 @@ island_creation_panel:          # 必须与文件名相同
 | `actions` | 每次点击做什么，以及为其添加的工具提示行 |
 | `fallback` | 当此按钮无法显示时要显示的另一个按钮，例如当最后一页没有剩余空间时。它可以是完整按钮或 `reusable` 按钮的名称。需要 BentoBox 3.23.0 或更高版本 |
 
-### 重复按钮（`reusable`）
+### 重复按钮（`reusable`） { #repeating-buttons-reusable }
 
 列出内容的菜单（岛屿、家点、团队成员、语言、标志）对每个条目使用一个按钮设计。在 `reusable` 下定义一次，并将其名称放在每个可能出现条目的槽位中。菜单按顺序填充这些槽位并翻页其余的。
 
-### 点击动作
+### 点击动作 { #click-actions }
 
 每个动作都有一个名称、点击类型和工具提示：
 
@@ -183,7 +183,7 @@ island_creation_panel:          # 必须与文件名相同
 - 动作名称（`kick`、`setowner`）是菜单做什么。使用已经在默认文件中的名称。你可以改变哪个点击触发动作，或从菜单中删除你不想让玩家使用的动作。
 - 工具提示被添加在描述下方，按动作列出的顺序。
 
-### BentoBox 菜单中的按钮类型
+### BentoBox 菜单中的按钮类型 { #button-types-in-bentoboxs-menus }
 
 | 菜单 | 按钮类型（`data: type:`） |
 |---|---|
@@ -198,7 +198,7 @@ island_creation_panel:          # 必须与文件名相同
 
 默认文件包含解释每个的注释。设置菜单在[保护、标志和等级](../../BentoBox/Island-Protection,-Flags-&-Ranks.md#customizing-the-settings-panel)中有详细介绍。
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **我的更改没有显示。**
 运行 `/bentobox reload`，然后重新打开菜单。如果游戏模式在 `addons/<GameMode>/panels/` 中有自己的副本，该副本被使用而不是 `plugins/BentoBox/panels/` 中的。
@@ -215,7 +215,7 @@ YAML 无效或顶级名称不再与文件名匹配。检查控制台，修复文
 **我想要一个运行命令的按钮。**
 模板不能做这个。使用 [ControlPanel](../../addons/ControlPanel/index.md) 附属。
 
-## 另请参见
+## 另请参见 { #see-also }
 
 - [更大的创建岛屿菜单](Bigger-Create-Island-Menu.md)：完整的工作示例
 - [物品格式](../../BentoBox/ItemParser.md)：编写图标

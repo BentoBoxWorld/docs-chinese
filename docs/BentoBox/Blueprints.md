@@ -1,4 +1,4 @@
-# 初始岛屿（蓝图）
+# 初始岛屿（蓝图） { #starter-islands-blueprints }
 
 当玩家创建岛屿时，BentoBox 为他们粘贴一个初始岛屿。这些初始岛屿是**蓝图**，你在游戏中建造和保存。一个**包**将一个主世界、地狱和末地蓝图分组为创建岛屿菜单中的一个选择，有自己的图标、名称和描述。
 
@@ -7,7 +7,7 @@
 !!! info "这个页面中的命令"
     命令以 BSkyBlock（`/bsbadmin`）显示。改用你的游戏模式的管理员命令，例如 AOneBlock 的 `/oba` 或 AcidIsland 的 `/acid`。`blueprint` 可以缩短为 `bp`。
 
-## 制作初始岛屿
+## 制作初始岛屿 { #make-a-starter-island }
 
 1. **建造它。** 在游戏模式的世界中建造岛屿，远离其他岛屿。在其中放置至少一个**基岩**方块：最高的基岩方块变成岛屿的中心，BentoBox 不会在没有一个的情况下保存蓝图。
 2. **添加标志（可选）。** 放置一个标志，第一行写 `[spawn_here]`，位置是玩家应该出现的地方，面向他们应该看的方向。添加一个标志，第一行写 `[start]` 用于欢迎消息。参见[标志](#signs)。
@@ -24,7 +24,7 @@
 
 **转换 WorldEdit 示意图：** 蓝图不是示意图，但你可以用 WorldEdit 粘贴示意图，添加基岩和标志，然后用上面的蓝图命令选择、复制和保存它。也为每个地狱和末地岛屿做这个。
 
-## 包：创建岛屿菜单中的选择
+## 包：创建岛屿菜单中的选择 { #bundles-the-choices-in-the-create-island-menu }
 
 用 **`/bsbadmin bp`** 打开蓝图管理器。它列出包；点击一个来编辑它。
 
@@ -49,7 +49,7 @@
 
 **在管理器中或用 `/bsbadmin bp rename` 重命名包和蓝图**，不是通过重命名文件。
 
-### 选择包时运行的命令
+### 选择包时运行的命令 { #commands-when-a-bundle-is-chosen }
 
 每次用包创建岛屿时运行命令，例如给启动工具包或设置等级。`[player]` 和 `[owner]` 被替换为玩家的名称。命令从控制台运行，除非他们以 `[SUDO]` 开头，这以玩家身份运行它们：
 
@@ -58,11 +58,11 @@ lp user [player] parent add skyblock-starter
 [SUDO] kit starter
 ```
 
-### 为包收费
+### 为包收费 { #charging-for-a-bundle }
 
 用金锭在包上设置成本。玩家在用它创建或重置岛屿时支付，如果他们买不起无法选择它。这需要 BentoBox 的 `config.yml` 中的 `use-economy: true` 和带经济插件的 Vault；没有他们金锭不显示。
 
-## 标志
+## 标志 { #signs }
 
 | 标志的第一行 | 发生什么 |
 |---|---|
@@ -72,7 +72,7 @@ lp user [player] parent add skyblock-starter
 
 **命名生物：** 在铁砧中重命名名签以包括 `[name]` 并在复制前将其放在你岛屿中的生物上。当岛屿被粘贴时，生物以岛屿所有者的名称命名。
 
-## 所有蓝图命令
+## 所有蓝图命令 { #all-blueprint-commands }
 
 | 命令 | 作用 |
 |---|---|
@@ -88,7 +88,7 @@ lp user [player] parent add skyblock-starter
 | `/bsbadmin bp delete <name>` | 删除蓝图 |
 | `/bsbadmin bp sink` | 切换这个蓝图粘贴时是否沉到海底 |
 
-## 文件
+## 文件 { #the-files }
 
 蓝图和包按游戏模式存储在 `plugins/BentoBox/addons/<GameMode>/blueprints/` 中：
 
@@ -97,11 +97,11 @@ lp user [player] parent add skyblock-starter
 
 你可以在服务器之间复制这些文件、保留在版本控制中或编辑它们。对于每个字段，参见[蓝图文件格式](Blueprint-Format.md)。
 
-## 粘贴速度
+## 粘贴速度 { #pasting-speed }
 
 复制和粘贴一点点地发生，所以大岛屿不会冻结服务器；一个大岛屿可能需要几秒钟。如果岛屿创建导致延迟，降低 BentoBox 的 `config.yml` 中的 `paste-speed`（每 tick 的方块数）。
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **"蓝图中必须至少有一个基岩方块！"**
 向岛屿添加基岩方块，重新复制，然后保存。
@@ -118,7 +118,7 @@ lp user [player] parent add skyblock-starter
 **欢迎标志显示 `[start]`。**
 `[start]` 文本来自游戏模式的地区文件。检查 `<gamemode>.sign.line0` 到 `line3` 在其中存在。
 
-## 另请参见
+## 另请参见 { #see-also }
 
 - [岛屿](About/IslandManagement.md)：创建、重置和调整岛屿大小
 - [更大的创建岛屿菜单](../Tutorials/generic/Bigger-Create-Island-Menu.md)和[自定义菜单](../Tutorials/generic/Customizable-GUI.md)：玩家选择的菜单

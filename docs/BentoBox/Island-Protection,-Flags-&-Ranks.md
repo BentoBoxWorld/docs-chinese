@@ -1,8 +1,8 @@
-# 岛屿保护、标志和等级
+# 岛屿保护、标志和等级 { #island-protection-flags-ranks }
 
 [TOC]
 
-## 简介
+## 简介 { #introduction }
 
 玩家（或环境，如活塞、生物、火焰、爆炸）在 BentoBox 游戏世界中的一切活动都由**标志**控制。每个标志涵盖一种操作，例如破坏方块、打开箱子或伤害动物。大多数标志来自 BentoBox。[Greenhouses](https://github.com/BentoBoxWorld/Greenhouses) 等附属可以添加更多标志。
 
@@ -16,7 +16,7 @@
 | **设置标志** | 整个岛屿的开/关开关，例如*允许PVP*或*动物生成*。 | 岛屿所有者。 |
 | **世界设置** | 整个游戏世界的开关，例如*爬行怪爆炸*。 | 仅管理员。 |
 
-### 在岛屿上、在岛屿外和新岛屿
+### 在岛屿上、在岛屿外和新岛屿 { #on-an-island-off-an-island-and-new-islands }
 
 最常见的混淆是一个保护标志可以有**三个不同的值**，取决于玩家站在哪里和指的是哪个岛屿：
 
@@ -56,7 +56,7 @@
 
 管理员可以使用 `/[admin_command] getrank <player>` 和 `/[admin_command] setrank <player> <rank>` 查看或更改玩家的等级。
 
-## 岛屿设置面板 { #settings-tab }
+## 岛屿设置面板 { #island-settings-panel }
 
 **设置面板**是岛屿所有者配置其岛屿的地方。使用 `/[player_command] settings`（权限 `[gamemode].island.settings`）打开它。岛屿上的每个人都可以查看它。只有所有者可以更改它，以及所有者通过**更改设置**标志（工作台、顶行）允许的任何等级。
 
@@ -82,7 +82,7 @@
 
 *允许访客进行交互的保护标志示例。*
 
-### 设置选项卡
+### 设置选项卡 { #settings-tab }
 
 **设置**选项卡列出岛屿的**设置标志**：整个岛屿的开/关开关，例如 PVP、火焰蔓延、树叶腐烂和生物生成。单击设置以切换它。
 
@@ -96,7 +96,7 @@
 
 在世界中没有岛屿的玩家，也没有站在另一个岛屿区域内，会看到只读的**世界保护**选项卡。它显示管理员在[世界保护](#world-protections)选项卡上设置的任何人可能在岛屿外做什么。这仅供参考，无法从此处更改。
 
-### 显示模式
+### 显示模式 { #display-mode }
 
 根据**显示模式**，设置面板显示更多或更少的标志。该模式为 `BASIC`、`ADVANCED` 或 `EXPERT`。通过单击面板右上角的金锭来更改它。
 
@@ -216,7 +216,7 @@ command_ranks_panel:
 
 在这些选项卡中所做的更改会立即保存到游戏模式的 `config.yml`。
 
-### 世界设置
+### 世界设置 { #world-settings }
 
 第一个选项卡列出**世界设置**标志：适用于整个游戏世界、岛屿内外的开关，例如*爬行怪爆炸*、*离线红石*或*访客保留库存*。单击标志以打开或关闭它。每个需要权限 `[gamemode].admin.world.settings.<FLAG_ID>`，操作员拥有该权限。
 
@@ -309,7 +309,7 @@ command_ranks_panel:
 
 此选项卡**不**控制玩家可能在岛屿外做什么。为此，使用[世界保护](#world-protections)。
 
-### 更改玩家的岛屿
+### 更改玩家的岛屿 { #changing-a-players-island }
 
 `/[admin_command] settings <player_name>` 打开该玩家岛屿的保护和设置选项卡，如所有者所见，所以管理员可以更改任何标志。`/[admin_command] settings spawn-island` 对出生岛屿做同样的事情。
 
@@ -327,11 +327,11 @@ command_ranks_panel:
 !!! tip
     下面权限中的 `[gamemode]` 是游戏模式的小写名称。对于 BSkyBlock，节点以 `bskyblock.mod…` 开头，对于 AcidIsland 则为 `acidisland.mod…` 等。
 
-### 岛屿等级——设计方式
+### 岛屿等级——设计方式 { #island-ranks-the-intended-way }
 
 绕过保护标志的正常、设计方式是在岛屿上拥有足够高的**等级**。每个保护标志都有一个所需等级，任何等级大于或等于它的成员都被允许执行操作。这就是为什么所有者可以建造而访客不能——这不是真正的绕过，只是标志按配置工作。请参阅上面的[等级](#ranks)列表。
 
-### 操作员
+### 操作员 { #operators }
 
 服务器操作员（`/op`）是最广泛的绕过。操作员通过 BentoBox 世界中的**每个保护标志**，可以进入锁定和被禁的岛屿，并且免受禁止和驱逐。
 
@@ -340,7 +340,7 @@ command_ranks_panel:
 - **操作员不绕过岛屿设置标志。** `SETTING` 类型的标志（岛屿切换，例如*允许 PVP*、*生物生成*等）在操作员检查前被评估，所以操作员受到它们约束，就像任何其他玩家一样。操作员状态仅覆盖*保护*标志。
 - **管理员开关无法完全在玩家自己的岛屿上"取消操作员"。** 即使打开开关（见下文），操作员仍被允许在岛屿上，因为等级检查将操作员状态视为始终允许。要测试作为真正的非操作员的保护，请移除操作员状态。
 
-### 版主绕过权限
+### 版主绕过权限 { #moderator-bypass-permissions }
 
 对于不应该是完全操作员的员工，保护可以用权限绕过。这些由管理员开关控制（见下文），所以版主可以切换自己的绕过以体验普通玩家会经历的世界。
 
@@ -348,11 +348,11 @@ command_ranks_panel:
 - `[gamemode].mod.bypass.<FLAG_ID>.everywhere` ——绕过**一个**命名标志（例如 `BREAK_BLOCKS`）在世界各地。
 - `[gamemode].mod.bypass.<FLAG_ID>.island` ——绕过**一个**命名标志，但仅在玩家在岛屿上会被阻止的地方。
 
-### 管理员"开关"——作为普通玩家测试
+### 管理员"开关"——作为普通玩家测试 { #the-admin-switch-testing-as-a-normal-player }
 
 命令 `/[admin_command] switch`（权限 `[gamemode].mod.switch`）切换版主的绕过权限开关。默认情况下绕过权限**激活**（版主正在绕过保护）；运行命令一次切换绕过**关闭**，所以他们受到保护，就像普通玩家一样，再运行一次切换回开。这影响上面的 `mod.bypassprotect` 和 `mod.bypass.*` 权限——它**不会**禁用原始操作员状态。
 
-### 锁定、禁止和驱逐
+### 锁定、禁止和驱逐 { #locks-bans-and-expels }
 
 岛屿锁定、禁止和驱逐有自己的绕过权限，与标志系统无关：
 
@@ -363,20 +363,20 @@ command_ranks_panel:
 
 任何携带 Bukkit `NPC` 元数据的实体（例如 Citizens NPC）也被允许通过锁定、禁止、PVP 和无敌访客检查，所以插件 NPC 不会被岛屿保护困住或伤害。
 
-### 冷却和延迟
+### 冷却和延迟 { #cooldowns-and-delays }
 
 命令冷却和传送热身延迟可以跳过：
 
 - `[gamemode].mod.bypasscooldowns` ——忽略命令冷却。
 - `[gamemode].mod.bypassdelays` ——跳过延迟传送命令上的移动热身延迟。
 
-### 永不受保护的
+### 永不受保护的 { #what-is-never-protected }
 
 - **非 BentoBox 世界。** 保护仅在游戏模式世界中存在（及其链接的标准下界/末地）。服务器的默认世界和其他插件的世界永远不会被检查。
 - **岛屿外区域遵循不同规则。** 当玩家在游戏模式世界中但在每个岛屿保护范围外时，[世界保护](#world-protections)适用，而不是任何岛屿的标志。
 - **删除的岛屿是例外：** 在待删除的岛屿上，默认情况下不允许任何操作——除了操作员和拥有 `mod.bypassprotect` / `mod.bypass.<FLAG_ID>.everywhere` 权限的持有者，其绕过首先被检查。
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **玩家无法在岛屿之间建造或破坏方块。**
 该区域在岛屿外，所以[世界保护](#world-protections)选项卡适用。打开你需要的标志。改变岛屿默认值不会帮助。

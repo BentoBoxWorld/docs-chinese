@@ -1,11 +1,11 @@
-# 岛屿
+# 岛屿 { #islands }
 
 每个 BentoBox 游戏模式都建立在**岛屿**之上：属于一个玩家或团队的世界的受保护区域。（在 CaveBlock 或 Boxed 等游戏模式中，"岛屿"是一个洞穴或盒子，但工作方式相同。）这个页面涵盖了如何创建、调整大小、重置和删除岛屿、家点如何工作，以及如何清理旧岛屿。
 
 !!! info "这个页面中的命令"
     命令以 BSkyBlock（`/island`、`/bsbadmin`）显示。其他游戏模式使用他们自己的命令名称，例如 AOneBlock 中的 `/ob`。权限以游戏模式的前缀开头，例如 `bskyblock.` 或 `aoneblock.`。对于玩家看到的内容，请将他们发送到[玩家指南](../Player-Guide.md)。
 
-## 打开前：规划世界
+## 打开前：规划世界 { #before-you-open-plan-the-world }
 
 游戏模式的 `config.yml` 中的两个设置**在岛屿存在后无法改变**。稍后改变它们意味着擦除世界和数据库，所以在玩家加入前决定：
 
@@ -24,7 +24,7 @@ world:
 
 你可能想查看的其他设置：`island-height`（起始岛屿的 Y 水平）、`max-islands`（限制世界中的岛屿数量，`0` = 无限制）和 `start-x`/`start-z`（也无法稍后改变）。
 
-## 创建岛屿
+## 创建岛屿 { #creating-islands }
 
 新玩家输入 `/island`。BentoBox：
 
@@ -144,7 +144,7 @@ island:
 
 删除岛屿会立即移除所有者，所以玩家可以创建新的。**方块**稍后被移除，当区域文件被清理时（见下方）。直到那时，`undelete` 或 `register` 可以恢复岛屿。
 
-## 清理旧岛屿
+## 清理旧岛屿 { #cleaning-up-old-islands }
 
 已删除和重置的岛屿，以及从未回来的玩家的岛屿占用磁盘空间。BentoBox 通过删除世界的**区域文件**（每个涵盖 512×512 块区域）来移除它们，一旦没有活跃岛屿在其中。
 
@@ -180,7 +180,7 @@ island:
 !!! warning "先备份"
     清理会从磁盘删除区域文件且无法撤销。在你的第一次清理前备份世界文件夹。与活跃岛屿共享区域文件的岛屿保持直到该区域清晰。
 
-## 每个玩家多个岛屿
+## 每个玩家多个岛屿 { #multiple-islands-per-player }
 
 如果允许的话，玩家可以在游戏模式中拥有多个岛屿：
 
@@ -195,7 +195,7 @@ world:
 
 或给玩家 `bskyblock.island.number.<number>`。参见[多个岛屿](../ConcurrentIslands.md)了解玩家如何创建和在岛屿之间切换。
 
-## 找出有关岛屿的信息
+## 找出有关岛屿的信息 { #finding-out-about-an-island }
 
 | 命令 | 显示 |
 |---|---|
@@ -203,7 +203,7 @@ world:
 | `/bsbadmin info [player]` | 完整详细信息：所有者、成员、范围、家点、重置、死亡等。没有名字时是你所在的岛屿 |
 | `/bsbadmin why <player>` | 记录为什么玩家可以或不能做某事。参见[管理工具](AdminTools.md) |
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **改变 `distance-between-islands` 后服务器不会启动。**
 在岛屿存在后无法改变。放回旧值。
@@ -220,7 +220,7 @@ world:
 **磁盘使用量继续增长。**
 确保启用了 `deleted-sweep`，并考虑 `/bsbadmin purge <days>` 或被遗弃岛屿的年龄扫描。
 
-## 另请参见
+## 另请参见 { #see-also }
 
 - [玩家指南](../Player-Guide.md)：你的玩家使用的命令
 - [团队和等级](Teams.md)

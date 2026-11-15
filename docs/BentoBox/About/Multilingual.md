@@ -1,8 +1,8 @@
-# 语言和消息
+# 语言和消息 { #languages-messages }
 
 BentoBox 及其附属中的每条消息、菜单和物品名称都来自**区域文件**：每种语言一个 YAML 文件。玩家选择自己的语言，你可以改变任何文本、颜色或消息的显示方式（聊天、动作栏、标题、声音）。
 
-## 语言
+## 语言 { #languages }
 
 BentoBox 附带 25 种语言：
 
@@ -24,7 +24,7 @@ BentoBox 附带 25 种语言：
 
 附属可能有较少的语言。每个[游戏模式](../../gamemodes/Comparison.md)和[附属](Addons.md)页面都有一个表格显示每种语言的完整程度。
 
-### 服务器的默认语言
+### 服务器的默认语言 { #the-servers-default-language }
 
 新玩家看到默认语言，直到他们选择一个。在 BentoBox 的 `config.yml` 中设置它，使用表中的文件名：
 
@@ -35,13 +35,13 @@ general:
 
 然后重启或运行 `/bentobox reload`。BentoBox 不会自动检测玩家的 Minecraft 语言。
 
-### 玩家选择语言
+### 玩家选择语言 { #players-choosing-a-language }
 
 玩家使用**`/island language`**（或游戏模式的自己的命令）更改语言，这打开已安装语言的菜单。他们的选择适用于 BentoBox 和所有附属，在每个游戏模式中。
 
 如果玩家语言中缺少消息，BentoBox 使用服务器的默认语言，然后使用英语。
 
-## 改变消息
+## 改变消息 { #changing-messages }
 
 区域文件位于：
 
@@ -71,7 +71,7 @@ commands:
 
 **要检查缺失的翻译**，运行 `/bentobox locale`。它比较每种语言文件，对于 BentoBox 和每个附属，与英语并报告缺失的内容。
 
-## 颜色和格式
+## 颜色和格式 { #colours-and-formatting }
 
 消息使用 [MiniMessage](https://docs.advntr.dev/minimessage/format.html) 标签：
 
@@ -83,7 +83,7 @@ example: "<gradient:gold:yellow>岛屿名称</gradient>"
 
 旧式颜色代码（`&a`、`&l`、`§c`）仍然有效。
 
-## 消息的显示方式
+## 消息的显示方式 { #how-a-message-is-shown }
 
 默认情况下消息去聊天。用标签在其他地方显示它：
 
@@ -101,7 +101,7 @@ example: "[sound:entity_experience_orb_pickup:1:1][title]正在传送...[subtitl
 
 发给控制台的消息总是进入控制台日志。
 
-### 可点击的消息
+### 可点击的消息 { #clickable-messages }
 
 在消息中的任何地方添加这些以使整条消息可点击或在悬停时显示文本：
 
@@ -117,15 +117,15 @@ example: "[sound:entity_experience_orb_pickup:1:1][title]正在传送...[subtitl
 example: "你不在你的岛屿上。单击回家！[run_command: /island go][hover: 传送回家]"
 ```
 
-## 菜单文本
+## 菜单文本 { #menu-text }
 
 菜单标题和按钮文本也在区域文件中，从菜单模板引用。请参阅[自定义菜单](../../Tutorials/generic/Customizable-GUI.md#change-the-title-or-button-text)。
 
-## 修复或添加翻译
+## 修复或添加翻译 { #fixing-or-adding-translations }
 
 翻译由 AI 帮助完成并由社区更正。如果你发现错误，在项目的 GitHub 存储库中的区域文件中修复它并打开拉取请求，或在 [Discord](https://discord.bentobox.world) 上告诉我们。请参阅[翻译 BentoBox](../Translate-BentoBox-and-addons.md)了解指南和每个项目的翻译状态。
 
-## 故障排除
+## 故障排除 { #troubleshooting }
 
 **我的改变没有显示。**
 运行 `/bentobox reload locales`。检查你编辑了玩家的语言（他们可能没有使用英语）和正确的文件夹（BentoBox 的自己的消息在 `locales/BentoBox/` 中，游戏模式消息在 `locales/<GameMode>/` 中）。
