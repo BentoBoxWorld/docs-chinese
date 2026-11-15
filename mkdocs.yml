@@ -7,30 +7,56 @@ repo_name: BentoBoxWorld/BentoBox
 edit_uri: ""
 nav:
     - 首页: index.md
-    - "BentoBox能做什么？":
-        - 岛屿管理: BentoBox/About/IslandManagement.md
-        - 游戏模式: BentoBox/About/GameModes.md
-        - 附属: BentoBox/About/Addons.md
-        - 团队处理: BentoBox/About/Teams.md
-        - 保护: BentoBox/About/Protections.md
-        - 蓝图: BentoBox/About/BlueprintsSummary.md
-        - 多语言支持: BentoBox/About/Multilingual.md
-        - 管理工具: BentoBox/About/AdminTools.md
-    - 术语表: Glossary.md
-    - 常见问题解答: FAQ.md
-    - 隐私政策: BentoBox/Privacy.md
-    - AI 政策: BentoBox/AI-Policy.md
-    - 行为准则: BentoBox/CodeOfConduct.md
-    - 贡献指南: BentoBox/Contributing.md
+    - 入门:
+        - "如何安装": BentoBox/Install-Bentobox.md
+        - "前30分钟": BentoBox/First-Steps.md
+        - "选择游戏模式": gamemodes/Comparison.md
+        - "将BentoBox世界设置为服务器的默认世界": BentoBox/Set-a-BentoBox-world-as-the-server-default-world.md
+        - 术语表: Glossary.md
+    - 玩家指南: BentoBox/Player-Guide.md
+    - 管理员指南:
+        - "保护、标志与等级": "BentoBox/Island-Protection,-Flags-&-Ranks.md"
+        - "团队与等级": BentoBox/About/Teams.md
+        - 岛屿: BentoBox/About/IslandManagement.md
+        - "多个岛屿": BentoBox/ConcurrentIslands.md
+        - "权限和 VIP 特权": BentoBox/Permissions-Guide.md
+        - "初始岛屿(蓝图)": BentoBox/Blueprints.md
+        - "自定义菜单": Tutorials/generic/Customizable-GUI.md
+        - "更大的创建岛屿菜单": Tutorials/generic/Bigger-Create-Island-Menu.md
+        - "语言和消息": BentoBox/About/Multilingual.md
+        - "翻译 BentoBox": BentoBox/Translate-BentoBox-and-addons.md
+        - "管理工具": BentoBox/About/AdminTools.md
+        - "改变数据库": BentoBox/Database-transition.md
+        - "从 ASkyBlock 转换": Converter/index.md
     - 游戏模式:
+        - "什么是游戏模式？": BentoBox/About/GameModes.md
         - 选择游戏模式: gamemodes/Comparison.md
-        - AcidIsland: gamemodes/AcidIsland/index.md
+        - AcidIsland:
+            - 概览: gamemodes/AcidIsland/index.md
+            - 命令: gamemodes/AcidIsland/Commands.md
+            - 权限: gamemodes/AcidIsland/Permissions.md
+            - 占位符: gamemodes/AcidIsland/Placeholders.md
         - AOneBlock:
             - 概览: gamemodes/AOneBlock/index.md
             - 自定义阶段: gamemodes/AOneBlock/Phases.md
-        - BSkyBlock: gamemodes/BSkyBlock/index.md
-        - Boxed: gamemodes/Boxed/index.md
-        - CaveBlock: gamemodes/CaveBlock/index.md
+            - 命令: gamemodes/AOneBlock/Commands.md
+            - 权限: gamemodes/AOneBlock/Permissions.md
+            - 占位符: gamemodes/AOneBlock/Placeholders.md
+        - BSkyBlock:
+            - 概览: gamemodes/BSkyBlock/index.md
+            - 命令: gamemodes/BSkyBlock/Commands.md
+            - 权限: gamemodes/BSkyBlock/Permissions.md
+            - 占位符: gamemodes/BSkyBlock/Placeholders.md
+        - Boxed:
+            - 概览: gamemodes/Boxed/index.md
+            - 命令: gamemodes/Boxed/Commands.md
+            - 权限: gamemodes/Boxed/Permissions.md
+            - 占位符: gamemodes/Boxed/Placeholders.md
+        - CaveBlock:
+            - 概览: gamemodes/CaveBlock/index.md
+            - 命令: gamemodes/CaveBlock/Commands.md
+            - 权限: gamemodes/CaveBlock/Permissions.md
+            - 占位符: gamemodes/CaveBlock/Placeholders.md
         - ChunkBlock:
             - 概览: gamemodes/ChunkBlock/index.md
             - 认领区块: gamemodes/ChunkBlock/Chunks.md
@@ -38,9 +64,20 @@ nav:
             - 命令: gamemodes/ChunkBlock/Commands.md
             - 权限: gamemodes/ChunkBlock/Permissions.md
             - 占位符: gamemodes/ChunkBlock/Placeholders.md
-        - Poseidon: gamemodes/Poseidon/index.md
-        - SkyGrid: gamemodes/SkyGrid/index.md
-        - Stranger Realms: gamemodes/StrangerRealms/index.md
+        - Poseidon:
+            - 概览: gamemodes/Poseidon/index.md
+            - 命令: gamemodes/Poseidon/Commands.md
+            - 权限: gamemodes/Poseidon/Permissions.md
+            - 占位符: gamemodes/Poseidon/Placeholders.md
+        - SkyGrid:
+            - 概览: gamemodes/SkyGrid/index.md
+            - 命令: gamemodes/SkyGrid/Commands.md
+            - 权限: gamemodes/SkyGrid/Permissions.md
+            - 占位符: gamemodes/SkyGrid/Placeholders.md
+        - Stranger Realms:
+            - 概览: gamemodes/StrangerRealms/index.md
+            - 命令: gamemodes/StrangerRealms/Commands.md
+            - 权限: gamemodes/StrangerRealms/Permissions.md
         - TradeWinds:
             - 概览: gamemodes/TradeWinds/index.md
             - 水手手册: gamemodes/TradeWinds/Gameplay.md
@@ -48,6 +85,7 @@ nav:
             - 权限: gamemodes/TradeWinds/Permissions.md
             - 占位符: gamemodes/TradeWinds/Placeholders.md
     - 附属:
+        - "什么是附属？": BentoBox/About/Addons.md
         - 银行: addons/Bank/index.md
         - 生态群落: addons/Biomes/index.md
         - 边界: addons/Border/index.md
@@ -74,21 +112,31 @@ nav:
         - 访问: addons/Visit/index.md
         - 虚空传送门: addons/VoidPortals/index.md
         - 传送点: addons/Warps/index.md
-    - "教程 – 通用":
-        - "前30分钟": BentoBox/First-Steps.md
-        - "如何安装": BentoBox/Install-Bentobox.md
-        - "将BentoBox世界设置为服务器的默认世界": BentoBox/Set-a-BentoBox-world-as-the-server-default-world.md
-        - "数据库转移": BentoBox/Database-transition.md
-        - "自定义 GUI": Tutorials/generic/Customizable-GUI.md
-        - "更大的创建岛屿菜单": Tutorials/generic/Bigger-Create-Island-Menu.md
-    - "教程 – API":
+    - 参考:
+        - 命令: BentoBox/Commands.md
+        - 权限: BentoBox/Permissions.md
+        - 标志: BentoBox/Flags.md
+        - 占位符: BentoBox/Placeholders.md
+        - "物品格式": BentoBox/ItemParser.md
+        - "BentoBox 文件夹": BentoBox/List-of-BentoBox-directories.md
+        - "BentoBox 发布说明": BentoBox/Release-Notes.md
+    - 常见问题解答: FAQ.md
+    - 开发者:
+        - "开发者概览": BentoBox/Developer-Documentation.md
         - "创建一个附属": Tutorials/api/Create-an-addon.md
+        - "addon.yml 文件": BentoBox/How-to-fill-in-the-addon_yml-file.md
+        - "创建游戏模式": BentoBox/Creating-a-Game-Mode.md
         - "配置API": BentoBox/Config-API.md
         - "数据库API": BentoBox/Database-API.md
         - "元数据API": BentoBox/MetadataAPI.md
         - "模板面板API": Tutorials/api/Templated-Panel.md
         - "蓝图文件格式": BentoBox/Blueprint-Format.md
         - "从附属获取数据": BentoBox/Request-Handler-API---How-plugins-can-get-data-from-addons.md
+    - 关于项目:
+        - 贡献指南: BentoBox/Contributing.md
+        - "行为准则": BentoBox/CodeOfConduct.md
+        - "AI 政策": BentoBox/AI-Policy.md
+        - 隐私政策: BentoBox/Privacy.md
 theme:
   name: material
   custom_dir: overrides

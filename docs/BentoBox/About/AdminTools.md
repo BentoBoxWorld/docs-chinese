@@ -1,301 +1,81 @@
 # 管理工具
 
-BentoBox 为服务器管理员提供了一系列工具来管理游戏、调查问题并保持一切顺利运行 — 无需手动编辑文件。
+BentoBox 有游戏内工具来查询岛屿、找出为什么某些东西被阻止，以及管理服务器，所以你很少需要手动编辑数据文件。这个页面涵盖你将最经常使用的工具；每个命令都在[命令参考](../Commands.md)中。
 
-## 管理面板
+!!! info "这个页面中的命令"
+    游戏模式管理员命令显示为 `/bsbadmin`（BSkyBlock）。改用你的游戏模式的管理员命令，例如 `/oba`（AOneBlock）、`/acid`（AcidIsland）或 `/cbadmin`（CaveBlock）。他们默认为仅操作员；参见[权限和 VIP 特权](../Permissions-Guide.md#staff-permissions)了解如何给予员工。
 
-主要管理中心是**管理面板**，通过以下方式打开：
-```
-/bentobox manage
-```
-（或其别名 `/bbox manage`）
+## 查询一个岛屿
 
-从这里你可以一目了然地查看所有运行的游戏模式、活跃岛屿和基本服务器健康状况。
-
-## `/bentobox` 指令
-
-所有顶级 BentoBox 管理都通过 `/bentobox`（别名 `/bbox`）进行：
-
-| 指令 | 作用 |
+| 我想要… | 命令 |
 |---|---|
-| `/bentobox version` | 显示 BentoBox 版本和所有已加载的插件。**报告 bug 时始终包括此内容。** |
-| `/bentobox manage` | 打开管理面板 GUI |
-| `/bentobox reload` | 重新加载 BentoBox 配置文件和地区，无需完全服务器重启 |
-| `/bentobox catalog` | 打开插件目录 |
-| `/bentobox perms` | 显示 BentoBox 和所有插件的有效权限 |
-| `/bentobox rank` | 列出、添加或移除自定义等级 |
+| 查看玩家岛屿的一切：所有者、团队、范围、家点、重置、死亡、禁止 | `/bsbadmin info <player>` |
+| 查看我所站的岛屿 | `/bsbadmin info` |
+| 查看玩家拥有的几个岛屿中的一个 | `/bsbadmin info <player> <island name>` |
+| 去玩家的岛屿（或其地狱/末地岛屿） | `/bsbadmin tp <player>`、`tpnether`、`tpend` |
+| 将玩家发送到别人的岛屿 | `/bsbadmin tpuser <player> <island owner>` |
+| 查看玩家在岛屿上的等级 | `/bsbadmin getrank <player>` |
+| 在游戏中显示岛屿的受保护区域 | `/bsbadmin range display` |
 
-## 每个游戏模式的管理员指令 { #per-game-mode-admin-commands }
+## 找出为什么某东西被阻止
 
-每个游戏模式都有自己的管理员指令。对于 BSkyBlock 是 `/bsb`，对于 AcidIsland 是 `/acid admin` 等。这些为你提供特定于该游戏模式的控制：
+当玩家说他们不能做某事（或能做他们不应该做的），打开 **why** 工具：
 
-| 指令 | 作用 |
+```
+/bsbadmin why <player>
+```
+
+然后要求玩家再试一次。控制台记录该玩家的每个保护检查：他们尝试做什么、在哪里、是否被允许、以及哪个标志或等级决定了它。再次运行同一命令来关闭它。玩家必须在线。
+
+大多数问题原来是一个标志为不同的等级而不是预期，或玩家在别人的岛屿上。参见[保护、标志与等级](../Island-Protection,-Flags-&-Ranks.md)。
+
+## 作为普通玩家行动
+
+具有绕过权限的操作员和版主忽略岛屿保护，这使测试混淆。**`/bsbadmin switch`** 关闭你的绕过，所以你像普通玩家一样受保护；再次运行以打开它。操作员状态本身不受影响。参见[绕过保护](../Island-Protection,-Flags-&-Ranks.md#bypass-the-protection)。
+
+## 修复一个岛屿
+
+| 我想要… | 命令 | 更多 |
+|---|---|---|
+| 改变玩家在岛屿上的等级 | `/bsbadmin setrank <player> <rank>` | [团队与等级](Teams.md) |
+| 添加或移除团队成员、改变所有者 | `/bsbadmin team add`、`team kick`、`team setowner` | [团队与等级](Teams.md#common-admin-tasks) |
+| 改变岛屿的设置 | `/bsbadmin settings <player>` | [保护、标志与等级](../Island-Protection,-Flags-&-Ranks.md) |
+| 使岛屿更大或更小 | `/bsbadmin range set <player> <range>` | [岛屿](IslandManagement.md#island-size-protection-range) |
+| 重置玩家的家点，或删除他们的家点 | `/bsbadmin resethome <player>`、`deletehomes <player>` | [岛屿](IslandManagement.md#homes) |
+| 清除岛屿的名称 | 站在其上，`/bsbadmin resetname` | [岛屿](IslandManagement.md#island-names) |
+| 给玩家重置回来 | `/bsbadmin resets reset <player>` | [岛屿](IslandManagement.md#resetting-islands) |
+| 删除、取消删除或重新分配岛屿 | `/bsbadmin delete`、`undelete`、`register` | [岛屿](IslandManagement.md#deleting-islands) |
+| 移动岛屿受保护区域的中心 | 站在那里，`/bsbadmin setprotectionlocation` | |
+| 重置每个岛屿的设置到配置默认值 | `/bsbadmin resetflags` | |
+| 使岛屿成为游戏模式的生成点 | 站在其上，`/bsbadmin setspawn` | |
+
+## 世界设置
+
+**`/bsbadmin settings`** 打开游戏模式的世界的管理员设置菜单：世界设置（如爬行者伤害或访客保留物品栏）、岛屿外的保护规则、新岛屿的默认值，以及玩家可以看到的岛屿设置。参见[管理员设置面板](../Island-Protection,-Flags-&-Ranks.md#admin-settings-panel)。
+
+## 管理 BentoBox
+
+| 命令 | 作用 |
 |---|---|
-| `/[admin] info <player>` | 显示玩家的岛屿的完整详细信息 |
-| `/[admin] delete <player>` | 删除玩家的岛屿 |
-| `/[admin] delete` | *(3.19.0)* 不带玩家参数时，在确认后软删除你**当前所站**的岛屿（如果该岛屿仍有队伍则会被拒绝） |
-| `/[admin] undelete` | *(3.19.0)* 在区域文件被清除之前，清除你**当前所站**岛屿的待删除状态，使其变为无主 |
-| `/[admin] register <player>` | 将无主岛屿注册给玩家。对于待删除的岛屿，现在会显示确认提示并取消删除，而不是拒绝操作 |
-| `/[admin] setrank <player> <rank> [island owner | x,y,z]` | *(3.23.0)* 设置队伍成员的等级；可在控制台使用。等级可以是关键词（`member`、`sub-owner`、`trusted`、`coop` 或任何不含 `ranks.` 前缀的附属等级）、翻译后的等级名称或其编号，不区分大小写；未知的等级会列出有效的选项。如果没有岛屿参数，它作用于玩家**所在**的岛屿（而不是他们拥有的岛屿），因此无法降级所有者。为了选择一个特定的岛屿，请说出该岛屿的所有者，或其中心坐标 `x,y,z`。拒绝设置 `owner`、`mod` 和 `admin` 等级 — 使用 `team setowner` 来转移所有权 |
-| `/[admin] setrange <player> <range>` | 更改玩家的岛屿保护范围 |
-| `/[admin] range removebonus <player> [id]` | 从单个岛屿移除所有奖励保护范围，或仅移除给定 id 的范围 |
-| `/[admin] range purgebonus <id>` | 从世界中的**每个**岛屿移除奖励范围 id — 理想情况下在卸载提供奖励范围的附属之后。扫描以异步运行，不会冻结大型服务器 |
-| `/[admin] settings` | 打开管理员的世界设置面板 |
-| `/[admin] settings <player>` | 打开特定玩家的岛屿设置面板 |
-| `/[admin] why <player>` | 开始跟踪为什么玩家可以或不可以做某事（见下文） |
-| `/[admin] reload` | 重新加载游戏模式的配置 |
-| `/[admin] blueprint` | 打开蓝图管理器 GUI |
+| `/bentobox version` | BentoBox、游戏模式和附属版本、服务器版本和数据库。**当你寻求帮助或报告 bug 时包括此内容。** |
+| `/bentobox manage` | 管理面板：你的游戏模式、附属和钩子（BentoBox 配合的其他插件）的选项卡，加上附属目录 |
+| `/bentobox catalog` | 浏览你可以下载的游戏模式和附属 |
+| `/bentobox reload` | 重新加载 BentoBox 的和附属的设置、语言文件和菜单模板 |
+| `/bsbadmin reload` | 重新加载一个游戏模式的设置 |
+| `/bentobox perms` | 打印每个命令权限及其默认值（控制台） |
+| `/bentobox locale` | 检查语言文件中缺失的翻译 |
+| `/bentobox placeholders` | 浏览占位符并打开或关闭他们。参见[占位符](../Placeholders.md) |
 
-确切的管理员指令前缀取决于游戏模式的配置。请查看游戏模式的文档以获取其特定指令。
+一些设置，如世界生成和 `distance-between-islands`，仅在完全重启后生效。
 
-## "Why" 诊断工具
+## 数据库
 
-最有用的管理员工具之一是 `why` 指令。如果玩家报告他们在岛屿上不能做某事（或他们*可以*做他们不应该做的事情），运行：
+BentoBox 在 BentoBox 的 `config.yml` 中设置的数据库中存储岛屿和玩家。默认是 BentoBox 文件夹中的 **JSON** 文件，不需要设置。对于较大的服务器，或多个共享数据的服务器，你可以使用 **MySQL**（5.7+）、**MariaDB**（10.2.3+）、**PostgreSQL**（9.4+）、**SQLite**（3.28+）或 **MongoDB**（3.6+）。
 
-```
-/[admin_command] why <player>
-```
+要改变数据库类型而不丢失数据，参见[改变数据库](../Database-transition.md)。始终先备份。
 
-之后，服务器控制台将记录该玩家采取的每个操作的原因 — 是否被允许或被阻止，以及哪个保护标志导致了它。这使得无需猜测即可轻松诊断配置错误的权限。
+## 另请参见
 
-要停止跟踪，再次运行该指令。
-
-## 管理员设置面板
-
-管理员设置面板（使用 `/[admin] settings` 打开）控制全球范围的默认值 — 适用于游戏模式世界中任何地方的设置，而不仅仅是一个岛屿。这包括：
-
-- 新岛屿的默认保护标志
-- 全球范围的限制（例如爬行者爆炸伤害、活塞行为）
-- 玩家设置面板的可见性设置（隐藏你不想让玩家改变的标志）
-
-有关标志系统的完整说明，请参阅[保护](Protections.md)。
-
-## 基于权限的控制
-
-BentoBox 在很大程度上基于权限。几乎所有内容 — 从玩家可以拥有多少个家园，到他们是否可以飞行，再到他们的岛屿的大小 — 都可以通过通过你的权限插件（例如 LuckPerms）给予或扣除权限来控制。
-
-!!! tip
-    在控制台中运行 `/bentobox perms` 以查看 BentoBox 及其插件注册的所有权限的列表，采用 YAML 格式。这对于配置你的权限插件很有用。
-
-## 数据库管理
-
-BentoBox 支持多个数据库后端来存储岛屿和玩家数据：
-
-- **JSON（平面文件）** — 默认值；易于设置，无需额外软件
-- **MySQL** (5.7+)
-- **MariaDB** (10.2.3+)
-- **MongoDB** (3.6+)
-- **SQLite** (3.28+)
-- **PostgreSQL**
-
-数据库类型在 BentoBox 的 `config.yml` 中设置。要在不丢失数据的情况下从一个数据库类型迁移到另一个数据库类型，请使用：
-```
-/bentobox migrate
-```
-
-!!! warning
-    迁移数据库前始终进行完整备份。
-
-## 不重启即重新加载
-
-更改配置文件后，你可以在不完全重启服务器的情况下应用它：
-```
-/bentobox reload
-```
-这将重新加载 BentoBox 和所有插件，包括地区。请注意，某些更改（如世界生成设置）始终需要完全重启才能生效。
-
-## 更新日志
-
-!!! note "v3.23.6 新内容 —— 始终允许的实体类型与蓝图加载修复"
-    **发布于：** 2026-11-07
-
-    没有 `config.yml` 变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
-
-    - 🔡 **始终允许的实体类型（`ALLOW_MOBS`）。** 每个游戏模式的管理员设置面板中新增一个世界设置（铁锭图标），列出即使关闭了动物或怪物生成也仍会生成的实体类型，在世界和岛屿层面均适用。铁傀儡默认在列表中，因此村庄刷铁机可以继续工作。如果某个类型同时出现在两个列表中，**限制实体类型生成**阻止列表仍然优先。权限：`[gamemode].admin.settings.ALLOW_MOBS`。参见[生物生成优先级](Protections.md#mob-spawning-precedence)。
-    - 🔺 **"所有蓝图已加载"可能不会触发。** 当多个游戏模式同时加载蓝图时，BentoBox 可能漏掉一次完成通知，从而永远无法进入就绪状态，导致附属的 `allLoaded()` 钩子、需等待就绪的指令以及 `BentoBoxReadyEvent` 都不会运行。此问题已修复，另外还修复了四个相关的主线程/异步竞争问题。
-    - 📊 **bStats：** 失败的指令现在会把玩家看到的语言键作为原因上报，并按服务器计数；新的 `worldSize` 图表以区间形式报告岛屿世界在磁盘上的大小。
-    - 修复了新的核心世界设置存储在首次运行时误报的 `File not found` 日志。
-
-    🔺 **刷铁机：** 如果之前为了阻止铁傀儡而关闭了动物生成，铁傀儡现在会重新生成。要恢复旧行为，请从"始终允许的实体类型"中移除铁傀儡。
-
-    🔺 **新的数据存储：** 允许列表由 BentoBox 按游戏模式保存，而不是保存在游戏模式的 `config.yml` 中——平面文件数据库为 `plugins/BentoBox/database/CoreWorldSettings/<GameMode>.json`，SQL/Mongo 为 `WorldSettings` 表。
-
-    🔡 **语言文件注意：** 新增了 `protection.flags.ALLOW_MOBS` 下的键（`name`、`description`、`always`、`flags`）。缺少这些键的自定义语言文件会直接显示键名。
-
-    [发布 v3.23.6](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.6)
-
-??? note "v3.23.5 新内容 —— 硫磺立方 TNT 保护与 `/island go` 下划线"
-    **发布于：** 2026-10-31
-
-    一个 bug 修复版本。没有 `config.yml`、地区或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
-
-    - 🔺 **硫磺立方的爆炸现在遵循 TNT 标志。** 吸收了 TNT 的硫磺立方会以自身而非点燃的 TNT 爆炸，因此不会经过 `TNT_DAMAGE` 检查，可能在关闭了 TNT 伤害的岛屿上摧毁建筑。现在其爆炸在岛屿上遵循 `TNT_DAMAGE`，在岛屿外遵循 `WORLD_TNT_DAMAGE`，对方块伤害和实体伤害均适用。玩家用打火石或火焰弹点燃硫磺立方时，会像 TNT 方块一样检查 `TNT_PRIMING`。由红石、发射器或其他爆炸引发的点燃没有对应玩家，因此 `TNT_PRIMING` 无法适用，但爆炸仍遵循 `TNT_DAMAGE`。Minecraft 26.2 之前的服务器没有硫磺立方，因此不受影响。
-    - 🐛 **`/island go` 将下划线视为空格。** `/island go happy_place` 现在能找到名为 `Happy Place` 的家园。精确匹配仍然优先，匹配到多个目的地的名称会被拒绝而不是猜测。参见[找到正确的家园](IslandManagement.md#finding-the-right-home)。
-
-    **AOneBlock 注意：** AOneBlock 默认设置为 `TNT_DAMAGE: true`，因此除非你将其设为 `false`，否则那里的硫磺立方爆炸仍会造成伤害。
-
-    [发布 v3.23.5](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.5)
-
-??? note "v3.23.4 新内容 —— 安全的末地到达与面板中的物品栏使用"
-    **发布于：** 2026-10-17
-
-    一个 bug 修复版本。没有 `config.yml`、地区或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
-
-    - 🐛 **末地传送门不再把玩家掉进虚空。** 使用 `create-obsidian-platform: false` 时，无论是否有地面，玩家都被直接发送到门户目标。不安全的末地到达现在去最近的安全位置，然后最高的方块，然后是一个小平台。当玩家站在门户内时，重复的门户事件被取消，所以他们不会被发送到原版末地重生点。已经安全的到达仍然会立即传送，启用平台时没有任何变化。安全位置的小平台现在将玩家放在方块的中心。
-    - ✨ **当面板打开时使用自己的物品栏。** 玩家可以在 BentoBox 面板（如 `/island settings`）打开时在自己的物品栏中拾起、放置、交换和丢弃物品（Q / Ctrl+Q）并使用包裹。Shift 点击、双击收集和触及面板槽的拖动保持被阻止，所以物品无法进入面板。
-    - 🧩 **附属 API：** `PanelListener` 有一个新的默认方法 `allowsPlayerInventoryClicks()`，返回 `false`，所以带有监听器的面板（如 Challenges 和 Biomes 中的图标选择器）表现如前。返回 `true` 来选择加入。见[模板化面板](../../Tutorials/api/Templated-Panel.md#listener-method)。`Addon.getConfig()` 现在在附属没有 `config.yml` 时返回空配置而不是 `null`，所以 `saveConfig()` 不再抛出异常。
-
-    [发布 v3.23.4](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.4)
-
-??? note "v3.23.3 新内容 —— 黑曜石挖取复制修复与命令等级面板"
-    **发布于：** 2026-10-03
-
-    一个 bug 修复和面板版本。没有 `config.yml` 或地区变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
-
-    - 🐛 **黑曜石挖取复制已修复。** 使用 OBSIDIAN_SCOOPING 时，熔岩在点击后一个刻度后被发出，没有重新检查，所以在那个刻度内挖掉黑曜石就会同时获得黑曜石和熔岩，而且将桶移出手可能会不消耗桶而获得熔岩。现在都会重新检查。**建议每个启用了 OBSIDIAN_SCOOPING 的服务器都进行更新。**
-    - ⚙️ **可自定义的命令等级面板。** 由新的 `panels/command_ranks_panel.yml` 布局（首次启动时写入；游戏模式自己的副本优先），带有 `COMMAND`、`NEXT` 和 `PREVIOUS` 按钮。现在在 45 个命令时分页 — 老面板会悄悄丢掉第 49 个命令之后的每个命令。见[自定义命令等级面板](../Island-Protection,-Flags-&-Ranks.md#customizing-the-command-ranks-panel)。
-    - ✨ **设置面板改进。** `/island settings` 在玩家最后选择的基础/高级/专家模式下打开，保护和设置标签页共享一种模式（管理面板仍然在专家模式下打开）。命令等级隐藏玩家没有权限的子指令（op 仍然看到一切）。破坏生成器图标不再显示原版的生成蛋工具提示。
-    - 🐛 **Multiverse `auto-load` 被尊重。** 从 3.22.0 开始，Multiverse 钩子在每次启动时重置 BentoBox 世界的 `auto-load: false`。现在它仅在 BentoBox 首次导入一个世界时设置；现有的 Multiverse 条目保持配置的样子。
-    - 🧩 **附属 API：** 管理员 `deaths set|add|remove|reset` 指令触发 `PlayerDeathsChangedEvent`（世界、玩家、操作、数量、旧值和新值计数），所以 Level 可以跟踪管理员的改动。不为自然死亡触发。
-
-    [发布 v3.23.3](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.3)
-
-??? note "v3.23.1 新内容 —— Minecraft 26.3 与模板驱动的设置面板"
-    **发布于：** 2026-09-25
-
-    兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
-
-    - 🎮 **Minecraft 26.3"荒野束缚"支持。** 新的垫子由现有旗标保护 — 放置需要 PLACE_BLOCKS，击中或射击需要 BREAK_BLOCKS，坐下需要 RIDING — 而草床由 BED 保护，所以访客无法再睡在（和用掉）岛屿的草床。没有新旗标。发布时，Paper 26.3 仅作为 alpha 构建提供（在构建 41 上测试）。
-    - ⚙️🔡 **可自定义的设置面板。** `/island settings` 和 `/admin settings` 由 `panels/settings_panel.yml` 和 `panels/admin_settings_panel.yml` 构建，首次启动时写入。标签页布局、固定旗标、面板标题和旗标的 lore 顺序可以自定义；默认值看起来完全像老面板。见[自定义设置面板](../Island-Protection,-Flags-&-Ranks.md#customizing-the-settings-panel)。
-    - 🐛 **已删除的岛屿不再计入玩家。** 在重置或 `/[admin] delete` 后，岛屿在重启前停留在每个玩家的索引中，这阻止了转移（"玩家已经拥有 N 个岛屿"）并混淆了 `/[admin] delete`。
-    - 🐛 模板按钮的 `fallback:` 记录现在正确呈现。
-
-    🔡 **地区注意。** 一个新键 `panels.settings.title` 单独从标签页名称设置设置面板标题。没有它的自定义地区文件会回退到捆绑的文本。旗标 lore 布局（`protection.panel.flag-item.description-layout`）现在可以使用 `[ranks]` 和 `[tooltips]` 占位符，但除非你选择加入，否则不变。
-
-    [发布 v3.23.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.1)
-
-??? note "v3.23.0 新内容 —— 控制台就绪的 setrank"
-    **发布于：** 2026-09-19
-
-    兼容性：Paper Minecraft 1.21.x – 26.2，Java 25+。
-
-    - 🔡 **`/[admin] setrank` 可在控制台使用。** 新语法 `/[admin] setrank <player> <rank> [island owner | x,y,z]`，向后兼容。等级可以由关键词、翻译后的名称或编号给出；当玩家拥有一个岛屿并是另一个的成员时，会选择正确的岛屿；岛屿可以由其中心命名。制表符补全偏移了一个，现在已修复。受影响的玩家会被告知他们的等级改变了 — 见上面的[指令表](#per-game-mode-admin-commands)。
-    - 💡 **行为改变：** 没有岛屿参数时，`setrank` 现在作用于玩家**所在**的岛屿而不是他们自己的岛屿，所以它不能再意外地降级所有者。拒绝设置 `owner`，并指向 `setowner`。
-    - 🐛 **元数据控制台垃圾邮件已修复。** 玩家和岛屿元数据映射现在是线程安全的。损坏的映射以前在每次玩家移动时抛出 `NoSuchElementException`（通过 Border 看到），直到重启。
-
-    🔡 **地区注意。** `commands.admin.setrank` 获得 `cannot-set-owner`、`already-rank` 和 `admin-changed-rank`；`unknown-rank` 现在接受 `[rank]` 和 `[ranks]`。所有 24 个捆绑地区都已更新；将新键添加到任何自定义地区文件。
-
-    [发布 v3.23.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.0)
-
-??? note "v3.22.4 新内容"
-    **发布于：** 2026-09-06
-
-    一个 bug 修复和性能版本。兼容性：Paper Minecraft 1.21.x – 26.2，Java 25+。
-
-??? note "v3.22.3 新内容 —— bStats 退出选项与 Paper 26.2"
-    **发布于：** 2026-08-22
-
-    主要是一个 bug 修复和 API 版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-
-    - ⚙️ **bStats 指标退出选项。** `config.yml` 中新增 `general.metrics` 选项（默认为 **`true`**）允许你禁用 BentoBox 的匿名、汇总使用统计，而无需触及 `plugins/bStats/config.yml` 中的全局开关。设置为 `false` 并**重启** —— 收集器在启动时注册，所以 `/bbox reload` 是不够的。从不发送个人数据；见[隐私与数据收集](../Privacy.md)。
-    - 🔺 **针对 Paper 26.2 和 Adventure 5 构建。** 附属作者：Adventure 5 封闭了 `Component`（Mockito 不再能模拟它）并将 `ClickEvent.value()` 替换为 `payload()`。已部署在 26.2 服务器上的附属可能会在运行时受到影响；针对 BentoBox 3.22.3 重新编译会在编译时显示任何问题 —— 见 [PR #3067](https://github.com/BentoBoxWorld/BentoBox/pull/3067) 了解完整的删除清单。服务器管理员无需做任何事情。
-    - 🔲 **附属开发者的对话框网格布局。** `DialogBuilder#columns(int)` 将多操作对话框的按钮排列成网格而不是默认的两列列表，`DialogButton` 获得宽度（1–1024）加上 `withWidth(int)`。现有调用者不受影响。
-    - 🐛 **玩家头部 429 垃圾邮件已修复。** 打开带有玩家头部的面板（例如前十列表）可能会用来自 `sessionserver.mojang.com` 的 HTTP 429 错误填充控制台，因为没有纹理数据的头部在每次打开时都会重新解析。没有纹理的头部现在退化为普通头部，失败的获取不再驱逐已经工作的缓存头部。
-    - 🐛 **YAML 数字加载到声明的字段类型中。** 像 `20` 这样的配置值如果不带小数点写入，现在可以正确加载到 `double`、`float` 和 `long` 字段中，而不是抛出 `ClassCastException`。
-    - 🐛 **面板中的文字颜色名称。** 管理面板在颜色重构后显示像 `whiteChallenges` 这样的附属名称；已修复。
-    - 📄 为 `.blueprint` 和蓝图包文件格式发布了 JSON 模式（2020-12 草案）。
-
-    [发布 v3.22.3](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.22.3)
-
-??? note "v3.22.2 新内容"
-    **发布于：** 2026-08-10
-
-    3.22.0 的 bug 修复补丁 —— 没有新功能、配置键或地区变化；即插即用替换。不存在 3.22.1 版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-
-    - 🔺 🐛 **玩家名称查询解析到正确的账户。** `/[player_command] team trust <name>` 和 `/[player_command] info <name>` 可能会无声地为一个几个月前就没有持有该名称的 UUID 应答：数据库中的被替换名称记录从未删除，查询取第一个匹配。名称现在会被忽略大小写进行匹配，陈旧记录会被删除，在线玩家会被优先检查。**在更新前进行备份** —— 现有数据库在玩家登录时自我修复（清除每次重命名运行一次，不是每次加入运行一次），不需要手动迁移。
-    - 🐛 **基岩玩家再次可以使用面板。** Geyser 会将一次轻敲扩展为同一刻内的多个 Java 点击数据包，而 `panel.click-cooldown-ms` 检查在 3.22.0 中引入，它吞噬了重要的那个 —— 每次轻敲都得到 `slow-down`，什么也不会发生。同一刻的点击现在被视为一个手势；垃圾邮件防护在每刻一个有行为的点击时保持不变。
-    - 🐛 **被禁用的附属不再留下损坏的指令。** 由于缺少依赖而被丢弃的游戏模式（例如没有 Level 的 ChunkBlock）保留其注册的指令，每个子指令都抛出 NPE。指令、标志和监听器现在在附属启用失败时都被撤回。
-    - 🐛 **从标准下界返回时落地在你自己的岛屿上。** 在共享的下界和 `create-and-link-portals: false`（AOneBlock 的默认值）的情况下，通过传送门回来的玩家被倾倒在坐标 0,0 附近的岛屿上。目的地现在回退到岛屿的家园位置。
-
-    [发布 v3.22.2](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.22.2)
-
-??? note "v3.22.0 新内容 —— Brigadier 指令"
-    **发布于：** 2026-08-01
-
-    一个围绕指令与可见性的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-
-    - ⚙️ 🔺 **指令改为通过 Paper 的 Brigadier API 注册。** 玩家现在在*输入过程中*就能看到 BentoBox 的子指令和补全 —— 输入 `/island t…` 时聊天栏里就会给出 `team`，而不必像以前那样，直到按下回车或 TAB 之前客户端一无所知。子指令树会向客户端通告到第 4 层；更深的子指令仍然可用，只是不会被预先通告。别名和 `plugin:label` 形式以重定向的方式发送，而不是复制整棵树。`config.yml` 中新增了 `general.brigadier-commands` 选项，默认**开启**；如果与其他插件冲突，把它设为 `false` 并执行 `/bbox reload` 即可回退到旧的指令映射方式。如果无法挂接注册器，BentoBox 也会自动回退。
-    - 🔺 **不生成结构的世界会自动抑制结构搜索。** 制图师村民触发探险家地图交易时 —— 末影之眼、海豚和藏宝图同样如此 —— 会执行一次同步的结构搜索。在虚空世界中它永远不可能成功，于是会一直扫描到半径上限，并超过 60 秒的看门狗时限。BentoBox 现在会询问世界的生成器是否会放置结构，如果不会就跳过搜索，**无需任何配置**。AOneBlock 和 BSkyBlock 自动获得这项保护；SkyGrid、Boxed、CaveBlock 和 AcidIsland 会生成结构，因此不受影响。逐世界的 `structures` 配置项设为 `true` 仍可强制启用某个结构，为含有既有结构的转换世界留了一条后路。这与 3.20.0 中新增的、需要主动启用的 `world.disabled-structures` 列表相辅相成。
-    - **`/island settings` 现在在野外也能打开。** 不站在任何岛屿上、也不拥有岛屿的玩家以前只会得到“你没有岛屿！”。现在面板会照常打开，并显示一个只读的**世界保护**标签页，列出该世界中每个保护旗标是启用还是禁用 —— 这正是玩家所站之处真正生效的规则。参见[保护](Protections.md#viewing-the-world-rules-off-island)。
-    - 🐛 **关服过程中排队的附属数据不再被丢弃。** 附属在 `onDisable()` 中保存的内容会被排入一条已经停止排空的数据库管道，因此每次重启都会静默且断续地丢失数据。有九个随包附属会在禁用时保存状态：Boxed、AOneBlock、Raft、Challenges、Limits、DragonFights、CheckMeOut、ControlPanel 和 InvSwitcher。在 InvSwitcher 上，陈旧的已存物品栏还会在玩家加入时被重新应用，这就不只是丢失写入，而是一次回档。关服时的写入现在会在数据库关闭之前排空。
-    - 🐛 **NPC、告示牌和 GUI 插件又能执行 BentoBox 指令了。** Brigadier 注册把 BentoBox 的指令从其他插件用来派发指令的 Bukkit 指令映射中挤了出去，因此 NPC 执行 `/oneblock go` 时只会返回服务器的无权限提示，什么也不会执行。现在指令也会注册到指令映射中。此问题只影响过 3.22.0 的开发版本。
-    - 🐛 **`Island.setFlag` 不再丢弃写入。** 对一个尚未记录该旗标的岛屿设置保护等级 —— 也就是每一个刚创建的岛屿 —— 以前会静默地什么都不做。`SETTING` 和 `WORLD_SETTING` 旗标不受影响。
-    - 🐛 **重复警告会保持限流。** 在两条不同的限制提示之间来回触发的玩家，以前可以完全绕过 4 秒的通知冷却。现在每条不同的消息都会被独立限流。
-    - 🐛 **BlueMap 标记集只留在自己的世界里。** 附属创建的标记集不会再出现在服务器上其他每一张地图的侧边栏中，`createMarkerSet()` / `removeMarkerSet()` 也不会再在 `/bluemap reload` 期间抛出异常。
-    - 🐛 **Multiverse 清理。** 即使 Multiverse 已经知道某个 BentoBox 世界，现在也会为其设置 `auto-load: false`；已废弃的种子世界（`<world>/bentobox`）注册也已移除。已有的残留条目仍需用 `/mv remove` 清除。
-    - 🐛 **因缺少依赖而被丢弃的附属，其旗标会被清理。** 硬依赖缺失的附属在被丢弃之前就已经注册了旗标和监听器，导致监听器持续针对一个从未存在过的世界触发。
-    - **六张新的 bStats 图表**报告附属与游戏模式的版本、附属的 API 级别、被改离默认值的设置，以及指令在何处、以何种方式失败。只提交失败类型和一个由权限推导出的稳定指令键，绝不包含参数或玩家名。
-    - 🔡 **新增繁体中文（`zh-TW`）语言文件**，由 @qwe664 贡献。现有语言键没有变动，因此自定义语言文件无需处理。
-
-    [发布 v3.22.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.22.0)
-
-??? note "v3.21.0 新内容 — 模态对话框"
-    **发布于：** 2026-07-22
-
-    一个提升玩家体验的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-
-    - ⚙️ 🔡 **为高摩擦流程引入模态对话框。** 敏感指令的确认、`/island go` 的目的地选择器、队伍邀请，以及首次加入时的游戏模式选择器，现在都可以显示为真正的模态对话框——玩家不会看错，也无法一划而过。`config.yml` 中新增的 `island.dialogs` 小节为每个流程提供一个开关：`confirmations`、`go-picker` 和 `team-invites` **默认开启**，`game-mode-selection` **默认关闭**，因为它天生就具有打断性。对话框需要 Minecraft 26+ 的服务端；在更旧的版本上，所有开关都会被忽略并沿用经典的聊天/指令行为，因此无需做任何处理。
-    - **更宽容的 `/island go` 匹配。** `/island go myisland`、`hom`，以及大小写不对或中间多打了一个空格的名称，现在都会把玩家传送到他想去的地方，而不是因为精确匹配失败而抛出完整的目的地清单。参见[家园位置](IslandManagement.md#home-locations)。
-    - 🔡 **本地化说明：** 全部 22 个内置本地化文件都新增了对话框相关的键（`general.dialogs.*`，以及确认指令、`island go` 和队伍邀请指令下的对话框与选择器键）。请重新生成或更新任何自定义本地化文件。
-    - 🔧 **插件开发者**可以使用与核心相同的 `world.bentobox.bentobox.api.dialogs` API——参见[模态对话框](../Developer-Documentation.md#modal-dialogs)。
-
-    [发布 v3.21.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.21.0)
-
-??? note "v3.20.0 新内容 — 指令建议与核心结构抑制"
-    **发布于：** 2026-07-11
-
-    一个提升使用体验的版本。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。除非你主动启用，否则升级后行为不变。
-
-    - 🔡 ⚙️ **"你是不是想输入"指令建议。** 输错的指令（如 `/teams` 或 `/island invit Floris`）现在会给出最接近的 BentoBox 指令——可点击，或在 30 秒内输入 `yes`/`y` 接受——而不再直接抛出帮助文本。建议会匹配所有指令树中的标签和别名，按权限过滤，并根据玩家所在的游戏模式世界来消除歧义。`config.yml` 中 `general.did-you-mean` 下新增两个开关 `unknown-commands` 和 `subcommands`，两者都**默认开启**；将任一项设为 `false` 并执行 `/bbox reload` 即可禁用。
-    - ⚙️ 🔺 **面向所有游戏模式的核心原版结构抑制。** 禁用某个原版结构现在是一项核心设置，不再需要逐个附属去处理。`config.yml` 中新增的 `world.disabled-structures` 列表（应用于每个 BentoBox 主世界/下界/末地）会阻止所列结构生成，**并**在结构搜索中跳过它们——`/locate`、末影之眼、探险家/藏宝图、海豚以及村民制图师交易——从而修复长期存在的 `/locate` 主线程冻结问题和出生点附近的结构泄漏。键名对大小写和分隔符不敏感（`trial_chambers`、`ancient-city`）。游戏模式可以逐结构覆盖该列表。**该列表默认为空，因此在你主动启用之前行为不变。**
-    - 🔌 **Nexo 钩子。** BentoBox 现在可以放置和检测 [Nexo](https://nexomc.com/) 自定义方块和物品，与其他自定义物品集成并列。
-    - 🔌 **Oraxen 方块放置。** `OraxenHook.placeBlock` 向附属公开 Oraxen 自定义方块放置能力，与其他自定义方块钩子相匹配。
-    - 🔡 **本地化说明：** 所有 22 个内置本地化文件都新增了三个 `general.did-you-mean` 键，且在每个非英文文件中补全了此前缺失的键 `commands.admin.team.setowner.specify-island`。请重新生成或更新任何自定义本地化文件。
-
-    [发布 v3.20.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.20.0)
-
-??? warning "v3.19.0 新内容 — 现在会遵循床/重生锚的重生点"
-    **发布于：** 2026-07-08
-
-    兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-
-    - 🔡 **新增 `FISHING` 保护标志。** 阻止玩家从岛屿外向受保护区域内钓鱼（该标志检查鱼钩的位置）。默认为访客等级，因此在你提高它之前不会有任何变化。
-    - 🔺 **现在会遵循床和重生锚的重生点。** 当床或已充能的重生锚位于你作为成员的岛屿上时，在岛屿上死亡现在会将你重生到那里。由新的 `BED_ANCHOR_RESPAWN` 世界设置控制（**默认启用**）；希望保留旧的"始终在岛屿家园重生"行为的经济敏感型服务器应将其禁用。
-    - 🐛 **末地出口传送门不再把你丢到世界出生点。** 在多游戏模式服务器上，跳入末地出口传送门现在会将你送往安全的岛屿家园。
-    - 🐛 **物品展示框和画在蓝图中得以保留。** 展示框保持其朝向和内容，画恢复其图案，而不是脱落或朝向错误的方向。
-    - 🔡 **恢复待删除的岛屿。** 新增 `/[admin] undelete`、站立式 `/[admin] delete`（不带玩家参数）以及 `/[admin] register` 上的确认提示，现在可以在区域文件被清除之前拯救软删除的岛屿（见上面的"每个游戏模式的管理员指令"表）。
-    - ⚙️ **BlueMap 岛屿图层在重载后得以保留。** 拥有者标记和区域框在 `/bluemap reload` 后不再消失。`config.yml` 中新增的 `bluemap` 部分添加了 `island-markers` 和 `island-areas` 开关（两者都默认为 `true`），与 Dynmap 开关相对应，还包括标记自定义。
-    - ⚙️ **可配置的队伍面板按钮图标 + 成员/候选人文本。** 队伍面板中的 STATUS、RANK 过滤和 INVITE 按钮现在遵循 `team_panel.yml` 中设置的 `icon:`，成员/候选人按钮的名称和描述现在由本地化键驱动。默认值完全重现之前的外观。
-    - ⚡ **设置 GUI 的连击不再导致 MSPT 飙升。** 通过原地刷新面板和翻译缓存，连点 `/is settings` 从约 30–40 MSPT 降至可忽略不计。
-
-    [发布 v3.19.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.19.0)
-
-??? warning "v3.18.0 新内容 — Minecraft 26.2 支持需要 Java 25（服务器）"
-    **发布于：** 2026-06-27
-
-    - 🔺 **Minecraft 26.2 支持 + Java 25。** BentoBox 现在运行在 Minecraft 26.x 系列上（运行时支持 26.2），构建已迁移到 Java 25 工具链。**你的服务器必须运行在能够支持 Java 25 的 Paper 26.x 构建上。** 已构建的附属 jar 保持不变 — 只有重新编译此版本的附属*开发者*需要将他们自己的构建迁移到 Java 25。兼容性：Paper Minecraft 1.21.5 – 26.2，Java 25+。
-    - ⚙️ **Dynmap 岛屿标记/区域切换。** `config.yml` 中的新 `dynmap` 部分添加了 `island-markers`（每个岛屿中心的房屋图标）和 `island-areas`（保护区域边框框）开关。两者都默认为 `true`，保持现有行为；将任一项设置为 `false` 并运行 `/bbox reload` 以在岛屿密集时隐藏地图上的这些叠加层。
-    - **管理员范围奖励管理。** 新增 `/[admin] range removebonus` 和 `/[admin] range purgebonus` 指令用于清除单个岛屿或每个岛屿的奖励保护范围 — 理想情况下在卸载提供奖励范围的附属之后（见上面的"每个游戏模式的管理员指令"表）。
-    - 🐛 `/is team setowner` 在转移给现有队伍成员时不再被岛屿限制所阻挡。
-    - 🐛 Vault 钩子现在在附属启用后重试，修复了依赖加载顺序的经济集成。
-
-    [发布 v3.18.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.18.0)
-
-??? note "v3.18.1 新内容"
-    **发布于：** 2026-07-01
-
-    维护版本。
-
-    - 🐛 **多行物品栏名称 & 名称保持颜色。** GUI 工具提示的第一行之后的文本不再回退到默认紫色 — 序列化程序现在在每个换行符后重新发射活跃颜色（和装饰），修复了所有附属中的工具提示。
-
-    [发布 v3.18.1](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.18.1)
+- [命令参考](../Commands.md)
+- [权限和 VIP 特权](../Permissions-Guide.md)
+- [BentoBox 发布说明](../Release-Notes.md)
