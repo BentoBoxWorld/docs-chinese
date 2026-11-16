@@ -381,7 +381,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     你可以在此插件的 [addon.yml](https://github.com/BentoBoxWorld/Level/blob/develop/src/main/resources/addon.yml) 文件中找到完整的权限列表。
     如果下面的列表中确实缺少了什么,请告诉我们!
 
-## 占位符
+## 占位符 { #placeholders }
 
 {{ placeholders_source(source="Level") }}
 

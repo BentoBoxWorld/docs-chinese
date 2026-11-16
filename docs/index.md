@@ -15,13 +15,15 @@ hide:
 
   <div class="bb-cta-row">
     <a href="BentoBox/First-Steps" class="bb-btn bb-btn-primary">前 30 分钟入门 &rarr;</a>
+    <a href="FAQ" class="bb-btn bb-btn-ghost">常见问题与故障排查</a>
     <a href="gamemodes/Comparison" class="bb-btn bb-btn-ghost">选择游戏模式</a>
+    <a href="BentoBox/Player-Guide" class="bb-btn bb-btn-ghost">玩家指南</a>
     <a href="https://download.bentobox.world" class="bb-btn bb-btn-ghost">下载构建</a>
   </div>
 
   <div class="bb-stats">
     <div class="bb-stat">
-      <div class="bb-stat__n">1,400+</div>
+      <div class="bb-stat__n">1,600+</div>
       <div class="bb-stat__l">服务器</div>
     </div>
     <div class="bb-stat">
@@ -72,6 +74,64 @@ hide:
       <p class="bb-step-title">前 30 分钟</p>
       <p class="bb-step-body">从全新安装到玩家开始游玩：配置、附加功能、默认设置。</p>
       <a href="BentoBox/First-Steps" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADMIN GUIDES ───────────────────────────────────────────── -->
+<div class="bb-section">
+  <div class="bb-section-header">
+    <h2>管理员指南</h2>
+    <a href="BentoBox/Player-Guide" class="bb-section-link">为您的玩家提供的玩家指南 &rarr;</a>
+  </div>
+  <div class="bb-steps">
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">岛屿保护</span>
+      </div>
+      <p class="bb-step-title">保护、旗帜与排名</p>
+      <p class="bb-step-body">访客和队伍成员能在岛屿上做什么，以及世界其他地方的规则。</p>
+      <a href="BentoBox/Island-Protection,-Flags-&amp;-Ranks" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">队伍</span>
+      </div>
+      <p class="bb-step-title">队伍与排名</p>
+      <p class="bb-step-body">队伍规模、VIP 更大的队伍、信任与合作，以及玩家加入或离开时会发生什么。</p>
+      <a href="BentoBox/About/Teams" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">岛屿</span>
+      </div>
+      <p class="bb-step-title">岛屿</p>
+      <p class="bb-step-body">创建、重置和删除岛屿、家园，以及让玩家拥有多个岛屿。</p>
+      <a href="BentoBox/About/IslandManagement" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">蓝图</span>
+      </div>
+      <p class="bb-step-title">起始岛屿</p>
+      <p class="bb-step-body">构建玩家开始的岛屿并在创建岛屿菜单中提供选择。</p>
+      <a href="BentoBox/Blueprints" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">菜单</span>
+      </div>
+      <p class="bb-step-title">自定义菜单</p>
+      <p class="bb-step-body">更改队伍、设置、家园和其他菜单的标题、图标、布局和大小。</p>
+      <a href="Tutorials/generic/Customizable-GUI" class="bb-step-link">阅读指南 &rarr;</a>
+    </div>
+    <div class="bb-step-card">
+      <div class="bb-step-header">
+        <span class="bb-step-num">参考</span>
+      </div>
+      <p class="bb-step-title">命令与权限</p>
+      <p class="bb-step-body">每个 BentoBox 命令和权限，加上旗帜和占位符。</p>
+      <a href="BentoBox/Commands" class="bb-step-link">打开参考 &rarr;</a>
     </div>
   </div>
 </div>
@@ -178,7 +238,7 @@ hide:
     <div class="bb-sponsor-card">
       <p class="bb-card-eyebrow" style="color:oklch(0.78 0.13 220)">开源</p>
       <p class="bb-card-title">赞助 BentoBox</p>
-      <p class="bb-card-body">每一份贡献都让游戏持续运行、更新不断。免费开源，全球超过 1,400 台服务器正在使用。</p>
+      <p class="bb-card-body">每一份贡献都让游戏持续运行、更新不断。免费开源，全球超过 1,600 台服务器正在使用。</p>
       <div class="bb-btn-row">
         <a href="https://github.com/sponsors/tastybento" class="bb-btn bb-btn-sm bb-btn-ink">&#9829; GitHub 赞助</a>
         <a href="https://www.paypal.me/BentoBoxWorld" class="bb-btn bb-btn-sm bb-btn-ghost">PayPal</a>

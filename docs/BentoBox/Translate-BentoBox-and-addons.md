@@ -1,98 +1,64 @@
-## 可用语言
+# 翻译 BentoBox { #translating-bentobox }
+
+帮助翻译 BentoBox、其游戏模式和附属。要改变你自己的服务器上的消息，请参阅[语言和消息](About/Multilingual.md)。
+
+## 可用的区域 { #available-locales }
 
 {{ translations("BentoBox") }}
 
-## MiniMessage 格式
+## 如何帮助 { #how-to-help }
 
-BentoBox 对所有语言字符串使用 [MiniMessage](https://docs.advntr.dev/minimessage/format.html) 格式。这意味着你可以在翻译中使用 MiniMessage 标签来应用富文本格式。例如：
+翻译由 AI 帮助完成，所以大部分工作已完成，但 AI 会犯错。你能做的最有用的事情是纠正它们。
 
-```yaml
-my-message: "<green>欢迎来到岛屿！</green>"
-my-message: "<bold><red>警告！</red></bold> 发生了一些事情。"
-my-message: "<gradient:gold:yellow>岛屿名称</gradient>"
-```
+1. 在项目的 GitHub 存储库中找到区域文件，在 `src/main/resources/locales/` 下（例如 `fr.yml`）。下面的链接转到每个项目的翻译状态。
+2. 修复文本并打开拉取请求。要添加新语言，复制 `en-US.yml`，将其重命名为语言代码并翻译它。
+3. 或在 [Discord](https://discord.bentobox.world) 上报告错误，我们会修复它。
 
-旧版的 `§` 或 `&` 颜色代码仍向后兼容，加载时会自动转换为 MiniMessage 格式。
+[翻译工具](https://download.bentobox.world/translate.html)在你的浏览器中运行，可以帮助处理整个文件。翻译者获得特殊的社区徽章。
 
-## 消息传递标签
+翻译时：
 
-语言字符串可以通过特殊的内联标签控制消息的传递方式。当没有传递标签时，消息将以聊天形式发送（默认行为）。
+- **不要翻译方括号中的任何东西。** `[name]`、`[number]` 和 `[prefix_island]` 由 BentoBox 填入，必须保持英文。
+- **保留格式标签**，如 `<green>` 和传递标签，如 `[actionbar]`。请参阅[语言和消息](About/Multilingual.md#colours-and-formatting)。
+- **如果可以的话在服务器上测试它**，以检查文本在菜单和标题中是否适配。
+- **没有广告、谩骂或侮辱。** 我们在接受前检查每个文件。
 
-### `[actionbar]`
+## 游戏模式 { #game-modes }
 
-将消息作为**动作栏**消息发送（显示在快捷栏上方的文字）。
+- [AcidIsland](../gamemodes/AcidIsland/index.md#translations)
+- [AOneBlock](../gamemodes/AOneBlock/index.md#translations)
+- [Boxed](../gamemodes/Boxed/index.md#translations)
+- [BSkyBlock](../gamemodes/BSkyBlock/index.md#translations)
+- [CaveBlock](../gamemodes/CaveBlock/index.md#translations)
+- [ChunkBlock](../gamemodes/ChunkBlock/index.md#translations)
+- [Poseidon](../gamemodes/Poseidon/index.md#translations)
+- [SkyGrid](../gamemodes/SkyGrid/index.md#translations)
+- [Stranger Realms](../gamemodes/StrangerRealms/index.md#translations)
+- [TradeWinds](../gamemodes/TradeWinds/index.md#translations)
 
-```yaml
-island-go: "[actionbar]正在传送..."
-```
+## 附属 { #addons }
 
-### `[title]` 和 `[subtitle]`
-
-将消息作为屏幕上的**标题**叠加层发送。`[title]` 显示大标题文字，`[subtitle]` 显示其下方的小字。`[subtitle]` 不是独立的传递类型——它只能作为 `[title]` 消息中的分隔符使用。没有 `[title]` 时，它会回退到聊天传递方式。
-
-```yaml
-# 带副标题的标题
-island-go: "[title]正在传送...[subtitle]请稍等。"
-# 仅副标题（空标题，文字作为副标题）
-scooping: "[title][subtitle]你舀走了岩浆！"
-```
-
-### `[sound:name:volume:pitch]`
-
-为玩家播放**音效**。音量和音调是可选的（默认 `1.0`）。使用 Bukkit/Minecraft 音效列表中以下划线分隔的音效名称（如 `entity_experience_orb_pickup`）。音效标签可与任何传递类型标签组合使用。
-
-```yaml
-island-go: "[sound:entity_experience_orb_pickup:1:1][title]正在传送...[subtitle]请稍等。"
-```
-
-!!! note
-    非玩家发送者（如控制台）在使用动作栏或标题标签时将回退到聊天输出。
-
-## 翻译指南
-
-* 我们现在提供了一个翻译工具，地址为 [https://download.bentobox.world/translate.html](https://download.bentobox.world/translate.html)。该工具在你的浏览器中本地运行，可能对翻译有所帮助。请将新文件以 PR 形式提交到 GitHub。
-* 翻译者将获得特殊徽章！
-* 不要翻译方括号内的文字，因为那些是占位符，例如 [name] 应保持英文
-* 测试你的翻译——在提交前尽量检查所有内容
-* 翻译中不得包含任何广告、脏话或贬义内容。我们在接受 PR 前会进行审核。
-* 欢迎在 Discord 上提问有关翻译的问题。
-
-## 游戏模式
-
-- [AcidIsland](../gamemodes/AcidIsland/index.md#翻译)
-- [AOneBlock](../gamemodes/AOneBlock/index.md#翻译)
-- [Boxed](../gamemodes/Boxed/index.md#翻译)
-- [BSkyBlock](../gamemodes/BSkyBlock/index.md#翻译)
-- [CaveBlock](../gamemodes/CaveBlock/index.md#翻译)
-- [ChunkBlock](../gamemodes/ChunkBlock/index.md#翻译)
-- [Poseidon](../gamemodes/Poseidon/index.md#翻译)
-- [SkyGrid](../gamemodes/SkyGrid/index.md#翻译)
-- [Stranger Realms](../gamemodes/StrangerRealms/index.md#翻译)
-- [TradeWinds](../gamemodes/TradeWinds/index.md#翻译)
-
-## 插件
-
-- [Bank](../addons/Bank/index.md#翻译)
-- [Biomes](../addons/Biomes/index.md#翻译)
-- [Border](../addons/Border/index.md#翻译)
-- [CauldronWitchery](../addons/CauldronWitchery/index.md#翻译)
-- [Challenges](../addons/Challenges/index.md#翻译)
-- [Chat](../addons/Chat/index.md#翻译)
-- [CheckMeOut](../addons/CheckMeOut/index.md#翻译)
-- [ControlPanel](../addons/ControlPanel/index.md#翻译)
-- [DimensionalTrees](../addons/DimensionalTrees/index.md#翻译)
-- [ExtraMobs](../addons/ExtraMobs/index.md#翻译)
-- [FarmersDance](../addons/FarmersDance/index.md#翻译)
-- [Greenhouses](../addons/Greenhouses/index.md#翻译)
-- [InvSwitcher](../addons/InvSwitcher/index.md#翻译)
-- [IslandFly](../addons/IslandFly/index.md#翻译)
-- [Level](../addons/Level/index.md#翻译)
-- [Likes](../addons/Likes/index.md#翻译)
-- [Limits](../addons/Limits/index.md#翻译)
-- [MagicCobblestoneGenerator](../addons/MagicCobblestoneGenerator/index.md#翻译)
-- [TopBlock](../addons/TopBlock/index.md#翻译)
-- [TwerkingForTrees](../addons/TwerkingForTrees/index.md#翻译)
-- [Upgrades](../addons/Upgrades/index.md#翻译)
-- [Visit](../addons/Visit/index.md#翻译)
-- [VoidPortals](../addons/VoidPortals/index.md#翻译)
-- [Warps](../addons/Warps/index.md#翻译)
+- [Bank](../addons/Bank/index.md#translations)
+- [Biomes](../addons/Biomes/index.md#translations)
+- [Border](../addons/Border/index.md#translations)
+- [CauldronWitchery](../addons/CauldronWitchery/index.md#translations)
+- [Challenges](../addons/Challenges/index.md#translations)
+- [Chat](../addons/Chat/index.md#translations)
+- [CheckMeOut](../addons/CheckMeOut/index.md#translations)
+- [ControlPanel](../addons/ControlPanel/index.md#translations)
+- [DimensionalTrees](../addons/DimensionalTrees/index.md#translations)
+- [ExtraMobs](../addons/ExtraMobs/index.md#translations)
+- [FarmersDance](../addons/FarmersDance/index.md#translations)
+- [Greenhouses](../addons/Greenhouses/index.md#translations)
+- [InvSwitcher](../addons/InvSwitcher/index.md#translations)
+- [IslandFly](../addons/IslandFly/index.md#translations)
+- [Level](../addons/Level/index.md#translations)
+- [Likes](../addons/Likes/index.md#translations)
+- [Limits](../addons/Limits/index.md#translations)
+- [MagicCobblestoneGenerator](../addons/MagicCobblestoneGenerator/index.md#translations)
+- [TopBlock](../addons/TopBlock/index.md#translations)
+- [TwerkingForTrees](../addons/TwerkingForTrees/index.md#translations)
+- [Upgrades](../addons/Upgrades/index.md#translations)
+- [Visit](../addons/Visit/index.md#translations)
+- [VoidPortals](../addons/VoidPortals/index.md#translations)
+- [Warps](../addons/Warps/index.md#translations)

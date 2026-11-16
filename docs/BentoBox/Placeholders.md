@@ -1,119 +1,87 @@
-占位符允许你在其他插件中显示来自 BentoBox 的任何附加组件或游戏模式的数据。反之亦然！
+# 占位符 { #placeholders }
 
-## 如何使用占位符？
+占位符让其他插件显示 BentoBox 信息：玩家的岛屿名称或计分板上的等级、聊天中的等级、全息中的岛屿数量等。
 
-### 下载您需要的占位符API。
+## 设置 { #setting-up }
 
-BentoBox使用[**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholderapi.6245/)作为占位符。
+1. 安装 [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)。
+2. 重启服务器。
 
-### 启动服务器，您就可以开始了！
+就这样。BentoBox 自己将其占位符注册到 PlaceholderAPI；没有要用 `/papi ecloud` 下载的扩展。
 
-无论您使用哪个占位符API，只需启动服务器即可。**无需下载任何扩展**：BentoBox会处理一切！
+然后在支持 PlaceholderAPI 的任何插件中使用占位符（计分板、标签列表、聊天、全息等）。
 
-## 如何在聊天中显示占位符？
+## 占位符如何命名 { #how-placeholders-are-named }
 
-如果您正在使用**EssentialsChat**和**PlaceholderAPI**，您**必须**安装[**ChatInjector**](https://www.spigotmc.org/resources/chatinjector-1-13.81201/)才能在聊天中显示占位符。但请注意，有报告称ChatInjector可能会导致问题。
-
-我们建议您使用支持PlaceholderAPI的替代聊天插件，例如[**ChatControl**](https://www.spigotmc.org/resources/chatcontrol%E2%84%A2-the-ultimate-chat-plugin-500-000-downloads-1-2-5-1-14-4.271/)。
-
-## 如何在计分板中显示占位符？
-
-如果您正在使用本身不支持**PlaceholderAPI**但支持**MVdWPlaceholderAPI**的计分板插件（如**Featherboard**），您仍然可以使用BentoBox占位符，但您需要添加**{placeholderapi_[text]}**，并将*[text]*替换为不带*％*字符的占位符，例如*{placeholderapi_bskyblock_island_name}*。
-
-## 如何建议新的占位符？
-
-如果您认为应该为BentoBox或游戏模式添加其他默认占位符，请提交[占位符请求](https://github.com/BentoBoxWorld/BentoBox/issues/new?assignees=&labels=Status%3A+Pending%2C+Type%3A+Enhancement&template=placeholder_request.md&title=Placeholder%3A+)。
-
-## 游戏模式附加组件的默认占位符
-
-所有游戏模式附加组件都会自动注册一些默认占位符。
-
-**可用的默认占位符**
-
-| 占位符 | 描述 | 版本 |
-|-------------------------------------------------------|--------------------------------------------------------------------------------|-----------|
-| %[gamemode]_world_friendly_name% | 游戏模式世界的名称 | 1.4.0 |
-| %[gamemode]_world_islands% | 游戏模式世界中的岛屿数量 | 1.5.0 |
-| %[gamemode]_island_distance% | 游戏模式世界中岛屿中心之间距离的一半 | 1.4.0 |
-| %[gamemode]_island_distance_diameter% | 游戏模式世界中岛屿之间的距离 | 1.5.0 |
-| %[gamemode]_island_protection_range% | 岛屿保护范围的半径 | 1.4.0 |
-| %[gamemode]_island_protection_range_diameter% | 岛屿保护范围的直径 | 1.5.0 |
-| %[gamemode]_island_owner% | 岛屿所有者的名称 | 1.4.0 |
-| %[gamemode]_island_creation_date% | 岛屿的创建日期 | 1.4.0 |
-| %[gamemode]_island_name% | 岛屿的名称 | 1.4.0 |
-| %[gamemode]_island_center% | 岛屿中心的坐标 | 1.5.0 |
-| %[gamemode]_island_center_x% | 岛屿中心的X坐标 | 1.5.0 |
-| %[gamemode]_island_center_y% | 岛屿中心的Y坐标 | 1.5.0 |
-| %[gamemode]_island_center_z% | 岛屿中心的Z坐标 | 1.5.0 |
-| %[gamemode]_island_members_max% | 岛上可以拥有的最大成员数 | 1.5.0 | 
-| %[gamemode]_island_members_count% | 岛上的成员、副所有者和所有者数量 | 1.5.0 |
-| %[gamemode]_island_members_list% | 岛上至少是成员的玩家名称的逗号分隔列表 | 1.13.0 |
-| %[gamemode]_island_coop_list% | 岛上是合作者的玩家名称的逗号分隔列表 | 2.4.2 |
-| %[gamemode]_island_trusted_list% | 岛上是受信任者的玩家名称的逗号分隔列表 | 2.4.2 |
-| %[gamemode]_island_trustees_count% | 被信任进入岛屿的玩家数量 | 1.5.0 |
-| %[gamemode]_island_coops_count% | 与岛屿合作的玩家数量 | 1.5.0 |
-| %[gamemode]_island_visitors_count% | 当前访问岛屿的玩家数量 | 1.5.0 |
-| %[gamemode]_island_bans_count% | 被禁止进入岛屿的玩家数量 | 1.5.0 |
-| %[gamemode]_island_uuid% | 数据库中使用的岛屿的唯一ID | 1.15.4 |
-| %[gamemode]_visited_island_protection_range% | 玩家所在岛屿保护范围的半径 | 1.5.2 |
-| %[gamemode]_visited_island_protection_range_diameter% | 玩家所在岛屿保护范围的直径 | 1.5.2 |
-| %[gamemode]_visited_island_owner% | 玩家所在岛屿所有者的名称 | 1.5.2 |
-| %[gamemode]_visited_island_creation_date% | 玩家所在岛屿的创建日期 | 1.5.2 |
-| %[gamemode]_visited_island_name% | 玩家所在岛屿的名称 | 1.5.2 |
-| %[gamemode]_visited_island_center% | 玩家所在岛屿中心的坐标 | 1.5.2 |
-| %[gamemode]_visited_island_center_x% | 玩家所在岛屿中心的X坐标 | 1.5.2 |
-| %[gamemode]_visited_island_center_y% | 玩家所在岛屿中心的Y坐标 | 1.5.2 |
-| %[gamemode]_visited_island_center_z% | 玩家所在岛屿中心的Z坐标 | 1.5.2 |
-| %[gamemode]_visited_island_members_max% | 玩家所在岛屿可以拥有的最大成员数 | 1.5.2 |
-| %[gamemode]_visited_island_members_count% | 玩家所在岛屿的成员、副所有者和所有者数量 | 1.5.2 |
-| %[gamemode]_visited_island_coop_list% | 玩家所在岛屿上是合作者的玩家名称的逗号分隔列表 | 2.4.2 |
-| %[gamemode]_visited_island_trusted_list% | 玩家所在岛屿上是受信任者的玩家名称的逗号分隔列表 | 2.4.2 |
-| %[gamemode]_visited_island_members_list% | 玩家所在岛屿上至少是成员的玩家名称的逗号分隔列表 | 1.13.0 |
-| %[gamemode]_visited_island_trustees_count% | 被信任进入玩家所在岛屿的玩家数量 | 1.5.2 |
-| %[gamemode]_visited_island_coops_count% | 与玩家所在岛屿合作的玩家数量 | 1.5.2 |
-| %[gamemode]_visited_island_visitors_count% | 当前访问玩家所在岛屿的玩家数量 | 1.5.2 |
-| %[gamemode]_visited_island_bans_count% | 被禁止进入玩家所在岛屿的玩家数量 | 1.5.2 |
-| %[gamemode]_visited_island_uuid% | 玩家所在岛屿的唯一ID | 1.15.4 |
-| %[gamemode]_has_island% | 玩家是否拥有岛屿 | 1.5.0 |
-| %[gamemode]_rank% | 玩家在其岛屿上的等级 | 1.5.0 |
-| %[gamemode]_resets% | 玩家重置岛屿的次数 | 1.5.0 | 
-| %[gamemode]_resets_left% | 玩家可以重置岛屿的次数 | 1.5.0 |
-| %[gamemode]_deaths% | 玩家在此游戏模式中死亡的次数，由 BentoBox 计数（上限由游戏模式的 `deaths.max` 限制）。这不是自 Level 2.29.0 以来 Level 附属使用的每岛屿死亡计数。 | 1.12.0 |
-| %[gamemode]_on_island% | 玩家是否在其所属的岛屿上 | 1.13.0 |
-
-### 标志占位符
-
-游戏模式中注册的每个保护标志和设置标志也会公开一个占位符。占位符名称是 `flag_` 后跟小写的标志 ID：
-
-| 占位符 | 描述 |
-|-------------|-------------|
-| %[gamemode]_flag_[flag_id]% | 值取决于标志类型：**保护** → 最小允许等级的翻译名称（例如 `成员`）；**设置** → `true` 或 `false`；**世界设置** → `true` 或 `false` |
-
-**示例：**
+每个游戏模式注册自己的每个占位符的副本，以游戏模式的名称开头（小写）：
 
 ```
-%bskyblock_flag_pvp_overworld%   → "false"
-%bskyblock_flag_break_blocks%    → "Member"
-%bskyblock_flag_ender_chest%     → "true"
+%bskyblock_island_name%
+%aoneblock_island_members_count%
+%acidisland_rank%
 ```
 
-插件定义的标志在运行时添加标志时会自动注册。
+下面的表格将此前缀写作 `[gamemode]`。来自附属的占位符以附属名开头，然后是游戏模式，例如 `%Level_bskyblock_island_level%`；它们列在每个[附属的页面](../addons/Level/index.md#placeholders)上。
 
-## 另请参阅
-游戏模式和附加组件也可以带来自己的占位符。我们强烈建议您查看以下页面，它们可能更适合您的需求。
+有两种类型：
 
-- 游戏模式
-    - [AcidIsland](../../gamemodes/AcidIsland/Placeholders)  
-    - [AOneBlock](../../gamemodes/AOneBlock/Placeholders)
-    - [Boxed](../../gamemodes/Boxed/Placeholders)
-    - [BSkyBlock](../../gamemodes/BSkyBlock/Placeholders)
-    - [CaveBlock](../../gamemodes/CaveBlock/Placeholders)
-    - [SkyGrid](../../gamemodes/SkyGrid/Placeholders)
-- 附加组件
-    - [Bank](../../addons/Bank/#placeholders)
-    - [Challenges](../../addons/Challenges/#placeholders)
-    - [IslandStats](../../addons/IslandStats/#placeholders)
-    - [Level](../../addons/Level/#placeholders) 
-    - [Likes](../../addons/Likes/#placeholders)
-    - [Limits](../../addons/Limits/#placeholders)
-    - [MagicCobblestoneGenerator](../../addons/MagicCobblestoneGenerator/#placeholders)
+- `[gamemode]_island_...` 关于**玩家自己的岛屿**在那个游戏模式中。
+- `[gamemode]_visited_island_...` 关于**玩家站在上面的岛屿**，可能是某人别人的。
+
+## 在游戏中查找占位符 { #finding-a-placeholder-in-game }
+
+| 命令 | 作用 |
+|---|---|
+| `/bentobox placeholders` | 打开菜单来浏览 BentoBox 和附属中的每个占位符，以及打开或关闭单个占位符 |
+| `/bentobox dump-placeholders` | 将每个已注册占位符写入 `plugins/BentoBox/placeholder-dump.md` |
+| `/papi parse me %bskyblock_island_name%` | 显示占位符为你返回什么（PlaceholderAPI 命令） |
+
+## BentoBox 占位符 { #bentobox-placeholders }
+
+这些对每个游戏模式都被注册。
+
+{{ placeholders_source("BentoBox") }}
+
+### 编号占位符 { #numbered-placeholders }
+
+以 `_<n>` 结尾的占位符为每个数字注册一次：
+
+- `island_member_name_<n>`、`island_member_rank_<n>` 和 `island_banned_name_<n>`（及其 `visited_island_` 版本）从 1 到 50，用于逐行列出团队或禁止列表，例如 `%bskyblock_island_member_name_1%`。
+- `island_name_<n>` 和 `island_memberlist_<n>` 从 1 到玩家可以拥有的岛屿数量（`concurrent-islands`）。参见[多个岛屿](ConcurrentIslands.md)。
+
+### 标志占位符 { #flag-placeholders }
+
+每个保护标志、岛屿设置和世界设置都有一个占位符：`flag_` 后跟标志的 ID（小写）。
+
+| 标志类型 | 返回 |
+|---|---|
+| 保护标志 | 玩家岛屿上允许的最低等级，例如 `成员` |
+| 岛屿设置 | 玩家岛屿为 `true` 或 `false` |
+| 世界设置 | 游戏模式的世界为 `true` 或 `false` |
+
+```
+%bskyblock_flag_break_blocks%    → Member
+%bskyblock_flag_pvp_overworld%   → false
+```
+
+标志 ID 列在[标志](Flags.md)中。由附属添加的标志会自动获得占位符。
+
+## 游戏模式页面 { #game-mode-pages }
+
+每个游戏模式的页面列出这些占位符及其自己的前缀已填充，连同游戏模式自己的占位符：
+
+[AcidIsland](../gamemodes/AcidIsland/Placeholders.md) · [AOneBlock](../gamemodes/AOneBlock/Placeholders.md) · [Boxed](../gamemodes/Boxed/Placeholders.md) · [BSkyBlock](../gamemodes/BSkyBlock/Placeholders.md) · [CaveBlock](../gamemodes/CaveBlock/Placeholders.md) · [ChunkBlock](../gamemodes/ChunkBlock/Placeholders.md) · [Poseidon](../gamemodes/Poseidon/Placeholders.md) · [SkyGrid](../gamemodes/SkyGrid/Placeholders.md) · [TradeWinds](../gamemodes/TradeWinds/Placeholders.md)
+
+## 故障排除 { #troubleshooting }
+
+**占位符显示为文本（`%bskyblock_island_name%`）而不是值。**
+检查 PlaceholderAPI 已安装，显示它的插件支持 PlaceholderAPI，以及占位符没有在 `/bentobox placeholders` 中关闭。某些聊天插件需要额外设置或插件来在聊天消息中解析占位符。用 `/papi parse me <placeholder>` 测试。
+
+**占位符为空。**
+玩家在那个游戏模式中没有岛屿，或对于 `visited_island_` 占位符，不站在岛屿上。
+
+**来自附属的占位符不存在。**
+检查附属已安装且为那个游戏模式启用。附属占位符以附属名开头，然后是游戏模式：`%Level_bskyblock_island_level%`。还要检查它没有在 `/bentobox placeholders` 中关闭。
+
+**我需要一个不存在的占位符。**
+在 GitHub 上[请求一个](https://github.com/BentoBoxWorld/BentoBox/issues/new?labels=Status%3A+Pending%2C+Type%3A+Enhancement&template=placeholder_request.md&title=Placeholder%3A+)。

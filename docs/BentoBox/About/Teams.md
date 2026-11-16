@@ -1,310 +1,227 @@
-# 团队
-
-BentoBox 为游戏模式管理团队。团队可以让玩家在一个岛屿上组合在一起。团队有一个所有者或领导者，以及至少一个团队成员。
-
-## 团队 GUI
-
-当玩家发出 `team` 指令时，会弹出一个 GUI，使他们能够看到他们的团队、邀请其他玩家、搜索玩家和管理团队。也可以使用指令，但玩家通常喜欢 GUI。
-
-## 团队指令
-这是玩家可用的团队指令列表。该指令在主玩家指令之后使用，例如 BSkyBlock 的 `/island team`。
-<table width="100%" align="center">
-<tr>
-<td align='left'><b>指令</b></td>
-<td align='left'><b>描述</b></td>
-<td align='left'><b>权限</b></td>
-</tr>
-<tr>
-<td align='left'><b> team</b></td>
-<td align='left'>管理你的团队</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team accept</b></td>
-<td align='left'>接受邀请</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team coop <player></b></td>
-<td align='left'>在你的岛上给玩家合作者权限</td>
-<td align='left'>[gamemode].island.team.coop</td>
-</tr>
-<tr>
-<td align='left'><b> team demote <player></b></td>
-<td align='left'>在你的岛上降低玩家一个等级</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team leave</b></td>
-<td align='left'>离开你的岛</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team invite</b></td>
-<td align='left'>邀请玩家加入你的岛</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team kick <player></b></td>
-<td align='left'>从你的岛上移除一个成员</td>
-<td align='left'>[gamemode].island.expel</td>
-</tr>
-<tr>
-<td align='left'><b> team promote <player></b></td>
-<td align='left'>在你的岛上提升玩家一个等级</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team reject</b></td>
-<td align='left'>拒绝邀请</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team setowner <player></b></td>
-<td align='left'>将你的岛屿所有权转让给一个成员</td>
-<td align='left'>[gamemode].island.team</td>
-</tr>
-<tr>
-<td align='left'><b> team trust <player></b></td>
-<td align='left'>在你的岛上给玩家信任者权限</td>
-<td align='left'>[gamemode].island.team.trust</td>
-</tr>
-</table>
-
-## 主团队指令
-主团队指令是 `team`。要使用此指令，你必须有一个岛屿。如果单独运行，它将向玩家提供以下信息：
-
-- 如果玩家是所有者，它会告诉他们可以邀请多少玩家加入团队。
-- 它将显示团队的所有成员。这包括有关玩家等级、在线/离线状态以及他们上次在线的时间的信息。
-
-## 团队规模
-团队可以是任意大小，最大规模可以在游戏模式的基础上全局设置，或者由给予团队所有者的编号权限确定。默认的最大团队规模为 4。合作者和信任者的最大数量也设置为 4。
-
-### 团队规模权限
-
-* 团队规模：团队规模的权限是 `[gamemode].team.maxsize.X`，其中 X 是一个数字。
-* 合作规模：`[gamemode].team.coopsize.X`，其中 X 是一个数字
-* 信任规模：`[gamemode].team.trustsize.X`，其中 X 是一个数字
-
-## 团队成员等级
-BentoBox 内置以下团队等级：
-* 所有者 - 这是岛屿的所有者。只能有一个所有者。
-* 副所有者 - 这是一个成员等级，几乎拥有与所有者相同的权限。可以有多个副所有者。
-* 成员 - 这是默认的成员等级。
-
-### 非团队成员等级
-岛屿有其他与团队相关但不是团队成员的等级：
-* 信任者 - 这是一个在岛上拥有永久权限的非团队成员，即他们拥有这些权限直到被团队成员取消信任。
-* 合作者 - 这是一个在岛上拥有临时权限的非团队成员，如果给予他们权限的团队成员下线，或者如果他们被取消合作，这些权限将停止。
-* 访客 - 这是任何访问岛屿的玩家的默认等级。
-* 封禁 - 这些玩家已被团队成员封禁，不能进入岛屿。
-
-### 可配置的等级指令
-岛主可以通过游戏内设置菜单中的指令等级菜单授予较低等级的团队管理指令访问权限。这使得所有者能够允许其他成员邀请其他成员，例如。
+# 团队和等级 { #teams-ranks }
 
-### 晋升和降级
-团队成员可以由岛主或具有使用这些指令所需等级的岛成员晋升或降级。
+团队让多个玩家共享一个岛屿。每个岛屿都有一个**所有者**，所有者可以邀请其他玩家作为**成员**加入。只需要帮忙一段时间的玩家可以被**信任**或**合作**而不是加入。
 
-玩家不能自己降级或晋升自己。
+这个页面解释团队如何工作、作为管理员你可以配置什么，以及如何处理你从玩家那里得到的常见请求。
 
-目前，唯一可能的晋升或降级是在成员和副所有者等级之间。将来，可能会有额外的等级或自定义等级。
+!!! info "这个页面中的命令"
+    命令以 BSkyBlock（`/island`、`/bsbadmin`）显示。其他游戏模式使用他们自己的命令名称，例如 AOneBlock 中的 `/ob` 或 AcidIsland 中的 `/acid`。权限以游戏模式的前缀开头，例如 `bskyblock.` 或 `aoneblock.`。
 
-## 加入团队
-### 邀请
-可以使用 `team invite` 指令邀请玩家加入团队。要邀请玩家加入团队，邀请者必须是岛主或具有足够的等级来使用该指令（参见[可配置的等级指令](#configurable-rank-commands)）。玩家按名称邀请，必须在线。只能向尚未加入团队的玩家发出邀请。如果玩家想要切换团队，他们必须先离开当前团队，然后才能被邀请。
-被邀请的玩家在拒绝邀请之前不能再次被邀请。
-被邀请的玩家一次只能有**一个**有效的邀请。这包括团队、合作和信任邀请。如果玩家在另一个邀请待处理时收到新的有效邀请，旧邀请将被新邀请取代。
-如果岛上团队规模已达到最大值，邀请指令将告诉用户岛屿已满。
+## 团队如何工作 { #how-teams-work }
 
-**API：** 在完成所有验证检查但在发送邀请之前，将触发 `TeamInviteEvent`。如果此事件被取消，则不会发送邀请。
+- 玩家通过用 `/island team invite <player>` 邀请某人来开始一个团队。被邀请的玩家接受，放弃他们自己的岛屿（默认情况下），并被传送到团队岛屿。
+- 岛屿上的每个人都有一个**等级**。等级决定了他们可以做什么：破坏方块、打开箱子、邀请玩家、踢出玩家等等。
+- 所有者在岛屿设置菜单（`/island settings`）中决定每个等级可以做什么。参见[保护、标志和等级](../Island-Protection,-Flags-&-Ranks.md)。
+- 只有一个所有者。所有者可以将岛屿交给另一个成员，但必须在离开之前这样做。
 
-#### 冷却
-邀请可能被玩家滥用，因此 BentoBox 防止在冷却期内邀请同一玩家到岛上。冷却是对整个岛屿实施的，因此岛上的各个成员不可能向另一个玩家发送邀请垃圾邮件。各种邀请的默认冷却时间为：
-* 团队成员 - 60 分钟
-* 合作邀请 - 5 分钟
-* 信任邀请 - 5 分钟
-请参阅游戏模式的 `config.yml` 进行更改。
+### 等级 { #the-ranks }
 
-### 检查邀请
-玩家可以使用不带参数的 `invite` 指令检查谁邀请了他们。这将显示任何当前的团队、合作或信任邀请。
+| 等级 | 值 | 谁拥有 | 计入团队大小？ |
+|---|---|---|---|
+| 所有者 | 1000 | 拥有岛屿的玩家 | 是 |
+| 副所有者 | 900 | 由所有者提升的成员 | 是 |
+| 成员 | 500 | 接受了团队邀请的玩家 | 是 |
+| 信任的 | 400 | 用 `/island team trust` 信任的玩家 | 否（单独限制） |
+| 合作的 | 200 | 用 `/island team coop` 合作的玩家 | 否（单独限制） |
+| 访客 | 0 | 岛屿上的其他所有人 | 否 |
+| 被禁止 | -1 | 用 `/island ban` 禁止的玩家 | 否 |
 
-### 接受邀请
-玩家通过发出 `team invite accept` 指令接受邀请。
+更高的等级可以做更低等级可以做的一切。你可以用 `/bentobox rank add` 在这些之间添加你自己的等级（参见[自定义等级](#custom-ranks)）。
 
-#### 确认
-管理员可以决定是否需要对此指令进行确认。默认情况下，团队成员资格需要确认，但合作或信任状态不需要确认。这是因为团队成员在加入另一个团队时会失去他们的岛屿。如果需要确认，玩家将收到警告，如果他们有一个岛屿，那么它将丢失。一旦玩家第二次接受邀请，他们将成为团队成员并传送到团队岛屿。
+### 信任和合作：帮助而不加入 { #trusted-and-coop-helping-without-joining }
 
-邀请者在玩家接受邀请之前失去邀请玩家所需的等级的可能性很小。在这种情况下，接受将不会处理，用户将被告知邀请不再有效。
+信任和合作的玩家可以在岛屿上工作而不成为团队成员。他们保留自己的岛屿。
 
-!!! tip "确认时间"
-    玩家确认指令的默认时间为 10 秒。如果你的玩家需要更多时间，请在 BentoBox 的 `config.yml` 中增加此值。玩家也可以按向上箭头调出上一条指令，而无需重新输入。
+- **信任的**玩家保留他们的等级直到有人用 `/island team untrust <player>` 移除它。
+- **合作的**玩家只在岛屿有团队成员在线时保留他们的等级。当最后一个团队成员下线时，该岛屿上的每个合作玩家都会失去等级。一个合作玩家下线也会失去他们的合作等级。
 
-**API：** 在完成所有验证检查但在发送邀请之前，将触发 `TeamJoinEvent`。如果此事件被取消，则不会发送邀请。一旦玩家加入岛屿，将根据邀请类型触发后续事件：
-* `TeamJoinedEvent` 在玩家加入岛屿团队时触发。
-* `IslandRankChange` 在表示玩家新等级为成员、信任或合作时触发。
-这些后续事件用于通知，不能取消。
+信任和合作的工作方式与团队邀请相同：另一个玩家得到一个邀请并且必须接受它。
 
-#### 邀请对话框
+## 玩家可以做什么 { #what-players-can-do }
 
-自 BentoBox 3.21.0 起，收到团队邀请时可以自动弹出一个模态的**[接受] / [拒绝]**对话框，玩家不必留意聊天消息再去输入接受或拒绝指令。该功能需要 Minecraft 26+ 的服务端，由 BentoBox `config.yml` 中的 `island.dialogs.team-invites` 控制（默认 `true`）。在更旧的服务端上，或该开关关闭时，邀请仍以常规聊天消息的形式送达。
+玩家用 `/island team` 打开团队菜单。从菜单中他们可以看到他们的团队、邀请玩家和改变等级而不需要输入命令。所有相同的操作也可以作为命令使用：
 
-敏感指令的确认——例如 `team kick` 和 `team leave`——同样可以显示为**[确认] / [取消]**对话框，而不必让玩家再输入一遍指令。这由 `island.dialogs.confirmations` 控制（默认 `true`）；只要对话框不可用，就会回退到"再输入一遍"的行为。
+| 命令 | 作用 |
+|---|---|
+| `/island team` | 打开团队菜单 |
+| `/island team invite <player>` | 邀请在线玩家加入团队 |
+| `/island team accept` | 接受待处理邀请（团队、信任或合作） |
+| `/island team reject` | 拒绝待处理邀请 |
+| `/island team leave` | 离开团队。所有者不能离开；他们必须先将岛屿交给别人 |
+| `/island team kick <player>` | 从团队中移除成员。在玩家离线时有效 |
+| `/island team promote <player>` | 将成员向上移动一个等级（永远不会到所有者） |
+| `/island team demote <player>` | 将成员向下移动一个等级（永远不会低于成员） |
+| `/island team setowner <player>` | 将岛屿交给另一个成员。旧所有者变成副所有者 |
+| `/island team trust <player>` | 给玩家信任等级 |
+| `/island team untrust <player>` | 移除信任等级 |
+| `/island team coop <player>` | 给在线玩家合作等级 |
+| `/island team uncoop <player>` | 移除合作等级 |
 
-#### 成为团队成员的过程
-BentoBox 执行以下步骤以使玩家成为团队成员：
+玩家在同一时间只能有**一个**待处理邀请。一个新邀请替换旧的。
 
-1. 删除邀请。
-2. 删除玩家作为旧岛屿的所有者（请记住，团队成员不能加入另一个团队，因此只有所有者或没有岛屿的人才能成为成员）。
-3. 根据设置清理玩家 - 请参阅游戏模式的 `config.yml`：
-    - 末影箱物品栏（默认：不做任何事情）
-    - 玩家物品栏（默认：不更改 **请参阅下面的注释！**）
-    - 金钱（默认：不清零）
-    - 恢复健康（默认：恢复所有健康）
-    - 恢复饥饿（默认：消除所有饥饿）
-    - 清零经验点（默认：不清零）
-4. 将玩家添加为新岛屿的团队成员。
-5. 清除旧的家位置。
-6. 将玩家传送到他们的新岛屿家。
-7. 开始删除旧岛屿。
-8. 如果管理员设置了该设置，则重置他们的死亡计数器。
-9. 告诉玩家他们已加入新的岛屿。
-10. 告诉邀请者玩家已加入团队岛屿。
-11. 将岛屿保存到数据库。
-12. 触发通知事件。
+在 Minecraft 26 及更高版本上，接收团队邀请的玩家看到**接受/拒绝**对话框，所以他们不需要输入命令。敏感命令如 `kick` 和 `leave` 也在对话框中询问确认。两者都可以在 BentoBox 的 `config.yml` 中关闭（`island.dialogs.team-invites` 和 `island.dialogs.confirmations`）。
 
-!!! warning "物品栏清理"
-    默认情况下，当玩家加入团队时，BentoBox **不会**清理玩家的物品栏，以避免初始设置时出现意外。但是，**管理员应在游戏模式的 `config.yml` 中启用此功能**来防止玩家将物品从旧岛屿携带到新岛屿。检查配置中的 `on-join` 清理设置。
+### 让成员管理团队 { #letting-members-manage-the-team }
 
-**重置玩家物品栏**
-管理员应将此设置更改为在玩家加入团队时清除玩家的物品栏！之所以不设置它，是为了避免在安装过程中发生事故。一些管理员不明白加入岛屿会清除他们的物品栏，因此我们决定采取"不造成伤害"的方法，让物品栏保持原样。但是，为了避免漏洞，应该清除它。
+默认情况下，只有所有者可以邀请、踢出、提升、降级、信任和合作。所有者可以让从设置菜单的**命令等级**页面使用这些命令的较低等级。例如，所有者可以让副所有者邀请和踢出。
 
-### 拒绝邀请
-玩家通过发出 `team invite reject` 指令拒绝邀请。
+同一页面也控制岛屿命令如 `ban`、`unban`、`expel`、`lock`、`setname` 和 `sethome`。家点命令（`sethome`、`renamehome`、`deletehome`）默认为成员；其他的默认为所有者。
 
-玩家必须有有效的邀请才能拒绝，否则他们只会收到错误。
+玩家永远不能踢出、提升或降级与自己等级相同或更高的人。
 
-**API：** 如果玩家有待处理的有效邀请，则将触发 `TeamRejectEvent`。如果此事件被取消，则邀请不会被拒绝，指令将静默失败。建议取消代码通知用户为什么拒绝没有发生。
+## 设置团队（管理员） { #setting-up-teams-admins }
 
-一旦验证检查完成，邀请将被拒绝，邀请者将被通知。
+### 团队大小 { #team-size }
 
-## 更改团队所有权
+团队大小在游戏模式的 `config.yml` 中设置。**限制包括所有者**，所以 `max-team-size: 4` 表示所有者加三个成员。
 
-所有者可以使用 `team setowner` 指令并将新所有者的名称作为参数来使另一个团队成员成为所有者。
+```yaml
+island:
+  # Owner + members
+  max-team-size: 4
+  # Separate limits for coop and trusted players
+  max-coop-size: 4
+  max-trusted-size: 4
+```
 
-**API：** 在完成各种检查以确认可以执行指令但在执行指令之前，将触发 `TeamSetownerEvent`。如果此事件被取消，则所有权更改不会发生，指令将静默失败。建议取消代码通知用户为什么更改没有发生。
+### 更大的团队为 VIP 或等级 { #bigger-teams-for-vips-or-ranks }
 
-一旦所有权发生变化，就会触发两个 `IslandRankChange` 事件：一个用于新所有者，一个用于旧所有者。
+给**岛屿所有者**一个权限，末尾带上大小：
 
-所有者在离开团队之前必须选择新的所有者。
+| 权限 | 效果 |
+|---|---|
+| `bskyblock.team.maxsize.<number>` | 此玩家拥有的岛屿的团队大小 |
+| `bskyblock.coop.maxsize.<number>` | 合作限制 |
+| `bskyblock.trust.maxsize.<number>` | 信任限制 |
 
-## 踢出玩家
-有时需要将团队成员强制踢出团队。这是使用 `team kick` 指令完成的。所有者总是可以踢出玩家，所有者还可以通过岛屿设置中的指令等级菜单允许较低等级的团队成员踢人。被踢出的团队成员不必在线。
+例如，使用 LuckPerms：
 
-默认情况下，该指令需要确认。可以在 BentoBox 的 `config.yml` 中进行配置。
+```
+/lp group vip permission set bskyblock.team.maxsize.8 true
+```
+
+权限在所有者在线时被检查，岛屿记住结果。只有所有者的权限重要；成员的权限被忽略。
+
+要改变一个岛屿的限制而不使用权限，使用 `/bsbadmin team maxsize <player> <size>`。
+
+### 玩家加入或离开时物品和金钱会发生什么 { #what-happens-to-items-and-money-when-players-join-or-leave }
+
+当玩家接受团队邀请时，他们通常**失去他们自己的岛屿**。在他们接受之前，他们会被警告并要求确认。
+
+BentoBox 也可以在玩家加入或离开团队时清除玩家的物品栏、末地箱、金钱、生命值、饥饿值和经验值。这阻止了玩家从一个岛屿携带物品到另一个岛屿。在游戏模式的 `config.yml` 中设置它：
+
+```yaml
+island:
+  reset:
+    # Leaving or being kicked uses up one of the player's island resets
+    leavers-lose-reset: false
+    # Kicked players keep their inventory even if on-leave inventory is true
+    kicked-keep-inventory: false
+    on-join:      # when a player joins a team or makes an island
+      inventory: false
+      ender-chest: false
+      money: false
+      exp: false
+      health: true
+      hunger: true
+    on-leave:     # when a player leaves or is kicked
+      inventory: false
+      ender-chest: false
+      money: false
+      # ... same options as on-join
+```
 
-当玩家被踢出时，会发生以下情况：
+!!! warning "建议用于大多数服务器"
+    默认值保留物品栏，所以你在测试时不会丢失物品。在真实服务器上，考虑设置 `on-join` 和 `on-leave` 的 `inventory` 和 `ender-chest` 为 `true`，以及 `leavers-lose-reset: true`。否则玩家可以填满他们的物品栏，加入朋友的岛屿，离开，然后重复。
 
-1. 被踢出的玩家被通知（如果在线）
-2. 玩家被从岛上移除
-3. 如果有任何配置为在玩家离开岛屿时运行的指令（请参阅游戏模式的 `config.yml`），那么它们将在此时执行。
-4. 根据配置设置"清理"玩家：
-   - 末影箱被重置（默认：不重置）。如果玩家离线并且需要重置，则会在玩家下次登录时将其排队。
-   - 物品栏重置（默认：不清除）。如果玩家离线并且需要重置，则会在玩家下次登录时将其排队。
-   - 金钱重置（默认：不重置）。即使玩家离线也可以发生这种情况。
-   - 将健康设置为最大值（默认：不做任何事情）。仅在玩家在线时发生。
-   - 将食物等级设置为最大值（默认：不做任何事情）。仅在玩家在线时发生。
-   - 清零经验点（默认：不做任何事情）。仅在玩家在线时发生。
-5. 踢人者被告知踢出成功。
-6. 触发通知事件。
-**API：** 触发两个事件 - `TeamKickEvent` 和 `IslandRankChangeEvent`。后者通知玩家现在具有访客等级。
-7. 对踢人者和被踢出的玩家都应用邀请冷却。这有助于限制任何可能涉及团队成员踢出玩家然后立即再次邀请他们的漏洞。
+你也可以在玩家加入或离开时运行命令，例如重置他们的挑战或给一个工具包：
 
-## 离开团队
-玩家可以使用 `team leave` 指令自愿离开团队。默认情况下，该指令需要确认，但可以在 BentoBox 的配置中关闭它。自愿离开团队时，玩家可能会使用他们允许的岛屿重置之一。这在游戏模式的配置中设置，默认是不损失重置。如果玩家将失去重置，如果离开指令有确认要求，他们将被警告。**注意：** 玩家有可能通过离开团队用完所有重置，因此无法建立自己的新岛屿。这是管理员必须考虑的问题。
+```yaml
+island:
+  commands:
+    on-join:
+      - 'bsbadmin deaths set [name] 0'
+    on-leave: []
+```
 
-当玩家离开岛屿时，顺序和过程与玩家被踢出时相同，只是玩家可能会失去重置。
+这些从控制台运行，除非命令以 `[SUDO]` 开头，这会以玩家身份运行它。
 
-**API：** 在玩家离开团队后，会触发两个通知事件：`TeamLeaveEvent` 和 `IslandRankChangeEvent`。后者通知玩家现在具有访客等级。
+### 邀请冷却和确认 { #invite-cooldowns-and-confirmations }
 
-## 信任和合作其他玩家
-有时玩家想要在其他岛屿上提供帮助，而不必作为正式成员加入团队。这可以通过信任玩家或与在线玩家合作来完成：
+这些在 **BentoBox 的** `config.yml`（在 `plugins/BentoBox/` 中），并应用于所有游戏模式：
 
-- `team trust <player>`：玩家在低于成员等级的岛上成为永久成员
-- `team coop <player>`：玩家在低于信任者等级的岛上成为临时成员
+```yaml
+island:
+  cooldown:
+    time:
+      invite: 60   # minutes before a kicked or leaving player can be invited back to that island
+      coop: 5      # minutes before an uncooped player can be cooped again
+      trust: 5     # minutes before an untrusted player can be trusted again
+  confirmation:
+    time: 10       # seconds players have to confirm
+    commands:
+      kick: true
+      leave: true
+    invites: false # also ask trust/coop invitees to confirm (team invites always confirm)
+```
 
-岛主可以信任或与玩家合作，还可以通过岛屿设置中的指令等级页面让较低等级的玩家使用这些指令。
+邀请冷却阻止玩家反复加入、完成挑战、离开和重新加入。
 
-这些指令实际上会向玩家发送一个邀请，他们可以接受或拒绝，就像团队加入指令一样。如果邀请被拒绝，在冷却期内将无法发送另一个邀请，默认设置为 5 分钟。这可以保护玩家免受邀请垃圾邮件的侵扰。
+### 关闭团队 { #turning-teams-off }
 
-如果玩家已经有来自其他人或不同等级的待处理邀请，则该邀请将被这个邀请取代。
+某些游戏模式是为单人游戏设计的。一个游戏模式可以为其世界禁用团队。然后邀请、踢出、离开、提升、降级和 setowner 命令拒绝运行，但信任和合作仍然有效所以玩家仍然可以相互帮助。如果你为已经有团队的世界打开这个，运行 `/bsbadmin team disbandall` 一次来解散现有团队。
 
-一旦接受，玩家将获得新岛屿的给定等级。邀请者被通知接受。
+### 拥有多个岛屿的玩家 { #players-with-more-than-one-island }
 
-**API：** 触发一个通知事件：`IslandRankChangeEvent`，表示新的信任者或合作者等级。
+如果你允许每个玩家多个岛屿（`concurrent-islands` 高于 1），`disallow-team-member-islands: true` 阻止团队成员也创建他们自己的岛屿。参见[多个岛屿](../ConcurrentIslands.md)。
 
-合作玩家保持其等级，直到邀请他们的玩家注销，或者直到服务器关闭，以先发生者为准。
+## 常见管理任务 { #common-admin-tasks }
 
-### 取消信任或取消合作玩家
-岛主或具有足够高等级的玩家可以发出 `team untrusted` 或 `team uncoop` 指令从团队中移除具有这些等级的玩家。
+| 我想要… | 做这个 |
+|---|---|
+| 查看玩家团队上的人 | `/bsbadmin info <player>` |
+| 将玩家添加到团队 | `/bsbadmin team add <owner> <player>` |
+| 从团队中移除玩家 | `/bsbadmin team kick <player>` |
+| 将岛屿交给另一个成员（所有者离开了服务器） | `/bsbadmin team setowner <player>` |
+| 解散团队 | `/bsbadmin team disband <owner>` |
+| 解散这个世界的每个团队 | `/bsbadmin team disbandall` |
+| 让一个岛屿有更大的团队 | `/bsbadmin team maxsize <player> <size>` |
+| 让一组玩家有更大的团队 | 给他们 `bskyblock.team.maxsize.<number>` |
+| 让成员邀请其他玩家 | 所有者打开 `/island settings` → 命令等级 |
+| 改变成员在岛屿上可以做什么 | 所有者打开 `/island settings`；管理员在游戏模式配置中设置默认值。参见[保护、标志和等级](../Island-Protection,-Flags-&-Ranks.md) |
 
-**API：** 如果成功，将为受影响的玩家触发 `IslandRankChangeEvent` 事件，标记他们现在具有访客等级。
+## 自定义等级 { #custom-ranks }
 
-## 按世界禁用团队
+你可以用 `/bentobox rank` 命令在内置等级之间添加等级：
 
-自 BentoBox 3.16.0 起，游戏模式可以通过 `WorldSettings#isTeamsDisabled()` API（默认 `false`）按世界禁用团队子系统。启用后，用于添加、移除或重新组织团队成员的操作指令将拒绝运行，并显示语言文件消息 `commands.island.team.errors.teams-disabled`。
+```
+/bentobox rank list
+/bentobox rank add ranks.veteran 700
+/bentobox rank remove ranks.veteran
+```
 
-**禁用团队时被阻止的指令：**
+该值决定了等级所处的位置。`700` 在成员（500）和副所有者（900）之间，所以提升成员会使他们变成老兵，再次提升会使他们变成副所有者。添加等级的显示名称到你的地区文件中你使用的引用下（这里是 `ranks.veteran`）。
 
-- `/island team invite` 和 `team invite accept`（仅限团队邀请——合作和信任邀请仍可接受）
-- `/island team kick`、`team leave`、`team promote`、`team demote`、`team setowner`
-- `/[admin] team add`
+## 故障排除 { #troubleshooting }
 
-**仍可使用的指令：**
+**"岛屿已满"但团队看起来很小。**
+限制包括所有者。检查 `max-team-size`，以及所有者是否有 `team.maxsize` 权限。所有者必须登录一次以应用新权限。
 
-- 只读玩家指令：`/island team` 面板、`team info`、`team invites`、`team invite reject`
-- 信任和合作关系：`trust`、`coop`、`untrust`、`uncoop`——当团队被禁用时，这些是支持的替代方案
-- 对现有团队进行操作的管理员指令：`kick`、`disband`、`disbandall`、`setowner`、`fix`、`maxsize`
+**玩家无法被邀请。**
+他们可能已经在一个团队中（他们必须首先离开），已经有待处理邀请，或在从该岛屿离开或被踢后处于邀请冷却中。
 
-在已有团队的世界上启用 `isTeamsDisabled` 后，运行一次 `/[admin] team disbandall` 以清理预先存在的团队。该管理员指令可在一次可确认的操作中，剥离当前世界中每个岛屿上的所有成员和副所有者。信任和合作玩家有意被保留不变。
+**合作玩家不断失去他们的等级。**
+这就是合作的工作方式：当没有团队成员在线时结束。对于应该保留访问权限的玩家，改用信任。
 
-??? note "v3.16.0 新功能"
-    **发布日期：** 2026-05-10
+**所有者想要离开。**
+所有者不能离开。他们必须先用 `/island team setowner <player>` 将岛屿交给某人，或者管理员可以用 `/bsbadmin team setowner` 这样做。
 
-    完整发布说明请参阅：[Release 3.16.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.0)
+**玩家利用团队加入/离开来复制物品或奖励。**
+打开 `on-join` 和 `on-leave` 重置，设置 `leavers-lose-reset: true`，并保持邀请冷却。
 
-    **团队处理**
+## 另请参见 { #see-also }
 
-    - 新的 `WorldSettings#isTeamsDisabled()` API（默认 `false`）允许游戏模式按世界禁用团队子系统。
-    - 新的管理员指令 `/[admin] team disbandall`，可在一次可确认的操作中，剥离当前世界中每个岛屿上的所有成员和副所有者。
-    - `/[admin] team kick` 现在在目标位于多个团队岛屿上时需要明确的 `x,y,z` 坐标，并拒绝踢出岛主（提示管理员改用 `setowner` 或 `disband`）。
-    - 现在 `/island team setowner` 和 `/[admin] team setowner` 都强制执行 setowner 上限——当接收者已达到并发岛屿上限时拒绝转让。
-
-    **错误修复**
-
-    - 当玩家家园方块缺失时，`ISLAND_RESPAWN` 不再将玩家放在世界出生点 (0,0)——现在会沿着最终以 `SafeSpotTeleport` 结束的备用链查找。
-    - `OFFLINE_GROWTH` 现在阻止所有蔓延植物（藤蔓、垂泪/扭曲藤蔓等）以及从树苗生长的树/蘑菇——而不仅仅是海带和竹子。
-    - Dynmap 区域/多边形标记现在使用世界完整的最小/最大高度，而不是始终在 y=64 处渲染。
-
-    **API 新增**
-
-    - `CraftEngineHook.getItemStack(String id)` 和 `CraftEngineHook.getItemId(ItemStack item)`，使附属插件无需直接依赖 CraftEngine 即可渲染和识别 CraftEngine 自定义物品。
-
-    **语言文件**
-
-    - 新增键：`commands.admin.team.disbandall.{description,confirmation,success}`、`commands.island.team.errors.teams-disabled`、`commands.admin.team.setowner.errors.at-max`。
-    - 更新 `commands.admin.team.kick.cannot-kick-owner` 消息，指引管理员改用 `setowner`/`disband`。
-    - 移除已废弃的 `commands.admin.team.kick.success-all` 键。
-    - 所有 22 种内置翻译已同步。
-
-    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。
-
-??? note "v3.16.2 新功能"
-    **发布日期：** 2026-05-19
-
-    小型后续补丁。完整发布说明请参阅：[Release 3.16.2](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.16.2)
-
-    - 🐛 **在 InvSwitcher 下接受团队邀请不再吞掉物品栏。** 在非 BentoBox 世界中（且 `island.reset.on-join.inventory: true` — Boxed 和 AOneBlock 默认如此）接受团队邀请的玩家，返回该世界时可能会发现物品消失。加入时的物品栏/经验/生命/饥饿/金钱重置现在在传送到岛屿世界*之后*运行，这样 InvSwitcher（及类似插件）就能在重置触发之前先将玩家在旧世界的真实物品栏保存下来。修复了针对 AOneBlock 1.25.0 / Boxed 3.3.0 / InvSwitcher 1.17.1 反馈的问题。
-    - 🔺 **API：`Island.setRange` 不再悄悄损坏岛屿数据。** `setRange` 现在拒绝任何与游戏模式配置的 `distance-between-islands` 不一致的值，并记录调用方的堆栈帧。合法调整领地大小的游戏模式（如 StrangerRealms）仍然可以工作——它们已经覆盖 `GameModeAddon.isEnforceEqualRanges()` 并返回 `false`。如果你维护的附属插件出现 `Refusing Island.setRange(...)` 警告，日志会指出确切的调用方。
-    - 🐛 **CraftEngine 26.5+ 兼容性。** `CraftEngineHook.getItemStack(id)` 现在使用 `BukkitItemDefinition#buildBukkitItem()`，可在重写后的 CraftEngine API 上正常工作。
-
-    **兼容性：** Paper Minecraft 1.21.5 – 26.1.2，Java 21+。
+- [保护、标志和等级](../Island-Protection,-Flags-&-Ranks.md)：每个等级在岛屿上可以做什么
+- [岛屿](IslandManagement.md)：创建、重置和删除岛屿
+- [多个岛屿](../ConcurrentIslands.md)
+- [自定义菜单](../../Tutorials/generic/Customizable-GUI.md)：团队菜单是 `plugins/BentoBox/panels/team_panel.yml`

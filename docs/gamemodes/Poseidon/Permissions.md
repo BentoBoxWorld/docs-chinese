@@ -1,108 +1,39 @@
-# Poseidon 权限
+# Poseidon 权限 { #poseidon-permissions }
 
-| 权限 | 描述 | 默认值 |
-| -----------| ----------- | ------- |
-| poseidon.island.lock | 允许在设置中锁定领域 | true |
-| poseidon.settings.* | 允许在领域上使用设置 | true |
-| poseidon.mod.clearreset | 允许清除领域重置限制 | false |
-| poseidon.mod.bypasscooldowns | 允许协管员绕过冷却时间 | op |
-| poseidon.mod.bypassdelays | 允许协管员绕过延迟 | op |
-| poseidon.mod.bypassprotect | 允许协管员绕过领域保护 | op |
-| poseidon.mod.bypassexpel | 允许协管员绕过领域驱逐 | op |
-| poseidon.mod.lock | 允许锁定或解锁一个领域 | op |
-| poseidon.mod.bypasslock | 绕过领域锁定 | op |
-| poseidon.mod.bypassban | 绕过领域封禁 | op |
-| poseidon.admin.noban | 玩家无法被任何领域封禁 | op |
-| poseidon.admin.noexpel | 玩家无法被任何领域驱逐 | op |
-| poseidon.island | 允许使用 '/poseidon' 指令 - 主要的领域指令 | TRUE |
-| poseidon.island.home | 允许使用 '/poseidon go' 指令 - 传送你到你的领域 | TRUE |
-| poseidon.island.spawn | 允许使用 '/poseidon spawn' 指令 - 传送你到出生点 | TRUE |
-| poseidon.island.create | 允许使用 '/poseidon create' 指令 - 创建一个领域 | TRUE |
-| poseidon.island.reset | 允许使用 '/poseidon reset' 指令 - 重启你的领域 | TRUE |
-| poseidon.island.info | 允许使用 '/poseidon info' 指令 - 显示关于你的领域的信息 | TRUE |
-| poseidon.island.settings | 允许使用 '/poseidon settings' 指令 - 显示领域设置 | TRUE |
-| poseidon.island.name | 允许使用 '/poseidon setname' 指令 - 为你的领域设置一个名称 | TRUE |
-| poseidon.island.name | 允许使用 '/poseidon resetname' 指令 - 重置你的领域名称 | TRUE |
-| poseidon.island.number.x | x 设置玩家可以创建多少个领域。 | FALSE |
-| poseidon.island.language | 允许使用 '/poseidon language' 指令 - 选择语言 | TRUE |
-| poseidon.island.ban | 允许使用 '/poseidon ban', '/poseidon unban', '/poseidon banlist' 指令 - 封禁玩家 | TRUE |
-| poseidon.island.expel | 允许使用 '/poseidon expel' 指令 - 从你的领域驱逐一名玩家 | TRUE |
-| poseidon.island.near | 允许使用 '/poseidon near' 指令 - 显示相邻的领域 | TRUE |
-| poseidon.island.team | 允许使用 '/poseidon team' 指令 - 管理你的团队 | TRUE |
-| poseidon.island.team.invite | 允许使用 '/poseidon team invite' 指令 - 邀请一名玩家加入你的领域 | TRUE |
-| poseidon.island.team.leave | 允许使用 '/poseidon team leave' 指令 - 离开你的领域 | TRUE |
-| poseidon.island.team.setowner | 允许使用 '/poseidon team setowner' 指令 - 将你的领域所有权转让给一名成员 | TRUE |
-| poseidon.island.team.kick | 允许使用 '/poseidon team kick' 指令 - 从你的领域移除一名成员 | TRUE |
-| poseidon.island.team.accept | 允许使用 '/poseidon team accept' 指令 - 接受一个邀请 | TRUE |
-| poseidon.island.team.reject | 允许使用 '/poseidon team reject' 指令 - 拒绝一个邀请 | TRUE |
-| poseidon.island.team.coop | 允许使用 '/poseidon team coop' 指令 - 让一名玩家在你的领域上获得合作者(coop)等级 | TRUE |
-| poseidon.island.team.uncoop | 允许使用 '/poseidon team uncoop' 指令 - 移除玩家的合作者(coop)等级 | TRUE |
-| poseidon.island.team.trust | 允许使用 '/poseidon team trust' 指令 - 给予一名玩家在你领域上的信任(trusted)等级 | TRUE |
-| poseidon.island.team.untrust | 允许使用 '/poseidon team untrust' 指令 - 移除玩家的信任(trusted)等级 | TRUE |
-| poseidon.island.team.promote | 允许使用 '/poseidon team promote' 指令 - 将你领域上的一名玩家提升一个等级 | TRUE |
-| poseidon.island.team.demote | 允许使用 '/poseidon team demote' 指令 - 将你领域上的一名玩家降低一个等级 | TRUE |
-| poseidon.island.sethome | 允许使用 '/poseidon sethome' 指令 - 设置你的家传送点 | TRUE |
-| poseidon.island.deletehome | 允许使用 '/poseidon deletehome' 指令 - 删除一个家位置 | OP |
-| poseidon.island.renamehome | 允许使用 '/poseidon renamehome' 指令 - 重命名一个家位置 | OP |
-| poseidon.island.homes | 允许使用 '/poseidon homes' 指令 - 列出你的家 | OP |
-| poseidon.admin | 允许使用 '/padmin' 指令 - 管理员指令 | OP |
-| poseidon.admin.version | 允许使用 '/padmin version' 指令 - 显示 BentoBox 和插件的版本 | OP |
-| poseidon.admin.tp | 允许使用 '/padmin tp', '/padmin tpnether', '/padmin tpend' 指令 - 传送到玩家的领域 | OP |
-| poseidon.admin.getrank | 允许使用 '/padmin getrank' 指令 - 获取玩家在其领域上的等级或领域所有者 | OP |
-| poseidon.admin.setrank | 允许使用 '/padmin setrank' 指令 - 设置玩家在其领域上的等级或领域所有者 | OP |
-| poseidon.mod.info | 允许使用 '/padmin info' 指令 - 获取你所在位置或玩家领域的信息 | OP |
-| poseidon.mod.team | 允许使用 '/padmin team' 指令 - 管理团队 | FALSE |
-| poseidon.mod.team.add | 允许使用 '/padmin team add' 指令 - 将玩家添加到岛主的团队 | OP |
-| poseidon.mod.team.disband | 允许使用 '/padmin team disband' 指令 - 解散岛主的团队 | OP |
-| poseidon.mod.team.fix | 允许使用 '/padmin team fix' 指令 - 扫描并修复数据库中的跨领域成员资格 | OP |
-| poseidon.mod.team.kick | 允许使用 '/padmin team kick' 指令 - 将一名玩家踢出团队 | OP |
-| poseidon.mod.team.setowner | 允许使用 '/padmin team setowner' 指令 - 将领域所有权转让给该玩家 | OP |
-| poseidon.mod.team.add | 允许使用 '/padmin add' 指令 - 将玩家添加到岛主的团队 | OP |
-| poseidon.mod.team.kick | 允许使用 '/padmin kick' 指令 - 将一名玩家踢出团队 | OP |
-| poseidon.mod.team.disband | 允许使用 '/padmin disband' 指令 - 解散岛主的团队 | OP |
-| poseidon.mod.team.setowner | 允许使用 '/padmin setowner' 指令 - 将领域所有权转让给该玩家 | OP |
-| poseidon.mod.team.fix | 允许使用 '/padmin fix' 指令 - 扫描并修复数据库中的跨领域成员资格 | OP |
-| poseidon.admin.blueprint | 允许使用 '/padmin blueprint' 指令 - 操作蓝图 | OP |
-| poseidon.admin.blueprint.load | 允许使用 '/padmin blueprint load' 指令 - 将蓝图加载到剪贴板| OP |
-| poseidon.admin.blueprint.paste | 允许使用 '/padmin blueprint paste' 指令 - 将剪贴板粘贴到你的位置 | OP |
-| poseidon.admin.blueprint.origin | 允许使用 '/padmin blueprint origin' 指令 - 将蓝图的原点设置为你的位置 | OP |
-| poseidon.admin.blueprint.copy | 允许使用 '/padmin blueprint copy' 指令 - 复制由 pos1 和 pos2 设置的剪贴板 | OP |
-| poseidon.admin.blueprint.save | 允许使用 '/padmin blueprint save' 指令 - 保存已复制的剪贴板 | OP |
-| poseidon.admin.blueprint.rename | 允许使用 '/padmin blueprint rename' 指令 - 重命名一个蓝图 | OP |
-| poseidon.admin.blueprint.delete | 允许使用 '/padmin blueprint delete' 指令 - 删除该蓝图 | OP |
-| poseidon.admin.blueprint.pos1 | 允许使用 '/padmin blueprint pos1' 指令 - 设置长方体剪贴板的第1个角| OP |
-| poseidon.admin.blueprint.pos2 | 允许使用 '/padmin blueprint pos2' 指令 - 设置长方体剪贴板的第2个角| OP |
-| poseidon.admin.blueprint.list | 允许使用 '/padmin blueprint list' 指令 - 列出可用的蓝图 | OP |
-| poseidon.admin.register | 允许使用 '/padmin register' 指令 - 将玩家注册到你所在的无主领域 | OP |
-| poseidon.admin.unregister | 允许使用 '/padmin unregister' 指令 - 从领域中注销岛主，但保留领域方块 | OP |
-| poseidon.admin.range | 允许使用 '/padmin range' 指令 - 管理员领域范围指令 | OP |
-| poseidon.admin.range.display | 允许使用 '/padmin range display' 指令 - 显示/隐藏领域范围指示器 | OP |
-| poseidon.admin.range.set | 允许使用 '/padmin range set' 指令 - 设置领域保护范围 | OP |
-| poseidon.admin.range.reset | 允许使用 '/padmin range reset' 指令 - 将领域保护范围重置为世界默认值 | OP |
-| poseidon.admin.range.add | 允许使用 '/padmin range add' 指令 - 增加领域保护范围 | OP |
-| poseidon.admin.range.remove | 允许使用 '/padmin range remove' 指令 - 减少领域保护范围 | OP |
-| poseidon.admin.resets | 允许使用 '/padmin resets' 指令 - 编辑玩家重置值 | OP |
-| poseidon.admin.resets.set | 允许使用 '/padmin resets set' 指令 - 设置该玩家重置其领域的次数 | OP |
-| poseidon.admin.resets.remove | 允许使用 '/padmin resets reset' 指令 - 将玩家的领域重置次数设置为0 | OP |
-| poseidon.admin.resets.add | 允许使用 '/padmin resets add' 指令 - 增加该玩家的领域重置次数 | OP |
-| poseidon.admin.resets.remove | 允许使用 '/padmin resets remove' 指令 - 减少玩家的领域重置次数 | OP |
-| poseidon.admin.delete | 允许使用 '/padmin delete' 指令 - 删除一名玩家的领域 | OP |
-| poseidon.admin.why | 允许使用 '/padmin why' 指令 - 切换控制台保护调试报告 | OP |
-| poseidon.admin.deaths | 允许使用 '/padmin deaths' 指令 - 编辑玩家的死亡次数 | OP |
-| poseidon.admin.deaths.reset | 允许使用 '/padmin deaths reset' 指令 - 重置玩家的死亡次数 | OP |
-| poseidon.admin.deaths.set | 允许使用 '/padmin deaths set' 指令 - 设置玩家的死亡次数 | OP |
-| poseidon.admin.deaths.add | 允许使用 '/padmin deaths add' 指令 - 增加玩家的死亡次数 | OP |
-| poseidon.admin.deaths.remove | 允许使用 '/padmin deaths remove' 指令 - 减少玩家的死亡次数 | OP |
-| poseidon.admin.reload | 允许使用 '/padmin reload' 指令 - 重新加载 | OP |
-| poseidon.admin.setspawn | 允许使用 '/padmin setspawn' 指令 - 为此游戏模式设置一个领域为出生点 | OP |
-| poseidon.admin.setspawnpoint | F'low use of '/padmin setspawnpoint' command - set current location as spawn point for this realm | OP |
-| poseidon.admin.resetflags | 允许使用 '/padmin resetflags' 指令 - 将所有领域重置为 config.yml 中的默认标志设置 | OP |
-| poseidon.mod.switch | 允许使用 '/padmin switch' 指令 - 切换开启/关闭保护绕过 | OP |
-| poseidon.admin.purge | 允许使用 '/padmin purge &lt;days&gt;' 指令 - 识别并删除超过 [天数] 被遗弃的领域的区域文件 | OP |
-| poseidon.admin.purge.deleted | 允许使用 '/padmin purge deleted' 指令 - 回收已标记为可删除的领域的区域文件 | OP |
-| poseidon.admin.purge.unowned | 允许使用 '/padmin purge unowned' 指令 - 将无主领域标记为可删除 | OP |
-| poseidon.admin.purge.protect | 允许使用 '/padmin purge protect' 指令 - 切换领域清除保护 | OP |
-| poseidon.admin.settings | 允许使用 '/padmin settings' 指令 - 打开设置 GUI 或进行设置 | OP |
-| poseidon.admin.setprotectionlocation | 允许使用 '/padmin setprotectionlocation' 指令 - 将当前位置或 [x y z] 设置为领域保护区域的中心 | OP |
-| poseidon.mod.deletehomes | 允许使用 '/padmin deletehomes' 指令 - 从领域中删除所有已命名的家 | OP |
-| poseidon.mod.resetname | 允许使用 '/padmin resetname' 指令 - 重置玩家领域名称 | OP |
+Poseidon 权限以 `poseidon.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `poseidon`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
+
+## 玩家命令：默认谁拥有它们 { #player-commands-who-has-them-by-default }
+
+这些默认值来自 Poseidon 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
+
+| 权限 | 命令 | 默认 |
+|---|---|---|
+| `poseidon.island` | 玩家命令本身 | 所有人 |
+| `poseidon.island.create` | `create` | 所有人 |
+| `poseidon.island.home` | `go` | 所有人 |
+| `poseidon.island.homes` | `homes` | 所有人 |
+| `poseidon.island.sethome` | `sethome` | 所有人 |
+| `poseidon.island.deletehome` | `deletehome` | 所有人 |
+| `poseidon.island.renamehome` | `renamehome` | 所有人 |
+| `poseidon.island.spawn` | `spawn` | 所有人 |
+| `poseidon.island.info` | `info` | 所有人 |
+| `poseidon.island.near` | `near` | 所有人 |
+| `poseidon.island.reset` | `reset` | 所有人 |
+| `poseidon.island.name` | `setname`, `resetname` | 所有人 |
+| `poseidon.island.language` | `language` | 所有人 |
+| `poseidon.island.settings` | `settings` | 所有人 |
+| `poseidon.island.lock` | `lock` | 所有人 |
+| `poseidon.island.ban` | `ban`, `unban`, `banlist` | 所有人 |
+| `poseidon.island.expel` | `expel` | 所有人 |
+| `poseidon.island.team` | `team` | 所有人 |
+| `poseidon.island.team.invite` | `team invite` | 所有人 |
+| `poseidon.island.team.accept` | `team accept` | 所有人 |
+| `poseidon.island.team.reject` | `team reject` | 所有人 |
+| `poseidon.island.team.leave` | `team leave` | 所有人 |
+| `poseidon.island.team.kick` | `team kick` | 所有人 |
+| `poseidon.island.team.promote` | `team promote`, `team demote` | 所有人 |
+| `poseidon.island.team.setowner` | `team setowner` | 所有人 |
+| `poseidon.island.team.trust` | `team trust`, `team untrust` | 所有人 |
+| `poseidon.island.team.coop` | `team coop`, `team uncoop` | 所有人 |
+
+管理员和版主权限（`poseidon.admin.*`、`poseidon.mod.*`） 默认为操作员。请参见[工作人员权限](../../BentoBox/Permissions-Guide.md#staff-permissions).

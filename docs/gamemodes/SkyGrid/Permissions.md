@@ -1,49 +1,39 @@
-# SkyGrid 权限
+# SkyGrid 权限 { #skygrid-permissions }
 
-| 权限                                  | 启用对象 | 描述                                       |
-|-------------------------------------|------|------------------------------------------|
-| skygrid.admin.clearresetall         | op   | 允许清除所有玩家的区域重置限制                          |
-| skygrid.admin.delete                | op   | 允许玩家完全移除一个玩家（再生区域）                    |
-| skygrid.admin.deleteisland          | op   | 允许玩家完全再生玩家所在区域                          |
-| skygrid.admin.noban                 | op   | 玩家不能被禁止进入某个区域                           |
-| skygrid.admin.register              | op   | 允许玩家将最近的区域注册给另一个玩家                     |
-| skygrid.admin.reload                | op   | 重载config.yml文件                            |
-| skygrid.admin.reserve               | op   | 为玩家的下一个区域预留一个空位                          |
-| skygrid.admin.setlanguage           | op   | 重置所有玩家语言并设置默认语言                         |
-| skygrid.admin.setspawn              | op   | 允许使用出生点工具                               |
-| skygrid.admin.setrange              | op   | 允许设置区域保护范围                               |
-| skygrid.admin.settingsreset         | op   | 将所有区域重置为默认保护设置                           |
-| skygrid.admin.unregister            | op   | 从某个区域移除一个玩家，不再生区域方块                     |
-| skygrid.mod.bypasscooldowns         | op   | 允许管理员绕过冷却时间                             |
-| skygrid.mod.bypassdelays            | op   | 允许管理员绕过延迟                                |
-| skygrid.mod.bypassexpel             | op   | 允许管理员绕过区域驱逐                             |
-| skygrid.mod.bypasslock              | op   | 绕过区域锁定                                   |
-| skygrid.mod.bypassprotect           | op   | 允许管理员绕过区域保护                             |
-| skygrid.mod.clearreset              | false| 允许清除区域重置限制                               |
-| skygrid.mod.info                    | op   | 允许管理员查看玩家信息                             |
-| skygrid.mod.lock                    | op   | 锁定或解锁一个区域                                |
-| skygrid.mod.name                    | false| 允许为玩家的区域命名                               |
-| skygrid.mod.resethome               | op   | 允许设置或重置玩家的家位置                          |
-| skygrid.mod.resetname               | false| 允许重置玩家区域名                                |
-| skygrid.mod.team                    | false| 允许通过踢出和添加指令修改团队                       |
-| skygrid.mod.tp                      | op   | 允许传送到一个区域                                |
-| skygrid.island.ban                  | true | 允许禁止访客                                   |
-| skygrid.island.expel                | true | 允许驱逐访客                                   |
-| skygrid.island.home                 | true | 允许传送到玩家区域                                |
-| skygrid.island.go                   | true | 使用 skygrid go 指令                             |
-| skygrid.island.language             | true | 玩家可以选择语言                                 |
-| skygrid.island.lock                 | false| 允许区域锁定                                   |
-| skygrid.island.name                 | true | 玩家可以设置其区域的名称                            |
-| skygrid.island.number               | false| x 设置玩家可以制作的区域数量。                       |
-| skygrid.island.reset                | true | 玩家可以使用区域重置或重启指令                         |
-| skygrid.island.sethome              | true | 允许玩家使用sethome指令                          |
-| skygrid.island.settings             | true | 玩家可以查看设置                                 |
-| skygrid.island.spawn                | true | 如果存在出生点，玩家可以使用区域出生指令                  |
-| skygrid.island.team                 | true | 允许玩家使用团队指令                               |
-| skygrid.island.team.coop            | true | 允许玩家使用团队合作指令                            |
-| skygrid.island.team.trust           | true | 允许玩家使用团队信任指令                            |
-| skygrid.settings.*                  | true | 允许在区域上使用设置                               |
-| skygrid.island                      | true | 使用 **/skygrid** 指令                          |
-| skygrid.team.maxsize.[NUMBER]       | false| 允许玩家拥有默认值以上的更大团队尺寸。                  |
-| skygrid.island.maxhomes.[NUMBER]    | false| 允许玩家拥有默认值以上的更多家。                      |
-| skygrid.island.range.[NUMBER]       | false| 允许玩家拥有默认值以上的更大保护范围。                  |
+SkyGrid 权限以 `skygrid.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `skygrid`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
+
+## 玩家命令：默认谁拥有它们 { #player-commands-who-has-them-by-default }
+
+这些默认值来自 SkyGrid 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
+
+| 权限 | 命令 | 默认 |
+|---|---|---|
+| `skygrid.island` | 玩家命令本身 | 所有人 |
+| `skygrid.island.create` | `create` | 所有人 |
+| `skygrid.island.home` | `go` | 所有人 |
+| `skygrid.island.homes` | `homes` | 所有人 |
+| `skygrid.island.sethome` | `sethome` | 所有人 |
+| `skygrid.island.deletehome` | `deletehome` | 所有人 |
+| `skygrid.island.renamehome` | `renamehome` | 所有人 |
+| `skygrid.island.spawn` | `spawn` | 所有人 |
+| `skygrid.island.info` | `info` | 所有人 |
+| `skygrid.island.near` | `near` | 所有人 |
+| `skygrid.island.reset` | `reset` | 所有人 |
+| `skygrid.island.name` | `setname`, `resetname` | 所有人 |
+| `skygrid.island.language` | `language` | 所有人 |
+| `skygrid.island.settings` | `settings` | 所有人 |
+| `skygrid.island.lock` | `lock` | Nobody |
+| `skygrid.island.ban` | `ban`, `unban`, `banlist` | 所有人 |
+| `skygrid.island.expel` | `expel` | 所有人 |
+| `skygrid.island.team` | `team` | 所有人 |
+| `skygrid.island.team.invite` | `team invite` | 所有人 |
+| `skygrid.island.team.accept` | `team accept` | 所有人 |
+| `skygrid.island.team.reject` | `team reject` | 所有人 |
+| `skygrid.island.team.leave` | `team leave` | 所有人 |
+| `skygrid.island.team.kick` | `team kick` | 所有人 |
+| `skygrid.island.team.promote` | `team promote`, `team demote` | 所有人 |
+| `skygrid.island.team.setowner` | `team setowner` | 所有人 |
+| `skygrid.island.team.trust` | `team trust`, `team untrust` | 所有人 |
+| `skygrid.island.team.coop` | `team coop`, `team uncoop` | 所有人 |
+
+管理员和版主权限（`skygrid.admin.*`、`skygrid.mod.*`） 默认为操作员。请参见[工作人员权限](../../BentoBox/Permissions-Guide.md#staff-permissions).

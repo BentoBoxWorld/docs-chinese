@@ -1,57 +1,47 @@
-# Stranger Realms 权限
+# StrangerRealms 权限 { #strangerrealms-permissions }
 
-| 权限 | 描述 | 默认值 |
-| --- | --- | --- |
-| `strangerrealms.island` | 允许使用领地指令 | `true` |
-| `strangerrealms.claim` | 允许使用领地指令 | `true` |
-| `strangerrealms.unclaim` | 允许使用取消领地指令 | `true` |
-| `strangerrealms.create` | 允许创建领地 | `false` |
-| `strangerrealms.island.home` | 允许传送到玩家领地 | `true` |
-| `strangerrealms.island.sethome` | 允许玩家使用 sethome 指令 | `true` |
-| `strangerrealms.island.info` | 允许玩家查看其他玩家信息 | `true` |
-| `strangerrealms.island.lock` | 允许锁定领地 | `true` |
-| `strangerrealms.island.near` | 玩家可以看到附近领地的名称 | `true` |
-| `strangerrealms.island.expel` | 允许驱逐访客 | `true` |
-| `strangerrealms.island.ban` | 允许封禁访客 | `true` |
-| `strangerrealms.island.settings` | 玩家可以查看服务器设置 | `true` |
-| `strangerrealms.island.language` | 玩家可以选择语言 | `true` |
-| `strangerrealms.island.name` | 玩家可以设置他们领地的名称 | `true` |
-| `strangerrealms.spawn` | 如果出生点存在，玩家可以使用领地出生点指令 | `true` |
-| `strangerrealms.island.reset` | 玩家可以使用领地重置或重启指令 | `false` |
-| `strangerrealms.island.team` | 允许玩家使用团队指令 | `true` |
-| `strangerrealms.island.team.setowner` | 允许玩家更改团队所有者 | `true` |
-| `strangerrealms.island.team.invite` | 允许玩家邀请他人 | `true` |
-| `strangerrealms.island.team.reject` | 允许玩家拒绝邀请 | `true` |
-| `strangerrealms.island.team.leave` | 允许玩家离开团队 | `true` |
-| `strangerrealms.island.team.kick` | 允许玩家踢出团队成员 | `true` |
-| `strangerrealms.island.team.accept` | 允许玩家接受邀请 | `true` |
-| `strangerrealms.island.team.trust` | 允许玩家使用团队信任指令 | `true` |
-| `strangerrealms.island.team.coop` | 允许玩家使用团队合作指令 | `true` |
-| `strangerrealms.island.team.promote` | 允许玩家使用晋升指令 | `true` |
-| `strangerrealms.island.settings.*` | 允许在领地上使用设置 | `true` |
-| `strangerrealms.mod.info` | 允许协管员查看玩家信息 | `op` |
-| `strangerrealms.mod.clearreset` | 允许清除领地重置限制 | `false` |
-| `strangerrealms.mod.bypasscooldowns` | 允许协管员绕过冷却时间 | `op` |
-| `strangerrealms.mod.bypassdelays` | 允许协管员绕过延迟 | `op` |
-| `strangerrealms.mod.bypassprotect` | 允许协管员绕过领地保护 | `op` |
-| `strangerrealms.mod.bypassexpel` | 允许协管员绕过领地驱逐 | `op` |
-| `strangerrealms.mod.switch` | 允许协管员开启或关闭保护绕过 | `op` |
-| `strangerrealms.mod.lock` | 锁定或解锁一个领地 | `op` |
-| `strangerrealms.mod.bypasslock` | 绕过领地锁定 | `op` |
-| `strangerrealms.mod.bypassban` | 绕过领地封禁 | `op` |
-| `strangerrealms.mod.team` | 允许通过踢出和添加指令来修改团队 | `false` |
-| `strangerrealms.admin.tp` | 允许传送到一个领地 | `op` |
-| `strangerrealms.admin.clearresetall` | 允许清除所有玩家的领地重置限制 | `op` |
-| `strangerrealms.admin.reload` | 重新加载 config.yml | `op` |
-| `strangerrealms.admin.delete` | 允许玩家彻底移除一个玩家（包括领地） | `op` |
-| `strangerrealms.admin.register` | 允许玩家将最近的领地注册给另一名玩家 | `op` |
-| `strangerrealms.admin.unregister` | 从领地中移除一名玩家，但不删除领地
-方块 | `op` |
-| `strangerrealms.admin.setspawn` | 允许使用出生点工具 | `op` |
-| `strangerrealms.admin.setrange` | 允许设置领地保护范围 | `op` |
-| `strangerrealms.admin.settingsreset` | 将所有领地重置为默认保护设置 | `op` |
-| `strangerrealms.admin.noban` | 玩家不能被领地封禁 | `op` |
-| `strangerrealms.admin.noexpel` | 玩家不能被领地驱逐 | `op` |
-| `strangerrealms.admin.setlanguage` | 重置所有玩家的语言并设置默认语言 | `op` |
-| `strangerrealms.admin.getrank` | 获取玩家的等级 | `op` |
-| `strangerrealms.admin.setrank` | 设置玩家的等级 | `op` |
+StrangerRealms 权限以 `strangerrealms.` 开头。每个权限 列在 [Permissions reference](../../BentoBox/Permissions.md) with `[gamemode]` in place of `strangerrealms`。有关 VIP 特权，如更大的团队、岛屿和更多家点，请参见[权限和 VIP 特权](../../BentoBox/Permissions-Guide.md)。
+
+## 玩家命令：默认谁拥有它们 { #player-commands-who-has-them-by-default }
+
+这些默认值来自 StrangerRealms 的 `addon.yml`. **所有人** 表示所有玩家 都拥有该权限，除非你取消; **操作员** 表示你需要 通过权限插件授予玩家. 运行 `/bentobox perms` 在控制台查看服务器上的默认值.
+
+| 权限 | 命令 | 默认 |
+|---|---|---|
+| `strangerrealms.island` | 玩家命令本身 | 所有人 |
+| `strangerrealms.island.create` | `create` | 操作员（未声明） |
+| `strangerrealms.island.home` | `go` | 所有人 |
+| `strangerrealms.island.homes` | `homes` | 所有人 |
+| `strangerrealms.island.sethome` | `sethome` | 所有人 |
+| `strangerrealms.island.deletehome` | `deletehome` | 所有人 |
+| `strangerrealms.island.renamehome` | `renamehome` | 所有人 |
+| `strangerrealms.island.info` | `info` | 所有人 |
+| `strangerrealms.island.near` | `near` | 所有人 |
+| `strangerrealms.island.reset` | `reset` | Nobody |
+| `strangerrealms.island.name` | `setname`, `resetname` | 所有人 |
+| `strangerrealms.island.language` | `language` | 所有人 |
+| `strangerrealms.island.settings` | `settings` | 所有人 |
+| `strangerrealms.island.lock` | `lock` | 所有人 |
+| `strangerrealms.island.ban` | `ban`, `unban`, `banlist` | 所有人 |
+| `strangerrealms.island.expel` | `expel` | 所有人 |
+| `strangerrealms.island.team` | `team` | 所有人 |
+| `strangerrealms.island.team.invite` | `team invite` | 所有人 |
+| `strangerrealms.island.team.accept` | `team accept` | 所有人 |
+| `strangerrealms.island.team.reject` | `team reject` | 所有人 |
+| `strangerrealms.island.team.leave` | `team leave` | 所有人 |
+| `strangerrealms.island.team.kick` | `team kick` | 所有人 |
+| `strangerrealms.island.team.promote` | `team promote`, `team demote` | 所有人 |
+| `strangerrealms.island.team.setowner` | `team setowner` | 所有人 |
+| `strangerrealms.island.team.trust` | `team trust`, `team untrust` | 所有人 |
+| `strangerrealms.island.team.coop` | `team coop`, `team uncoop` | 所有人 |
+
+## Permissions only in StrangerRealms { #permissions-only-in-strangerrealms }
+
+| Permission | Allows | Default |
+|---|---|---|
+| `strangerrealms.claim` | `/st claim` | 所有人 |
+| `strangerrealms.unclaim` | `/st unclaim` | 所有人 |
+| `strangerrealms.spawn` | `/st spawn` | 所有人 |
+| `strangerrealms.admin.worldborder` | `/stranger worldborder` | 操作员（未声明） |
+
+管理员和版主权限（`strangerrealms.admin.*`、`strangerrealms.mod.*`） 默认为操作员。请参见[工作人员权限](../../BentoBox/Permissions-Guide.md#staff-permissions).

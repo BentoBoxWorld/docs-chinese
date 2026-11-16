@@ -216,7 +216,7 @@ BentoBox 没有内置商店。`#support-en` 的置顶消息中介绍了两种社
 - **共享区域，需要立即移除：**使用 **WorldEdit**（`//pos1`/`//pos2`/`//set air`）手动移除方块或重新生成区块。岛屿已从数据库中删除；这仅是清除方块的外观操作。
 - **清理后重启服务器**，这样 Paper 的区块缓存会被清空，空白区域会停止渲染。
 
-有关完整的生命周期，请参阅[岛屿删除（管理员）](BentoBox/About/IslandManagement.md#island-deletion-admin)。
+有关完整的生命周期，请参阅[岛屿删除（管理员）](BentoBox/About/IslandManagement.md#deleting-islands)。
 
 ## 团队、合作与访客
 
