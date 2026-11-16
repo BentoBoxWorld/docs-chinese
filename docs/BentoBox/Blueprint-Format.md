@@ -1,6 +1,6 @@
 # 蓝图文件格式
 
-**规范版本 2**
+**规范版本 2.1**
 
 此页面记录了 BentoBox 用于岛屿蓝图（`.blueprint` 文件）和蓝图包（包 `.json` 文件）的磁盘上 JSON 格式。它是随 BentoBox 存储库一起提供的机器可读 [JSON 模式](https://github.com/BentoBoxWorld/BentoBox/tree/develop/schemas) 的人类可读伴侣，可用于在编辑器或 CI 中验证文件。
 
@@ -13,6 +13,7 @@
 | 1 | 2019-06-09 | [1.5.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/1.5.0) | 初始版本，BentoBox Schem 格式的派生 |
 | 1.1 | 2026 | 2.x | 存储从压缩二进制更改为纯 JSON；`.blueprint` 成为主要扩展 |
 | 2 | 2026-08-14 | 3.22.x | 从源生成的完整字段级规范；发布了 JSON 模式 |
+| 2.1 | 2026-11-16 | 3.23.8 | 可选的[填充块](#compact-blueprints-fill)（`fill`、`fillMin`、`fillMax`）；实体记录其在块内的高度（`y`）；尺寸计入两端的角落块 |
 
 ## 文件类型
 
@@ -30,7 +31,7 @@
 
 - 只有此规范中列出的字段被发出；制作人必须不添加其他键。
 - **向量** (`org.bukkit.util.Vector`) 是 3 元素 JSON 数组：`[x, y, z]`。块位置习惯上持有整数，但底层类型是双数。
-- **由向量键控的地图** 使用 Gson 的复杂地图键形式：JSON *对数组*——`[[<vector>, <value>], ...]`——**不是** JSON 对象。这适用于 `blocks`、`attached` 和 `entities`。
+- **由向量键控的地图** 使用 Gson 的复杂地图键形式：JSON *对数组*——`[[<vector>, <value>], ...]`——**不是** JSON 对象。这适用于 `blocks`、`attached` 和 `entities`。**空**地图写为空对象 `{}`，因此读取方必须同时接受 `[]` 和 `{}` 作为空地图。
 - **由枚举键控的地图**（例如包的 `blueprints` 地图）是普通的 JSON 对象，枚举名称作为键。
 - **由整数键控的地图**（库存槽 → 物品）是带字符串化整数键的 JSON 对象（`"0"`、`"13"`、…）。
 - **物品栈** 序列化为 Bukkit YAML（通过 `ConfigurationSerializable`）并存储为 JSON *字符串*。将值视为可由 `YamlConfiguration#loadFromString` 解析的不透明 YAML 文档。
@@ -50,9 +51,11 @@
 | `icon` | 字符串 | 图标材料：Bukkit `Material` 名称（`DIAMOND`）、虚拟键（`minecraft:diamond`）或资源包自定义模型键。默认 `PAPER`。 |
 | `description` | 字符串[] | 在选择 UI 中的图标下显示的传说线。 |
 | `bedrock` | 向量 | 锚点。粘贴时，蓝图 `(0,0,0)` 被翻译以使 `bedrock` 降落在粘贴目标上。如果省略，BentoBox 在加载时在 `(xSize/2, ySize/2, zSize/2)` 自动创建一个。 |
-| `xSize`、`ySize`、`zSize` | 整数 | 边界框维度以块为单位。 |
+| `xSize`、`ySize`、`zSize` | 整数 | 复制区域的尺寸，以块为单位，计入两端的角落块。3.23.8 之前复制的蓝图可能在某个轴上少 1。 |
 | `sink` | 布尔 | 如果为真，蓝图在粘贴时下降直到它找到一个表面，而不是在锚点的确切 Y 粘贴。 |
-| `blocks` | 向量键控地图 | 主块，按相对于蓝图源的位置键控（每个轴 `0..size-1`）。见 [蓝图块](#蓝图块)。 |
+| `blocks` | 向量键控地图 | 主块，按相对于蓝图源的位置键控（每个轴 `0..size-1`）。见 [蓝图块](#蓝图块)。存在 `fill` 时，填充框内此处缺少的位置会放置填充块。 |
+| `fill` | [蓝图块](#蓝图块) | 自 3.23.8 起。在 `fillMin` 到 `fillMax` 之间、`blocks` 中没有条目的每个位置粘贴的块。缺省表示没有填充。见 [紧凑蓝图](#compact-blueprints-fill)。 |
+| `fillMin`、`fillMax` | 向量 | 自 3.23.8 起。填充框的角（包含两端），相对于蓝图源。与 `fill` 一起出现。 |
 | `attached` | 向量键控地图 | 块粘贴**之后** `blocks`，因为它们附加到支撑：火焰、梯子、铁轨、床、门、标志等。相同坐标约定作为 `blocks`。 |
 | `entities` | 向量键控列表地图 | 每块位置的实体来生成。多个实体可能共享一个键；块内的微调偏移在 [蓝图实体](#蓝图实体) 上。 |
 
@@ -78,6 +81,38 @@
   ]
 }
 ```
+
+### 紧凑蓝图（填充） { #compact-blueprints-fill }
+
+`blocks` 中缺少的位置通常表示"此处保持世界原样"。但用 `air` 复制时会记录框内的每个位置，而其中大多数是普通空气（海中建造的岛屿则是水）。
+
+从 3.23.8 开始，当蓝图的 `blocks` 覆盖其边界框的**每一个**位置时，BentoBox 会把最常见的*普通*块作为 `fill` 只存储一次，把框的角存入 `fillMin` 和 `fillMax`，并从 `blocks` 中删除这些块。普通块只有 `blockData` 以及可选的 `biome`：没有标志文字、库存、生成器、标旗图案或 ItemsAdder ID。生物群系与填充块不同的块保留在 `blocks` 中。
+
+要粘贴带填充的蓝图，先在 `fillMin` 到 `fillMax` 之间、`blocks` 中没有条目的每个位置放置填充块，然后照常粘贴 `blocks`、`attached` 和 `entities`。结果与未压缩的蓝图相同。
+
+- 省略了某些位置的复制（不加 `air`，或使用 `air nowater`）不能使用填充，因为填充会覆盖本应保持原样的位置。这种复制写入时不带填充。
+- 没有填充的蓝图的读取方式与以前完全相同。BentoBox 加载完整覆盖的旧蓝图时会在内存中将其压缩，并在下次保存时写入紧凑格式。
+- 3.23.8 之前的 BentoBox 会忽略填充字段，因此用旧版 BentoBox 粘贴紧凑蓝图时会缺少空气或水。
+
+```json
+{
+  "name": "sea-island",
+  "bedrock": [2.0, 1.0, 2.0],
+  "xSize": 5, "ySize": 4, "zSize": 5,
+  "fill": {"blockData": "minecraft:water[level=0]"},
+  "fillMin": [0.0, 0.0, 0.0],
+  "fillMax": [4.0, 3.0, 4.0],
+  "blocks": [
+    [[2.0, 1.0, 2.0], {"blockData": "minecraft:bedrock"}],
+    [[2.0, 2.0, 2.0], {"blockData": "minecraft:sand"}],
+    [[2.0, 3.0, 2.0], {"blockData": "minecraft:air"}]
+  ],
+  "attached": {},
+  "entities": {}
+}
+```
+
+此例中，5 × 4 × 5 框内除列出的三个块外，每个位置都是水。
 
 ## 蓝图块
 
@@ -135,7 +170,7 @@
 |------|------|------|
 | `type` | 字符串 | **必需。** Bukkit `EntityType` 名称（`VILLAGER`、`ARMOR_STAND`、`ITEM_FRAME`、…）。 |
 | `customName` | 字符串 | 显示名称；支持旧版 `§` 颜色代码。 |
-| `x`、`y`、`z` | 数字 | 在位置单元格内的微调偏移（通常 `0.0 ≤ v < 1.0`）。 |
+| `x`、`y`、`z` | 数字 | 在位置单元格内的偏移（通常 `0.0 ≤ v < 1.0`）。展示实体使用全部三个值。自 3.23.8 起，其他非悬挂类实体会记录 `y`，即它们在块内所处的高度（漂浮的船、站在台阶上的生物），并在该高度生成；水平方向始终在单元格中心生成。`0` 表示在单元格底部生成。 |
 | `glowing` | 布尔 | 发光效果。 |
 | `gravity` | 布尔 | 重力是否适用。 |
 | `visualFire` | 布尔 | 渲染火不管 `fireTicks`。 |
