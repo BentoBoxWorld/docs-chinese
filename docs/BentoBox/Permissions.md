@@ -50,7 +50,7 @@
 | `[gamemode].island.team` | `team` |
 | `[gamemode].island.team.accept` | `team accept` |
 | `[gamemode].island.team.coop` | `team coop`、`team uncoop` |
-| `[gamemode].island.team.invite` | `team invite` |
+| `[gamemode].island.team.invite` | `team invite`、`team uninvite` |
 | `[gamemode].island.team.kick` | `team kick` |
 | `[gamemode].island.team.leave` | `team leave` |
 | `[gamemode].island.team.promote` | `team demote`、`team promote` |

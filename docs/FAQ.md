@@ -523,7 +523,7 @@ use-own-generator: false
 
 首先，粘贴速度可能对你的服务器来说太快了。
 尝试降低它。
-在 BentoBox 的 `config.yml` 中找到以下设置：
+在 BentoBox 的 `config.yml` 中找到以下设置。在 BentoBox 3.24.0 及更高版本上，请先调低 `paste-time-budget`：
 
 ```yaml
 # 粘贴蓝图时每个 tick 粘贴的方块数。
@@ -531,6 +531,11 @@ use-own-generator: false
 # 较大的值会使粘贴花费更少时间，但这种优势很快就会被
 # 必须加载的区块数量所抵消，通常会导致服务器卡死。
 paste-speed: 64
+# 每个 tick 中粘贴和复制蓝图最多可占用的毫秒数。方块以
+# paste-speed 为一批持续粘贴，直到用完这段时间，因此服务器有余力时，大岛屿的粘贴速度会快得多。
+# 一个 tick 为 50 毫秒。如果创建岛屿导致卡顿，请调低此值。0 表示每 tick 只粘贴一批（旧行为）。
+# 自 3.24.0 起新增。
+paste-time-budget: 10
 ```
 
 如果你在运行 timings，`BlueprintPaster` 任务理想状态是耗时较长但占用每 tick 时间的百分比较低。

@@ -66,6 +66,20 @@ Level 插件有 3 个通用配置项:
 
     默认值: `true`
 
+??? note "zero-disabled-game-modes"
+    不对岛屿等级进行归零的游戏模式列表。自 Level 2.31.0 起可用。
+
+    归零适用于虚空世界，因为开局时唯一的方块就是初始岛屿。在有生成地形的世界中（例如 CaveBlock），应在 [`blockconfig.yml`](#blockconfigyml) 中把该世界的自然方块价值设为 0，并在这里列出该游戏模式。
+
+    列出的游戏模式中的岛屿在创建或重置时不会归零，并且已为其存储的初始计数会被忽略（但不会被删除）。这些游戏模式不会注册用于设置岛屿初始等级的管理指令。如果 `zero-new-island-levels` 为 `false`，此选项不起作用。
+
+    ```yaml
+    zero-disabled-game-modes:
+    - CaveBlock
+    ```
+
+    默认: `[]`
+
 ??? note "donations-only"
     如果为 true，将完全跳过岛屿方块扫描，岛屿等级仅根据通过 `/island donate` 捐赠的方块计算。这样可以省去每次重新计算时扫描岛屿的 CPU 开销。
 
@@ -224,6 +238,8 @@ Level 插件有 3 个通用配置项:
     ```
 
     在此示例中,AcidIsland 将对所有方块使用与 BSkyBlock 相同的值,除了沙子、沙石和冰。
+
+    自 Level 2.31.0 起，默认文件在 `caveblock-world` 中把自然地形、矿石、洞穴装饰、黑曜石和自然生成的刷怪笼的价值设为 0，在 `acidisland_world` 中把黑曜石的价值设为 0。Level 从不覆盖已有的 `blockconfig.yml`，因此升级的服务器必须自行从[默认文件](https://github.com/BentoBoxWorld/Level/blob/master/src/main/resources/blockconfig.yml)中复制这些部分。参见 [v2.31.0 新内容](#changelog)。
 
 ### 可自定义 GUI
 
@@ -451,7 +467,7 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     ![template](https://user-images.githubusercontent.com/4407265/212773894-6f635ed4-f337-4936-b50f-3b616b6bf041.png){: loading=lazy }
     ![template](https://user-images.githubusercontent.com/4407265/212773929-b51ae6b3-5df3-43ae-b35f-bc6fcb42d78f.png){: loading=lazy }
 
-## 更新日志
+## 更新日志 { #changelog }
 
 ??? note "v2.23.0 新内容"
     **发布于:** 2026-02-21
@@ -561,6 +577,30 @@ BentoBox 1.17 API 引入了一个允许实现可自定义 GUI 的功能。我们
     - 🆕 新增繁体中文（`zh-TW`）本地化。感谢 @qwe664！
 
     [发布 v2.29.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.29.0)
+
+!!! warning "v2.31.0 新内容 —— CaveBlock 服务器必须编辑 blockconfig.yml"
+    **发布于：** 2026-11-22
+
+    兼容性：BentoBox API 3.16.0（死亡相关指令需要 3.23.3+）、Minecraft 1.21.x 和 26.1.x – 26.3、Java 21。
+
+    - ⚡ **等级扫描不再生成区块。** 扫描会跳过所有从未生成过的区块。在此之前，新 CaveBlock 岛屿的第一次扫描会尝试生成整个 2000 × 2000 方块的区域，超出 5 分钟的 `calculation-timeout`，并拖住其他所有岛屿的扫描。[#464](https://github.com/BentoBoxWorld/Level/pull/464)
+    - ⚡ **区块并行加载，**每次 100 个。在一台测试服务器上，扫描 2,927 个已生成区块的耗时从一分多钟降到约 10 秒。[#465](https://github.com/BentoBoxWorld/Level/pull/465)
+    - ⚙️ **新设置 `zero-disabled-game-modes`**（默认为空）可为你列出的游戏模式关闭归零。参见 [config.yml](#configyml)。
+    - 🔺 **新的默认方块价值。** 在 `caveblock-world` 中，自然地形、所有矿石、洞穴装饰、气泡柱、自然生成的刷怪笼和黑曜石的价值为 0。在 `acidisland_world` 中，黑曜石的价值为 0。来自生成结构（例如废弃矿井）的方块保留其价值。这些值只会写入**新建**的 `blockconfig.yml`。
+    - 🐛 玩家在冷却期间查询自己的等级时，会在指令运行之前被拒绝，因此不再被计为参数错误。
+
+    🔺 **如果你运营 CaveBlock，请在玩家运行 `/cb level` 之前编辑 `plugins/BentoBox/addons/Level/blockconfig.yml`：**
+
+    1. 用[默认 blockconfig.yml](https://github.com/BentoBoxWorld/Level/blob/master/src/main/resources/blockconfig.yml) 中的对应部分替换 `worlds:` 下的 `caveblock-world` 部分。在默认保护范围 1000 下，此版本之前扫描无法完成，所以岛屿显示等级 0。现在扫描能够完成，而如果沿用旧值，会把洞穴中的所有自然地形都计算在内。
+    2. 在 `config.yml` 中把 `CaveBlock` 添加到 `zero-disabled-game-modes`。按旧值归零的岛屿，其初始计数包含自然地形；一旦这些地形的价值变为 0，就会把等级压低。
+
+    无论如何，CaveBlock 的等级和前十排行榜都会发生变化。深板岩、矿石、黑曜石和其他列出的方块在 CaveBlock 中不再计分，玩家自己放置的也一样。关闭归零后，洞穴中已有的生成结构里的方块（铁轨、木板、栅栏、箱子）会开始计分。
+
+    **AcidIsland（可选）：** 在 `acidisland_world` 下添加 `obsidian: 0`。岛上每有一块黑曜石，岛屿就会少 10 分。
+
+    其他游戏模式不受影响。
+
+    [发布 v2.31.0](https://github.com/BentoBoxWorld/Level/releases/tag/2.31.0)
 
 ??? warning "v2.30.0 新内容 —— 管理员死亡指令会修改岛屿死亡次数"
     **发布于：** 2026-10-31

@@ -264,6 +264,7 @@ gotoAtEnd: 0
   end-commands: [ ... ]
   end-commands-first-time: [ ... ]
   requirements: { ... }
+  finale: { ... }             # 可选，结束阶段的 boss（1.29.0+）
 ```
 
 === "name"
@@ -297,7 +298,7 @@ gotoAtEnd: 0
 
 ---
 
-## 阶段改变时的命令
+## 阶段改变时的命令 { #commands-on-phase-change }
 
 命令作为**控制台**运行，除非带有 `[SUDO]` 前缀，此时它们作为触发它们的玩家运行。
 
@@ -327,6 +328,122 @@ start-commands:
 end-commands-first-time:
 - 'broadcast &c&l[!] &b[player] &fhas completed the &d&n[phase]&f phase for the first time.'
 ```
+
+---
+
+## 阶段终局——结束阶段的 boss { #phase-finales-the-boss-that-ends-a-phase }
+
+*在 AOneBlock 1.29.0 中添加。*
+
+带有 `finale:` 章节的阶段会以一场 boss 战结束。当阶段的最后一个方块被挖掉时，魔法方块会封闭起来，boss 在其上方生成。在 boss 死亡之前，阶段不会切换。没有 `finale:` 章节的阶段仍按原来的方式结束。
+
+```yaml
+  finale:
+    boss: GIANT
+    name: '<dark_green>The Colossus'
+    health: 100
+    scale: 0.5
+    damage: 4
+    speed: 0.25
+    minions:
+      ZOMBIE: 2
+    drops:
+      IRON_INGOT: 8
+      BREAD: 8
+```
+
+### 战斗流程 { #how-a-fight-goes }
+
+- **预警。** 在阶段的最后 20 个方块中会响起心跳声，音调逐渐升高；距离结束还有 5 个方块时会敲响钟声。boss 进入等待状态后，阶段进度条会显示 boss 的名字。
+- **战斗。** boss 伴随袭击号角声和一道闪电在魔法方块上生成。boss 死亡之前无法挖掘魔法方块，阶段进度条也会让位给 boss 自己的血条。
+- **对岛屿公平。** 只有玩家能伤害 boss：近战、弹射物和宠物均可。boss 及其随从无法破坏、烧毁或炸毁方块，boss 离开岛屿时会被拉回。
+- **击飞。** 玩家仍然可能被击飞。被击入虚空的 boss 会回到魔法方块上，除非 `void-respawn` 为 `false`。
+- **失败。** 如果所有人都死亡或离开，boss 会在约十秒后撤退。击打魔法方块可再次召唤它。每输掉一场战斗，下一次挑战就会降低 10% 的难度，最低降到一半血量。
+- **团队。** 岛上每多一名玩家，boss 血量增加 50%，最多按四名玩家计算。
+- **奖励。** boss 会掉落其 `drops`，然后每次获胜都会运行 `commands`，而 `first-time-commands` 只在岛屿第一次击败它时运行。
+
+和平难度下会跳过终局，因为 boss 无法生成。
+
+### 选项 { #options }
+
+| 选项 | 作用 | 默认值 |
+|---|---|---|
+| `boss` | boss 的 `EntityType`。`GIANT` 在原版中没有 AI；AOneBlock 会为它添加 AI，这需要 Paper。设置了 `mythic-boss` 时，此项为可选的后备 | 必填，除非设置了 `mythic-boss` |
+| `mythic-boss` | 改为用作 boss 的 [MythicMobs](#mythicmobs-bosses-and-minions) 生物类型（1.30.0+） | 无 |
+| `mythic-level` | MythicMobs boss 以及 `mythic-minions` 的等级（1.30.0+） | `1` |
+| `name` | 显示名称。支持 MiniMessage 或传统 `&` 代码。使用 `mythic-boss` 时也要设置，否则 boss 血条会显示其类型 ID | 生物的名称 |
+| `health` | 基础最大血量。`0` 表示保留生物自身的血量（1.30.0+）。服务器上限为 1024，除非你在 `spigot.yml` 中调高 `settings.attribute.maxHealth` | `100`；`mythic-boss` 为 `0` |
+| `scale` | 体型倍数。`1` 为正常大小 | `1`；`mythic-boss` 为生物自身的体型 |
+| `damage` | 攻击伤害。省略或设为 `0` 则使用生物自身的值 | 生物自身的值 |
+| `speed` | 移动速度。省略或设为 `0` 则使用生物自身的值 | 生物自身的值 |
+| `void-respawn` | `true`：被击入虚空的 boss 会回到魔法方块上。`false`：boss 会被虚空杀死，并算作胜利 | `true` |
+| `warning` | 在结束前多少个方块开始预警。`0` 表示不预警 | `20` |
+| `minions` | 与 boss 一同生成的生物，格式为 `TYPE: count` | 无 |
+| `mythic-minions` | 与 boss 一同生成的 MythicMobs 生物，格式为 `type: count`。它们使用 `mythic-level`（1.30.0+） | 无 |
+| `drops` | boss 死亡时掉落的物品，格式为 `MATERIAL: amount` | 无 |
+| `commands` | 每次击败 boss 时运行的命令。前缀和占位符与 [`end-commands`](#commands-on-phase-change) 相同 | 无 |
+| `first-time-commands` | 仅在岛屿第一次击败该 boss 时运行的命令 | 无 |
+
+内置的 [`0_plains.yml`](https://github.com/BentoBoxWorld/AOneBlock/blob/master/src/main/resources/phases/0_plains.yml) 在注释中说明了每个选项。你服务器上的副本保留的是创建时的注释，因此后续版本新增的选项请查看内置文件。
+
+### MythicMobs boss 和随从 { #mythicmobs-bosses-and-minions }
+
+*在 AOneBlock 1.30.0 中添加。*
+
+如果安装了 MythicMobs 插件，终局可以使用你的某个 MythicMobs 生物作为 boss，并用 MythicMobs 生物作为随从。BentoBox 会自动挂钩 MythicMobs，无需开启任何选项。
+
+```yaml
+  finale:
+    mythic-boss: SkeletonKing      # MythicMobs 生物类型
+    mythic-level: 3                # 可选，默认 1
+    boss: WITHER_SKELETON          # 可选，MythicMob 无法生成时的后备
+    name: '<gold>The Skeleton King'
+    mythic-minions:                # MythicMobs 类型: 数量
+      SkeletalMinion: 3
+    minions:                       # 原版随从同样可用
+      ZOMBIE: 2
+    drops:
+      DIAMOND: 4
+```
+
+- **相同的战斗规则。** MythicMobs boss 同样会被留在岛上、拥有 boss 血条、只受玩家伤害，每多一名玩家血量增加，输掉一场战斗后血量降低。它的 MythicMobs 技能、AI 和掉落物仍然有效。终局的 `drops` 和命令也会照常发放和运行。
+- **血量和体型。** 除非阶段文件设置了 `health` 或 `scale`，否则 boss 保留其 MythicMobs 配置中的血量和体型。
+- **随从。** `mythic-minions` 既可用于原版 boss，也可用于 MythicMobs boss。与原版随从一样，它们无法改变方块，并会在战斗结束时被移除。它们目前以类型 ID 作为名字显示。
+- **后备。** 如果没有安装 MythicMobs，或 MythicMobs 中没有该生物，则使用 `boss` 类型。如果也没有设置 `boss`，阶段会直接推进，不进行战斗。未知的随从类型会被记录到日志并跳过。
+
+### 开启和关闭终局 { #turning-finales-on-and-off }
+
+- **所有终局：** 在 AOneBlock 的 `config.yml` 中设置 `island.phase-finales: false`。
+- **单个阶段：** 从该阶段的文件中删除 `finale:` 章节。
+
+!!! warning "从 1.29.0 之前版本升级的服务器没有 boss"
+    升级永远不会覆盖 `plugins/BentoBox/addons/AOneBlock/phases/` 中的阶段文件，因此它们没有 `finale:` 章节。请把每个[内置阶段文件](https://github.com/BentoBoxWorld/AOneBlock/tree/master/src/main/resources/phases)中的 `finale:` 章节复制到你自己的文件中，然后重启。新安装从一开始就带有这些章节。
+
+### 内置的 boss { #the-shipped-bosses }
+
+| 阶段 | Boss | 生物 |
+|---|---|---|
+| 平原 | The Colossus | 巨人 |
+| 地下 | The Broodmother | 蜘蛛 |
+| 冬季 | The Frostbitten | 流浪者 |
+| 海洋 | The Drowned King | 溺尸 |
+| 丛林 | The Temple Guardian | 铁傀儡 |
+| 沼泽 | The Bog Witch | 女巫 |
+| 地牢 | The Jailer | 凋灵骷髅 |
+| 沙漠 | The Pharaoh | 尸壳 |
+| 下界 | The Warlord | 猪灵蛮兵 |
+| 丰饶 | The Harvest Beast | 劫掠兽 |
+| 荒芜 | The Last Titan | 巨人 |
+| 深暗之域 | The Warden | 监守者 |
+| 末地 | The Void Walker | 末影人 |
+| 繁茂洞穴 | The Mossback | 沼骸 |
+| 溶洞 | The Burrower | 蠹虫 |
+| 红树林沼泽 | The Mire Lurker | 洞穴蜘蛛 |
+| 草甸 | The Summoner | 唤魔者 |
+| 樱花树林 | The Petal Phantom | 幻术师 |
+| 尖峭山峰 | The Gale | 旋风人 |
+| 硫磺洞穴 | Brimstone | 烈焰人 |
+| 杂色森林 | The Woodcutter | 卫道士 |
 
 ---
 
@@ -369,9 +486,27 @@ custom-blocks:
     mob: ZOMBIE
     underlying-block: STONE
     probability: 5
+  - type: mob-data
+    data: breeze{Glowing:1b,attributes:[{id:scale,base:2f}]}
+    underlying-block: STONE
+    probability: 15
   - type: itemsadder
     id: mypack:ruby_ore
     probability: 10
+  - type: mythic-mob
+    mob: SkeletalKnight      # MythicMob 类型 ID（必填）
+    level: 3                 # 可选，默认 1
+    power: 1.0               # 可选，默认 0
+    display-name: "Boss"     # 可选
+    stance: ""               # 可选
+    underlying-block: STONE  # 可选
+    probability: 5
+  - type: nexo
+    id: custom_block
+    probability: 10
+  - type: craftengine
+    id: craftengine:custom_block
+    probability: 25
 ```
 
 | `type` | 它做什么 | 需要 |
@@ -463,6 +598,7 @@ mobs:
 | `Phase name trying to be set to X but already set to Y. Duplicate phase file?` | 两个文件使用同一顶层章节键 |
 | 阶段从不出现 | 它在 `phases_index.yml` 中是 `enabled: false`，或它的 `requiredMinecraftVersion` 比服务器更新 |
 | 宝箱出现空的 | 宝箱文件的顶层键与阶段文件的不匹配，或其物品加载失败 — 运行 `/[admin_command] sanity` |
+| 阶段结束时没有 boss | 阶段文件没有 `finale:` 章节（从 1.29.0 之前版本升级的服务器必须[手动添加](#turning-finales-on-and-off)），`island.phase-finales` 为 `false`，或世界处于和平难度。如果使用了 `mythic-boss` 且没有 `boss` 后备，则可能是未安装 MythicMobs，或 MythicMobs 中没有该生物类型 |
 | 编辑不起作用 | 插件未被重新加载，或你编辑的是 jar 中 `src/main/resources` 中的文件而不是 `plugins/BentoBox/addons/AOneBlock/phases/` |
 
 监视服务器日志在启动时。每个加载的阶段文件被记录，以及每个被拒绝的方块、怪物和物品，以及索引协调器做的每个改变（以 `Phase index:` 开头的行）。

@@ -157,6 +157,8 @@
 ??? question "我遇到了一个错误，我应该在哪里报告它？"
     请将其添加到[这里](https://github.com/BentoBoxWorld/CaveBlock/issues)的列表中。
 
+??? question "为什么岛屿等级为 0、大得离谱，或随着玩家探索不断上升？"
+    CaveBlock 是一个实心的世界，因此 [Level](../../addons/Level/index.md) 附属需要让自然地形的价值为 0。请使用 Level 2.31.0 或更高版本，从其默认的 `blockconfig.yml` 中复制 `caveblock-world` 部分，并在 Level 的 `config.yml` 中把 `CaveBlock` 添加到 `zero-disabled-game-modes`。新安装的 Level 已经自带这些方块价值。参见 [Level 2.31.0 新内容](../../addons/Level/index.md#changelog)。
 
 ## 更新日志
 

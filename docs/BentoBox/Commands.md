@@ -72,6 +72,7 @@ BentoBox 及其游戏模式中的每个命令，从 BentoBox 源生成。关于�
 | `/[player_command] team setowner <player>` | 将你的岛屿所有权转移给成员 | `[gamemode].island.team.setowner` |
 | `/[player_command] team trust <player>` | 在你的岛屿上给玩家信任等级 | `[gamemode].island.team.trust` |
 | `/[player_command] team uncoop <player>` | 从玩家移除合作等级 | `[gamemode].island.team.coop` |
+| `/[player_command] team uninvite <player>` | 撤回待处理的团队、信任或合作邀请（BentoBox 3.24.0+） | `[gamemode].island.team.invite` |
 | `/[player_command] team untrust <player>` | 从玩家移除信任等级 | `[gamemode].island.team.trust` |
 | `/[player_command] unban <player>` | 从你的岛屿解除玩家禁止 | `[gamemode].island.ban` |
 

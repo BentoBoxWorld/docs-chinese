@@ -38,6 +38,28 @@ OneBlock 将你放置在太空中的一个方块上。只有一个方块。你�
 
     默认值：`10`（替代旧的硬编码 50）。现有配置会自动获取默认值。
 
+!!! new "自 AOneBlock 1.29.0 起 —— `island.phase-finales`"
+    阶段是否以 boss 战结束。阶段文件中有 `finale:` 章节的阶段会以一个 boss 结束，必须击败该 boss，魔法方块才会进入下一个阶段。设为 `false` 可关闭所有终局。详见[阶段终局](Phases.md#phase-finales-the-boss-that-ends-a-phase)。
+
+    默认值：`true`。会自动添加到现有配置中。
+
+!!! new "自 AOneBlock 1.30.0 起 —— `island.teams-disabled`"
+    在 AOneBlock 世界中关闭团队系统。玩家无法邀请、接受邀请、踢出、离开、晋升、降级或更换岛屿所有者。信任和合作仍然有效。开启后，请运行一次 `/obadmin team disbandall` 来移除现有的团队成员。
+
+    默认值：`false`。会自动添加到现有配置中。
+
+!!! new "自 AOneBlock 1.30.0 起 —— `world.structure-settings`"
+    在 AOneBlock 世界中单独开启或关闭某个原版结构，覆盖 BentoBox `config.yml` 中的全局 `world.disabled-structures` 列表。键是原版结构 ID；`false` 表示禁用，`true` 表示强制开启。未列出的结构遵循 BentoBox 的设置。AOneBlock 自带的虚空生成器不会放置任何结构，因此此项仅在 `use-own-generator: true` 时才有意义。
+
+    ```yaml
+    world:
+      structure-settings:
+        monument: false
+        trial_chambers: false
+    ```
+
+    默认值：`{}`。会自动添加到现有配置中。
+
 ### 阶段索引 —— `phases_index.yml`
 
 !!! new "AOneBlock 1.26.0 新增"
@@ -525,7 +547,7 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
 ??? question "有哪些阶段？"
     内置了 21 个阶段，顺序如下：平原、地下、冬季、海洋、丛林、沼泽、地牢、沙漠、下界、丰饶、荒芜、深暗之域、末地、繁茂洞穴、溶洞、红树林沼泽、草甸、樱花树林、尖峭山峰、硫磺洞穴、杂色森林。
 
-    每个阶段都有适合该环境的一组方块、物品和怪物。
+    每个阶段都有适合该环境的一组方块、物品和怪物。自 1.29.0 起，每个内置阶段还会以各自的 boss 收尾；详见[阶段终局](Phases.md#phase-finales-the-boss-that-ends-a-phase)。
 
     硫磺洞穴需要 Minecraft 26.2 或更高版本，杂色森林需要 Minecraft 26.3 或更高版本。在更旧的服务端上它们会被跳过而不占用任何方块数，因此前一个阶段会一直延续到循环点。你可以用 `/[admin_command] phases` 自行重新排序、禁用和调整阶段长度，也可以把自己的阶段文件放进 `phases` 文件夹。
 
@@ -599,6 +621,11 @@ AOneBlock 插件有其独特的占位符。这些占位符与 AOneBlock 存储�
     然而，BentoBox 是可定制的，您可以在 AOneBlock 配置文件中启用下界岛屿和末地世界。
 
     请注意，魔法方块仅位于主世界。
+
+??? question "阶段结束时会发生什么？"
+    自 AOneBlock 1.29.0 起，当阶段的最后一个方块被挖掉时，魔法方块会封闭起来，一个 boss 会在其上方升起。在 boss 死亡之前，下一个阶段不会开始。如果所有人都死亡或离开，boss 会撤退，击打魔法方块可以再次召唤它。
+
+    从旧版本升级的服务器在管理员向阶段文件添加 `finale:` 章节之前不会有 boss。详见[阶段终局](Phases.md#phase-finales-the-boss-that-ends-a-phase)。
 
 ??? question "最终目标是什么？"
     这取决于你！ 
@@ -775,6 +802,55 @@ AOneBlock has some custom events that are called only in AOneBlock. But BentoBox
         }
         ```
 
+=== "PhaseFinaleStartEvent"
+    !!! summary "Description"
+        AOneBlock 1.29.0 新增。此事件在[阶段终局](Phases.md#phase-finales-the-boss-that-ends-a-phase)即将开始、boss 生成之前触发。它可以被取消：取消后会跳过战斗，不会生成 boss，岛屿直接进入下一个阶段。
+
+        Link to the class: [PhaseFinaleStartEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/PhaseFinaleStartEvent.java)
+
+    !!! question "Variables"
+        - `String phase` - 即将结束的阶段的名称。
+        - `PhaseFinale finale` - 阶段文件中的终局定义。
+        - `@NonNull Island island` - 发生终局的岛屿。
+        - `@Nullable UUID playerUUID` - 触发终局的玩家。可以为 Null。
+        - `@NonNull Block block` - 魔法方块。
+
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+        public void onFinaleStart(PhaseFinaleStartEvent event) {
+            if (event.getPhase().equals("Plains")) {
+                // 平原阶段结束时没有 boss
+                event.setCancelled(true);
+            }
+        }
+        ```
+
+=== "PhaseFinaleEndEvent"
+    !!! summary "Description"
+        AOneBlock 1.29.0 新增。此事件在阶段终局结束时触发，原因可能是 boss 被击败，也可能是 boss 离开（所有人死亡或离开，或 boss 被移除）。
+
+        Link to the class: [PhaseFinaleEndEvent](https://github.com/BentoBoxWorld/AOneBlock/blob/develop/src/main/java/world/bentobox/aoneblock/events/PhaseFinaleEndEvent.java)
+
+    !!! question "Variables"
+        - `String phase` - 即将结束的阶段的名称。
+        - `boolean defeated` - 如果 boss 被击败则为 true，如果战斗被放弃则为 false。
+        - `boolean firstTime` - 如果这是该岛屿第一次击败此 boss 则为 true。
+        - `@NonNull Island island` - 发生终局的岛屿。
+        - `@Nullable UUID playerUUID` - 击杀 boss 的玩家。可以为 Null。
+        - `@NonNull Block block` - 魔法方块。
+
+    !!! example "Code example"
+        ```java
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onFinaleEnd(PhaseFinaleEndEvent event) {
+            if (event.isDefeated() && event.isFirstTime()) {
+                String phase = event.getPhase();
+                Island island = event.getIsland();
+            }
+        }
+        ```
+
 ## 更新日志
 
 ??? warning "v1.23.0 新内容 — 需要语言文件更新"
@@ -941,3 +1017,41 @@ AOneBlock has some custom events that are called only in AOneBlock. But BentoBox
     🔺 **杂色森林在首次启动时被添加到你的阶段顺序**（日志：`Phase index: added new phase Dappled Forest`），其文件被复制到 `phases/`。你现有的顺序、长度和启用标志不会改变。如果你不想要它，在 `/[admin_command] phases` 中禁用它。
 
     [发布 v1.28.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.28.0)
+
+!!! warning "v1.29.0 新内容 —— 阶段终局（已有服务器必须手动添加）"
+    **发布于：** 2026-11-14
+
+    兼容性：BentoBox API 3.22.0+ · Minecraft 26.x 或 1.21.5+（硫磺洞穴需要 26.2+，杂色森林需要 26.3+）· Java 25。
+
+    - ⚔️ **阶段终局。** 现在每个内置阶段都以一场 boss 战结束。当阶段的最后一个方块被挖掉时，魔法方块会封闭起来，一个 boss 在其上方升起；在 boss 死亡之前，下一个阶段不会开始。21 个内置阶段各有自己的 boss，从平原阶段末尾的 The Colossus（巨人）到深暗之域阶段末尾的监守者。规则和全部选项详见[阶段终局](Phases.md#phase-finales-the-boss-that-ends-a-phase)。
+    - ⚙️ **新配置选项 `island.phase-finales`**（默认 `true`）。设为 `false` 可关闭所有终局。它会自动添加到 `config.yml` 中。
+    - 🛠️ **面向开发者：** 每场战斗的开始和结束时会分别触发 `PhaseFinaleStartEvent`（可取消；取消即跳过战斗）和 `PhaseFinaleEndEvent`。详见[事件](#events)。
+
+    🔺 **已有服务器不会自动获得 boss。** 阶段文件属于你的服务器，升级永远不会覆盖它们，因此它们没有 `finale:` 章节。要添加 boss，请把每个[内置阶段文件](https://github.com/BentoBoxWorld/AOneBlock/tree/master/src/main/resources/phases)中的 `finale:` 章节复制到 `plugins/BentoBox/addons/AOneBlock/phases/` 中你自己的对应文件里，然后重启。新安装从一开始就带有这些章节。
+
+    🔡 **`en-US.yml` 的 `aoneblock.finale` 下新增了五条消息。** 删除 `plugins/BentoBox/locales/AOneBlock/en-US.yml` 即可重新生成；如果你自定义过该文件，也可以手动添加这些键。其他语言尚未翻译，会显示英文文本。
+
+    和平难度下会跳过终局，因为 boss 无法生成。boss 的血量、伤害和奖励只是初版设定，会根据玩家的实际游玩情况进一步调整。
+
+    [发布 v1.29.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.29.0)
+
+!!! warning "v1.30.0 新内容 —— MythicMobs boss，需要 BentoBox 3.23.0"
+    **发布于：** 2026-11-22
+
+    兼容性：BentoBox API 3.23.0+ · Minecraft 26.x 或 1.21.5+（硫磺洞穴需要 26.2+，杂色森林需要 26.3+）· Java 25 · MythicMobs 可选。
+
+    - 💀 **MythicMobs 终局 boss 和随从。** 阶段的 `finale:` 章节可以用 `mythic-boss:` 指定一个 MythicMobs 生物，并添加 `mythic-minions:`，等级由 `mythic-level:` 设定。常规的战斗规则照样适用，生物自身的技能、AI 和掉落物仍然有效。`boss:` 变为可选的后备，`health: 0` 现在表示“使用生物自身的血量”。现有阶段不受影响。详见 [MythicMobs boss 和随从](Phases.md#mythicmobs-bosses-and-minions)。
+    - ⚙️ **新配置选项 `island.teams-disabled`**（默认 `false`）可在 AOneBlock 世界中关闭团队系统。信任和合作仍然有效。
+    - ⚙️ **新配置选项 `world.structure-settings`**（默认 `{}`）可单独开启或关闭某个原版结构，覆盖 BentoBox 的全局列表。这两个选项详见 [config.yml](#configyml)。
+    - 🏠 **所有玩家都能使用家点命令。** `aoneblock.island.homes`、`aoneblock.island.renamehome` 和 `aoneblock.island.deletehome` 现在默认授予所有玩家，而不再只授予操作员。重命名和删除仍受岛屿等级限制。如果想让它们仍仅限操作员，请在权限插件中将其设为否定。
+    - **操作员可直接使用 `/ob phases`。** `aoneblock.phases` 以前默认不授予任何人，因此即使是操作员也需要单独授权。现在默认授予操作员。
+    - ⚙️ **新安装的新默认设置。** 八个危险相关的设置对玩家隐藏（`TNT_DAMAGE`、`BLOCK_EXPLODE_DAMAGE`、`FIRE_BURNING`、`FIRE_IGNITE`、`FIRE_SPREAD`、`LEAF_DECAY`、`ENDERMAN_TELEPORT`、`SHULKER_TELEPORT`）。岛屿外允许十种无害行为（`ITEM_DROP`、`ITEM_PICKUP`、`EXPERIENCE_PICKUP`、`HURT_MONSTERS`、`FISHING`、`BOAT`、`RIDING`、`ELYTRA`、`ENDER_PEARL`、`EXPERIENCE_BOTTLE_THROWING`）。岛屿上的 `EXPERIENCE_PICKUP` 从成员改为访客，`PISTON_PUSH` 开启，因此活塞无法把方块推出岛屿。
+    - 🐛 **AOneBlock 的标志只在 AOneBlock 中显示。** 魔法方块保护等标志以前会出现在每个游戏模式的设置面板中，但在那里不起任何作用。
+
+    🔺 **请先将 BentoBox 更新到 3.23.0 或更高版本。** 此版本无法在旧版 BentoBox 上加载，并且服务器必须运行 Java 25。
+
+    ⚙️ **新的默认设置不会应用到已有服务器。** 你的 `config.yml` 不会被覆盖。如需使用，请把[内置 config.yml](https://github.com/BentoBoxWorld/AOneBlock/blob/master/src/main/resources/config.yml) 中的 `world.flags`、`world.default-island-flags` 和 `world.hidden-flags` 条目复制到你自己的文件中，或在管理员设置面板中修改。两个新配置选项会自动添加，其默认值不会改变任何现有行为。
+
+    无语言文件变化。
+
+    [发布 v1.30.0](https://github.com/BentoBoxWorld/AOneBlock/releases/tag/1.30.0)

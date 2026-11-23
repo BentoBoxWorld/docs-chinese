@@ -98,3 +98,61 @@ new DialogBuilder()
     请像核心那样检查 `Dialogs.isSupported()`，并为更旧的服务端保留原有的聊天或面板行为。按钮的点击处理器运行在主线程上，因此可以直接调用 Bukkit API。
 
 参见 [Release 3.21.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.21.0)。
+
+## 对话框表单 { #dialog-forms }
+
+*在 BentoBox 3.24.0 中添加。*
+
+对话框可以包含输入字段。用 `DialogBuilder.input(DialogField)` 添加字段，再从传给提交按钮的 `DialogResponse` 中读取玩家输入的内容。
+
+| 类 | 用途 |
+| --- | --- |
+| `DialogField` | 一个字段：`DialogField.text(...)`、`number(...)`、`toggle(...)` 或 `choice(...)`。每个字段都有一个键，键只能包含字母、数字和下划线，并且在同一对话框中必须唯一 |
+| `DialogButton.submit(...)` | 一个按钮，其处理程序是 `BiConsumer<User, DialogResponse>` |
+| `DialogResponse` | 按字段键取值：`getText`、`getNumber`、`getInt`、`getBoolean`、`getChoice`。每个方法都返回 `Optional`；如果没有该字段，或值是其他类型，则返回空值 |
+
+```java
+new DialogBuilder()
+    .title(user, "myaddon.edit.title")
+    .input(DialogField.text(user, "name", "myaddon.edit.name", current.getName()).maxLength(32))
+    .input(DialogField.number(user, "chance", "myaddon.edit.chance", 0, 100, current.getChance()).step(0.5f))
+    .input(DialogField.toggle(user, "enabled", "myaddon.edit.enabled", current.isEnabled()))
+    .button(DialogButton.submit(user, "general.buttons.save", (u, response) -> {
+        current.setName(response.getText("name").orElse(""));
+        current.setChance(response.getNumber("chance").orElse(0f));
+        current.setEnabled(response.getBoolean("enabled").orElse(false));
+    }))
+    .build()
+    .show(user);
+```
+
+`DialogBuilder` 还新增了 `body(ItemStack, Component)`（在正文中显示一个物品）、`notice(DialogButton)`（只有一个按钮的消息）以及 `afterAction(AfterAction)`（选择点击后客户端执行的操作）。现有的对话框 API 保持不变。
+
+# 分页面板和值选择器 { #paged-panels-and-value-pickers }
+
+*在 BentoBox 3.24.0 中添加。*
+
+面板 API（`world.bentobox.bentobox.api.panels`）新增了两项功能，用于显示一个物品栏放不下的列表。
+
+**`PagedPanelBuilder`** 用于构建 `PagedPanel`：一个任意长度的列表，每次显示一页。最底下一行是控制行。当存在可翻到的页面时，该行的第一个和最后一个格子放置上一页和下一页按钮，中间的七个格子放你自己的固定控件，例如“返回”或“添加”。翻页时会直接刷新当前打开的物品栏。
+
+```java
+PagedPanelBuilder b = new PagedPanelBuilder().user(user).name(user.getTranslation("myaddon.list.title"));
+things.forEach(t -> b.item(toPanelItem(t)));
+b.control(4, backButton).build();
+```
+
+**`PickerPanel<T>`** 是用于选择单个值的分页面板。`PickerPanel.materials(user)`、`entities(user)` 和 `biomes(user)` 是现成可用的；`PickerPanel.of(...)` 可接受任意集合。选择器可以带一个搜索按钮——它会通过对话框让玩家输入文本，在不支持对话框的服务器上则会隐藏——还可以让玩家点击自己物品栏中的物品来选择。其文本位于 BentoBox 区域文件的 `panels.picker` 下。
+
+```java
+PickerPanel.materials(user)
+    .title(user.getTranslation("myaddon.pick-block"))
+    .filter(Material::isBlock)
+    .onPick(m -> { recipe.setIcon(m); openEditor(user); })
+    .onCancel(() -> openEditor(user))
+    .open();
+```
+
+模板面板无需任何代码也能识别两种按钮类型：`COMMAND` 和 `CLOSE`；参见[命令和关闭按钮](../Tutorials/generic/Customizable-GUI.md#command-and-close-buttons)。如果面板自己注册了同名的按钮类型，则仍按其自身的行为处理。
+
+参见 [Release 3.24.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.24.0)。
