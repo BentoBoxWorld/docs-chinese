@@ -10,4 +10,6 @@
 | [gamemode].greenhouses.admin.tp     | 允许传送到温室（1.10.0 起）                                                                                                                   | op          |
 | [gamemode].greenhouses.admin.verify | 允许按配方重新检查温室（1.10.0 起）                                                                                                            | op          |
 | [gamemode].greenhouses.admin.reload | 允许重新加载 biomes.yml 和温室数据库（1.10.0 起）                                                                                              | op          |
+| [gamemode].greenhouses.admin.build | 允许建造测试温室（1.11.0 起）                                                                                                                 | op          |
+| [gamemode].greenhouses.admin.edit  | 允许在游戏中编辑温室配方（1.11.0 起）                                                                                                         | op          |
 | greenhouses.biome.nether            | 授予下界生物群系的访问权限。每个生物群系的权限在 `biomes.yml` 中设置——参见 [Greenhouses 页面](index.md#permissions)。                             | true        |

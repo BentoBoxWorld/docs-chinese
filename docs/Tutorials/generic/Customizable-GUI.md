@@ -183,6 +183,28 @@ island_creation_panel:          # 必须与文件名相同
 - 动作名称（`kick`、`setowner`）是菜单做什么。使用已经在默认文件中的名称。你可以改变哪个点击触发动作，或从菜单中删除你不想让玩家使用的动作。
 - 工具提示被添加在描述下方，按动作列出的顺序。
 
+### 命令和关闭按钮 { #command-and-close-buttons }
+
+有两种按钮类型可以在 BentoBox 和附属中**所有**带模板的菜单里使用。它们需要 BentoBox 3.24.0 或更高版本。
+
+| 类型 | 作用 |
+|---|---|
+| `COMMAND` | 关闭菜单，并以点击的玩家身份、使用该玩家自己的权限运行 `data.command`。命令中的 `[player]` 会被替换为该玩家的名字。开头的 `/` 可加可不加。 |
+| `CLOSE` | 关闭菜单。 |
+
+例如，一个返回其他插件菜单的按钮：
+
+```yaml
+      9:
+        icon: OAK_DOOR
+        title: "Back to menu"
+        data:
+          type: COMMAND
+          command: "menu open main"
+```
+
+没有 `actions` 时，任何点击方式都有效。如果列出了 `actions`，则只有这些点击方式有效，并且它们的提示会添加到描述下方。没有 `data.command` 的 `COMMAND` 按钮不会显示，并会记录一条警告。如果菜单本身已有同名的按钮类型，则保留其原有行为：在命令等级菜单中，`COMMAND` 仍然表示列表中的一条命令。
+
 ### BentoBox 菜单中的按钮类型 { #button-types-in-bentoboxs-menus }
 
 | 菜单 | 按钮类型（`data: type:`） |

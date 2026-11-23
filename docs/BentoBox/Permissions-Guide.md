@@ -23,7 +23,7 @@ BentoBox 可与任何权限插件配合使用（LuckPerms 是最常见的）。�
 在控制台中运行 **`/bentobox perms`**。它打印每个 BentoBox 和游戏模式命令权限及其默认值（`TRUE` 表示所有人，`OP` 表示操作员，`FALSE` 表示无人），格式为你可以粘贴到权限插件中的。
 
 !!! warning "某些玩家命令默认为仅操作员"
-    在 BSkyBlock、AOneBlock 和 AcidIsland 中，`island.deletehome` 和 `island.renamehome` 默认为仅操作员。在 AOneBlock 和 AcidIsland 中，`island.homes` 也是。如果你给玩家多于一个家点，也要给他们这些：
+    在 BSkyBlock 和 AcidIsland 中，`island.deletehome` 和 `island.renamehome` 默认为仅操作员。在 AcidIsland 中，`island.homes` 也是。如果你给玩家多于一个家点，也要给他们这些：
 
     ```
     /lp group default permission set bskyblock.island.homes true

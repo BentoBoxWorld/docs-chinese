@@ -83,6 +83,34 @@ island:
 *世界种子*
 世界种子是用来生成土地的。我建议保留这个值。如果你改变它，土地可能会非常不同。
 
+Boxed 3.5.0 新增的选项：
+
+??? note "boxed.structure-time-budget"
+    每个 tick 中在盒子里放置原版结构（村庄、沉船等）最多可占用的毫秒数。结构会逐个放置，直到用完这段时间，因此服务器有余力时，新盒子能在几秒内放好所有结构。一个 tick 为 50 毫秒。如果放置结构导致卡顿，请调低此值。`0` 表示每 tick 只放置一个结构。
+
+    只有当结构可能触及的所有区块都已加载时，才会放置该结构，因此靠近盒子边缘的结构会在玩家第一次走近时才出现，而不是在盒子创建后立即出现。
+
+    默认：`10`
+
+??? note "world.structure-settings"
+    在 Boxed 世界中单独关闭或开启某个原版结构。这同时作用于世界生成和结构搜索：`/locate`、末影之眼、探险家地图和藏宝图、海豚以及制图师交易。键是原版结构 ID；值为 `false` 时禁用该结构，为 `true` 时即使 BentoBox 的全局 `world.disabled-structures` 列表禁用了它，也强制开启。未列出的结构遵循 BentoBox 的全局列表。
+
+    ```yaml
+    structure-settings:
+      monument: false
+      trial_chambers: false
+    ```
+
+    默认：`{}`
+
+??? note "area.teams-disabled"
+    在 Boxed 世界中关闭团队系统。设为 `true` 时，玩家无法邀请、接受团队邀请、踢出、离开、晋升、降级或更换所有者。信任和合作仍然有效。开启此项后，请运行一次 `/boxadmin team disbandall` 来解散现有团队。参见[关闭团队](../../BentoBox/About/Teams.md#turning-teams-off)。
+
+    默认：`false`
+
+!!! tip "如果创建盒子导致卡顿"
+    试试 BentoBox 的区块预生成：在 BentoBox 的 `config.yml` 中设置 `island.pregeneration.enabled: true`（BentoBox 3.14.0 及更新版本）。它会在后台提前为接下来的几个盒子生成区块，赶在有人需要之前。
+
 ### 蓝图
 
 有一个蓝图“岛屿”被用来生成树、箱子和下到 y = 5 的方块。默认的地面高度约为 y = 65，所以蓝图必须约 60 块高。如果你制作了任何好的蓝图，请分享它们！
@@ -134,6 +162,24 @@ advancements:
 占位符可以在[这里](Placeholders)找到。
 
 ## 更新日志
+
+!!! warning "v3.5.0 新内容 —— 需要 Java 25 和 BentoBox 3.23.0"
+    **发布于：** 2026-11-21
+
+    兼容性：BentoBox 3.23.0 或更新版本 · Paper 1.21.5 – 26.3 · Java 25。
+
+    - 🔺 **需要 Java 25。** Boxed 现在面向 Java 25 和 BentoBox 3.23 构建。它无法在旧版 Java 上加载，即使是 Minecraft 1.21.x 服务器也不行。
+    - ⚙️ **新盒子中的结构放置更流畅。** 新盒子中的村庄、沉船、废墟和其他结构过去每 3 秒放置一个，一个盒子大约需要 3½ 分钟。现在它们在每 tick 的时间预算 `boxed.structure-time-budget`（默认 `10` 毫秒）内放置，几秒内就会出现。它们也不再迫使服务器在 tick 内生成区块：结构会等到其可能触及的所有区块都已加载，因此靠近盒子边缘的结构会在玩家第一次走近时出现。
+    - 🔺 **结构不再被重复放置。** 重启后，结构可能会再次放置在玩家的盒子上，覆盖玩家的建筑并生成额外的生物。此问题已修复，旧版本保存的列表也会被自动清理。
+    - ⚙️ **用新的 `area.teams-disabled` 选项禁用团队**（默认 `false`）。信任和合作仍然有效。
+    - ⚙️ **用新的 `world.structure-settings` 选项控制原版结构**，可在 Boxed 世界中单独关闭某些结构或强制开启。
+    - 🔺 **玩家可以列出、重命名和删除自己的家点。** `boxed.island.homes`、`boxed.island.renamehome` 和 `boxed.island.deletehome` 之前没有声明，因此只有操作员拥有。现在它们默认授予所有人。如果你不希望如此，请在权限插件中将其设为否定。
+    - 🔺 **`/boxadmin place` 改用 `boxed.admin.place`**（默认仅操作员）。它以前检查的是未声明的节点 `boxed.boxed.commands.boxadmin.place`。如果你曾把该节点授予非操作员的工作人员，请改为授予 `boxed.admin.place`。
+    - 🐛 无法加载的结构不再导致之后的所有结构在重启前都无法放置；`structures.yml` 中缺失的结构名也不再导致其后列出的所有结构被跳过。
+
+    新选项会以默认值添加到 `config.yml` 中；参见 [config.yml](#configyml)。
+
+    [发布 v3.5.0](https://github.com/BentoBoxWorld/Boxed/releases/tag/3.5.0)
 
 ??? note "v3.4.1 新内容"
     **发布于：** 2026-09-25

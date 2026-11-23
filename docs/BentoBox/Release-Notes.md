@@ -2,7 +2,57 @@
 
 服务器管理员最近 BentoBox 版本的亮点。对于每个变化，请参见 [GitHub 发布](https://github.com/BentoBoxWorld/BentoBox/releases)。游戏模式和附属在其页面底部列出他们自己的变化。
 
-!!! note "v3.23.6 新内容 —— 始终允许的实体类型与蓝图加载修复"
+!!! note "v3.24.0 新内容 —— 更小的蓝图、更快的粘贴、邀请过期与岛屿外 PVP"
+    **发布于：** 2026-11-22
+
+    一个功能版本。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🔺 **更小的蓝图。** 蓝图现在把空气（或水）作为“填充”只存储一次，而不是每个方块存储一次，因此蓝图文件小得多，加载也更快。旧蓝图照常加载，只有再次保存时才会被转换。参见[蓝图](Blueprints.md)和[文件格式](Blueprint-Format.md#compact-blueprints-fill)。
+    - ⚙️ **更快的岛屿粘贴。** 粘贴和复制现在每 tick 运行 `island.paste-time-budget` 毫秒（默认 10），而不是每 tick 只放置一个批次，因此服务器有余力时，大岛屿会快得多地出现。参见[粘贴速度](Blueprints.md#pasting-speed)。
+    - ⚙️ **载具会被挡在锁定和封禁的岛屿之外。** 玩家乘坐船、矿车或坐骑进入不允许进入的岛屿时，会连同载具一起被挡回，而不是被甩出载具、困在原地。锁定的岛屿还会向被挡回的玩家短暂显示其边界。参见[锁定、封禁和驱逐](Island-Protection,-Flags-&-Ranks.md#locks-bans-and-expels)。
+    - ⚙️🔡 **撤回团队邀请与邀请过期。** `/island team uninvite <player>` 可撤回团队、信任或合作邀请，且邀请现在默认 24 小时后过期。参见[团队](About/Teams.md#what-players-can-do)。
+    - 🔡 **岛屿外 PVP。** 新增世界设置 `PVP_OUTSIDE_ISLANDS`，默认关闭，允许在没有岛屿的地方进行 PVP。参见[世界设置](Island-Protection,-Flags-&-Ranks.md#what-each-world-setting-does)。
+    - 🔡 **按岛屿设置苦力怕方块破坏。** 新增岛屿设置 `CREEPER_BLOCK_DAMAGE`，除非管理员将其显示出来，否则处于隐藏状态。参见[设置选项卡](Island-Protection,-Flags-&-Ranks.md#settings-tab)。
+    - **所有菜单都支持命令按钮和关闭按钮。** 在 BentoBox 及所有附属中，菜单模板都可以添加以玩家身份运行命令或关闭菜单的按钮。参见[自定义菜单](../Tutorials/generic/Customizable-GUI.md#command-and-close-buttons)。
+    - **访客列表占位符。** `%[gamemode]_island_visitors_list%` 和 `%[gamemode]_visited_island_visitors_list%` 给出正在访问某个岛屿的玩家名字。参见[占位符](Placeholders.md)。
+    - 🔡 面向附属开发者的**对话框表单、分页面板和值选择器**。参见[开发者文档](Developer-Documentation.md#dialog-forms)。
+    - **保留 MythicMobs 名称。** 附属生成的未命名 MythicMobs 生物会保留其 MythicMobs 配置中的显示名称。
+    - 🐛 **带数据组件的物品**（例如属性修饰符）从数据库读回时不再变成空气。
+    - 🐛 **清理任务不再卡住服务器。** 它只保存正在清理的世界，每 tick 一个；没有需要清理的内容时，不会在主线程上做任何事。
+    - 🐛 **保护修复。** 投掷附魔之瓶会检查 `EXPERIENCE_BOTTLE_THROWING`；在方块上放置物品时检查被点击的方块；封禁检查会查看封禁所针对岛屿的团队；等级变更事件会给出正确的玩家和之前的等级。
+    - 🐛 **缺失或损坏的 `default` 蓝图包**会在启动时报告，并指出需要修复的文件。
+    - 🐛 其他修复：蓝图复制的尺寸问题，以及粘贴后船只下沉；清理后残留的 Slimefun 方块数据（尚未在实际运行的 Slimefun 服务器上测试）；旧材料名 `GRASS` 现在会加载为 `SHORT_GRASS`；启动时具有误导性的“Could not hook with Vault”错误。
+
+    🔺 **此版本保存的蓝图不适用于旧服务器。** 由 3.24.0 保存的蓝图在旧版 BentoBox 中仍能加载，但粘贴时会缺少空气或水的填充。不要把新保存的蓝图分享给运行 3.23.7 或更早版本的服务器。
+
+    🔺 **团队邀请现在会过期。** 升级时仍未处理的邀请，会从第一次被检查时起获得一个完整的过期期限。将 `island.invite-expiry-hours` 设为 `0` 可让邀请像以前一样永久有效。
+
+    ⚙️ **配置注意：** `config.yml` 的 `island` 下新增了四个设置。如果你不做任何修改，它们都使用默认值。
+
+    | 设置 | 默认值 | 作用 |
+    | --- | --- | --- |
+    | `invite-expiry-hours` | `24` | 团队、信任或合作邀请的有效小时数。`0` 表示永不过期。 |
+    | `locked-border.show` | `true` | 向被挡在锁定岛屿外的玩家显示该岛屿的边界。 |
+    | `locked-border.color` | `RED` | 该边界的颜色：`RED`、`GREEN` 或 `BLUE`。 |
+    | `paste-time-budget` | `10` | 每 tick 用于粘贴和复制蓝图的毫秒数。如果创建岛屿导致卡顿，请调低它；`0` 为旧行为。 |
+
+    🔡 **语言文件注意：** 新增了 uninvite 命令、`CREEPER_BLOCK_DAMAGE` 和 `PVP_OUTSIDE_ISLANDS` 标志以及值选择器（`panels.picker`）的键。它们会自动添加到现有语言文件中，并已翻译成所有内置语言。
+
+    [发布 v3.24.0](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.24.0)
+
+??? note "v3.23.7 新内容 —— 旧语言文件下的等级颜色与点击提示"
+    **发布于：** 2026-11-11
+
+    一个小型修复版本。没有 `config.yml` 或面板模板变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。
+
+    - 🔺 **保护标志看起来像是无法更改。** 在语言文件最初由 BentoBox 3.12 或更早版本生成的服务器上，保护标志工具提示中的所有等级都显示为同一种青色，因此允许、阻止和最低等级看起来完全一样，点击似乎没有任何效果。现在旧语言文件也会重新显示绿色、红色和深绿色的等级。此问题也影响了团队菜单的等级筛选和命令等级面板。
+    - 🔡 **九种语言恢复了点击提示。** 捷克语、德语、西班牙语、法语、意大利语、日语、拉脱维亚语、波兰语和土耳其语缺少保护标志上的“左键点击 / 右键点击”提示以及设置上的“点击切换 / 打开”提示。意大利语的布局和土耳其语的阻止等级行也已修复。
+
+    🔡 如果你是从旧版 BentoBox 升级而来，请**刷新你的语言文件**。BentoBox 从不覆盖现有的语言文本，因此经过多个版本升级的服务器会一直保留最初安装时的措辞。具体方法参见[语言与消息](About/Multilingual.md#troubleshooting)。
+
+    [发布 v3.23.7](https://github.com/BentoBoxWorld/BentoBox/releases/tag/3.23.7)
+
+??? note "v3.23.6 新内容 —— 始终允许的实体类型与蓝图加载修复"
     **发布于：** 2026-11-07
 
     没有 `config.yml` 变化。兼容性：Paper Minecraft 1.21.5 – 26.3，Java 25+。

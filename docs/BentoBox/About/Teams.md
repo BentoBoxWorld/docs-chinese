@@ -45,6 +45,7 @@
 |---|---|
 | `/island team` | 打开团队菜单 |
 | `/island team invite <player>` | 邀请在线玩家加入团队 |
+| `/island team uninvite <player>` | 撤回待处理的团队、信任或合作邀请 |
 | `/island team accept` | 接受待处理邀请（团队、信任或合作） |
 | `/island team reject` | 拒绝待处理邀请 |
 | `/island team leave` | 离开团队。所有者不能离开；他们必须先将岛屿交给别人 |
@@ -58,6 +59,8 @@
 | `/island team uncoop <player>` | 移除合作等级 |
 
 玩家在同一时间只能有**一个**待处理邀请。一个新邀请替换旧的。
+
+既未被接受也未被拒绝的邀请默认在 **24 小时后过期**（参见[邀请过期、冷却和确认](#invite-expiry-cooldowns-and-confirmations)）。在过期之前，可以用 `/island team uninvite <player>` 撤回邀请。发出邀请的玩家随时都可以撤回；岛屿上的其他成员则需要拥有允许发出邀请的等级。该命令使用与 `team invite` 相同的权限。以上两项功能都需要 BentoBox 3.24.0 或更高版本。
 
 在 Minecraft 26 及更高版本上，接收团队邀请的玩家看到**接受/拒绝**对话框，所以他们不需要输入命令。敏感命令如 `kick` 和 `leave` 也在对话框中询问确认。两者都可以在 BentoBox 的 `config.yml` 中关闭（`island.dialogs.team-invites` 和 `island.dialogs.confirmations`）。
 
@@ -146,12 +149,13 @@ island:
 
 这些从控制台运行，除非命令以 `[SUDO]` 开头，这会以玩家身份运行它。
 
-### 邀请冷却和确认 { #invite-cooldowns-and-confirmations }
+### 邀请过期、冷却和确认 { #invite-expiry-cooldowns-and-confirmations }
 
 这些在 **BentoBox 的** `config.yml`（在 `plugins/BentoBox/` 中），并应用于所有游戏模式：
 
 ```yaml
 island:
+  invite-expiry-hours: 24   # hours a team, trust or coop invite stays open; 0 = never expires
   cooldown:
     time:
       invite: 60   # minutes before a kicked or leaving player can be invited back to that island
@@ -166,6 +170,8 @@ island:
 ```
 
 邀请冷却阻止玩家反复加入、完成挑战、离开和重新加入。
+
+`invite-expiry-hours` 于 BentoBox 3.24.0 加入；在此之前，邀请永不过期。升级时仍未处理的邀请，会从第一次被检查时起重新获得一个完整的过期期限。设为 `0` 可让邀请像以前一样一直有效。
 
 ### 关闭团队 { #turning-teams-off }
 
@@ -208,7 +214,7 @@ island:
 限制包括所有者。检查 `max-team-size`，以及所有者是否有 `team.maxsize` 权限。所有者必须登录一次以应用新权限。
 
 **玩家无法被邀请。**
-他们可能已经在一个团队中（他们必须首先离开），已经有待处理邀请，或在从该岛屿离开或被踢后处于邀请冷却中。
+他们可能已经在一个团队中（他们必须首先离开），已经有待处理邀请，或在从该岛屿离开或被踢后处于邀请冷却中。你的岛屿发出的待处理邀请可以用 `/island team uninvite <player>` 撤回；否则它会在 `invite-expiry-hours` 设定的时间后过期。
 
 **合作玩家不断失去他们的等级。**
 这就是合作的工作方式：当没有团队成员在线时结束。对于应该保留访问权限的玩家，改用信任。
